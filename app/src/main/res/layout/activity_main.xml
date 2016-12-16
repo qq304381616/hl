@@ -12,7 +12,10 @@
     tools:context="test.hl.com.hl.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:background="@android:drawable/list_selector_background"
+        android:id="@+id/tv_animation"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
         android:text="Hello World!" />
 </RelativeLayout>
