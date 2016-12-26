@@ -1,4 +1,4 @@
-package hl;
+package com.hl;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
