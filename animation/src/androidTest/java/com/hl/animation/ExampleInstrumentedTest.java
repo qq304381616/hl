@@ -1,4 +1,4 @@
-package com.hl;
+package com.hl.animation;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.hl", appContext.getPackageName());
+        assertEquals("com.hl.animation.test", appContext.getPackageName());
     }
 }
