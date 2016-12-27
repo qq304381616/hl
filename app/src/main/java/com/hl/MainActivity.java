@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
 
+import test1.com.design.DesignActivity;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String LOG_TAG = "MainActivity";
@@ -20,8 +22,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.tv_animation).setOnClickListener(this);
+        findViewById(R.id.tv_design).setOnClickListener(this);
 
         Log.e(LOG_TAG ,"" + isTablet(this));
+        Log.e(LOG_TAG ,"" + getPackageName());
+
     }
 
     @Override
@@ -31,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_animation:
                 startActivity(new Intent(MainActivity.this, AnimationMainActivity.class));
                 break;
+            case R.id.tv_design:
+                startActivity(new Intent(MainActivity.this, DesignActivity.class));
+            break;
         }
     }
 
