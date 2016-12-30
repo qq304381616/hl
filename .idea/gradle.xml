@@ -11,6 +11,10 @@
             <option value="$PROJECT_DIR$/animation" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/design" />
+            <option value="$PROJECT_DIR$/java" />
+            <option value="$PROJECT_DIR$/mvp" />
+            <option value="$PROJECT_DIR$/rxjava" />
+            <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.tv_animation).setOnClickListener(this);
         findViewById(R.id.tv_design).setOnClickListener(this);
+        findViewById(R.id.tv_js).setOnClickListener(this);
 
-        Log.e(LOG_TAG ,"" + isTablet(this));
-        Log.e(LOG_TAG ,"" + getPackageName());
+        Log.e(LOG_TAG, "" + isTablet(this));
+        Log.e(LOG_TAG, "" + getPackageName());
 
     }
 
@@ -38,7 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_design:
                 startActivity(new Intent(MainActivity.this, DesignActivity.class));
-            break;
+                break;
+            case R.id.tv_js:
+                startActivity(new Intent(MainActivity.this, WebActivity.class));
+                break;
         }
     }
 

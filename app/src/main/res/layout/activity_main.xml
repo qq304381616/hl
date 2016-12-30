@@ -23,4 +23,12 @@
         android:layout_height="48dp"
         android:gravity="center"
         android:text="design" />
+
+    <TextView
+        android:background="@android:drawable/list_selector_background"
+        android:id="@+id/tv_js"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="js 交互" />
 </LinearLayout>

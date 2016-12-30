@@ -1,1 +1,1 @@
-include ':app', ':animation', ':design'
+include ':app', ':animation', ':design', ':rxjava', ':java', ':utils', ':mvp'
