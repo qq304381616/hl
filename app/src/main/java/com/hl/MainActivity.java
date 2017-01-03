@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
+import com.hl.utils.OkHttpUtils;
 
 import test1.com.design.DesignActivity;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_animation).setOnClickListener(this);
         findViewById(R.id.tv_design).setOnClickListener(this);
         findViewById(R.id.tv_js).setOnClickListener(this);
+        findViewById(R.id.tv_okhttpget).setOnClickListener(this);
 
         Log.e(LOG_TAG, "" + isTablet(this));
         Log.e(LOG_TAG, "" + getPackageName());
@@ -42,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_js:
                 startActivity(new Intent(MainActivity.this, WebActivity.class));
+                break;
+            case R.id.tv_okhttpget:
+                OkHttpUtils.get();
                 break;
         }
     }
