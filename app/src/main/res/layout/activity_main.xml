@@ -39,4 +39,20 @@
         android:layout_height="48dp"
         android:gravity="center"
         android:text="okhttp" />
+
+    <TextView
+        android:background="@android:drawable/list_selector_background"
+        android:id="@+id/tv_touch"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="事件分发" />
+
+    <TextView
+        android:background="@android:drawable/list_selector_background"
+        android:id="@+id/tv_permission"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:text="6.0运行时权限" />
 </LinearLayout>
