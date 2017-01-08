@@ -3,56 +3,64 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.hl.MainActivity">
 
     <TextView
-        android:background="@android:drawable/list_selector_background"
         android:id="@+id/tv_animation"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
         android:gravity="center"
-        android:text="动画" />
+        android:text="动画"/>
 
     <TextView
-        android:background="@android:drawable/list_selector_background"
         android:id="@+id/tv_design"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
         android:gravity="center"
-        android:text="design" />
+        android:text="design"/>
 
     <TextView
-        android:background="@android:drawable/list_selector_background"
         android:id="@+id/tv_js"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
         android:gravity="center"
-        android:text="js 交互" />
+        android:text="js 交互"/>
 
     <TextView
-        android:background="@android:drawable/list_selector_background"
         android:id="@+id/tv_okhttpget"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
         android:gravity="center"
-        android:text="okhttp" />
+        android:text="okhttp"/>
 
     <TextView
-        android:background="@android:drawable/list_selector_background"
         android:id="@+id/tv_touch"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
         android:gravity="center"
-        android:text="事件分发" />
+        android:text="事件分发"/>
 
     <TextView
-        android:background="@android:drawable/list_selector_background"
         android:id="@+id/tv_permission"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
         android:gravity="center"
-        android:text="6.0运行时权限" />
+        android:text="6.0运行时权限"/>
+
+    <TextView
+        android:id="@+id/tv_recyclerviewr"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:text="recyclerview 和小工具"/>
 </LinearLayout>
