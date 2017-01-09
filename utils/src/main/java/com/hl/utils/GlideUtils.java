@@ -1,9 +1,12 @@
 package com.hl.utils;
 
 import android.content.Context;
+import android.os.Environment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+
+import java.io.File;
 
 public class GlideUtils {
 
@@ -18,9 +21,28 @@ public class GlideUtils {
         Glide.with(c).load(url).into(iv);
     }
 
-    //设置加载中以及加载失败图片
-    public static void show(Context c, String url, int holder, int error, ImageView iv) {
-        Glide.with(c).load(url).placeholder(holder).error(error).into(iv);
+//    从文件加载
+//    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"Test.jpg");
+//    Glide.with(context).load(file).into(imageViewFile);
+
+//    从资源id
+//    int resourceId = R.mipmap.ic_launcher;
+//    Glide.with(context).load(resourceId).into(imageViewResource)
+
+//    用bitMap播放Gif
+//    Glide.with( context ).load( gifUrl ).asBitmap().into( imageViewGifAsBitmap );
+
+//    播放本地mp4,只能是本地
+//    String filePath = "/storage/emulated/0/Pictures/example_video.mp4";
+//    Glide.with( context ).load( Uri.fromFile( **new **File( filePath ) ) ).into( imageViewGifAsBitmap );
+
+    public static void show(Context c, String url, int fallback, int holder, int error, ImageView iv) {
+        Glide.with(c).load(url)
+                .override(800, 800) //  设置图片尺寸
+                .thumbnail( 0.1f ) // 显示缩略图 表示为原图的十分之一
+                .fallback(fallback)  // 加载完成后 显示的默认图
+                .placeholder(holder)  // 加载过程中 显示的图片
+                .error(error).into(iv); // 加载出错显示的文件
     }
 
 //  设置跳过内存缓存
@@ -47,13 +69,6 @@ public class GlideUtils {
 //    android:toAlpha="1.0"/>
 //    </set>
 //    Glide.with(this).load(imageUrl).animate(R.anim.item_alpha_in).into(imageView);
-
-//    设置缩略图支持
-//    这样会先加载缩略图 然后在加载全图
-//    Glide.with(this).load(imageUrl).thumbnail(0.1f).into(imageView);
-
-//    设置加载尺寸
-//    Glide.with(this).load(imageUrl).override(800, 800).into(imageView);
 
 // ----------------------------------------------------------------------------------------------
 //    设置动态转换
