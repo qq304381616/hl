@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_okhttpget).setOnClickListener(this);
         findViewById(R.id.tv_touch).setOnClickListener(this);
         findViewById(R.id.tv_permission).setOnClickListener(this);
+        findViewById(R.id.tv_recyclerviewr).setOnClickListener(this);
 
         Log.e(LOG_TAG, "" + isTablet(this));
         Log.e(LOG_TAG, "" + getPackageName());
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_permission:
                 PermissionUtils.check(this);
+                break;
+            case R.id.tv_recyclerviewr:
+                startActivity(new Intent(MainActivity.this, RecycleViewActivity.class));
                 break;
         }
     }
