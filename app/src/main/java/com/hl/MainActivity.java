@@ -1,16 +1,14 @@
 package com.hl;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
-import com.hl.utils.OkHttpUtils;
+import com.hl.utils.net.OkHttpUtils;
 import com.hl.utils.PermissionUtils;
 
 import test1.com.design.DesignActivity;
@@ -31,9 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_touch).setOnClickListener(this);
         findViewById(R.id.tv_permission).setOnClickListener(this);
         findViewById(R.id.tv_recyclerviewr).setOnClickListener(this);
-
-        Log.e(LOG_TAG, "" + isTablet(this));
-        Log.e(LOG_TAG, "" + getPackageName());
 
     }
 
@@ -65,18 +60,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * 是不平板
-     */
-    public static boolean isTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 1001: {
-                Log.e(LOG_TAG , "onRequestPermissionsResult");
+                Log.e(LOG_TAG, "onRequestPermissionsResult");
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
