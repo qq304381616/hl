@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <!-- Content -->
     <FrameLayout
         android:id="@+id/content_layout"
@@ -18,7 +17,6 @@
             android:gravity="center"
             android:text="左划" />
     </FrameLayout>
-
 
     <!-- Drawer -->
     <android.support.design.widget.NavigationView

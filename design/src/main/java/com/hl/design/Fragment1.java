@@ -1,4 +1,4 @@
-package test1.com.design;
+package com.hl.design;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

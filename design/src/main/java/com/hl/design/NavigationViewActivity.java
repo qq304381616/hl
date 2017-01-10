@@ -1,4 +1,4 @@
-package test1.com.design;
+package com.hl.design;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,9 +9,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 /**
- * Created by HL on 2016/12/27.
+ * 左划菜单栏
  */
-
 public class NavigationViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

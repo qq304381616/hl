@@ -1,4 +1,4 @@
-package test1.com.design;
+package com.hl.design;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,16 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by HL on 2016/12/27.
+ * Android 5.0 material design
  */
-
 public class DesignActivity extends AppCompatActivity implements View.OnClickListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_design);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
         findViewById(R.id.tv_navigationview).setOnClickListener(this);
+        findViewById(R.id.tv_toolbar).setOnClickListener(this);
 
         TabLayout tablayout = (TabLayout) findViewById(R.id.tablayout);
 //        tablayout.addTab(tablayout.newTab().setText("全部"));
@@ -61,6 +62,8 @@ public class DesignActivity extends AppCompatActivity implements View.OnClickLis
                     .show(); // Don’t forget to show!
         } else if (id == R.id.tv_navigationview) {
             startActivity(new Intent(DesignActivity.this, NavigationViewActivity.class));
+        } else if (id == R.id.tv_toolbar) {
+            startActivity(new Intent(DesignActivity.this, ToolBarActivity.class));
         }
     }
 }

@@ -1,9 +1,15 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="test1.com.design">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hl.design">
 
-    <application android:allowBackup="true" android:label="@string/app_name"
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
         android:supportsRtl="true">
-        <activity android:name="test1.com.design.DesignActivity"/>
-        <activity android:name="test1.com.design.NavigationViewActivity"/>
+        <activity android:name=".DesignActivity" />
+        <activity android:name=".NavigationViewActivity" />
+        <activity
+            android:name=".ToolBarActivity"
+            android:theme="@style/DesignAppTheme" />
     </application>
 
 </manifest>

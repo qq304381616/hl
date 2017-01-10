@@ -11,7 +11,7 @@ import com.hl.animation.AnimationMainActivity;
 import com.hl.utils.net.OkHttpUtils;
 import com.hl.utils.PermissionUtils;
 
-import test1.com.design.DesignActivity;
+import com.hl.design.DesignActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_touch).setOnClickListener(this);
         findViewById(R.id.tv_permission).setOnClickListener(this);
         findViewById(R.id.tv_recyclerviewr).setOnClickListener(this);
+        findViewById(R.id.tv_coor).setOnClickListener(this);
 
     }
 
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_recyclerviewr:
                 startActivity(new Intent(MainActivity.this, RecycleViewActivity.class));
+                break;
+            case R.id.tv_coor:
                 break;
         }
     }

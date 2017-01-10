@@ -1,4 +1,4 @@
-package test1.com.design;
+package com.hl.design;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

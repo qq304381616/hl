@@ -63,4 +63,12 @@
         android:background="@android:drawable/list_selector_background"
         android:gravity="center"
         android:text="recyclerview 和小工具"/>
+
+    <TextView
+        android:id="@+id/tv_coor"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:text="coordinatorlayout"/>
 </LinearLayout>
