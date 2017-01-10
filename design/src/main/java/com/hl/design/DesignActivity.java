@@ -28,6 +28,8 @@ public class DesignActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
         findViewById(R.id.tv_navigationview).setOnClickListener(this);
         findViewById(R.id.tv_toolbar).setOnClickListener(this);
+        findViewById(R.id.tv_toolbar2).setOnClickListener(this);
+        findViewById(R.id.tv_toolbar3).setOnClickListener(this);
 
         TabLayout tablayout = (TabLayout) findViewById(R.id.tablayout);
 //        tablayout.addTab(tablayout.newTab().setText("全部"));
@@ -64,6 +66,10 @@ public class DesignActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(DesignActivity.this, NavigationViewActivity.class));
         } else if (id == R.id.tv_toolbar) {
             startActivity(new Intent(DesignActivity.this, ToolBarActivity.class));
+        } else if (id == R.id.tv_toolbar2) {
+            startActivity(new Intent(DesignActivity.this, ToolBarAppBarLayoutActivity.class));
+        } else if (id == R.id.tv_toolbar3) {
+            startActivity(new Intent(DesignActivity.this, ToolBarCollapsingToolbarLayoutActivity.class));
         }
     }
 }

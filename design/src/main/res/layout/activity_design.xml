@@ -16,6 +16,20 @@
         android:text="toolbar" />
 
     <TextView
+        android:id="@+id/tv_toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="Toolbar的扩展与收缩" />
+
+    <TextView
+        android:id="@+id/tv_toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="Toolbar的折叠" />
+
+    <TextView
         android:id="@+id/tv_SnackBar"
         android:layout_width="match_parent"
         android:layout_height="64dp"

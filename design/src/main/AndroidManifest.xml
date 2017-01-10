@@ -5,10 +5,19 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
-        <activity android:name=".DesignActivity" />
+        <activity
+            android:name=".DesignActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".NavigationViewActivity" />
         <activity
             android:name=".ToolBarActivity"
+            android:theme="@style/DesignAppTheme" />
+        <activity
+            android:name=".ToolBarAppBarLayoutActivity"
+            android:theme="@style/DesignAppTheme" />
+        <activity
+            android:name=".ToolBarCollapsingToolbarLayoutActivity"
             android:theme="@style/DesignAppTheme" />
     </application>
 
