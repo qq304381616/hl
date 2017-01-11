@@ -71,4 +71,12 @@
         android:background="@android:drawable/list_selector_background"
         android:gravity="center"
         android:text="coordinatorlayout"/>
+
+    <TextView
+        android:id="@+id/tv_widget"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:text="widget控件集合"/>
 </LinearLayout>

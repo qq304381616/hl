@@ -12,6 +12,7 @@ import com.hl.utils.net.OkHttpUtils;
 import com.hl.utils.PermissionUtils;
 
 import com.hl.design.DesignActivity;
+import com.hl.widget.WidgetMainActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_permission).setOnClickListener(this);
         findViewById(R.id.tv_recyclerviewr).setOnClickListener(this);
         findViewById(R.id.tv_coor).setOnClickListener(this);
+        findViewById(R.id.tv_widget).setOnClickListener(this);
 
     }
 
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, RecycleViewActivity.class));
                 break;
             case R.id.tv_coor:
+                break;
+            case R.id.tv_widget:
+                startActivity(new Intent(MainActivity.this, WidgetMainActivity.class));
                 break;
         }
     }
