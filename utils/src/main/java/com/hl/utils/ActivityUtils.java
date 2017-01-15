@@ -3,8 +3,11 @@ package com.hl.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -62,11 +65,7 @@ public class ActivityUtils {
 	}
 
 	/**
-	 * @Title: finishActivityExpet
-	 * @Description: 结束除了指定Activity之外的所有Activity
-	 * @param className
-	 * @return: void
-	 * @author: eye_fa
+	 * 结束除了指定Activity之外的所有Activity
 	 */
 	public void finishActivityExpet(String className) {
 		if (activityStack != null) {
@@ -94,5 +93,42 @@ public class ActivityUtils {
 			intent.putExtras(bundle);
 		}
 		context.startActivity(intent);
+	}
+
+	/**
+	 * 判断是否存在Activity
+	 *
+	 * @param context     上下文
+	 * @param packageName 包名
+	 * @param className   activity全路径类名
+	 * @return {@code true}: 是<br>{@code false}: 否
+	 */
+	public static boolean isActivityExists(Context context, String packageName, String className) {
+		Intent intent = new Intent();
+		intent.setClassName(packageName, className);
+		return !(context.getPackageManager().resolveActivity(intent, 0) == null ||
+				intent.resolveActivity(context.getPackageManager()) == null ||
+				context.getPackageManager().queryIntentActivities(intent, 0).size() == 0);
+	}
+
+
+	/**
+	 * 获取launcher activity
+	 *
+	 * @param context     上下文
+	 * @param packageName 包名
+	 * @return launcher activity
+	 */
+	public static String getLauncherActivity(Context context, String packageName) {
+		Intent intent = new Intent(Intent.ACTION_MAIN, null);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		PackageManager pm = context.getPackageManager();
+		List<ResolveInfo> infos = pm.queryIntentActivities(intent, 0);
+		for (ResolveInfo info : infos) {
+			if (info.activityInfo.packageName.equals(packageName)) {
+				return info.activityInfo.name;
+			}
+		}
+		return "no " + packageName;
 	}
 }

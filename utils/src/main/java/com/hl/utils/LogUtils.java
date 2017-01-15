@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * 日志工具类
@@ -31,10 +34,11 @@ public class LogUtils {
      */
     private static final String mark = "<HL>  ";
 
+    private static final String PATH = "/sdcard/";
     private static final File logFileName;
 
     static {
-        logFileName = new File("/sdcard/hllog.txt");
+        logFileName = new File(PATH + "hllog.txt");
         if (!logFileName.getParentFile().exists()) {
             logFileName.getParentFile().mkdirs();
         }
@@ -124,5 +128,37 @@ public class LogUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 打开日志文件并写入日志
+     *
+     * @param type    日志类型
+     * @param tag     标签
+     * @param content 内容
+     **/
+    private synchronized static void log2File(final char type, final String tag, final String content) {
+        if (content == null) return;
+        Date now = new Date();
+        String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
+        final String fullPath = PATH + date + ".txt";
+        if (!FileUtils.createOrExistsFile(fullPath)) return;
+        String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
+        final String dateLogContent = time + ":" + type + ":" + tag + ":" + content + '\n';
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BufferedWriter bw = null;
+                try {
+                    bw = new BufferedWriter(new FileWriter(fullPath, true));
+                    bw.write(dateLogContent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    CloseUtils.closeIO(bw);
+                }
+            }
+        }).start();
+
     }
 }
