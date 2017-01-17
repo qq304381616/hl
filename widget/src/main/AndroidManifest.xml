@@ -9,6 +9,7 @@
 
         <activity android:name=".WidgetMainActivity"/>
         <activity android:name=".TextureViewActivity"/>
+        <activity android:name=".SwipeRefreshLayoutActivity"/>
     </application>
 
 </manifest>

@@ -2,6 +2,8 @@ package com.hl.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Base64;
 
 import java.io.BufferedInputStream;
@@ -38,6 +40,7 @@ public class FileUtils {
 	 * @param path
 	 * @return
 	 */
+	@RequiresApi(api = Build.VERSION_CODES.FROYO)
 	public static byte[] getBufferByBase64(String path) {
 		byte[] cover = getBuffer(path);
 		return Base64.encodeToString(cover, Base64.DEFAULT).getBytes();
@@ -68,6 +71,7 @@ public class FileUtils {
 	 * @param path
 	 * @return
 	 */
+	@RequiresApi(api = Build.VERSION_CODES.FROYO)
 	public static String FileToString(String path) {
 		try {
 			File file = new File(path);

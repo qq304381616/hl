@@ -17,6 +17,7 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.widget_activity_widgetmain);
 
         findViewById(R.id.textureview).setOnClickListener(this);
+        findViewById(R.id.tv_swiperefreshlayout).setOnClickListener(this);
 
     }
 
@@ -25,6 +26,8 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
         int id = v.getId();
         if (id == R.id.textureview) {
             startActivity(new Intent(WidgetMainActivity.this, TextureViewActivity.class));
+        }else if( id == R.id.tv_swiperefreshlayout){
+            startActivity(new Intent(WidgetMainActivity.this, SwipeRefreshLayoutActivity.class));
         }
     }
 }
