@@ -79,4 +79,12 @@
         android:background="@android:drawable/list_selector_background"
         android:gravity="center"
         android:text="widget控件集合"/>
+
+    <TextView
+        android:id="@+id/tv_map"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:text="安卓Map集合"/>
 </LinearLayout>

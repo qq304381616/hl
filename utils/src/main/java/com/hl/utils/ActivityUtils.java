@@ -111,7 +111,6 @@ public class ActivityUtils {
 				context.getPackageManager().queryIntentActivities(intent, 0).size() == 0);
 	}
 
-
 	/**
 	 * 获取launcher activity
 	 *

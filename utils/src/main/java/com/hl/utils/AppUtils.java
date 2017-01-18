@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 
@@ -16,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppUtils {
-
-
 
     /**
      * 判断App是否安装
@@ -494,13 +491,13 @@ public class AppUtils {
      */
     public static class AppInfo {
 
-        private String   name;
+        private String name;
         private Drawable icon;
-        private String   packageName;
-        private String   packagePath;
-        private String   versionName;
-        private int      versionCode;
-        private boolean  isSystem;
+        private String packageName;
+        private String packagePath;
+        private String versionName;
+        private int versionCode;
+        private boolean isSystem;
 
         public Drawable getIcon() {
             return icon;

@@ -7,10 +7,13 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.concurrent.Callable;
@@ -220,9 +223,9 @@ public class NetworkUtils {
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
 
-    private static final int NETWORK_TYPE_GSM      = 16;
+    private static final int NETWORK_TYPE_GSM = 16;
     private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN    = 18;
+    private static final int NETWORK_TYPE_IWLAN = 18;
 
     /**
      * 获取当前网络类型
@@ -358,4 +361,22 @@ public class NetworkUtils {
         }
         return null;
     }
+
+    /**
+     * 测试rul 是否可连接
+     */
+    public static boolean testUrl(String url_s) {
+        try {
+            URL url = new URL(url_s);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            if (conn.getResponseCode() == 200) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
 }
