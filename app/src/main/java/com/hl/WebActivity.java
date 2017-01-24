@@ -28,7 +28,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 /**
- *
+ * WebView
  */
 public class WebActivity extends AppCompatActivity {
 
