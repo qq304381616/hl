@@ -1,97 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.hl.MainActivity">
+    android:layout_height="match_parent">
+    <LinearLayout
 
-    <TextView
-        android:id="@+id/tv_animation"
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="动画"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.hl.MainActivity">
 
-    <TextView
-        android:id="@+id/tv_design"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="design"/>
+        <TextView
+            android:id="@+id/tv_animation"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="动画" />
 
-    <TextView
-        android:id="@+id/tv_js"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="js 交互"/>
+        <TextView
+            android:id="@+id/tv_design"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="design" />
 
-    <TextView
-        android:id="@+id/tv_okhttpget"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="okhttp"/>
+        <TextView
+            android:id="@+id/tv_js"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="js 交互" />
 
-    <TextView
-        android:id="@+id/tv_touch"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="事件分发"/>
+        <TextView
+            android:id="@+id/tv_okhttpget"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="okhttp" />
 
-    <TextView
-        android:id="@+id/tv_permission"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="6.0运行时权限"/>
+        <TextView
+            android:id="@+id/tv_touch"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="事件分发" />
 
-    <TextView
-        android:id="@+id/tv_recyclerviewr"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="recyclerview 和小工具"/>
+        <TextView
+            android:id="@+id/tv_permission"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="6.0运行时权限" />
 
-    <TextView
-        android:id="@+id/tv_coor"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="coordinatorlayout"/>
+        <TextView
+            android:id="@+id/tv_recyclerviewr"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="recyclerview 和小工具" />
 
-    <TextView
-        android:id="@+id/tv_widget"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="widget控件集合"/>
+        <TextView
+            android:id="@+id/tv_coor"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="coordinatorlayout" />
 
-    <TextView
-        android:id="@+id/tv_map"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="安卓Map集合"/>
-    <TextView
-        android:id="@+id/tv_video"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/list_selector_background"
-        android:gravity="center"
-        android:text="视频播放器"/>
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_widget"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="widget控件集合" />
+
+        <TextView
+            android:id="@+id/tv_map"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="安卓Map集合" />
+
+        <TextView
+            android:id="@+id/tv_video"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="视频播放器" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="短信收发" />
+    </LinearLayout>
+</ScrollView>

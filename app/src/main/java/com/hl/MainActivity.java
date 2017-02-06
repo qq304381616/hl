@@ -1,11 +1,18 @@
 package com.hl;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hl.animation.AnimationMainActivity;
 import com.hl.utils.net.OkHttpUtils;
@@ -13,6 +20,9 @@ import com.hl.utils.PermissionUtils;
 
 import com.hl.design.DesignActivity;
 import com.hl.widget.WidgetMainActivity;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_widget).setOnClickListener(this);
         findViewById(R.id.tv_map).setOnClickListener(this);
         findViewById(R.id.tv_video).setOnClickListener(this);
-
+        findViewById(R.id.tv_message).setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_video:
                 startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
+                break;
+            case R.id.tv_message:
+                startActivity(new Intent(MainActivity.this, MessageActivity.class));
                 break;
         }
     }
