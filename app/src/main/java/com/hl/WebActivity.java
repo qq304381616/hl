@@ -209,6 +209,21 @@ public class WebActivity extends AppCompatActivity {
             });
         }
 
+        @JavascriptInterface
+        public void vibration(final String callback) {
+            Toast.makeText(WebActivity.this, "vibration", Toast.LENGTH_SHORT).show();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    mWebView.loadUrl("javascript: " + callback + "()");
+                }
+            });
+        }
     }
 
     /**
@@ -317,45 +332,44 @@ public class WebActivity extends AppCompatActivity {
             }
         }
 
-        //获取Web页中的title用来设置自己界面中的title
-        //当加载出错的时候，比如无网络，这时onReceiveTitle中获取的标题为 找不到该网页,
-        //因此建议当触发onReceiveError时，不要使用获取到的title
         @Override
         public void onReceivedTitle(WebView view, String title) {
-            WebActivity.this.setTitle(title);
+            super.onReceivedTitle(view, title);
         }
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
+            super.onReceivedIcon(view, icon);
         }
 
         @Override
         public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
-            return true;
+            return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
         }
 
         @Override
         public void onCloseWindow(WebView window) {
+            super.onCloseWindow(window);
         }
 
-        //处理alert弹出框，html 弹框的一种方式
+        //处理alert弹出框
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-            return true;
+            return super.onJsAlert(view, url, message, result);
         }
 
         //处理confirm弹出框
         @Override
-        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult
-                result) {
-            return true;
+        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+            return super.onJsPrompt(view, url, message, defaultValue, result);
         }
 
         //处理prompt弹出框
         @Override
         public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
-            return true;
+            return super.onJsConfirm(view, url, message, result);
         }
+
     };
 
     @Override

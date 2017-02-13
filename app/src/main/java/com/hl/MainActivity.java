@@ -1,21 +1,14 @@
 package com.hl;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.hl.animation.AnimationMainActivity;
 import com.hl.utils.net.OkHttpUtils;
@@ -24,10 +17,7 @@ import com.hl.utils.PermissionUtils;
 import com.hl.design.DesignActivity;
 import com.hl.widget.WidgetMainActivity;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_okhttpget).setOnClickListener(this);
         findViewById(R.id.tv_touch).setOnClickListener(this);
         findViewById(R.id.tv_permission).setOnClickListener(this);
-        findViewById(R.id.tv_recyclerviewr).setOnClickListener(this);
+        findViewById(R.id.tv_system).setOnClickListener(this);
         findViewById(R.id.tv_coor).setOnClickListener(this);
         findViewById(R.id.tv_widget).setOnClickListener(this);
         findViewById(R.id.tv_map).setOnClickListener(this);
@@ -111,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_permission:
                 PermissionUtils.check(this);
                 break;
-            case R.id.tv_recyclerviewr:
-                startActivity(new Intent(MainActivity.this, RecycleViewActivity.class));
+            case R.id.tv_system:
+                startActivity(new Intent(MainActivity.this, SystemActivity.class));
                 break;
             case R.id.tv_coor:
                 break;

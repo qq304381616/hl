@@ -28,7 +28,7 @@
         <activity android:name=".WebActivity"/>
         <activity android:name=".TouchActivity"/>
 
-        <activity android:name=".RecycleViewActivity"/>
+        <activity android:name=".SystemActivity"/>
         <activity
             android:name=".LaunchModeActivityA"
             android:launchMode="standard">
