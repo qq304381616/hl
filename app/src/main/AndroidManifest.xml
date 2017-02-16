@@ -32,6 +32,8 @@
         <activity android:name=".LaunchModeActivityB"/>
         <activity android:name=".AppsInfoListActivity"/>
         <activity android:name=".AndroidMapActivity"/>
+        <activity android:name=".MyViewActivity"/>
+        <activity android:name=".ThreadActivity"/>
 
         <service android:name=".MyService"/>
     </application>

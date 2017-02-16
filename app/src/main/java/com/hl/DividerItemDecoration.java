@@ -8,9 +8,13 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+
+    private static final String TAG = "DividerItemDecoration";
+
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };
@@ -38,16 +42,14 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDraw(Canvas c, RecyclerView parent) {
-
+    public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+        super.onDraw(c, parent, state);
         if (mOrientation == VERTICAL_LIST) {
             drawVertical(c, parent);
         } else {
             drawHorizontal(c, parent);
         }
-
     }
-
 
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int left = parent.getPaddingLeft();
@@ -63,6 +65,12 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final int bottom = top + mDivider.getIntrinsicHeight();
             mDivider.setBounds(left, top, right, bottom);
             mDivider.draw(c);
+
+            // 画带颜色的分隔线
+            // Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            // mPaint.setColor(Color.BLUE);
+            // mPaint.setStyle(Paint.Style.FILL);
+            // c.drawRect(left, top, right, bottom, mPaint);
         }
     }
 
@@ -83,7 +91,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        super.getItemOffsets(outRect, view, parent, state);
+        Log.e(TAG, "间隔高度是: " + mDivider.getIntrinsicHeight());
         if (mOrientation == VERTICAL_LIST) {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
         } else {

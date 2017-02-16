@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_coor).setOnClickListener(this);
         findViewById(R.id.tv_widget).setOnClickListener(this);
         findViewById(R.id.tv_map).setOnClickListener(this);
+        findViewById(R.id.tv_myview).setOnClickListener(this);
+        findViewById(R.id.tv_thread).setOnClickListener(this);
 
     }
 
@@ -68,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_map:
                 startActivity(new Intent(MainActivity.this, AndroidMapActivity.class));
+                break;
+            case R.id.tv_myview:
+                startActivity(new Intent(MainActivity.this, MyViewActivity.class));
+                break;
+            case R.id.tv_thread:
+                startActivity(new Intent(MainActivity.this, ThreadActivity.class));
                 break;
         }
     }
