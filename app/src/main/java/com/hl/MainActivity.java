@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        getBitmapsFromVideo();
+//                        getBitmapsFromVideo();
                     }
                 }).start();
 
