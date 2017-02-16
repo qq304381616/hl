@@ -18,6 +18,7 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.textureview).setOnClickListener(this);
         findViewById(R.id.tv_swiperefreshlayout).setOnClickListener(this);
+        findViewById(R.id.tv_seekbar).setOnClickListener(this);
 
     }
 
@@ -26,8 +27,10 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
         int id = v.getId();
         if (id == R.id.textureview) {
             startActivity(new Intent(WidgetMainActivity.this, TextureViewActivity.class));
-        }else if( id == R.id.tv_swiperefreshlayout){
+        } else if (id == R.id.tv_swiperefreshlayout) {
             startActivity(new Intent(WidgetMainActivity.this, SwipeRefreshLayoutActivity.class));
+        } else if (id == R.id.tv_seekbar) {
+            startActivity(new Intent(WidgetMainActivity.this, SeekbarActivity.class));
         }
     }
 }

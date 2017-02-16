@@ -21,5 +21,12 @@
             android:layout_height="wrap_content"
             android:padding="20dp"
             android:text="SwipeRefreshLayout 下拉刷新" />
+
+        <TextView
+            android:id="@+id/tv_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="seekbar" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

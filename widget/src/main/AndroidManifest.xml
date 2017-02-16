@@ -10,6 +10,7 @@
         <activity android:name=".WidgetMainActivity"/>
         <activity android:name=".TextureViewActivity"/>
         <activity android:name=".SwipeRefreshLayoutActivity"/>
+        <activity android:name=".SeekbarActivity"/>
     </application>
 
 </manifest>

@@ -2,10 +2,12 @@ package com.hl;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class RecycleViewActivity extends Activity {
+public class SystemActivity extends Activity {
 
     private static final String LOG_TAG = "MainActivity";
 
@@ -44,6 +46,8 @@ public class RecycleViewActivity extends Activity {
 
         mDatas.add("PageSlidingTab");
 
+        mDatas.add("震动");
+
     }
 
     @Override
@@ -56,7 +60,6 @@ public class RecycleViewActivity extends Activity {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 //        mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-
 //        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
 
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -99,6 +102,11 @@ public class RecycleViewActivity extends Activity {
                 } else if (position == 9) {
                     Intent intent = new Intent(getApplicationContext(), com.hl.tab.ui.activity.MainActivity.class);
                     startActivity(intent);
+                } else if (position == 10) {
+                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    long[] pattern = {100, 400, 100, 400}; // 停止 开启 停止 开启
+                    vibrator.vibrate(pattern, -1); // 重复次数， -1不重复
+//                    vibrator.cancel(); // 取消震动
                 }
             }
         });

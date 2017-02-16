@@ -436,7 +436,7 @@ public class BitmapUtils {
 
 		if (f.exists()) {
 			f.delete();
-		}
+	}
 
 		try {
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f));

@@ -13,10 +13,10 @@
   
 <script type="text/javascript" language="javascript">   
       
-    function showHtmlcallJava(){  
+    function showHtmlcallJava(){
         var str = window.jsObj.HtmlcallJava();
         window.jsObj.HtmlcallJava2(str);
-        alert(str);  
+        alert(str);
     }  
       
     function showHtmlcallJava2(){  
@@ -28,10 +28,18 @@
         document.getElementById("id_input").value = "Java call Html";  
     }  
       
-    function showFromHtml2( param ){  
+    function showFromHtml2( param ){
         document.getElementById("id_input2").value = "Java call Html : " + param;
-        slert(param);
-    }  
+        alert(param);
+    }
+
+    function vibration(){
+       window.jsObj.vibration("vibrationcallback");
+    }
+
+    function vibrationcallback( ){
+        alert("震动结束");
+    }
 </script>  
 </head>  
   
@@ -63,7 +71,10 @@ hello IT-homer
   
 <input id="id_input2" style="width: 90%" type="text" value="null" />  
 <br>  
-<input type="button" value="JavacallHtml2" onclick="window.jsObj.JavacallHtml2()" />  
-  
+<input type="button" value="JavacallHtml2" onclick="window.jsObj.JavacallHtml2()" />
+
+<br>
+<input type="button" value="振动" onclick="vibration()" />
+
 </body>  
 </html>  
