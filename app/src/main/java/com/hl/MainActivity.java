@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_thread:
                 startActivity(new Intent(MainActivity.this, ThreadActivity.class));
+                break;
             case R.id.tv_video:
                 startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
                 break;
