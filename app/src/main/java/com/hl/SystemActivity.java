@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
@@ -15,6 +16,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +30,8 @@ public class SystemActivity extends Activity {
     private List<String> mDatas;
     private RecyclerAdapter mAdapter;
 
+    // 屏幕常亮状态
+    private boolean isWakeLock;
 
     protected void initData() {
         mDatas = new ArrayList<String>();
@@ -43,10 +47,10 @@ public class SystemActivity extends Activity {
         mDatas.add("service");
 
         mDatas.add("应用列表");
-
         mDatas.add("PageSlidingTab");
 
         mDatas.add("震动");
+        mDatas.add("屏幕常亮");
 
     }
 
@@ -106,7 +110,17 @@ public class SystemActivity extends Activity {
                     Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     long[] pattern = {100, 400, 100, 400}; // 停止 开启 停止 开启
                     vibrator.vibrate(pattern, -1); // 重复次数， -1不重复
-//                    vibrator.cancel(); // 取消震动
+                    // vibrator.cancel(); // 取消震动
+                } else if (position == 11) {
+                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+                    if (isWakeLock) {
+                        Toast.makeText(getApplicationContext(), "打开屏幕常亮", Toast.LENGTH_SHORT).show();
+                        mWakeLock.acquire();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "关闭屏幕常亮", Toast.LENGTH_SHORT).show();
+                        mWakeLock.acquire();
+                    }
                 }
             }
         });
