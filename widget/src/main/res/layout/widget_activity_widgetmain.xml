@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,63 +13,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:text="textureview" />
+            android:text="textureview"/>
 
         <TextView
             android:id="@+id/tv_swiperefreshlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:text="SwipeRefreshLayout 下拉刷新" />
+            android:text="SwipeRefreshLayout 下拉刷新"/>
+
+        <TextView
+            android:id="@+id/tv_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:text="SwipeRefreshLayout 下拉刷新 上拉加载"/>
 
         <TextView
             android:id="@+id/tv_seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:text="seekbar" />
+            android:text="seekbar"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="自定义方形控件" />
+            android:text="自定义方形控件"/>
 
         <com.hl.widget.SquareRelativeLayout
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_red_light" />
+            android:background="@android:color/holo_red_light"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.hl.widget.SquareRelativeLayout
-                android:layout_weight="1"
-                android:layout_margin="10dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light" />
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"/>
 
             <com.hl.widget.SquareRelativeLayout
-                android:layout_margin="10dp"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light" />
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"/>
 
             <com.hl.widget.SquareRelativeLayout
-                android:layout_margin="10dp"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light" />
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"/>
 
             <com.hl.widget.SquareRelativeLayout
-                android:layout_margin="10dp"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/holo_red_light" />
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"/>
 
         </LinearLayout>
     </LinearLayout>

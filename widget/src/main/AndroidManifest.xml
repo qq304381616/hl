@@ -11,6 +11,7 @@
         <activity android:name=".TextureViewActivity"/>
         <activity android:name=".SwipeRefreshLayoutActivity"/>
         <activity android:name=".SeekbarActivity"/>
+        <activity android:name=".refresh.SwipeRefreshRecyclerActivity"/>
     </application>
 
 </manifest>

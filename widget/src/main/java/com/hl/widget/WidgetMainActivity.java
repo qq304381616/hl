@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.hl.widget.refresh.SwipeRefreshRecyclerActivity;
+
 /**
  * 控件集合
  */
@@ -18,6 +20,7 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
 
         findViewById(R.id.textureview).setOnClickListener(this);
         findViewById(R.id.tv_swiperefreshlayout).setOnClickListener(this);
+        findViewById(R.id.tv_refresh).setOnClickListener(this);
         findViewById(R.id.tv_seekbar).setOnClickListener(this);
 
     }
@@ -29,6 +32,8 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
             startActivity(new Intent(WidgetMainActivity.this, TextureViewActivity.class));
         } else if (id == R.id.tv_swiperefreshlayout) {
             startActivity(new Intent(WidgetMainActivity.this, SwipeRefreshLayoutActivity.class));
+        } else if (id == R.id.tv_refresh) {
+            startActivity(new Intent(WidgetMainActivity.this, SwipeRefreshRecyclerActivity.class));
         } else if (id == R.id.tv_seekbar) {
             startActivity(new Intent(WidgetMainActivity.this, SeekbarActivity.class));
         }
