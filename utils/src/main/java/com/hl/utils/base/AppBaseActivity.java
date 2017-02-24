@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.hl.utils.ActivityUtils;
-import com.hl.utils.UmengUtils;
+import com.hl.utils.api.UmengUtils;
 
 public class AppBaseActivity extends FragmentActivity {
 

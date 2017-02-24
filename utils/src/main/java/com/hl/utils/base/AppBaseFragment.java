@@ -2,7 +2,7 @@ package com.hl.utils.base;
 
 import android.support.v4.app.Fragment;
 
-import com.hl.utils.UmengUtils;
+import com.hl.utils.api.UmengUtils;
 
 public class AppBaseFragment extends Fragment {
 

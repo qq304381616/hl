@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hl">
+          package="com.hl">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 读sdcard-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 写sdcard-->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!--网络-->
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- 读sdcard-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> <!-- 写sdcard-->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/> <!-- 通讯录-->
+    <uses-permission android:name="android.permission.INTERNET"/> <!--网络-->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
-    <uses-permission android:name="android.permission.RECEIVE_SMS" /> <!--短信接收-->
-    <uses-permission android:name="android.permission.READ_SMS" /> <!--短信读取-->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/> <!--短信接收-->
+    <uses-permission android:name="android.permission.READ_SMS"/> <!--短信读取-->
 
     <application
         android:name="com.hl.utils.base.MyApplication"
@@ -21,29 +21,29 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".WebActivity" />
-        <activity android:name=".TouchActivity" />
+        <activity android:name=".WebActivity"/>
+        <activity android:name=".TouchActivity"/>
 
-        <activity android:name=".SystemActivity" />
+        <activity android:name=".SystemActivity"/>
         <activity
             android:name=".LaunchModeActivityA"
             android:launchMode="standard"></activity>
-        <activity android:name=".LaunchModeActivityB" />
-        <activity android:name=".AppsInfoListActivity" />
-        <activity android:name=".AndroidMapActivity" />
-        <activity android:name=".MyViewActivity" />
-        <activity android:name=".ThreadActivity" />
-        <activity android:name=".VideoViewActivity" />
-        <activity android:name=".MessageActivity" />
-        <activity android:name=".ImagePlayerActivity" />
-        <activity android:name=".baidu.BaiduMainActivity" />
+        <activity android:name=".LaunchModeActivityB"/>
+        <activity android:name=".AppsInfoListActivity"/>
+        <activity android:name=".AndroidMapActivity"/>
+        <activity android:name=".MyViewActivity"/>
+        <activity android:name=".ThreadActivity"/>
+        <activity android:name=".VideoViewActivity"/>
+        <activity android:name=".MessageActivity"/>
+        <activity android:name=".ImagePlayerActivity"/>
+        <activity android:name=".baidu.BaiduMainActivity"/>
 
-        <service android:name=".MyService" />
+        <service android:name=".MyService"/>
     </application>
 
 </manifest>

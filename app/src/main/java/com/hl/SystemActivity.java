@@ -18,6 +18,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.hl.systeminfo.contact.ContactsActivity;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -51,6 +53,8 @@ public class SystemActivity extends Activity {
 
         mDatas.add("震动");
         mDatas.add("屏幕常亮");
+        
+        mDatas.add("通讯录列表");
 
     }
 
@@ -94,17 +98,17 @@ public class SystemActivity extends Activity {
                 } else if (position == 5) {
                     capturePhoto2();
                 } else if (position == 6) {
-                    Intent intent = new Intent(getApplicationContext(), LaunchModeActivityA.class);
+                    Intent intent = new Intent(SystemActivity.this, LaunchModeActivityA.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 } else if (position == 7) {
-                    Intent intent = new Intent(getApplicationContext(), MyService.class);
+                    Intent intent = new Intent(SystemActivity.this, MyService.class);
                     startService(intent);
                 } else if (position == 8) {
-                    Intent intent = new Intent(getApplicationContext(), AppsInfoListActivity.class);
+                    Intent intent = new Intent(SystemActivity.this, AppsInfoListActivity.class);
                     startActivity(intent);
                 } else if (position == 9) {
-                    Intent intent = new Intent(getApplicationContext(), com.hl.tab.ui.activity.MainActivity.class);
+                    Intent intent = new Intent(SystemActivity.this, com.hl.tab.ui.activity.MainActivity.class);
                     startActivity(intent);
                 } else if (position == 10) {
                     Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -115,12 +119,15 @@ public class SystemActivity extends Activity {
                     PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
                     if (isWakeLock) {
-                        Toast.makeText(getApplicationContext(), "打开屏幕常亮", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SystemActivity.this, "打开屏幕常亮", Toast.LENGTH_SHORT).show();
                         mWakeLock.acquire();
                     }else {
-                        Toast.makeText(getApplicationContext(), "关闭屏幕常亮", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SystemActivity.this, "关闭屏幕常亮", Toast.LENGTH_SHORT).show();
                         mWakeLock.acquire();
                     }
+                } else if (position == 12) {
+                    Intent intent = new Intent(SystemActivity.this, ContactsActivity.class);
+                    startActivity(intent);
                 }
             }
         });
