@@ -11,13 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
         <activity
-            android:name="com.hl.systeminfo.contact.ContactsActivity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            android:name="com.hl.systeminfo.contact.ContactsActivity">
         </activity>
     </application>
 
