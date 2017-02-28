@@ -21,8 +21,8 @@ import okhttp3.RequestBody;
 import okio.Buffer;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
+import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
