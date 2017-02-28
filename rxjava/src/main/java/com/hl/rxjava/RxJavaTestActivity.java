@@ -17,6 +17,11 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+//        just: 获取输入数据, 直接分发, 更加简洁, 省略其他回调.
+//        from: 获取输入数组, 转变单个元素分发.
+//        map: 映射, 对输入数据进行转换, 如大写.
+//        flatMap: 增大, 本意就是增肥, 把输入数组映射多个值, 依次分发.
+//        reduce: 简化, 正好相反, 把多个数组的值, 组合成一个数据.
 public class RxJavaTestActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "RxJavaTestActivity";

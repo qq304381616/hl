@@ -12,6 +12,7 @@
         <activity android:name=".SwipeRefreshLayoutActivity"/>
         <activity android:name=".SeekbarActivity"/>
         <activity android:name=".refresh.SwipeRefreshRecyclerActivity"/>
+        <activity android:name=".recyclerdouble.RecyclerDoubleActivity"/>
     </application>
 
 </manifest>
