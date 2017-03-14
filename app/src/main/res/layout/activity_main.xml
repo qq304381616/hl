@@ -123,7 +123,7 @@
             android:layout_height="48dp"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
-            android:text="视频播放器" />
+            android:text="视频播放器"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -131,7 +131,7 @@
             android:layout_height="48dp"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
-            android:text="短信收发" />
+            android:text="短信收发"/>
 
         <TextView
             android:id="@+id/tv_imageplayer"
@@ -156,5 +156,13 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:text="网络请求测试"/>
+
+        <TextView
+            android:id="@+id/tv_skin"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="更换皮肤"/>
     </LinearLayout>
 </ScrollView>

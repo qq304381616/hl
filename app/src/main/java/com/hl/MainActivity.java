@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
 import com.hl.baidu.BaiduMainActivity;
+import com.hl.skin.SkinMainActivity;
 import com.hl.utils.net.NetTestActivity;
 import com.hl.utils.net.OkHttpUtils;
 import com.hl.utils.PermissionUtils;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_imageplayer).setOnClickListener(this);
         findViewById(R.id.tv_baidu_location).setOnClickListener(this);
         findViewById(R.id.tv_net).setOnClickListener(this);
+        findViewById(R.id.tv_skin).setOnClickListener(this);
     }
 
     /**
@@ -139,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_net:
                 startActivity(new Intent(MainActivity.this, NetTestActivity.class));
+                break;
+            case R.id.tv_skin:
+                startActivity(new Intent(MainActivity.this, SkinMainActivity.class));
                 break;
         }
     }
