@@ -113,7 +113,6 @@ public class FileUtils {
      * @return
      * @Title: FileToString
      * @Description: 文件转字符串编码(不做Base64加密), 设置编码
-     * @author eye_fa
      */
     public static String FileToString(String path, String charsetName) {
         byte[] fileByte = getBuffer(path);

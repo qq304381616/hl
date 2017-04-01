@@ -160,10 +160,11 @@ public class NetUtils {
 
     @NonNull
     public static MultipartBody.Part prepareFilePart(String partName, String file) {
+        File f = new File(file);
         // 为file建立RequestBody实例
-        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), f);
         // MultipartBody.Part借助文件名完成最终的上传
-        return MultipartBody.Part.createFormData(partName, file.toString(), requestFile);
+        return MultipartBody.Part.createFormData(partName, f.getName(), requestFile);
     }
 
     // 文件上传

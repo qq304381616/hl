@@ -19,6 +19,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface NetService {
@@ -51,7 +52,7 @@ public interface NetService {
     //POST请求 boolean 类型
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Observable<RetrofitEntity> getV( @Field(value = "book", encoded = true) String book);
+    Observable<RetrofitEntity> getV(@Field(value = "book", encoded = true) String book);
 
     //POST请求
     @FormUrlEncoded
@@ -77,6 +78,14 @@ public interface NetService {
     @POST("upload")
     Call<ResponseBody> uploadFile(
             @Part("description") RequestBody description,
+            @Part MultipartBody.Part file);
+
+    // 上传单个文件 自定义URL，带参数。
+    @Multipart
+    @POST
+    Observable<RetrofitEntity> upload(
+            @Url String url,
+            @Query("access_token") String access_token,
             @Part MultipartBody.Part file);
 
     // 上传单个文件

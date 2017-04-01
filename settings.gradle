@@ -1,1 +1,1 @@
-include ':app', ':animation', ':design', ':rxjava', ':java', ':utils', ':mvp', ':tab', ':widget', ':jni', ':baidumap', ':systeminfo', ':skin'
+include ':app', ':animation', ':design', ':rxjava', ':java', ':utils', ':mvp', ':tab', ':widget', ':jni', ':baidumap', ':systeminfo', ':skin', ':api'

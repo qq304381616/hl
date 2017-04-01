@@ -36,7 +36,6 @@
         <activity android:name=".AppsInfoListActivity"/>
         <activity android:name=".AndroidMapActivity"/>
         <activity android:name=".MyViewActivity"/>
-        <activity android:name=".ThreadActivity"/>
         <activity android:name=".VideoViewActivity"/>
         <activity android:name=".MessageActivity"/>
         <activity android:name=".ImagePlayerActivity"/>

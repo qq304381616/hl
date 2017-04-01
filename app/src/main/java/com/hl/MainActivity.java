@@ -1,23 +1,22 @@
 package com.hl;
 
+import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
+import com.hl.api.thread.ThreadActivity;
 import com.hl.baidu.BaiduMainActivity;
+import com.hl.design.DesignActivity;
 import com.hl.skin.SkinMainActivity;
+import com.hl.utils.PermissionUtils;
 import com.hl.utils.net.NetTestActivity;
 import com.hl.utils.net.OkHttpUtils;
-import com.hl.utils.PermissionUtils;
-
-import com.hl.design.DesignActivity;
 import com.hl.widget.WidgetMainActivity;
 
 import java.io.FileOutputStream;
@@ -52,32 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_skin).setOnClickListener(this);
     }
 
-    /**
-     * 视频转成图片，间隔1秒
-     */
-    public void getBitmapsFromVideo() {
-        String dataPath = Environment.getExternalStorageDirectory() + "/9/c.mp4";
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        retriever.setDataSource(dataPath);
-        // 取得视频的长度(单位为毫秒)
-        String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-        // 取得视频的长度(单位为秒)
-        int seconds = Integer.valueOf(time) / 1000;
-        // 得到每一秒时刻的bitmap比如第一秒,第二秒
-        for (int i = 1; i <= seconds; i++) {
-            Bitmap bitmap = retriever.getFrameAtTime(i * 1000 * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
-            String path = Environment.getExternalStorageDirectory() +  "/8/" + i + ".jpg";
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(path);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-                fos.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
@@ -107,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, TouchActivity.class));
                 break;
             case R.id.tv_permission:
-                PermissionUtils.check(this);
+                PermissionUtils.check(this, Manifest.permission.READ_CONTACTS, PermissionUtils.READ_CONTACTS);
                 break;
             case R.id.tv_system:
                 startActivity(new Intent(MainActivity.this, SystemActivity.class));
@@ -145,28 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_skin:
                 startActivity(new Intent(MainActivity.this, SkinMainActivity.class));
                 break;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1001: {
-                Log.e(LOG_TAG, "onRequestPermissionsResult");
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
         }
     }
 }
