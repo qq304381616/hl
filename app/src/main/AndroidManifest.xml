@@ -28,20 +28,12 @@
         <activity android:name=".WebActivity"/>
         <activity android:name=".TouchActivity"/>
 
-        <activity android:name=".SystemActivity"/>
-        <activity
-            android:name=".LaunchModeActivityA"
-            android:launchMode="standard"></activity>
-        <activity android:name=".LaunchModeActivityB"/>
-        <activity android:name=".AppsInfoListActivity"/>
         <activity android:name=".AndroidMapActivity"/>
         <activity android:name=".MyViewActivity"/>
         <activity android:name=".VideoViewActivity"/>
         <activity android:name=".MessageActivity"/>
         <activity android:name=".ImagePlayerActivity"/>
         <activity android:name=".baidu.BaiduMainActivity"/>
-
-        <service android:name=".MyService"/>
     </application>
 
 </manifest>

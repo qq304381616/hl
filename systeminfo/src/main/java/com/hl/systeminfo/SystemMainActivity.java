@@ -1,4 +1,4 @@
-package com.hl;
+package com.hl.systeminfo;
 
 
 import android.app.Activity;
@@ -12,125 +12,139 @@ import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.hl.systeminfo.contact.ContactsActivity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class SystemActivity extends Activity {
+public class SystemMainActivity extends Activity {
 
-    private static final String LOG_TAG = "MainActivity";
-
-    private RecyclerView mRecyclerView;
-    private List<String> mDatas;
-    private RecyclerAdapter mAdapter;
+    private static final String LOG_TAG = "SystemMainActivity";
 
     // 屏幕常亮状态
     private boolean isWakeLock;
 
-    protected void initData() {
-        mDatas = new ArrayList<String>();
-
-        mDatas.add("闹钟");
-        mDatas.add("定时器");
-        mDatas.add("显示所有闹钟");
-        mDatas.add("日历事件");
-        mDatas.add("调用照相");
-        mDatas.add("调用照相2");
-
-        mDatas.add("activity");
-        mDatas.add("service");
-
-        mDatas.add("应用列表");
-        mDatas.add("PageSlidingTab");
-
-        mDatas.add("震动");
-        mDatas.add("屏幕常亮");
-        
-        mDatas.add("通讯录列表");
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycleview);
-        initData();
+        setContentView(R.layout.system_activity_main);
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mRecyclerView.setLayoutManager(new GridLayoutManager(this,4));
-//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        mRecyclerView.setAdapter(mAdapter = new RecyclerAdapter(this, mDatas));
-
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));
-
-        mAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
-
+        // 闹钟
+        findViewById(R.id.tv_create_alarm).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(int position) {
-                if (position == 0) {
-                    createAlarm("", 1, 1);
-                } else if (position == 1) {
-                    startTimer("", 5);
-                } else if (position == 2) {
-                    showAlarms();
-                } else if (position == 3) {
-                    Calendar c = Calendar.getInstance();
-                    c.setTimeInMillis(System.currentTimeMillis());
-                    Calendar c1 = Calendar.getInstance();
-                    c1.setTimeInMillis(System.currentTimeMillis() - 1000 * 60);
-                    addEvent("title", "des", c, c1);
-                } else if (position == 4) {
-                    capturePhoto();
-                } else if (position == 5) {
-                    capturePhoto2();
-                } else if (position == 6) {
-                    Intent intent = new Intent(SystemActivity.this, LaunchModeActivityA.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(intent);
-                } else if (position == 7) {
-                    Intent intent = new Intent(SystemActivity.this, MyService.class);
-                    startService(intent);
-                } else if (position == 8) {
-                    Intent intent = new Intent(SystemActivity.this, AppsInfoListActivity.class);
-                    startActivity(intent);
-                } else if (position == 9) {
-                    Intent intent = new Intent(SystemActivity.this, com.hl.tab.ui.activity.MainActivity.class);
-                    startActivity(intent);
-                } else if (position == 10) {
-                    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    long[] pattern = {100, 400, 100, 400}; // 停止 开启 停止 开启
-                    vibrator.vibrate(pattern, -1); // 重复次数， -1不重复
-                    // vibrator.cancel(); // 取消震动
-                } else if (position == 11) {
-                    PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
-                    if (isWakeLock) {
-                        Toast.makeText(SystemActivity.this, "打开屏幕常亮", Toast.LENGTH_SHORT).show();
-                        mWakeLock.acquire();
-                    }else {
-                        Toast.makeText(SystemActivity.this, "关闭屏幕常亮", Toast.LENGTH_SHORT).show();
-                        mWakeLock.acquire();
-                    }
-                } else if (position == 12) {
-                    Intent intent = new Intent(SystemActivity.this, ContactsActivity.class);
-                    startActivity(intent);
+            public void onClick(View v) {
+                createAlarm("", 1, 1);
+            }
+        });
+        //  定时器
+        findViewById(R.id.tv_start_timer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTimer("", 5);
+            }
+        });
+        // 显示所有闹钟
+        findViewById(R.id.tv_show_alarms).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlarms();
+            }
+        });
+        //日历事件
+        findViewById(R.id.tv_date).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c = Calendar.getInstance();
+                c.setTimeInMillis(System.currentTimeMillis());
+                Calendar c1 = Calendar.getInstance();
+                c1.setTimeInMillis(System.currentTimeMillis() - 1000 * 60);
+                addEvent("title", "des", c, c1);
+            }
+        });
+        //调用照相
+        findViewById(R.id.camera1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                capturePhoto();
+            }
+        });
+        //调用照相2
+        findViewById(R.id.camera2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                capturePhoto2();
+            }
+        });
+        //activity
+        findViewById(R.id.tv_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, LaunchModeActivityA.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        });
+        //service
+        findViewById(R.id.tv_service).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, MyService.class);
+                startService(intent);
+            }
+        });
+        //应用列表
+        findViewById(R.id.tv_applist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, AppsInfoListActivity.class);
+                startActivity(intent);
+            }
+        });
+        //PageSlidingTab
+        findViewById(R.id.tv_page_sliding_tab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, com.hl.tab.ui.activity.MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        //震动
+        findViewById(R.id.tv_vibrator).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                long[] pattern = {100, 400, 100, 400}; // 停止 开启 停止 开启
+                vibrator.vibrate(pattern, -1); // 重复次数， -1不重复
+                // vibrator.cancel(); // 取消震动
+            }
+        });
+        //屏幕常亮
+        findViewById(R.id.tv_wakelock).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
+                if (isWakeLock) {
+                    Toast.makeText(SystemMainActivity.this, "打开屏幕常亮", Toast.LENGTH_SHORT).show();
+                    mWakeLock.acquire();
+                } else {
+                    Toast.makeText(SystemMainActivity.this, "关闭屏幕常亮", Toast.LENGTH_SHORT).show();
+                    mWakeLock.acquire();
                 }
             }
         });
+        //通讯录列表
+        findViewById(R.id.tv_contacts).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, ContactsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void createAlarm(String message, int hour, int minutes) {

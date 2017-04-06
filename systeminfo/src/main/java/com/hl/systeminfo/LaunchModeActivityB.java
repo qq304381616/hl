@@ -1,34 +1,23 @@
-package com.hl;
+package com.hl.systeminfo;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 /**
  * Created by hl on 2016/11/17.
  */
 
-public class LaunchModeActivityA extends Activity {
+public class LaunchModeActivityB extends Activity {
 
-    private static final String LOG_TAG = "LaunchModeActivityA";
+    private static final String LOG_TAG = "LaunchModeActivityB";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-setContentView(R.layout.activity_launchmode_a);
-        Log.e(LOG_TAG, "onCreate");
 
-        TextView tv = (TextView)findViewById(R.id.tv   );
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LaunchModeActivityA.class);
-                startActivity(intent);
-            }
-        });
+        Log.e(LOG_TAG, "onCreate");
     }
 
     @Override

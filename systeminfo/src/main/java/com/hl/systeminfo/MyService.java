@@ -1,4 +1,4 @@
-package com.hl;
+package com.hl.systeminfo;
 
 import android.app.Service;
 import android.content.Intent;
