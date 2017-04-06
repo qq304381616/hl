@@ -164,5 +164,13 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:text="更换皮肤"/>
+
+        <TextView
+            android:id="@+id/api"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:text="第三方api"/>
     </LinearLayout>
 </ScrollView>

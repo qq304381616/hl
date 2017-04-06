@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
- * Created by hl on 2016/11/17.
+ * Created on 2016/11/17.
  */
-
 public class LaunchModeActivityB extends Activity {
 
     private static final String LOG_TAG = "LaunchModeActivityB";
@@ -16,8 +19,22 @@ public class LaunchModeActivityB extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.e(LOG_TAG, "onCreate");
+
+        TextView tv = new TextView(this);
+        tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        tv.setGravity(Gravity.CENTER);
+        tv.setText("B");
+        setContentView(tv);
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LaunchModeActivityA.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

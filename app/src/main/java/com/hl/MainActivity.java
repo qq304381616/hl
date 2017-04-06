@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
+import com.hl.api.ApiMainActivity;
 import com.hl.api.thread.ThreadActivity;
 import com.hl.baidu.BaiduMainActivity;
 import com.hl.design.DesignActivity;
 import com.hl.skin.SkinMainActivity;
+import com.hl.systeminfo.SystemMainActivity;
 import com.hl.utils.PermissionUtils;
 import com.hl.utils.net.NetTestActivity;
 import com.hl.utils.net.OkHttpUtils;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_baidu_location).setOnClickListener(this);
         findViewById(R.id.tv_net).setOnClickListener(this);
         findViewById(R.id.tv_skin).setOnClickListener(this);
+        findViewById(R.id.api).setOnClickListener(this);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 PermissionUtils.check(this, Manifest.permission.READ_CONTACTS, PermissionUtils.READ_CONTACTS);
                 break;
             case R.id.tv_system:
-                startActivity(new Intent(MainActivity.this, SystemActivity.class));
+                startActivity(new Intent(MainActivity.this, SystemMainActivity.class));
                 break;
             case R.id.tv_coor:
                 break;
@@ -117,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_skin:
                 startActivity(new Intent(MainActivity.this, SkinMainActivity.class));
+                break;
+            case R.id.api:
+                startActivity(new Intent(MainActivity.this, ApiMainActivity.class));
                 break;
         }
     }
