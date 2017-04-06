@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hl.design">
+          package="com.hl.design">
 
     <application
         android:allowBackup="true"
@@ -8,17 +8,20 @@
         <activity
             android:name=".DesignActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".NavigationViewActivity" />
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".NavigationViewActivity"/>
         <activity
             android:name=".ToolBarActivity"
-            android:theme="@style/DesignAppTheme" />
+            android:theme="@style/DesignAppTheme"/>
         <activity
             android:name=".ToolBarAppBarLayoutActivity"
-            android:theme="@style/DesignAppTheme" />
+            android:theme="@style/DesignAppTheme"/>
         <activity
             android:name=".ToolBarCollapsingToolbarLayoutActivity"
-            android:theme="@style/DesignAppTheme" />
+            android:theme="@style/DesignAppTheme"/>
+        <activity
+            android:name=".CoordinatorlayoutActivity"
+            android:theme="@style/DesignAppTheme"/>
     </application>
 
 </manifest>

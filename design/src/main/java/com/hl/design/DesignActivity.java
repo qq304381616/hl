@@ -27,6 +27,7 @@ public class DesignActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_design);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
         findViewById(R.id.tv_navigationview).setOnClickListener(this);
+        findViewById(R.id.tv_coordinatorlayout).setOnClickListener(this);
         findViewById(R.id.tv_toolbar).setOnClickListener(this);
         findViewById(R.id.tv_toolbar2).setOnClickListener(this);
         findViewById(R.id.tv_toolbar3).setOnClickListener(this);
@@ -64,6 +65,8 @@ public class DesignActivity extends AppCompatActivity implements View.OnClickLis
                     .show(); // Don’t forget to show!
         } else if (id == R.id.tv_navigationview) {
             startActivity(new Intent(DesignActivity.this, NavigationViewActivity.class));
+        } else if (id == R.id.tv_coordinatorlayout) {
+            startActivity(new Intent(DesignActivity.this, CoordinatorlayoutActivity.class));
         } else if (id == R.id.tv_toolbar) {
             startActivity(new Intent(DesignActivity.this, ToolBarActivity.class));
         } else if (id == R.id.tv_toolbar2) {

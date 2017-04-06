@@ -36,7 +36,6 @@
             android:gravity="center"
             android:text="design"/>
 
-
         <TextView
             android:id="@+id/tv_js"
             android:layout_width="match_parent"
@@ -68,14 +67,6 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:text="系统功能"/>
-
-        <TextView
-            android:id="@+id/tv_coor"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="coordinatorlayout"/>
 
         <TextView
             android:id="@+id/tv_widget"

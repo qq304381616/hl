@@ -18,7 +18,10 @@ import com.hl.api.R;
 import cn.jpush.android.api.InstrumentedActivity;
 import cn.jpush.android.api.JPushInterface;
 
-
+/**
+ * 极光推送
+ * 极光账号 qq304381616
+ */
 public class MainActivity extends InstrumentedActivity implements OnClickListener {
 
 	private Button mInit;
