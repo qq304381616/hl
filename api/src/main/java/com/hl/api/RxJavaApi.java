@@ -1,10 +1,7 @@
-package com.hl.rxjava;
+package com.hl.api;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -17,18 +14,21 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-//        just: 获取输入数据, 直接分发, 更加简洁, 省略其他回调.
-//        from: 获取输入数组, 转变单个元素分发.
-//        map: 映射, 对输入数据进行转换, 如大写.
-//        flatMap: 增大, 本意就是增肥, 把输入数组映射多个值, 依次分发.
-//        reduce: 简化, 正好相反, 把多个数组的值, 组合成一个数据.
-public class RxJavaTestActivity extends AppCompatActivity {
+/**
+ * Created by hl on 2017/4/6.
+ * just: 获取输入数据, 直接分发, 更加简洁, 省略其他回调.
+ * from: 获取输入数组, 转变单个元素分发.
+ * map: 映射, 对输入数据进行转换, 如大写.
+ * flatMap: 增大, 本意就是增肥, 把输入数组映射多个值, 依次分发.
+ * reduce: 简化, 正好相反, 把多个数组的值, 组合成一个数据.
+ */
+
+public class RxJavaApi {
 
     private static final String LOG_TAG = "RxJavaTestActivity";
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+    private void test() {
 
         Observable<String> myObservable = Observable.create(
                 new Observable.OnSubscribe<String>() {
@@ -57,8 +57,7 @@ public class RxJavaTestActivity extends AppCompatActivity {
 
         myObservable.subscribe(mySubscriber);
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////
         Observer<String> observer = new Observer<String>() {
             @Override
             public void onNext(String s) {
@@ -192,13 +191,9 @@ public class RxJavaTestActivity extends AppCompatActivity {
                     }
                 });
 
-
         mapTest();
         flatMapTest();
-
-
     }
-
 
     /**
      * 变换 MAP
@@ -219,7 +214,6 @@ public class RxJavaTestActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
     private void flatMapTest() {
 //        Student[] students = ...;

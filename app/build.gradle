@@ -31,7 +31,6 @@ dependencies {
     compile project(':design')
     compile project(':utils')
     compile project(':mvp')
-    compile project(':rxjava')
     compile project(':tab')
     compile project(':widget')
     compile project(':baidumap')
