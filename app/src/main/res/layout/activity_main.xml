@@ -46,14 +46,6 @@
             android:text="js 交互"/>
 
         <TextView
-            android:id="@+id/tv_okhttpget"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="okhttp"/>
-
-        <TextView
             android:id="@+id/tv_touch"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -108,14 +100,6 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:text="自定义控件"/>
-
-        <TextView
-            android:id="@+id/tv_thread"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="thread 线程"/>
 
         <TextView
             android:id="@+id/tv_video"

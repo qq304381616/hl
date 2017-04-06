@@ -1,5 +1,7 @@
 package com.hl.api.thread;
 
+import android.util.Log;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -46,7 +48,7 @@ public class DownloadTaskManager {
             if (taskIdSet.contains(fileId)) {
                 return true;
             } else {
-                System.out.println("下载管理器增加下载任务："+ fileId);
+                Log.e(TAG, "下载管理器增加下载任务："+ fileId);
                 taskIdSet.add(fileId);
                 return false;
             }
@@ -56,7 +58,7 @@ public class DownloadTaskManager {
     public DownloadTask getDownloadTask() {
         synchronized (downloadTasks) {
             if (downloadTasks.size() > 0) {
-                System.out.println("下载管理器增加下载任务："+"取出任务");
+                Log.e(TAG,"下载管理器增加下载任务："+"取出任务");
                 DownloadTask downloadTask = downloadTasks.removeFirst();
                 return downloadTask;
             }

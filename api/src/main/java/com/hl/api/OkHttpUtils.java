@@ -1,4 +1,4 @@
-package com.hl.utils.net;
+package com.hl.api;
 
 import android.util.Log;
 
@@ -82,8 +82,7 @@ public class OkHttpUtils {
         });
     }
 
-    public static final MediaType MEDIA_TYPE_MARKDOWN
-            = MediaType.parse("text/x-markdown; charset=utf-8");
+    public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
 
     public static void postFile() {
         OkHttpClient mOkHttpClient = new OkHttpClient();
@@ -110,7 +109,7 @@ public class OkHttpUtils {
      * 异步下载文件
      */
     private void downAsynFile() {
-        OkHttpClient  mOkHttpClient = new OkHttpClient();
+        OkHttpClient mOkHttpClient = new OkHttpClient();
         String url = "http://img.my.csdn.net/uploads/201603/26/1458988468_5804.jpg";
         Request request = new Request.Builder().url(url).build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {
@@ -145,7 +144,7 @@ public class OkHttpUtils {
     /**
      * 异步上传Multipart文件
      */
-    private void sendMultipart(){
+    private void sendMultipart() {
         OkHttpClient mOkHttpClient = new OkHttpClient();
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -173,7 +172,7 @@ public class OkHttpUtils {
         });
     }
 
-    public static void setup(){
+    public static void setup() {
         File sdcache = new File("");
         int cacheSize = 10 * 1024 * 1024;
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -181,10 +180,10 @@ public class OkHttpUtils {
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .cache(new Cache(sdcache.getAbsoluteFile(), cacheSize));
-        OkHttpClient mOkHttpClient=builder.build();
+        OkHttpClient mOkHttpClient = builder.build();
     }
 
-    public static void cancel(){
+    public static void cancel() {
 //        Call call = mOkHttpClient.newCall(request);
 //        call.cancel();
     }
