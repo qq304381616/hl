@@ -12,6 +12,13 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hl.systeminfo.appinfo.SortModel;
+import com.hl.utils.PinyinUtils;
+import com.hl.utils.views.SideBar;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -21,10 +28,13 @@ public class AppsInfoListActivity extends Activity {
 
     private static final String LOG_TAG = "AppsInfoListActivity";
 
-    private List<PackageInfo> packs;
+    private List<SortModel> packs;
     private TextView tv_title;
 
     private AppInfoListRecyclerAdapter adapter;
+    private RecyclerView mRecyclerView;
+    private SideBar sideBar;
+    private TextView dialog;
 
     private Handler handler = new Handler() {
 
@@ -39,22 +49,33 @@ public class AppsInfoListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_applistinfo_activity);
-
         tv_title = (TextView) findViewById(R.id.tv_title);
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
+        sideBar = (SideBar) findViewById(R.id.sidrbar);
+        dialog = (TextView) findViewById(R.id.dialog);
+        sideBar.setTextView(dialog);
+        // 设置右侧[A-Z]快速导航栏触摸监听
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                // 该字母首次出现的位置
+                int position = adapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    mRecyclerView.scrollToPosition(position);
+                }
+            }
+        });
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         adapter = new AppInfoListRecyclerAdapter(this);
-
         mRecyclerView.setAdapter(adapter);
 
         Toast.makeText(getApplicationContext(), "加载数据中", Toast.LENGTH_LONG).show();
 
-       new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 packs = getInstalledApps(getApplication());
@@ -62,23 +83,37 @@ public class AppsInfoListActivity extends Activity {
                 handler.sendEmptyMessage(0);
             }
         }).start();
-
-
     }
 
     /**
      * 获取应用列表
      */
-    public static List<PackageInfo> getInstalledApps(Context c){
+    public List<SortModel> getInstalledApps(Context c) {
+
+        List<SortModel> sms = new ArrayList<>();
         List<PackageInfo> packs = c.getPackageManager().getInstalledPackages(0);
         for (PackageInfo p : packs) {
-            Log.e(LOG_TAG, "name : " + p.applicationInfo.loadLabel(c.getPackageManager())
-                    .toString());
+            SortModel sm = new SortModel();
+            String name = p.applicationInfo.loadLabel(c.getPackageManager()).toString();
+            String nameSort = PinyinUtils.getPinyinFirstLetter(name).toLowerCase();
+            Log.e(LOG_TAG, "name : " + name);
             Log.e(LOG_TAG, "package : " + p.packageName);
             Log.e(LOG_TAG, "versionName : " + p.versionName);
             Log.e(LOG_TAG, "versionCode : " + p.versionCode);
             Log.e(LOG_TAG, "icon : " + p.applicationInfo.loadIcon(c.getPackageManager()));
+            Log.e(LOG_TAG, "nameSort : " + nameSort);
+            sm.setSortLetters(nameSort);
+            sm.setPackageInfo(p);
+            sms.add(sm);
         }
-        return packs;
+        Collections.sort(sms, new PinyinComparator());
+        return sms;
+    }
+
+    class PinyinComparator implements Comparator<SortModel> {
+
+        public int compare(SortModel o1, SortModel o2) {
+            return o1.getSortLetters().compareTo(o2.getSortLetters());
+        }
     }
 }

@@ -53,13 +53,18 @@ public class QuickRecyclerActivity extends AppCompatActivity {
             }
         });
 
+        initData();
+    }
+
+    private void initData() {
+
         mAllContactsList = new ArrayList<SortModel>();
         mAllContactsList.add(new SortModel("zhangsan", "z"));
         mAllContactsList.add(new SortModel("lisi", "l"));
         mAllContactsList.add(new SortModel("wangwu", "w"));
 
         for (int i = 0; i < 20; i++) {
-            mAllContactsList.add( new SortModel("wangwu" + i, "w"));
+            mAllContactsList.add(new SortModel("wangwu" + i, "w"));
         }
 
         Collections.sort(mAllContactsList, new PinyinComparator());

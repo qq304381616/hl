@@ -154,7 +154,7 @@ public class WebActivity extends AppCompatActivity {
      */
     private void newWin(WebSettings mWebSettings) {
         //html中的_bank标签就是新建窗口打开，有时会打不开，需要加以下
-        //然后 复写 WebChromeClient的onCreateWindow方法
+        //然后 复写 WebChromeClient的onCrneateWindow方法
         mWebSettings.setSupportMultipleWindows(false);
         mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true);
     }
@@ -326,10 +326,12 @@ public class WebActivity extends AppCompatActivity {
         //获得网页的加载进度，显示在右上角的TextView控件中
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            if (newProgress < 100) {
-                String progress = newProgress + "%";
-            } else {
-            }
+//            if (newProgress == 100) {
+//                pg1.setVisibility(View.GONE);//加载完网页进度条消失
+//            } else {
+//                pg1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+//                pg1.setProgress(newProgress);//设置进度值
+//            }
         }
 
         @Override
