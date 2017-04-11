@@ -26,10 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".WebActivity"/>
-        <activity android:name=".TouchActivity"/>
 
         <activity android:name=".AndroidMapActivity"/>
-        <activity android:name=".MyViewActivity"/>
         <activity android:name=".VideoViewActivity"/>
         <activity android:name=".MessageActivity"/>
         <activity android:name=".ImagePlayerActivity"/>

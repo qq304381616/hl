@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/hl.iml" filepath="$PROJECT_DIR$/hl.iml" />
       <module fileurl="file://$PROJECT_DIR$/java/java.iml" filepath="$PROJECT_DIR$/java/java.iml" />
       <module fileurl="file://$PROJECT_DIR$/jni/jni.iml" filepath="$PROJECT_DIR$/jni/jni.iml" />
+      <module fileurl="file://$PROJECT_DIR$/knowledge/knowledge.iml" filepath="$PROJECT_DIR$/knowledge/knowledge.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvp/mvp.iml" filepath="$PROJECT_DIR$/mvp/mvp.iml" />
       <module fileurl="file://$PROJECT_DIR$/skin/skin.iml" filepath="$PROJECT_DIR$/skin/skin.iml" />
       <module fileurl="file://$PROJECT_DIR$/systeminfo/systeminfo.iml" filepath="$PROJECT_DIR$/systeminfo/systeminfo.iml" />

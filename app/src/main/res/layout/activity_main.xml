@@ -45,12 +45,12 @@
             android:text="js 交互"/>
 
         <TextView
-            android:id="@+id/tv_touch"
+            android:id="@+id/tv_knowledge"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
-            android:text="事件分发"/>
+            android:text="安卓知识库"/>
 
         <TextView
             android:id="@+id/tv_permission"
@@ -83,14 +83,6 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:text="安卓Map集合"/>
-
-        <TextView
-            android:id="@+id/tv_myview"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="自定义控件"/>
 
         <TextView
             android:id="@+id/tv_video"

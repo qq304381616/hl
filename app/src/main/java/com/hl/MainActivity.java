@@ -10,6 +10,7 @@ import com.hl.animation.AnimationMainActivity;
 import com.hl.api.ApiMainActivity;
 import com.hl.baidu.BaiduMainActivity;
 import com.hl.design.DesignActivity;
+import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
 import com.hl.utils.PermissionUtils;
@@ -29,12 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_animation).setOnClickListener(this);
         findViewById(R.id.tv_design).setOnClickListener(this);
         findViewById(R.id.tv_js).setOnClickListener(this);
-        findViewById(R.id.tv_touch).setOnClickListener(this);
+        findViewById(R.id.tv_knowledge).setOnClickListener(this);
         findViewById(R.id.tv_permission).setOnClickListener(this);
         findViewById(R.id.tv_system).setOnClickListener(this);
         findViewById(R.id.tv_widget).setOnClickListener(this);
         findViewById(R.id.tv_map).setOnClickListener(this);
-        findViewById(R.id.tv_myview).setOnClickListener(this);
         findViewById(R.id.tv_video).setOnClickListener(this);
         findViewById(R.id.tv_message).setOnClickListener(this);
         findViewById(R.id.tv_imageplayer).setOnClickListener(this);
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.tv_js:
                 startActivity(new Intent(MainActivity.this, WebActivity.class));
                 break;
-            case R.id.tv_touch:
-                startActivity(new Intent(MainActivity.this, TouchActivity.class));
+            case R.id.tv_knowledge:
+                startActivity(new Intent(MainActivity.this, KnowledgeMainActivity.class));
                 break;
             case R.id.tv_permission:
                 PermissionUtils.check(this, Manifest.permission.READ_CONTACTS, PermissionUtils.READ_CONTACTS);
@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_map:
                 startActivity(new Intent(MainActivity.this, AndroidMapActivity.class));
-                break;
-            case R.id.tv_myview:
-                startActivity(new Intent(MainActivity.this, MyViewActivity.class));
                 break;
             case R.id.tv_video:
                 startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
