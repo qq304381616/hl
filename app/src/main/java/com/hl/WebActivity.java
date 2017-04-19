@@ -1,7 +1,12 @@
 package com.hl;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -372,6 +377,41 @@ public class WebActivity extends AppCompatActivity {
             return super.onJsConfirm(view, url, message, result);
         }
 
+        // <input type="file" name="fileField" id="fileField" />
+        // Android > 4.1.1
+        @Override
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+            UploadMsg2 = filePathCallback;
+            openImageChooserActivity();
+            return true;
+        }
+
+        @SuppressWarnings("static-access")
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+            UploadMsg = uploadMsg;
+            openImageChooserActivity();
+        }
+
+        // 3.0 +
+        @SuppressWarnings("static-access")
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
+            UploadMsg = uploadMsg;
+            openImageChooserActivity();
+        }
+
+        // Android < 3.0
+        @SuppressWarnings("static-access")
+        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+            UploadMsg = uploadMsg;
+            openImageChooserActivity();
+        }
+
+        private void openImageChooserActivity() {
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType("image/*");
+            startActivityForResult(Intent.createChooser(i, "Image Chooser"), FILECHOOSER_RESULTCODE);
+        }
     };
 
     @Override
@@ -466,5 +506,48 @@ public class WebActivity extends AppCompatActivity {
             CookieManager.getInstance().removeAllCookies(null); // 移除所有的 cookie
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (null == UploadMsg2 && null == UploadMsg) return;
+            Uri result = data == null || resultCode != RESULT_OK ? null : data.getData();
+            if (UploadMsg2 != null) {
+                onActivityResultAboveL(requestCode, resultCode, data);
+            } else if (UploadMsg != null) {
+                UploadMsg.onReceiveValue(result);
+                UploadMsg = null;
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void onActivityResultAboveL(int requestCode, int resultCode, Intent intent) {
+        if (requestCode != FILECHOOSER_RESULTCODE || UploadMsg2 == null)
+            return;
+        Uri[] results = null;
+        if (resultCode == Activity.RESULT_OK) {
+            if (intent != null) {
+                String dataString = intent.getDataString();
+                ClipData clipData = intent.getClipData();
+                if (clipData != null) {
+                    results = new Uri[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        results[i] = item.getUri();
+                    }
+                }
+                if (dataString != null)
+                    results = new Uri[]{Uri.parse(dataString)};
+            }
+        }
+        UploadMsg2.onReceiveValue(results);
+        UploadMsg2 = null;
+    }
+
+    public static final int FILECHOOSER_RESULTCODE = 5173;
+    public ValueCallback<Uri> UploadMsg;
+    public ValueCallback<Uri[]> UploadMsg2;
 
 }
