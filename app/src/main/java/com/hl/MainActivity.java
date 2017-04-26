@@ -10,6 +10,7 @@ import com.hl.animation.AnimationMainActivity;
 import com.hl.api.ApiMainActivity;
 import com.hl.baidu.BaiduMainActivity;
 import com.hl.design.DesignActivity;
+import com.hl.devices.DeviceMainActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_net).setOnClickListener(this);
         findViewById(R.id.tv_skin).setOnClickListener(this);
         findViewById(R.id.api).setOnClickListener(this);
+        findViewById(R.id.device).setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.api:
                 startActivity(new Intent(MainActivity.this, ApiMainActivity.class));
+                break;
+            case R.id.device:
+                startActivity(new Intent(MainActivity.this, DeviceMainActivity.class));
                 break;
         }
     }

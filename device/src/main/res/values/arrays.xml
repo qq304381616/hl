@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="sim_colors">
+        <item>@android:color/holo_red_light</item>
+        <item>@android:color/holo_red_dark</item>
+    </array>
+
+    <string-array name="resolver_target_actions_pin">
+        <item>@string/app_name</item>
+        <item>@string/app_name</item>
+    </string-array>
+
+</resources>

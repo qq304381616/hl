@@ -38,4 +38,5 @@ dependencies {
     compile project(':skin')
     compile project(':api')
     compile project(':knowledge')
+    compile project(':device')
 }

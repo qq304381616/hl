@@ -180,4 +180,24 @@ public class SizeUtils {
     public static int getMeasuredHeight(View view) {
         return measureView(view)[1];
     }
+
+    /**
+     * 获取控件高度
+     */
+    public static int getViewHeight(View view) {
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(w, h);
+        return view.getMeasuredHeight();
+    }
+
+    /**
+     * 获取控件宽度
+     */
+    public static int getViewWidth(View view) {
+        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        view.measure(w, h);
+        return view.getMeasuredWidth();
+    }
 }

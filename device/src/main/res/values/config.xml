@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string-array name="config_statusBarIcons" translatable="false">
+        <item><xliff:g id="id">@string/app_name</xliff:g></item>
+        <item><xliff:g id="id">@string/app_name</xliff:g></item>
+        <item><xliff:g id="id">@string/app_name</xliff:g></item>
+    </string-array>
+
+    <integer-array name="config_protectedNetworks" translatable="false">
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>14</item>
+        <item>15</item>
+    </integer-array>
+
+    <string name="status_bar_rotate" translatable="false">rotate</string>
+    <bool name="config_sendAudioBecomingNoisy">true</bool>
+    <integer name="config_shortAnimTime">200</integer>
+    <fraction name="config_dimBehindFadeDuration">100%</fraction>
+    <dimen name="config_prefDialogWidth">320dp</dimen>
+
+</resources>

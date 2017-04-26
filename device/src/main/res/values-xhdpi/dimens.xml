@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="dimens_dp">20dp</dimen>
+
+    <integer name="thumbnail_width_tv">240</integer>
+
+    <item name="thumbnail_fullscreen_scale" type="fraction">60%</item>
+    <item name="time_picker_column_start_material" format="integer" type="dimen">0</item>
+    <item name="aerr_padding_list_bottom" type="dimen">8dp</item>
+    <item name="docked_stack_divider_fixed_ratio" type="fraction">34.15%</item>
+
+</resources>

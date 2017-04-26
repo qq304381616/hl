@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="screen_background_light">#ffffffff</drawable>
+    <color name="suggestion_highlight_text">#177bbd</color>
+    <drawable name="stat_notify_sync_noanim">@drawable/sym_def_app_icon</drawable>
+</resources>
