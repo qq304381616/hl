@@ -24,6 +24,7 @@ import rx.Observable;
 
 public interface NetService {
 
+    // 例子：
     @POST("AppFiftyToneGraph/videoLink")
     Observable<RetrofitEntity> getAllVedio(@Body boolean once_no);
 
@@ -103,4 +104,13 @@ public interface NetService {
             @Part MultipartBody.Part file1,
             @Part MultipartBody.Part file2);
 
+    // ---------------------------------------------------------------------------------
+
+    //测试
+    @FormUrlEncoded
+    @POST("app/Login.a?loginon")
+    Observable<Object> login(
+            @Field("timestamp") String timestamp,
+            @Field("username") String username,
+            @Field("password") String password);
 }

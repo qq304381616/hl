@@ -1,22 +1,31 @@
 package com.hl.utils.net;
 
-public class RetrofitEntity {
-    private int ret;
-    private String msg;
+public class RetrofitEntity<T> {
+    private int code;
+    private String message;
+    private T data;
 
-    public int getRet() {
-        return ret;
+    public int getCode() {
+        return code;
     }
 
-    public void setRet(int ret) {
-        this.ret = ret;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
     }
 }
