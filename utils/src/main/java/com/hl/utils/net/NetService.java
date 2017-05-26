@@ -113,4 +113,20 @@ public interface NetService {
             @Field("timestamp") String timestamp,
             @Field("username") String username,
             @Field("password") String password);
+
+    // 同步测试
+    @FormUrlEncoded
+    @POST("app/Worktask.a?addWorktask")
+    Call<Object> synclogin(
+            @Field("timestamp") String timestamp,
+            @Field("username") String username,
+            @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("bjws/app.user/login")
+    Observable<Object> login(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
+    @POST("bjws/app.user/login")
+    Call<Object> synclogin(@FieldMap Map<String, String> map);
 }

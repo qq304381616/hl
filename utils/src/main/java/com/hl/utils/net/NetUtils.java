@@ -1,11 +1,9 @@
 package com.hl.utils.net;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.hl.utils.LogUtils;
-import com.hl.utils.NetworkUtils;
+import com.google.gson.Gson;
 import com.hl.utils.base.MyApplication;
 
 import java.io.BufferedReader;
@@ -16,35 +14,27 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.CacheControl;
-import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import okio.Buffer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 
 /**
@@ -53,6 +43,8 @@ import rx.schedulers.Schedulers;
 public class NetUtils {
 
     private static final String TAG = "NetUtils";
+
+    private static final boolean userFakeData = false; // 使用假数据
 
     private static String BASE_URL = " http://www.izaodao.com/Api/";
 //    private static String BASE_URL = "http://www.baidu.com/";
@@ -87,11 +79,48 @@ public class NetUtils {
         return mRetrofit;
     }
 
+    private static Gson gson = new Gson();
+
     //----------------------------接口-----------------------------------------
 
-    public static void login(String timestamp, String loginName, String password, HttpCallback callback) {
-        service.login("","","")
-                .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
+    public static void login(String timestamp, HttpCallback callback) {
+        if (userFakeData) {
+            callback.onNext(gson.fromJson(gson.toJson(""), Object.class));
+        } else {
+            service.login("", "", "")
+                    .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
+
+//            // map 参数 。建议使用。方便管理参数
+//            Map<String, String> m = new HashMap<String, String>();
+//            m.put("timestamp", timestamp);
+//            service.login(m)
+//                    .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
+
+        }
+    }
+
+    public static void syncLogin(String timestamp, HttpCallback callback) throws IOException {
+        if (userFakeData) {
+            callback.onNext(gson.fromJson(gson.toJson(""), Object.class));
+        } else {
+            sync(timestamp, callback);
+        }
+    }
+
+    private static void sync(String timestamp,HttpCallback callback) throws IOException {
+        callback.call();
+//        // map 参数 。建议使用。方便管理参数
+//        Map<String, String> m = new HashMap<String, String>();
+//        m.put("timestamp", timestamp);
+//        Call<Object> example = service.synclogin(m);
+
+        Call<Object> example = service.synclogin("", "", "");
+        Response<Object> response = example.execute();
+        if (response != null && response.body() != null) {
+            callback.onNext(response.body());
+        } else {
+            callback.onError(new IllegalArgumentException());
+        }
     }
 
     //----------------------------文件上传-----------------------------------------

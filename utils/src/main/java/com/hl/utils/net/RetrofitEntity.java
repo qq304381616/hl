@@ -1,5 +1,8 @@
 package com.hl.utils.net;
 
+/**
+ * http 请求参数类。 只支持data为对象。不支持集合。 集合需要把泛型改成Object,后面自行解析
+ */
 public class RetrofitEntity<T> {
     private int code;
     private String message;
