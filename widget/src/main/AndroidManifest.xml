@@ -18,6 +18,7 @@
         <activity android:name=".refresh.SwipeRefreshRecyclerActivity"/>
         <activity android:name=".recyclerdouble.RecyclerDoubleActivity"/>
         <activity android:name=".quick.QuickRecyclerActivity"/>
+        <activity android:name=".BannerActivity"/>
     </application>
 
 </manifest>

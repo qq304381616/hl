@@ -9,9 +9,8 @@ import android.view.View;
 import com.hl.api.R;
 
 /**
- * Created by hl on 2017/3/24.
+ * Created on 2017/3/24.
  */
-
 public class ThreadActivity extends AppCompatActivity {
     private static final String LOG_TAG = "ThreadActivity";
 
@@ -69,22 +68,8 @@ public class ThreadActivity extends AppCompatActivity {
         findViewById(R.id.tv_thread_pool).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //1.new一个线程管理队列
-                DownloadTaskManager.getInstance();
-                //2.new一个线程池，并启动
-                DownloadTaskManagerThread downloadTaskManagerThread = new DownloadTaskManagerThread();
-                new Thread(downloadTaskManagerThread).start();
-
-                //3.请求下载
-                String[] items = new String[]{"下载1", "下载2", "下载3", "下载4", "下载5"};
-
-                for (int i = 0; i < items.length; i++) {
-                    DownloadTaskManager downloadTaskMananger = DownloadTaskManager.getInstance();
-                    downloadTaskMananger.addDownloadTask(new DownloadTask(items[i]));
-                }
+                TaskUtils.getInstance().start();
             }
         });
-
     }
-
 }

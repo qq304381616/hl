@@ -27,4 +27,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/sym_def_app_icon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="仅dpi类型 nodpi mdpi hdpi xhdpi ..  : "/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dpi_type"/>
 </LinearLayout>

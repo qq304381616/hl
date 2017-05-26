@@ -26,6 +26,7 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.tv_recyclerviewdouble).setOnClickListener(this);
         findViewById(R.id.tv_quick_recyclerview).setOnClickListener(this);
         findViewById(R.id.tv_seekbar).setOnClickListener(this);
+        findViewById(R.id.tv_banner).setOnClickListener(this);
 
     }
 
@@ -44,6 +45,8 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
             startActivity(new Intent(WidgetMainActivity.this, RecyclerDoubleActivity.class));
         } else if (id == R.id.tv_quick_recyclerview) {
             startActivity(new Intent(WidgetMainActivity.this, QuickRecyclerActivity.class));
+        } else if (id == R.id.tv_banner) {
+            startActivity(new Intent(WidgetMainActivity.this, BannerActivity.class));
         }
     }
 }

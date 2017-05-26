@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * 6.0运行时权限
+ *
+ * 魅族权限问题，6.0 以下，用户拒绝权限申请导致崩溃。 使用try catch 处理
  */
 public class PermissionUtils {
 

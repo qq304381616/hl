@@ -5,7 +5,7 @@ import android.util.Log;
 /**
  * Created on 2017/3/24.
  */
-public class DownloadTask implements Runnable {
+public class DownloadTask implements ITaskRunnable {
 
     private static final String TAG = "DownloadTask";
     public String name;
@@ -17,7 +17,6 @@ public class DownloadTask implements Runnable {
     @Override
     public void run() {
         Log.e(TAG, name + "stoooooooooooooooooooooooop 下载开始!");
-//      String name=Thread.currentThread().getName();
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -26,7 +25,8 @@ public class DownloadTask implements Runnable {
         Log.e(TAG, name + "stoooooooooooooooooooooooop 下载完成!");
     }
 
-    public String getFileId() {
+    @Override
+    public String getId() {
         return name;
     }
 }

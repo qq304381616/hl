@@ -40,7 +40,7 @@ public class NavigationViewActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        mDrawerToggle.setDrawerIndicatorEnabled(false); //// 取消左上角图标，还是可以滑出菜单。 图标是否可以替换为返回
     }
-
-
 }

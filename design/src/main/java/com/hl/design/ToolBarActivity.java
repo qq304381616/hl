@@ -11,8 +11,8 @@ import android.widget.Toast;
 /**
  * ToolBar是替代ActionBar的控件, 需要让原来的ActionBar 隐藏起来
  * ToolBar 颜色设置成主题颜色  android:background="?attr/colorPrimary"
- *
- *
+ * <p>
+ * <p>
  * <p>
  * <style name="AppTheme.Base" parent="Theme.AppCompat">
  * <item name="windowActionBar">false</item>  // 隐藏ActionBar
@@ -36,13 +36,14 @@ public class ToolBarActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher); // 设置icon
-        toolbar.setTitle("My Title"); // 大标题
-        toolbar.setSubtitle("Sub title"); // 小标题
+        toolbar.setTitle("大标题"); // 大标题
+        toolbar.setSubtitle("小标题"); // 小标题
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 给左上角图标的左边加上一个返回的图标 。对应ActionBar.DISPLAY_HOME_AS_UP
         toolbar.setNavigationIcon(R.mipmap.ic_launcher); // 返回图标
+        getSupportActionBar().setDisplayShowHomeEnabled(true); // 使左上角图标是否显示，如果设成false，则没有程序图标，仅仅就个标题，否则，显示应用程序图标，对应id为 android.R.id.home，对应ActionBar.DISPLAY_SHOW_HOME
         toolbar.setOnMenuItemClickListener(onMenuItemClick); // 设置监听
     }
 
@@ -74,7 +75,7 @@ public class ToolBarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // 监听返回点击事件
-        if(item.getItemId()==android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return true;

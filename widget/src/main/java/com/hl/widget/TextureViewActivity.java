@@ -27,18 +27,21 @@ public class TextureViewActivity extends AppCompatActivity implements TextureVie
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        mCamera = Camera.open();
-        Camera.Size previewSize = mCamera.getParameters().getPreviewSize();
-        myTexture.setLayoutParams(new FrameLayout.LayoutParams(
-                previewSize.width, previewSize.height, Gravity.CENTER));
         try {
-            mCamera.setPreviewTexture(surface);
-        } catch (IOException t) {
+            mCamera = Camera.open();
+            Camera.Size previewSize = mCamera.getParameters().getPreviewSize();
+            myTexture.setLayoutParams(new FrameLayout.LayoutParams(
+                    previewSize.width, previewSize.height, Gravity.CENTER));
+            try {
+                mCamera.setPreviewTexture(surface);
+            } catch (IOException t) {
+            }
+            mCamera.startPreview();
+            myTexture.setAlpha(1.0f);
+            myTexture.setRotation(90.0f);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        mCamera.startPreview();
-        myTexture.setAlpha(1.0f);
-        myTexture.setRotation(90.0f);
-
         // 旋转 + 透明度
         // myTexture.setAlpha(0.5f);
         // myTexture.setRotation(180.0f);
@@ -51,8 +54,12 @@ public class TextureViewActivity extends AppCompatActivity implements TextureVie
 
     @Override
     public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-        mCamera.stopPreview();
-        mCamera.release();
+        try {
+            mCamera.stopPreview();
+            mCamera.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return true;
     }
 

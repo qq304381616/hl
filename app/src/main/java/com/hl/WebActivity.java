@@ -39,8 +39,8 @@ public class WebActivity extends AppCompatActivity {
 
     private WebView mWebView;
 
-    //    private static final String URL = "http://www.qq.com/";
-    private static final String URL = "file:///android_asset/test.html";
+        private static final String URL = "http://m.taobao.com/";
+//    private static final String URL = "file:///android_asset/test.html";
 //    private static final String URL = "file:///mnt/sdcard/9/test.html";
 //    private static final String URL = "content://com.android.htmlfileprovider/sdcard/9/test.html";
 
