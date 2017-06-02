@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import rx.Observer;
@@ -12,7 +13,7 @@ import rx.functions.Action0;
 /**
  * Created on 2017/3/6.
  */
-public class HttpCallback<T> implements Observer<Object>, Action0 {
+public class HttpCallback<T> implements Observer<JsonElement>, Action0 {
 
     private static final String TAG = HttpCallback.class.getSimpleName();
     private boolean isToast;
@@ -52,7 +53,7 @@ public class HttpCallback<T> implements Observer<Object>, Action0 {
     }
 
     @Override
-    public final void onNext(Object result) {
+    public final void onNext(JsonElement result) {
         if (mLoadingView != null && isLoading) mLoadingView.hideLoading();
         Gson gson = new Gson();
         Log.e("TAG", gson.toJson(result));

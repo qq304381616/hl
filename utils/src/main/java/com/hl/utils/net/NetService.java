@@ -1,5 +1,7 @@
 package com.hl.utils.net;
 
+import com.google.gson.JsonElement;
+
 import java.util.List;
 import java.util.Map;
 
@@ -74,13 +76,6 @@ public interface NetService {
     @GET("bjws/app.menu/getMenu")
     Observable<RetrofitEntity> getMainMenu();
 
-    // 上传单个文件
-    @Multipart
-    @POST("upload")
-    Call<ResponseBody> uploadFile(
-            @Part("description") RequestBody description,
-            @Part MultipartBody.Part file);
-
     // 上传单个文件 自定义URL，带参数。
     @Multipart
     @POST
@@ -109,7 +104,7 @@ public interface NetService {
     //测试
     @FormUrlEncoded
     @POST("app/Login.a?loginon")
-    Observable<Object> login(
+    Observable<JsonElement> login(
             @Field("timestamp") String timestamp,
             @Field("username") String username,
             @Field("password") String password);
@@ -117,16 +112,16 @@ public interface NetService {
     // 同步测试
     @FormUrlEncoded
     @POST("app/Worktask.a?addWorktask")
-    Call<Object> synclogin(
+    Call<JsonElement> synclogin(
             @Field("timestamp") String timestamp,
             @Field("username") String username,
             @Field("password") String password);
 
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Observable<Object> login(@FieldMap Map<String, String> map);
+    Observable<JsonElement> login(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST("bjws/app.user/login")
-    Call<Object> synclogin(@FieldMap Map<String, String> map);
+    Call<JsonElement> synclogin(@FieldMap Map<String, String> map);
 }

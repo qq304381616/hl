@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.hl.utils.base.MyApplication;
 
 import java.io.BufferedReader;
@@ -85,7 +86,7 @@ public class NetUtils {
 
     public static void login(String timestamp, HttpCallback callback) {
         if (userFakeData) {
-            callback.onNext(gson.fromJson(gson.toJson(""), Object.class));
+            callback.onNext(gson.fromJson(gson.toJson(""), JsonElement.class));
         } else {
             service.login("", "", "")
                     .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
@@ -101,7 +102,7 @@ public class NetUtils {
 
     public static void syncLogin(String timestamp, HttpCallback callback) throws IOException {
         if (userFakeData) {
-            callback.onNext(gson.fromJson(gson.toJson(""), Object.class));
+            callback.onNext(gson.fromJson(gson.toJson(""), JsonElement.class));
         } else {
             sync(timestamp, callback);
         }
@@ -114,8 +115,8 @@ public class NetUtils {
 //        m.put("timestamp", timestamp);
 //        Call<Object> example = service.synclogin(m);
 
-        Call<Object> example = service.synclogin("", "", "");
-        Response<Object> response = example.execute();
+        Call<JsonElement> example = service.synclogin("", "", "");
+        Response<JsonElement> response = example.execute();
         if (response != null && response.body() != null) {
             callback.onNext(response.body());
         } else {
@@ -167,6 +168,8 @@ public class NetUtils {
 
     // 文件上传
     public static Observable<RetrofitEntity> test6(String path) {
+//        MultipartBody.Part id = MultipartBody.Part.createFormData("userid", "userid");  // 对应  @Part MultipartBody.Part userid,
+//        RequestBody id = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), "userid"); // 对应  @Part("description") RequestBody description,
         MultipartBody.Part body1 = NetUtils.prepareFilePart("video", "/sdcard/");
         RequestBody description = NetUtils.createPartFromString("hello, this is description speaking");
         return service.uploadFile2(description, body1).subscribeOn(Schedulers.io())
