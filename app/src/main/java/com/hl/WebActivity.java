@@ -34,12 +34,15 @@ import android.widget.Toast;
 
 /**
  * WebView
+ * 优化时应该在代码是添加WebView控件。
+ * WebView webView = new WebView(context);
+ * webViewLayout.addView(webView);
  */
 public class WebActivity extends AppCompatActivity {
 
     private WebView mWebView;
 
-        private static final String URL = "http://m.taobao.com/";
+    private static final String URL = "http://m.taobao.com/";
 //    private static final String URL = "file:///android_asset/test.html";
 //    private static final String URL = "file:///mnt/sdcard/9/test.html";
 //    private static final String URL = "content://com.android.htmlfileprovider/sdcard/9/test.html";
@@ -58,6 +61,9 @@ public class WebActivity extends AppCompatActivity {
     private void load() {
 
         WebSettings webSettings = mWebView.getSettings();
+        if (Build.VERSION.SDK_INT >= 21) { // 加载https页面，http图片不显示问题。 加这行代码解决
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
         webSettings.setJavaScriptEnabled(true);  //支持js
         webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);  //提高渲染的优先级
 

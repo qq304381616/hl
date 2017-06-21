@@ -28,6 +28,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
@@ -35,6 +36,7 @@
 
         <activity android:name=".thread.ThreadActivity"/>
         <activity android:name=".ApiMainActivity"/>
+        <activity android:name=".receiver.ReceiverActivity"/>
 
         <!-- For test only 测试的主程序-->
         <activity
@@ -147,6 +149,25 @@
         <!-- Required  . Enable it you can get statistics data with channel -->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <meta-data android:name="JPUSH_APPKEY" android:value="91324c95edcd0810e3391b8b" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+
+        <receiver android:name=".receiver.MyBroadcastReceiver" >
+            <intent-filter>
+                <!-- 开机广播 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- 关机广播 -->
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <!-- 网络连接变化的广播 -->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!-- 充电状态，或者电池的电量发生变化 -->
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+                <!-- 插入电源 -->
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                 <!-- 关闭屏幕 -->
+                <action android:name="android.intent.action.SCREEN_OFF" />
+
+            </intent-filter>
+        </receiver>
 
     </application>
 

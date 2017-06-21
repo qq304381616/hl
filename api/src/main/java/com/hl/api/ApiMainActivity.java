@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hl.api.jpush.MainActivity;
+import com.hl.api.receiver.ReceiverActivity;
 import com.hl.api.thread.ThreadActivity;
 
 /**
@@ -30,6 +31,13 @@ public class ApiMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ApiMainActivity.this, MainActivity.class));
+            }
+        });
+
+        findViewById(R.id.tv_receiver).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ApiMainActivity.this, ReceiverActivity.class));
             }
         });
     }
