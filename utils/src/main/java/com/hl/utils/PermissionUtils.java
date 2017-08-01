@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * 6.0运行时权限
- *
+ * <p>
  * 魅族权限问题，6.0 以下，用户拒绝权限申请导致崩溃。 使用try catch 处理
  */
 public class PermissionUtils {
@@ -32,7 +32,7 @@ public class PermissionUtils {
             if (b2) list.add(Manifest.permission.CAMERA);
             String[] strings = new String[list.size()];
             list.toArray(strings);
-            ActivityCompat.requestPermissions(c, new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE}, READ_CONTACTS);
+            ActivityCompat.requestPermissions(c, strings, READ_CONTACTS);
 //            FragmentCompat.requestPermissions() // Fragment 使用v13包下面的 FragmentCompat
             boolean b3 = ActivityCompat.shouldShowRequestPermissionRationale(c, Manifest.permission.WRITE_EXTERNAL_STORAGE);
             boolean b4 = ActivityCompat.shouldShowRequestPermissionRationale(c, Manifest.permission.CAMERA);
@@ -43,7 +43,7 @@ public class PermissionUtils {
         }
     }
 
-//    @Override
+    //    @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case READ_CONTACTS: {

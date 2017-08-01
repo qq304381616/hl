@@ -92,6 +92,15 @@ public class LogUtils {
         }
     }
 
+    public static void e(String tag, Object msg) {
+        if (isShowLog) {
+            android.util.Log.e(tag, getMsg(String.valueOf(msg.toString())));
+        }
+        if (isSaveLog) {
+            log2File(tag, getMsg(String.valueOf(msg.toString())));
+        }
+    }
+
     public static void e(String tag, String msg, Throwable t) {
         if (isShowLog) {
             android.util.Log.e(tag, getMsg(msg), t);

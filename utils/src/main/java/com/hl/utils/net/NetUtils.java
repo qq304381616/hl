@@ -1,10 +1,10 @@
 package com.hl.utils.net;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.hl.utils.LogUtils;
 import com.hl.utils.base.MyApplication;
 
 import java.io.BufferedReader;
@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -47,11 +48,11 @@ public class NetUtils {
 
     private static final boolean userFakeData = false; // 使用假数据
 
-    private static String BASE_URL = " http://www.izaodao.com/Api/";
-//    private static String BASE_URL = "http://www.baidu.com/";
+    private static String BASE_URL = "http://wthrcdn.etouch.cn/";
 
     protected static final NetService service = getRetrofit().create(NetService.class);
 
+    private static Gson gson = new Gson();
 
     //设缓存有效期为1天
     protected static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
@@ -80,43 +81,38 @@ public class NetUtils {
         return mRetrofit;
     }
 
-    private static Gson gson = new Gson();
-
     //----------------------------接口-----------------------------------------
 
-    public static void login(String timestamp, HttpCallback callback) {
+    public static void weather(String citykey, HttpCallback callback) {
         if (userFakeData) {
-            callback.onNext(gson.fromJson(gson.toJson(""), JsonElement.class));
+            callback.onNext(gson.fromJson(CacheData.weather, JsonElement.class));
         } else {
-            service.login("", "", "")
+            Map<String, String> m = new HashMap<>();
+            m.put("citykey", citykey);
+            service.weather(m)
                     .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
-
-//            // map 参数 。建议使用。方便管理参数
-//            Map<String, String> m = new HashMap<String, String>();
-//            m.put("timestamp", timestamp);
-//            service.login(m)
-//                    .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
-
         }
     }
 
-    public static void syncLogin(String timestamp, HttpCallback callback) throws IOException {
+    public static void syncWeather(String citykey, HttpCallback callback) {
         if (userFakeData) {
-            callback.onNext(gson.fromJson(gson.toJson(""), JsonElement.class));
+            callback.onNext(gson.fromJson(CacheData.weather, JsonElement.class));
         } else {
-            sync(timestamp, callback);
+            Map<String, String> m = new HashMap<>();
+            m.put("citykey", citykey);
+            Call<JsonElement> example = service.syncWeather(m);
+            sync(example, callback);
         }
     }
 
-    private static void sync(String timestamp,HttpCallback callback) throws IOException {
+    private static void sync(Call<JsonElement> example, HttpCallback callback)  {
         callback.call();
-//        // map 参数 。建议使用。方便管理参数
-//        Map<String, String> m = new HashMap<String, String>();
-//        m.put("timestamp", timestamp);
-//        Call<Object> example = service.synclogin(m);
-
-        Call<JsonElement> example = service.synclogin("", "", "");
-        Response<JsonElement> response = example.execute();
+        Response<JsonElement> response = null;
+        try {
+            response = example.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (response != null && response.body() != null) {
             callback.onNext(response.body());
         } else {
@@ -156,18 +152,18 @@ public class NetUtils {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.v("Upload", "success");
+                LogUtils.e("Upload", "success");
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Upload error:", t.getMessage());
+                LogUtils.e("Upload error:", t.getMessage());
             }
         });
     }
 
     // 文件上传
-    public static Observable<RetrofitEntity> test6(String path) {
+    public static Observable<HttpBaseEntity> test6(String path) {
 //        MultipartBody.Part id = MultipartBody.Part.createFormData("userid", "userid");  // 对应  @Part MultipartBody.Part userid,
 //        RequestBody id = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), "userid"); // 对应  @Part("description") RequestBody description,
         MultipartBody.Part body1 = NetUtils.prepareFilePart("video", "/sdcard/");

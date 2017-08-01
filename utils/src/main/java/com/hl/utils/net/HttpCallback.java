@@ -1,11 +1,11 @@
 package com.hl.utils.net;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.hl.utils.LogUtils;
 
 import rx.Observer;
 import rx.functions.Action0;
@@ -13,7 +13,7 @@ import rx.functions.Action0;
 /**
  * Created on 2017/3/6.
  */
-public class HttpCallback<T> implements Observer<JsonElement>, Action0 {
+public class HttpCallback implements Observer<JsonElement>, Action0 {
 
     private static final String TAG = HttpCallback.class.getSimpleName();
     private boolean isToast;
@@ -48,7 +48,7 @@ public class HttpCallback<T> implements Observer<JsonElement>, Action0 {
     public void onError(Throwable e) {
         if (mLoadingView != null && isLoading) mLoadingView.hideLoading();
         if (isToast) Toast.makeText(mLoadingView.getContext(), "网络异常", Toast.LENGTH_SHORT).show();
-        Log.e("TAG", e.getMessage());
+        LogUtils.e(TAG, e.getMessage());
         e.printStackTrace();
     }
 
@@ -56,17 +56,17 @@ public class HttpCallback<T> implements Observer<JsonElement>, Action0 {
     public final void onNext(JsonElement result) {
         if (mLoadingView != null && isLoading) mLoadingView.hideLoading();
         Gson gson = new Gson();
-        Log.e("TAG", gson.toJson(result));
-        RetrofitEntity<T> entity = gson.fromJson(gson.toJson(result), new TypeToken<RetrofitEntity<T>>() {
+        LogUtils.e("TAG", gson.toJson(result));
+        HttpBaseEntity entity = gson.fromJson(gson.toJson(result), new TypeToken<HttpBaseEntity>() {
         }.getType());
-        if (entity.getCode() == 200) { // 返回成功
+        if (entity.getStatus() == HttpConstant.RESULT_CODE_SUCCESS) { // 返回成功
             onSuccess(entity.getData());
         } else {
-            onFailure(entity.getMessage());
+            onFailure(entity.getDesc());
         }
     }
 
-    protected void onSuccess(T t) {
+    protected void onSuccess(Object t) {
 
     }
 
