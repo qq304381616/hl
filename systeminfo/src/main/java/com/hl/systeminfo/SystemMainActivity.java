@@ -6,23 +6,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.hl.systeminfo.contact.ContactsActivity;
+import com.hl.utils.BitmapUtils;
+import com.hl.utils.LogUtils;
 
 import java.util.Calendar;
 
 public class SystemMainActivity extends Activity {
 
-    private static final String LOG_TAG = "SystemMainActivity";
+    private static final String TAG = SystemMainActivity.class.getSimpleName();
+
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_ALBUM = 2;
 
     // 屏幕常亮状态
     private boolean isWakeLock;
@@ -68,14 +73,21 @@ public class SystemMainActivity extends Activity {
         findViewById(R.id.camera1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                capturePhoto();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                //        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(mLocationForPhotos, targetFilename));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
         //调用照相2
         findViewById(R.id.camera2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                capturePhoto2();
+                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
         //activity
@@ -145,6 +157,22 @@ public class SystemMainActivity extends Activity {
             }
         });
 
+        // 选择相册
+        findViewById(R.id.tv_image).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                } else {
+                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                }
+                intent.setType("image/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, REQUEST_IMAGE_ALBUM);
+            }
+        });
+
     }
 
     public void createAlarm(String message, int hour, int minutes) {
@@ -207,36 +235,6 @@ public class SystemMainActivity extends Activity {
         }
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-//    static final Uri mLocationForPhotos;
-
-    /**
-     * <activity ...>
-     * <intent-filter>
-     * <action android:name="android.media.action.IMAGE_CAPTURE" />
-     * <category android:name="android.intent.category.DEFAULT" />
-     * </intent-filter>
-     * </activity>
-     */
-    public void capturePhoto() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-//                Uri.withAppendedPath(mLocationForPhotos, targetFilename));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-    /**
-     * 静态模式拍照
-     */
-    public void capturePhoto2() {
-        Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
     public void showMap(Uri geoLocation) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
@@ -247,12 +245,16 @@ public class SystemMainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e(LOG_TAG, "onActivityResult");
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap thumbnail = data.getParcelableExtra("data");
-
-            // Do other work with full size photo saved in mLocationForPhotos
-
+        LogUtils.e(TAG, "SystemMainActivity onActivityResult");
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
+                Bitmap thumbnail = data.getParcelableExtra("data");
+            }
+        } else if (requestCode == REQUEST_IMAGE_ALBUM) {
+            if (resultCode == RESULT_OK) {
+                Uri uri = data.getData();
+                String path = BitmapUtils.getRealFilePath(this, uri);
+            }
         }
     }
 

@@ -18,7 +18,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -231,7 +230,6 @@ public class BitmapUtils {
         BitmapFactory.decodeStream(temp, null, options);
         // 关闭流
         temp.close();
-
         // 生成压缩的图片
         int i = 0;
         Bitmap bitmap = null;
@@ -244,45 +242,37 @@ public class BitmapUtils {
                 options.inSampleSize = (int) Math.pow(2.0D, i);
                 // 这里之前设置为了true，所以要改为false，否则就创建不出图片
                 options.inJustDecodeBounds = false;
-
                 bitmap = BitmapFactory.decodeStream(temp, null, options);
                 break;
             }
             i += 1;
         }
         return bitmap;
-
     }
 
     /**
-     * 压缩图片
-     *
-     * @param image
-     * @return
+     * 压缩图片 根据质量大小
      */
     public static Bitmap compressImage(Bitmap image) {
-        if (image != null) {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            image.compress(CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-            int options = 100;
-            while (baos.toByteArray().length / 1024 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-                baos.reset();// 重置baos即清空baos
-                options -= 10;// 每次都减少10
-                image.compress(CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
-            }
-            ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
-            // 为了防止内存溢出的问题
-            BitmapFactory.Options opt = new BitmapFactory.Options();
-            opt.inJustDecodeBounds = false;
-            opt.inSampleSize = 2;// 图片宽高都为原来的二分之一，即图片为原来的四分之一
-            Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, opt);// 把ByteArrayInputStream数据生成图片
-            return bitmap;
+        if (image == null) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 100) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();// 重置baos即清空baos
+            options -= 10;// 每次都减少10
+            image.compress(CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
         }
-        return null;
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+        // 为了防止内存溢出的问题
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inJustDecodeBounds = false;
+        opt.inSampleSize = 2;// 图片宽高都为原来的二分之一，即图片为原来的四分之一
+        return BitmapFactory.decodeStream(isBm, null, opt);// 把ByteArrayInputStream数据生成图片
     }
 
     /**
-     * 压缩图片
+     * 压缩图片 根据图片尺寸
      */
     public static Bitmap getimage(String srcPath) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
@@ -291,48 +281,18 @@ public class BitmapUtils {
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
-        float hh = 400f;//
-        float ww = 400f;//
+        float hh = 400f;
+        float ww = 400f;
         int be = 1;
         if (w >= h && w > ww) {
             be = (int) (newOpts.outWidth / ww);
-        } else if (w < h && h > hh) {
+        } else if (w <= h && h > hh) {
             be = (int) (newOpts.outHeight / hh);
         }
-        if (be <= 0)
-            be = 1;
+        if (be <= 0) be = 1;
         newOpts.inSampleSize = be;// 设置采样率
         Bitmap decodeFile = BitmapFactory.decodeFile(srcPath, newOpts);
-
         return compressImage(decodeFile);
-    }
-
-    /**
-     * 认证时压缩图片
-     *
-     * @param data 原图
-     * @return 压缩后的图片
-     */
-    public static Bitmap getImageByStream(byte[] data) {
-        BitmapFactory.Options newOpts = new BitmapFactory.Options();
-        newOpts.inJustDecodeBounds = true;// 只读边,不读内容
-        BitmapFactory.decodeByteArray(data, 0, data.length, newOpts);
-        newOpts.inJustDecodeBounds = false;
-
-        int w = newOpts.outWidth; // 1920
-        int h = newOpts.outHeight;
-
-        float f = 400f;
-        int be = 1;
-        if (w >= h && w > f) {
-            be = (int) (newOpts.outWidth / f);
-        } else if (w < h && h > f) {
-            be = (int) (newOpts.outHeight / f);
-        }
-        if (be <= 0)
-            be = 1;
-        newOpts.inSampleSize = be;// 设置采样率
-        return compressImage(BitmapFactory.decodeByteArray(data, 0, data.length, newOpts));
     }
 
     /**
@@ -342,59 +302,34 @@ public class BitmapUtils {
      * @param path 保存路径
      * @return 是否保存成功
      */
-    public static boolean saveBitmapToFile(Bitmap b, String path) {
-        if (b == null || StringUtils.isEmpty(path))
-            return false;
+    public static boolean saveBitmapToFile(Bitmap b, String path) throws IOException {
+        if (b == null || StringUtils.isEmpty(path)) return false;
 
         File f = new File(path);
+        if (f.exists()) if (!f.delete()) return false; // 如果文件存在 则删除
+        if (!f.getParentFile().exists())
+            if (!f.getParentFile().mkdirs()) return false; // 如果文件所在目录不存在，则创建。
 
-        if (!f.getParentFile().exists()) {
-            f.getParentFile().mkdir();
-        }
-
-        if (f.exists()) {
-            f.delete();
-        }
-
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f));
-            b.compress(CompressFormat.JPEG, 100, bos);
-            bos.flush();
-            bos.close();
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f));
+        b.compress(CompressFormat.JPEG, 100, bos);
+        bos.flush();
+        bos.close();
+        return true;
     }
 
     /**
      * 将图片按照某个角度进行旋转
      *
-     * @param bm     需要旋转的图片
+     * @param b      需要旋转的图片
      * @param degree 旋转角度
      * @return 旋转后的图片
      */
-    public static Bitmap rotateBitmapByDegree(Bitmap bm, int degree) {
-        Bitmap returnBm = null;
-
-        // 根据旋转角度，生成旋转矩阵
+    public static Bitmap rotateBitmapByDegree(Bitmap b, int degree) {
+        if (degree == 0 || null == b) return b;
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
-        try {
-            // 将原始图片按照旋转矩阵进行旋转，并得到新的图片
-            returnBm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
-        } catch (OutOfMemoryError e) {
-        }
-        if (returnBm == null) {
-            returnBm = bm;
-        }
-        if (bm != returnBm) {
-            bm.recycle();
-        }
+        Bitmap returnBm = Bitmap.createBitmap(b, 0, 0, b.getWidth(), b.getHeight(), matrix, true);
+        b.recycle();
         return returnBm;
     }
 

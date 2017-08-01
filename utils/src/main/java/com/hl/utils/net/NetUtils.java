@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -55,13 +54,13 @@ public class NetUtils {
     private static Gson gson = new Gson();
 
     //设缓存有效期为1天
-    protected static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
+    private static final long CACHE_STALE_SEC = 60 * 60 * 24 * 1;
     //查询缓存的Cache-Control设置，使用缓存
-    protected static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
+    public static final String CACHE_CONTROL_CACHE = "only-if-cached, max-stale=" + CACHE_STALE_SEC;
     //查询网络的Cache-Control设置。不使用缓存
-    protected static final String CACHE_CONTROL_NETWORK = "max-age=0";
+    public static final String CACHE_CONTROL_NETWORK = "max-age=0";
 
-    public static Retrofit getRetrofit() {
+    private static Retrofit getRetrofit() {
         OkHttpClient mOkHttpClient;
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)//设置超时时间
@@ -72,13 +71,12 @@ public class NetUtils {
         builder.cache(cache);
         mOkHttpClient = builder.build();
 
-        Retrofit mRetrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(mOkHttpClient)
                 .build();
-        return mRetrofit;
     }
 
     //----------------------------接口-----------------------------------------
@@ -105,7 +103,7 @@ public class NetUtils {
         }
     }
 
-    private static void sync(Call<JsonElement> example, HttpCallback callback)  {
+    private static void sync(Call<JsonElement> example, HttpCallback callback) {
         callback.call();
         Response<JsonElement> response = null;
         try {
@@ -206,7 +204,7 @@ public class NetUtils {
                         continue;
                     }
                     strBuf.append("\r\n").append("--").append(BOUNDARY).append("\r\n");
-                    strBuf.append("Content-Disposition: form-data; name=\"" + inputName + "\"\r\n\r\n");
+                    strBuf.append("Content-Disposition: form-data; name=\"" + inputName + "\"\r\n\r\n"); // inputName 对应表单name
                     strBuf.append(inputValue);
                 }
                 out.write(strBuf.toString().getBytes());
