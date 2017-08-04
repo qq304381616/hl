@@ -274,25 +274,33 @@ public class BitmapUtils {
     /**
      * 压缩图片 根据图片尺寸
      */
-    public static Bitmap getimage(String srcPath) {
+    public static Bitmap getimage(String imgPath, float pixelW, float pixelH) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
-        newOpts.inJustDecodeBounds = true;// 只读边,不读内容
-        BitmapFactory.decodeFile(srcPath, newOpts);
+        newOpts.inJustDecodeBounds = true; // 即只读边不读内容
+//        newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
+        BitmapFactory.decodeFile(imgPath, newOpts);
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
-        float hh = 400f;
-        float ww = 400f;
-        int be = 1;
-        if (w >= h && w > ww) {
+        float hh = pixelH;
+        float ww = pixelW;
+        int be = 1;//be=1表示不缩放
+        if (w >= h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
             be = (int) (newOpts.outWidth / ww);
-        } else if (w <= h && h > hh) {
+        } else if (w <= h && h > hh) {//如果高度高的话根据宽度固定大小缩放
             be = (int) (newOpts.outHeight / hh);
         }
         if (be <= 0) be = 1;
-        newOpts.inSampleSize = be;// 设置采样率
-        Bitmap decodeFile = BitmapFactory.decodeFile(srcPath, newOpts);
-        return compressImage(decodeFile);
+        newOpts.inSampleSize = be;//设置缩放比例
+        Bitmap bitmap = BitmapFactory.decodeFile(imgPath, newOpts);
+        return compressImage(bitmap);
+    }
+
+    /**
+     * 压缩图片 根据图片尺寸 最长这不能超过400 。
+     */
+    public static Bitmap getimage(String srcPath) {
+        return getimage(srcPath, 400f, 400f);
     }
 
     /**
@@ -404,5 +412,28 @@ public class BitmapUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         b.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         return baos.toByteArray();
+    }
+
+    public static String getBitmapBase64(Bitmap b, String typeS) {
+        Bitmap.CompressFormat type = Bitmap.CompressFormat.JPEG;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (typeS.contains("PNG")) {
+            type = Bitmap.CompressFormat.PNG;
+        }
+        b.compress(type, 100, baos);
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static String getBitmapType(String path) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        String type = options.outMimeType;
+        if (TextUtils.isEmpty(type)) {
+            type = "未能识别的图片";
+        } else {
+            type = type.substring(6, type.length()).toUpperCase();
+        }
+        return type;
     }
 }

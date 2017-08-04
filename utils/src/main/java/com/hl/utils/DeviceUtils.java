@@ -1,13 +1,22 @@
 package com.hl.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.hardware.Camera;
+import android.location.LocationManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.net.NetworkInterface;
@@ -26,6 +35,89 @@ public class DeviceUtils {
 
     private DeviceUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+
+    //    系统版本（如“Android2.3.4”）、是否支持蓝牙(0 不支持，1支持)、是否支持摄像头(0 不支持，1支持)、
+// 是否支持GPS(0 不支持，1支持)、 此设备IMEI（国际移动设备唯一标识码）号的15位字符串、设备类型（phone、pad）、
+// 设备的型号名称（如“Galaxy Nexus”）
+    //    alert(deviceInfo.os);  //系统版本
+//    alert(deviceInfo.bluetooth);  //是否支持蓝牙
+//    alert(deviceInfo.camera);  //是否支持摄像头
+//    alert(deviceInfo.gps);   //是否支持GPS
+//    alert(deviceInfo.uid);   //设备IMEI
+//    alert(deviceInfo.devicetype);  //设备类型
+//    alert(deviceInfo.model);  //设备型号名称
+    public static String getDeviceInfo(Context c) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("os", getSystemVersion());
+            obj.put("bluetooth", ifSupportBlu());
+            obj.put("camera", ifSupportCamera());
+            obj.put("gps", ifSupportGPS(c));
+            obj.put("uid", getIMEI(c));
+            obj.put("devicetype", isTablet(c));
+            obj.put("model", getSystemModel());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj.toString();
+    }
+
+    public static String ifSupportGPS(Context c) {
+        LocationManager locationManager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return gps ? "1" : "0";
+    }
+
+    /**
+     * 摄像头支持
+     */
+    public static String ifSupportCamera() {
+        return Camera.getNumberOfCameras() == 0 ? "0" : "1";
+    }
+
+
+    /**
+     * 是否支持蓝牙
+     */
+    public static String ifSupportBlu() {
+        return BluetoothAdapter.getDefaultAdapter() == null ? "0" : "1";
+    }
+
+
+    /**
+     * 获取当前手机系统版本号
+     *
+     * @return 系统版本号
+     */
+    public static String getSystemVersion() {
+        return android.os.Build.VERSION.RELEASE;
+    }
+
+    public static String getIMEI(Context ctx) {
+        TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Activity.TELEPHONY_SERVICE);
+        if (tm != null) {
+            return tm.getDeviceId();
+        }
+        return null;
+    }
+
+    /**
+     * 获取手机型号
+     *
+     * @return 手机型号
+     */
+    public static String getSystemModel() {
+        return android.os.Build.MODEL;
+    }
+
+    /**
+     * 判断是否是平板
+     */
+    public static String isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE ? "pad" : "phone";
     }
 
     /**

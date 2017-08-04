@@ -17,6 +17,7 @@ import com.hl.systeminfo.SystemMainActivity;
 import com.hl.utils.PermissionUtils;
 import com.hl.utils.net.NetTestActivity;
 import com.hl.widget.WidgetMainActivity;
+import com.hl.widget.h5.H5MainActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, DesignActivity.class));
                 break;
             case R.id.tv_js:
-                startActivity(new Intent(MainActivity.this, WebActivity.class));
+                startActivity(new Intent(MainActivity.this, H5MainActivity.class));
                 break;
             case R.id.tv_knowledge:
                 startActivity(new Intent(MainActivity.this, KnowledgeMainActivity.class));

@@ -1,1 +1,1 @@
-include ':app', ':animation', ':design', ':java', ':utils', ':mvp', ':tab', ':widget', ':jni', ':baidumap', ':systeminfo', ':skin', ':api', ':knowledge', ':device'
+include ':app', ':animation', ':design', ':java', ':utils', ':mvp', ':tab', ':widget', ':jni', ':baidumap', ':systeminfo', ':skin', ':api', ':knowledge', ':device', ':lib_record_mp3', ':lib_ucrop', ':lib_picture_library'

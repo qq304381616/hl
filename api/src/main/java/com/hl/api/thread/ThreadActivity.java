@@ -1,10 +1,13 @@
 package com.hl.api.thread;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hl.api.R;
 
@@ -22,6 +25,31 @@ public class ThreadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_thread);
         View tv_start = findViewById(R.id.tv_start);
         View tv_interrupt = findViewById(R.id.tv_interrupt);
+
+        findViewById(R.id.tv_main_thread_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplication(), "主线程运行 " + Thread.currentThread().getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        findViewById(R.id.tv_main_thread_2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplication(), "主线程运行 " + Thread.currentThread().getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
         tv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

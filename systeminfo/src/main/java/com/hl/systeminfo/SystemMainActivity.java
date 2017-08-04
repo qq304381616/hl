@@ -2,8 +2,10 @@ package com.hl.systeminfo;
 
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -173,6 +175,41 @@ public class SystemMainActivity extends Activity {
             }
         });
 
+        // 横屏
+        findViewById(R.id.tv_screen_landscape).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                }
+            }
+        });
+        // 竖屏
+        findViewById(R.id.tv_screen_portrait).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+            }
+        });
+        // 支持旋转
+        findViewById(R.id.tv_screen_sensor).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_SENSOR) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+                }
+            }
+        });
+        // 震动
+        findViewById(R.id.tv_vibrate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Vibrator vib = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE); //获取系统震动服务
+                vib.vibrate(100);
+            }
+        });
     }
 
     public void createAlarm(String message, int hour, int minutes) {

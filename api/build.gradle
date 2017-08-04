@@ -35,10 +35,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/jcore-android_v1.1.1.jar')
+    compile files('libs/zxing.jar')
 
     // RxJava
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.5'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // okhttp
     compile 'com.squareup.okhttp3:okhttp:3.5.0'

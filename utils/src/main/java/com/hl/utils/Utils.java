@@ -18,14 +18,27 @@ public class Utils {
     /**
      * 获取缓存目录
      */
-    public File getDiskCacheDir(Context context, String uniqueName) {
+    public static String getDiskCacheDir(Context context, String uniqueName) {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
             cachePath = context.getExternalCacheDir().getPath();
         } else {
             cachePath = context.getCacheDir().getPath();
         }
-        return new File(cachePath + File.separator + uniqueName);
+        return cachePath + File.separator + uniqueName;
+    }
+
+    /**
+     * 获取缓存目录
+     */
+    public static File getDiskCacheFile(Context context, String uniqueName) {
+        return new File(getDiskCacheDir(context, uniqueName));
+    }
+
+    public static String getJsCachePath(Context context) {
+        String result = getDiskCacheDir(context, "js");
+        if (!new File(result).exists()) new File(result).mkdirs();
+        return result;
     }
 
     /**

@@ -7,15 +7,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.hl.utils.LogUtils;
 
-import rx.Observer;
-import rx.functions.Action0;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created on 2017/3/6.
  */
-public class HttpCallback implements Observer<JsonElement>, Action0 {
+public class HttpCallback implements Observer<JsonElement> {
 
     private static final String TAG = HttpCallback.class.getSimpleName();
+
     private boolean isToast;
     private boolean isLoading;
     private ILoadingView mLoadingView;
@@ -36,16 +37,8 @@ public class HttpCallback implements Observer<JsonElement>, Action0 {
     }
 
     @Override
-    public void call() {
-        if (mLoadingView != null && isLoading) mLoadingView.showLoading();
-    }
-
-    @Override
-    public void onCompleted() {
-    }
-
-    @Override
     public void onError(Throwable e) {
+        LogUtils.e(TAG, "onError");
         if (mLoadingView != null && isLoading) mLoadingView.hideLoading();
         if (isToast) Toast.makeText(mLoadingView.getContext(), "网络异常", Toast.LENGTH_SHORT).show();
         LogUtils.e(TAG, e.getMessage());
@@ -53,7 +46,19 @@ public class HttpCallback implements Observer<JsonElement>, Action0 {
     }
 
     @Override
+    public void onComplete() {
+        LogUtils.e(TAG, "onComplete");
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        LogUtils.e(TAG, "onSubscribe");
+        if (mLoadingView != null && isLoading) mLoadingView.showLoading();
+    }
+
+    @Override
     public final void onNext(JsonElement result) {
+        LogUtils.e(TAG, "onNext");
         if (mLoadingView != null && isLoading) mLoadingView.hideLoading();
         Gson gson = new Gson();
         LogUtils.e("TAG", gson.toJson(result));

@@ -17,6 +17,9 @@
             <option value="$PROJECT_DIR$/java" />
             <option value="$PROJECT_DIR$/jni" />
             <option value="$PROJECT_DIR$/knowledge" />
+            <option value="$PROJECT_DIR$/lib_picture_library" />
+            <option value="$PROJECT_DIR$/lib_record_mp3" />
+            <option value="$PROJECT_DIR$/lib_ucrop" />
             <option value="$PROJECT_DIR$/mvp" />
             <option value="$PROJECT_DIR$/skin" />
             <option value="$PROJECT_DIR$/systeminfo" />

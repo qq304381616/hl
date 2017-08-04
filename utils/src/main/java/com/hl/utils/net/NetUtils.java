@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.hl.utils.LogUtils;
 import com.hl.utils.base.MyApplication;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -22,6 +23,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Cache;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -32,11 +36,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * okhttp + rxjava + retrofit
@@ -74,7 +74,7 @@ public class NetUtils {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(mOkHttpClient)
                 .build();
     }
@@ -88,7 +88,8 @@ public class NetUtils {
             Map<String, String> m = new HashMap<>();
             m.put("citykey", citykey);
             service.weather(m)
-                    .subscribeOn(Schedulers.io()).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).doOnSubscribe(callback).subscribe(callback);
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(callback);
         }
     }
 
@@ -104,7 +105,7 @@ public class NetUtils {
     }
 
     private static void sync(Call<JsonElement> example, HttpCallback callback) {
-        callback.call();
+        callback.onSubscribe(null);
         Response<JsonElement> response = null;
         try {
             response = example.execute();

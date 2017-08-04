@@ -19,6 +19,9 @@
         <activity android:name=".recyclerdouble.RecyclerDoubleActivity"/>
         <activity android:name=".quick.QuickRecyclerActivity"/>
         <activity android:name=".BannerActivity"/>
+        <activity android:name=".h5.H5MainActivity"/>
+        <activity android:name=".h5.WebActivity"/>
+        <activity android:name=".h5.JSWebViewActivity"/>
     </application>
 
 </manifest>

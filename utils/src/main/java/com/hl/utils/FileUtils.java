@@ -1678,4 +1678,12 @@ public class FileUtils {
         actualimagecursor.moveToFirst();
         return actualimagecursor.getString(actual_image_column_index);
     }
+
+    /**
+     * 获取文件扩展名
+     */
+    public static String getFilePrefix(String path) {
+        String fileName = new File(path).getName();
+        return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
 }
