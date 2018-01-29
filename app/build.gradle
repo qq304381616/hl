@@ -33,7 +33,6 @@ dependencies {
     compile project(':mvp')
     compile project(':tab')
     compile project(':widget')
-    compile project(':baidumap')
     compile project(':systeminfo')
     compile project(':skin')
     compile project(':api')

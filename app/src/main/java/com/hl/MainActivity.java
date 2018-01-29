@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
 import com.hl.api.ApiMainActivity;
-import com.hl.baidu.BaiduMainActivity;
 import com.hl.design.DesignActivity;
 import com.hl.devices.DeviceMainActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_video).setOnClickListener(this);
         findViewById(R.id.tv_message).setOnClickListener(this);
         findViewById(R.id.tv_imageplayer).setOnClickListener(this);
-        findViewById(R.id.tv_baidu_location).setOnClickListener(this);
         findViewById(R.id.tv_net).setOnClickListener(this);
         findViewById(R.id.tv_skin).setOnClickListener(this);
         findViewById(R.id.api).setOnClickListener(this);
@@ -83,10 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tv_imageplayer:
                 startActivity(new Intent(MainActivity.this, ImagePlayerActivity.class));
-                break;
-            case R.id.tv_baidu_location:
-                com.hl.baidu.service.Utils.init(MainActivity.this); // TODO  初始化，原Demo在 application中执行。
-                startActivity(new Intent(MainActivity.this, BaiduMainActivity.class));
                 break;
             case R.id.tv_net:
                 startActivity(new Intent(MainActivity.this, NetTestActivity.class));
