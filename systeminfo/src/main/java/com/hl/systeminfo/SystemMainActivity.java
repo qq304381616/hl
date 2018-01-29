@@ -92,6 +92,14 @@ public class SystemMainActivity extends Activity {
                 }
             }
         });
+        //fragment
+        findViewById(R.id.tv_fragment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, FragmentActivity.class);
+                startActivity(intent);
+            }
+        });
         //activity
         findViewById(R.id.tv_activity).setOnClickListener(new View.OnClickListener() {
             @Override

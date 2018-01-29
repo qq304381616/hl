@@ -1,6 +1,5 @@
 package com.hl;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,14 +13,13 @@ import com.hl.devices.DeviceMainActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
-import com.hl.utils.PermissionUtils;
 import com.hl.utils.net.NetTestActivity;
 import com.hl.widget.WidgetMainActivity;
 import com.hl.widget.h5.H5MainActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String LOG_TAG = "MainActivity";
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, KnowledgeMainActivity.class));
                 break;
             case R.id.tv_permission:
-                PermissionUtils.check(this, Manifest.permission.READ_CONTACTS, PermissionUtils.READ_CONTACTS);
+                startActivity(new Intent(MainActivity.this, PermissionActivity.class));
                 break;
             case R.id.tv_system:
                 startActivity(new Intent(MainActivity.this, SystemMainActivity.class));

@@ -3,6 +3,7 @@ package com.hl.systeminfo.contact;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
@@ -55,6 +56,11 @@ public class ContactsActivity extends Activity {
 		setContentView(R.layout.layout_contacts);
 		mContext = getApplicationContext();
 		init();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void init() {
