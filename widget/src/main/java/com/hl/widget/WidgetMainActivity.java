@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.hl.widget.head.HeadRecyclerActivity;
 import com.hl.widget.quick.QuickRecyclerActivity;
 import com.hl.widget.recyclerdouble.RecyclerDoubleActivity;
 import com.hl.widget.refresh.SwipeRefreshRecyclerActivity;
@@ -23,6 +24,7 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.textureview).setOnClickListener(this);
         findViewById(R.id.tv_swiperefreshlayout).setOnClickListener(this);
         findViewById(R.id.tv_refresh).setOnClickListener(this);
+        findViewById(R.id.tv_recycler_head).setOnClickListener(this);
         findViewById(R.id.tv_recyclerviewdouble).setOnClickListener(this);
         findViewById(R.id.tv_quick_recyclerview).setOnClickListener(this);
         findViewById(R.id.tv_seekbar).setOnClickListener(this);
@@ -39,6 +41,8 @@ public class WidgetMainActivity extends AppCompatActivity implements View.OnClic
             startActivity(new Intent(WidgetMainActivity.this, SwipeRefreshLayoutActivity.class));
         } else if (id == R.id.tv_refresh) {
             startActivity(new Intent(WidgetMainActivity.this, SwipeRefreshRecyclerActivity.class));
+        } else if (id == R.id.tv_recycler_head) {
+            startActivity(new Intent(WidgetMainActivity.this, HeadRecyclerActivity.class));
         } else if (id == R.id.tv_seekbar) {
             startActivity(new Intent(WidgetMainActivity.this, SeekbarActivity.class));
         } else if (id == R.id.tv_recyclerviewdouble) {

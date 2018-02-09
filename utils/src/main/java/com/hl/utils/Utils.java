@@ -1,6 +1,9 @@
 package com.hl.utils;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 
@@ -54,5 +57,26 @@ public class Utils {
             sb.append(hex);
         }
         return sb.toString();
+    }
+
+    /**
+     * 取menifast 参数
+     */
+    public static String getAppKey(Context context, String key) {
+        Bundle metaData = null;
+        String appKey = null;
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            if (null != ai) metaData = ai.metaData;
+            if (null != metaData) {
+                appKey = metaData.getString(key);
+                if ((null == appKey) || appKey.length() != 24) {
+                    appKey = null;
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appKey;
     }
 }

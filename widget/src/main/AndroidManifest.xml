@@ -1,27 +1,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hl.widget">
+    package="com.hl.widget">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera"/>
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <activity android:name=".WidgetMainActivity"/>
-        <activity android:name=".TextureViewActivity"/>
-        <activity android:name=".SwipeRefreshLayoutActivity"/>
-        <activity android:name=".SeekbarActivity"/>
-        <activity android:name=".refresh.SwipeRefreshRecyclerActivity"/>
-        <activity android:name=".recyclerdouble.RecyclerDoubleActivity"/>
-        <activity android:name=".quick.QuickRecyclerActivity"/>
-        <activity android:name=".BannerActivity"/>
-        <activity android:name=".h5.H5MainActivity"/>
-        <activity android:name=".h5.WebActivity"/>
-        <activity android:name=".h5.JSWebViewActivity"/>
+        <activity android:name=".WidgetMainActivity" />
+        <activity android:name=".TextureViewActivity" />
+        <activity android:name=".SwipeRefreshLayoutActivity" />
+        <activity android:name=".SeekbarActivity" />
+        <activity android:name=".refresh.SwipeRefreshRecyclerActivity" />
+        <activity android:name=".head.HeadRecyclerActivity" />
+        <activity android:name=".recyclerdouble.RecyclerDoubleActivity" />
+        <activity android:name=".quick.QuickRecyclerActivity" />
+        <activity android:name=".BannerActivity" />
+        <activity android:name=".h5.H5MainActivity" />
+        <activity android:name=".h5.WebActivity" />
+        <activity android:name=".h5.JSWebViewActivity" />
     </application>
 
 </manifest>
