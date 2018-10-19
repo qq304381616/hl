@@ -32,6 +32,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.hl.utils.LogUtils;
+
 /**
  * WebView
  * 优化时应该在代码是添加WebView控件。
@@ -88,6 +90,9 @@ public class WebActivity extends AppCompatActivity {
         webSettings.setNeedInitialFocus(true); //当webview调用requestFocus时为webview设置节点
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式*/
+
+        String userAgentString = webSettings.getUserAgentString();
+        LogUtils.e("WebActivity", "WebView 内核版本： " + userAgentString);
 
         newWin(webSettings);
         saveData(webSettings);

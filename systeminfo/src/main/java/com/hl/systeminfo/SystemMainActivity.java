@@ -218,6 +218,13 @@ public class SystemMainActivity extends Activity {
                 vib.vibrate(100);
             }
         });
+        // 文字转语音
+        findViewById(R.id.tv_text_to_speech).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent( new Intent(SystemMainActivity.this, TextToSpeechActivity.class)));
+            }
+        });
     }
 
     public void createAlarm(String message, int hour, int minutes) {
