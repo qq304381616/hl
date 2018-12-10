@@ -93,31 +93,6 @@ public class SystemMainActivity extends BaseActivity {
                 }
             }
         });
-        //fragment
-        findViewById(R.id.tv_fragment).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SystemMainActivity.this, FragmentActivity.class);
-                startActivity(intent);
-            }
-        });
-        //activity
-        findViewById(R.id.tv_activity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SystemMainActivity.this, LaunchModeActivityA.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-            }
-        });
-        //service
-        findViewById(R.id.tv_service).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SystemMainActivity.this, MyService.class);
-                startService(intent);
-            }
-        });
         //应用列表
         findViewById(R.id.tv_applist).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -39,5 +39,30 @@ public class KnowledgeMainActivity extends BaseActivity {
                 startActivity(new Intent(KnowledgeMainActivity.this, AndroidMapActivity.class));
             }
         });
+        //fragment
+        findViewById(R.id.tv_fragment).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KnowledgeMainActivity.this, FragmentActivity.class);
+                startActivity(intent);
+            }
+        });
+        //activity
+        findViewById(R.id.tv_activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KnowledgeMainActivity.this, LaunchModeActivityA.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+            }
+        });
+        //service
+        findViewById(R.id.tv_service).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KnowledgeMainActivity.this, MyService.class);
+                startService(intent);
+            }
+        });
     }
 }

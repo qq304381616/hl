@@ -1,4 +1,4 @@
-package com.hl.systeminfo;
+package com.hl.knowledge;
 
 import android.app.Activity;
 import android.content.Context;

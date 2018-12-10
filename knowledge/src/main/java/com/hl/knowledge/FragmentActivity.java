@@ -1,4 +1,4 @@
-package com.hl.systeminfo;
+package com.hl.knowledge;
 
 
 import android.os.Bundle;
@@ -21,6 +21,7 @@ public class FragmentActivity extends android.support.v4.app.FragmentActivity {
         FrameLayout fl = new FrameLayout(this);
         fl.setId(R.id.id_ll_ok);
         setContentView(fl);
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.replace(R.id.id_ll_ok, myFragment);

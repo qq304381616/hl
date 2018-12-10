@@ -13,16 +13,10 @@
         android:supportsRtl="true">
         <activity android:name="com.hl.systeminfo.contact.ContactsActivity" />
         <activity android:name=".SystemMainActivity" />
-        <activity
-            android:name=".LaunchModeActivityA"
-            android:launchMode="singleTask" />
-        <activity android:name=".LaunchModeActivityB" />
         <activity android:name=".AppsInfoListActivity" />
-        <activity android:name=".FragmentActivity" />
         <activity android:name=".TextToSpeechActivity" />
         <activity android:name=".MessageActivity" />
 
-        <service android:name=".MyService" />
     </application>
 
 </manifest>
