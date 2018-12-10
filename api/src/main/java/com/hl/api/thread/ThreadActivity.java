@@ -4,19 +4,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.hl.api.R;
 import com.hl.base.BaseActivity;
+import com.hl.utils.L;
 
 /**
  * Created on 2017/3/24.
  */
 public class ThreadActivity extends BaseActivity {
-    private static final String LOG_TAG = "ThreadActivity";
 
     private Thread t;
 
@@ -62,24 +60,24 @@ public class ThreadActivity extends BaseActivity {
                             long sum = 0;
                             int i = 0;
                             for (; i < 10; i++) {
-                                Log.e(LOG_TAG, "isInterrupted：" + t.isInterrupted());
+                                L.e("isInterrupted：" + t.isInterrupted());
 
                                 try {
                                     Thread.sleep(1000);
                                 } catch (InterruptedException e) {
-                                    Log.e(LOG_TAG, "Exception getMessage：" + e.toString());
+                                    L.e("Exception getMessage：" + e.toString());
                                 }
                                 sum += i;
                             }
-                            Log.e(LOG_TAG, "sum：" + sum);
-                            Log.e(LOG_TAG, "i：" + i);
-                            Log.e(LOG_TAG, "运行时间：" + (System.currentTimeMillis() - l));
+                            L.e("sum：" + sum);
+                            L.e("i：" + i);
+                            L.e("运行时间：" + (System.currentTimeMillis() - l));
                         }
                     };
                     t = new Thread(r);
                     t.start();
                 } catch (Exception e) {
-                    Log.e(LOG_TAG, "Exception getMessage：" + e.getMessage());
+                    L.e("Exception getMessage：" + e.getMessage());
                 }
             }
         });

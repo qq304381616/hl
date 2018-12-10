@@ -23,6 +23,16 @@ public class MessageActivity extends BaseActivity {
 
     private TextView tv_send;
     private TextView tv_message;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+
+            } else if (msg.what == 2) {
+                tv_message.setText(tv_message.getText().toString() + msg.obj + "\n");
+            }
+        }
+    };
     private MessageContentObserver messageContentObserver;
 
     @Override
@@ -49,17 +59,6 @@ public class MessageActivity extends BaseActivity {
         super.onDestroy();
         getContentResolver().unregisterContentObserver(messageContentObserver);
     }
-
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-
-            } else if (msg.what == 2) {
-                tv_message.setText(tv_message.getText().toString() + msg.obj + "\n");
-            }
-        }
-    };
 
     class MessageContentObserver extends ContentObserver {
 

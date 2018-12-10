@@ -46,7 +46,7 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         if (convertView == null) {
             Log.d("listview", "---------LayoutInflater()-----------" + position);
             convertView = LayoutInflater.from(context).inflate(layoutId, null);
-        }else{
+        } else {
         }
 //        Log.d("listview", "---------getView()-----------" + position);
         T t = getItem(position);

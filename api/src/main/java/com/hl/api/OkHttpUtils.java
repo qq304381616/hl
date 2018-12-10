@@ -2,6 +2,8 @@ package com.hl.api;
 
 import android.util.Log;
 
+import com.hl.utils.L;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -30,11 +32,9 @@ import okhttp3.Response;
 
 public class OkHttpUtils {
 
-    private static final String LOG_TAG = "OkHttpUtils";
-
     public static void get() {
 
-        Log.e(LOG_TAG, "okhttp get");
+        L.e("okhttp get");
 
         //创建okHttpClient对象
         OkHttpClient mOkHttpClient = new OkHttpClient();
@@ -49,7 +49,7 @@ public class OkHttpUtils {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e(LOG_TAG, "onFailure");
+                L.e( "onFailure");
             }
 
             @Override
@@ -57,12 +57,12 @@ public class OkHttpUtils {
                 if (null != response.cacheResponse()) {
                     String str = response.cacheResponse().toString();
                 }
-                Log.e(LOG_TAG, "onResponse");
-                Log.e(LOG_TAG, "" + response.code()); // 200
-                Log.e(LOG_TAG, "" + response.message()); // OK
-                Log.e(LOG_TAG, "" + response.body().string()); // String
-                Log.e(LOG_TAG, "" + response.body().bytes()); // byte
-                Log.e(LOG_TAG, "" + response.body().byteStream()); // InputStream
+                L.e("onResponse");
+                L.e("" + response.code()); // 200
+                L.e("" + response.message()); // OK
+                L.e("" + response.body().string()); // String
+                L.e("" + response.body().bytes()); // byte
+                L.e("" + response.body().byteStream()); // InputStream
             }
         });
     }
@@ -86,7 +86,7 @@ public class OkHttpUtils {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String str = response.body().string();
-                Log.e(LOG_TAG, str);
+                L.e( str);
             }
         });
     }
@@ -109,7 +109,7 @@ public class OkHttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.e(LOG_TAG, response.body().string());
+                L.e( response.body().string());
             }
         });
     }
@@ -140,10 +140,10 @@ public class OkHttpUtils {
                     }
                     fileOutputStream.flush();
                 } catch (IOException e) {
-                    Log.e(LOG_TAG, "IOException");
+                    L.e( "IOException");
                     e.printStackTrace();
                 }
-                Log.e(LOG_TAG, "文件下载成功");
+                L.e( "文件下载成功");
             }
         });
     }
@@ -176,7 +176,7 @@ public class OkHttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.e(LOG_TAG, response.body().string());
+                L.e( response.body().string());
             }
         });
     }
