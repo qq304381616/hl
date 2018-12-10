@@ -8,14 +8,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import com.hl.base.BaseActivity;
 import com.hl.knowledge.R;
+import com.hl.utils.L;
 
 /**
  * 事件分发
  */
-public class TouchActivity extends AppCompatActivity {
+public class TouchActivity extends BaseActivity {
 
-    private static final String LOG_TAG =  "TouchActivity";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class TouchActivity extends AppCompatActivity {
         btn_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(LOG_TAG , "view onClick");
+                L.e("view onClick");
             }
         });
 
@@ -33,7 +34,7 @@ public class TouchActivity extends AppCompatActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.e(LOG_TAG , "view onTouch");
+                L.e("view onTouch");
                 return false;
             }
         });
@@ -42,13 +43,13 @@ public class TouchActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.e(LOG_TAG , "activity onTouchEvent");
+        L.e("activity onTouchEvent");
         return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.e(LOG_TAG , "activity dispatchTouchEvent");
+        L.e("activity dispatchTouchEvent");
         return super.dispatchTouchEvent(ev);
     }
 

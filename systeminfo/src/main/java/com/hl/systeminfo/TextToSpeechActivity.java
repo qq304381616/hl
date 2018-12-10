@@ -11,15 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hl.base.BaseActivity;
+
 import java.util.HashMap;
 import java.util.Locale;
 
 /**
  * 显示所有已安装应用列表
  */
-public class TextToSpeechActivity extends Activity implements TextToSpeech.OnInitListener {
+public class TextToSpeechActivity extends BaseActivity implements TextToSpeech.OnInitListener {
 
-    private static final String LOG_TAG = "TextToSpeechActivity";
     private TextToSpeech tts;
     private EditText et_text;
     private Button btn_play;

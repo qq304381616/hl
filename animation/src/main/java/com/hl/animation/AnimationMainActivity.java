@@ -19,12 +19,13 @@ import android.widget.TextView;
 
 import com.hl.animation.adapter.CommonAdapter;
 import com.hl.animation.adapter.CommonViewHolder;
+import com.hl.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AnimationMainActivity extends AppCompatActivity {
+public class AnimationMainActivity extends BaseActivity {
     private boolean fromXml = true;
     private ImageView iv;
 

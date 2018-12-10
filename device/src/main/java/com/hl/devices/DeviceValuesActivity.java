@@ -5,12 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.hl.base.BaseActivity;
 import com.hl.utils.SizeUtils;
 
 /**
  * Created on 2017/4/21.
  */
-public class DeviceValuesActivity extends AppCompatActivity {
+public class DeviceValuesActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

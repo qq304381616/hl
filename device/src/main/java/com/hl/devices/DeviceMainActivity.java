@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.hl.base.BaseActivity;
 import com.hl.utils.DeviceUtils;
 import com.hl.utils.ScreenUtils;
 import com.hl.utils.SizeUtils;
@@ -14,7 +15,7 @@ import com.hl.utils.SizeUtils;
 /**
  * Created on 2017/4/21.
  */
-public class DeviceMainActivity extends AppCompatActivity {
+public class DeviceMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

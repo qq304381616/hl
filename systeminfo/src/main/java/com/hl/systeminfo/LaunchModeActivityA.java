@@ -9,17 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hl.base.BaseActivity;
+import com.hl.utils.L;
+
 /**
  * Created on 2016/11/17.
  */
-public class LaunchModeActivityA extends Activity {
-
-    private static final String LOG_TAG = "LaunchModeActivityA";
+public class LaunchModeActivityA extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(LOG_TAG, "onCreate");
+        L.e("onCreate");
 
         StringBuffer sb = new StringBuffer();
         sb.append("A\n\n");
@@ -47,42 +48,42 @@ public class LaunchModeActivityA extends Activity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.e(LOG_TAG, "onNewIntent");
+        L.e("onNewIntent");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e(LOG_TAG, "onStart");
+        L.e("onStart");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.e(LOG_TAG, "onRestart");
+        L.e("onRestart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(LOG_TAG, "onResume");
+        L.e("onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e(LOG_TAG, "onPause");
+        L.e("onPause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(LOG_TAG, "onStop");
+        L.e("onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(LOG_TAG, "onDestroy");
+        L.e("onDestroy");
     }
 }

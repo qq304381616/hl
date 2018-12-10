@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.hl.base.BaseActivity;
+import com.hl.knowledge.permission.PermissionActivity;
 import com.hl.knowledge.touch.TouchActivity;
 
-public class KnowledgeMainActivity extends Activity {
-
-    private static final String LOG_TAG = KnowledgeMainActivity.class.getSimpleName();
+public class KnowledgeMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +24,20 @@ public class KnowledgeMainActivity extends Activity {
             }
         });
 
+        // 6.0运行时权限
+        findViewById(R.id.tv_permission).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(KnowledgeMainActivity.this, PermissionActivity.class));
+            }
+        });
+
+        // 安卓Map集合
+        findViewById(R.id.tv_map).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(KnowledgeMainActivity.this, AndroidMapActivity.class));
+            }
+        });
     }
 }

@@ -8,6 +8,8 @@
         android:supportsRtl="true">
         <activity android:name=".KnowledgeMainActivity"/>
         <activity android:name=".touch.TouchActivity"/>
+        <activity android:name=".permission.PermissionActivity" />
+        <activity android:name=".AndroidMapActivity" />
     </application>
 
 </manifest>

@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
+import com.hl.base.BaseActivity;
+
 import cn.jpush.android.api.JPushInterface;
 
-public class TestActivity extends Activity {
+public class TestActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -10,11 +10,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.hl.api.R;
+import com.hl.base.BaseActivity;
 
 /**
  * Created on 2017/3/24.
  */
-public class ThreadActivity extends AppCompatActivity {
+public class ThreadActivity extends BaseActivity {
     private static final String LOG_TAG = "ThreadActivity";
 
     private Thread t;

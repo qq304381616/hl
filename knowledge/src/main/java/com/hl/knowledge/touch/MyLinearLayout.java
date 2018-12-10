@@ -6,28 +6,28 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
+import com.hl.utils.L;
+
 /**
  * viewgroup
  */
 public class MyLinearLayout extends LinearLayout {
 
-    private static final String LOG_TAG = "MyLinearLayout";
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.e(LOG_TAG, "viewgroup onTouchEvent");
+        L.e("viewgroup onTouchEvent");
         return super.onTouchEvent(event);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        Log.e(LOG_TAG, "viewgroup dispatchTouchEvent");
+        L.e("viewgroup dispatchTouchEvent");
         return super.dispatchTouchEvent(ev);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.e(LOG_TAG, "viewgroup onInterceptTouchEvent");
+        L.e("viewgroup onInterceptTouchEvent");
         return super.onInterceptTouchEvent(ev);
     }
 

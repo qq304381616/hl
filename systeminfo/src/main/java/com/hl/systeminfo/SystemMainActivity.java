@@ -18,13 +18,14 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
 
+import com.hl.base.BaseActivity;
 import com.hl.systeminfo.contact.ContactsActivity;
 import com.hl.utils.BitmapUtils;
 import com.hl.utils.LogUtils;
 
 import java.util.Calendar;
 
-public class SystemMainActivity extends Activity {
+public class SystemMainActivity extends BaseActivity {
 
     private static final String TAG = SystemMainActivity.class.getSimpleName();
 

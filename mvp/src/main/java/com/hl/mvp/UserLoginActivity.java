@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.hl.base.BaseActivity;
 import com.hl.mvp.been.User;
 import com.hl.mvp.presenter.UserLoginPresenter;
 import com.hl.mvp.view.IUserLoginView;
 
-public class UserLoginActivity extends AppCompatActivity implements IUserLoginView {
+public class UserLoginActivity extends BaseActivity implements IUserLoginView {
 
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
 

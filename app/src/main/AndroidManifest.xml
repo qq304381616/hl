@@ -25,12 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".AndroidMapActivity" />
         <activity android:name=".VideoViewActivity" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".ImagePlayerActivity" />
-        <activity android:name=".PermissionActivity" />
     </application>
 
 </manifest>

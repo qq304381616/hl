@@ -2,23 +2,19 @@ package com.hl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
 import com.hl.api.ApiMainActivity;
-import com.hl.design.DesignActivity;
+import com.hl.base.BaseActivity;
 import com.hl.devices.DeviceMainActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
 import com.hl.utils.net.NetTestActivity;
-import com.hl.widget.WidgetMainActivity;
-import com.hl.widget.h5.H5MainActivity;
+import com.hl.view.ui.ViewMainActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_test).setOnClickListener(this);
         findViewById(R.id.tv_animation).setOnClickListener(this);
         findViewById(R.id.tv_design).setOnClickListener(this);
-        findViewById(R.id.tv_js).setOnClickListener(this);
         findViewById(R.id.tv_knowledge).setOnClickListener(this);
-        findViewById(R.id.tv_permission).setOnClickListener(this);
         findViewById(R.id.tv_system).setOnClickListener(this);
-        findViewById(R.id.tv_widget).setOnClickListener(this);
-        findViewById(R.id.tv_map).setOnClickListener(this);
         findViewById(R.id.tv_video).setOnClickListener(this);
         findViewById(R.id.tv_message).setOnClickListener(this);
         findViewById(R.id.tv_imageplayer).setOnClickListener(this);
@@ -53,25 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, AnimationMainActivity.class));
                 break;
             case R.id.tv_design:
-                startActivity(new Intent(MainActivity.this, DesignActivity.class));
-                break;
-            case R.id.tv_js:
-                startActivity(new Intent(MainActivity.this, H5MainActivity.class));
+                startActivity(new Intent(MainActivity.this, ViewMainActivity.class));
                 break;
             case R.id.tv_knowledge:
                 startActivity(new Intent(MainActivity.this, KnowledgeMainActivity.class));
                 break;
-            case R.id.tv_permission:
-                startActivity(new Intent(MainActivity.this, PermissionActivity.class));
-                break;
             case R.id.tv_system:
                 startActivity(new Intent(MainActivity.this, SystemMainActivity.class));
-                break;
-            case R.id.tv_widget:
-                startActivity(new Intent(MainActivity.this, WidgetMainActivity.class));
-                break;
-            case R.id.tv_map:
-                startActivity(new Intent(MainActivity.this, AndroidMapActivity.class));
                 break;
             case R.id.tv_video:
                 startActivity(new Intent(MainActivity.this, VideoViewActivity.class));

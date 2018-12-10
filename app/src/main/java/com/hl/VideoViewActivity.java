@@ -5,11 +5,12 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import com.hl.base.BaseActivity;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.io.IOException;
 /**
  * 视频 播放器
  */
-public class VideoViewActivity extends AppCompatActivity {
+public class VideoViewActivity extends BaseActivity {
 
     private VideoView videoView;
 

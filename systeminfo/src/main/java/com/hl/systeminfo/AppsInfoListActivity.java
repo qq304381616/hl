@@ -12,7 +12,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hl.base.BaseActivity;
 import com.hl.systeminfo.appinfo.SortModel;
+import com.hl.utils.L;
 import com.hl.utils.PinyinUtils;
 import com.hl.utils.views.SideBar;
 
@@ -24,9 +26,7 @@ import java.util.List;
 /**
  * 显示所有已安装应用列表
  */
-public class AppsInfoListActivity extends Activity {
-
-    private static final String LOG_TAG = "AppsInfoListActivity";
+public class AppsInfoListActivity extends BaseActivity {
 
     private List<SortModel> packs;
     private TextView tv_title;
@@ -96,12 +96,12 @@ public class AppsInfoListActivity extends Activity {
             SortModel sm = new SortModel();
             String name = p.applicationInfo.loadLabel(c.getPackageManager()).toString();
             String nameSort = PinyinUtils.getPinyinFirstLetter(name).toLowerCase();
-            Log.e(LOG_TAG, "name : " + name);
-            Log.e(LOG_TAG, "package : " + p.packageName);
-            Log.e(LOG_TAG, "versionName : " + p.versionName);
-            Log.e(LOG_TAG, "versionCode : " + p.versionCode);
-            Log.e(LOG_TAG, "icon : " + p.applicationInfo.loadIcon(c.getPackageManager()));
-            Log.e(LOG_TAG, "nameSort : " + nameSort);
+            L.e("name : " + name);
+            L.e("package : " + p.packageName);
+            L.e("versionName : " + p.versionName);
+            L.e("versionCode : " + p.versionCode);
+            L.e("icon : " + p.applicationInfo.loadIcon(c.getPackageManager()));
+            L.e("nameSort : " + nameSort);
             sm.setSortLetters(nameSort);
             sm.setPackageInfo(p);
             sms.add(sm);

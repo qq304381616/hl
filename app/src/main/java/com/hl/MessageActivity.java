@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import com.hl.base.BaseActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 /**
  * 短信
  */
-public class MessageActivity extends AppCompatActivity {
+public class MessageActivity extends BaseActivity {
 
     private TextView tv_send;
     private TextView tv_message;

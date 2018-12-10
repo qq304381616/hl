@@ -6,13 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.hl.api.R;
+import com.hl.base.BaseActivity;
 
 /**
  * Created on 2017/6/7.
  * 接收文件的测试类
  */
 
-public class ReceiverActivity extends AppCompatActivity implements MyBroadcastReceiver.EventHandler, MyBroadcastReceiver.Shutdown, MyBroadcastReceiver.BootCompleted, MyBroadcastReceiver.BatteryChanged, MyBroadcastReceiver.PowerConnected, MyBroadcastReceiver.ScreenOff {
+public class ReceiverActivity extends BaseActivity implements MyBroadcastReceiver.EventHandler, MyBroadcastReceiver.Shutdown, MyBroadcastReceiver.BootCompleted, MyBroadcastReceiver.BatteryChanged, MyBroadcastReceiver.PowerConnected, MyBroadcastReceiver.ScreenOff {
 
     private TextView text;
     private MyBroadcastReceiver receiver;

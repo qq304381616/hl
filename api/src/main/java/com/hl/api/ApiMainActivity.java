@@ -9,11 +9,12 @@ import android.view.View;
 import com.hl.api.jpush.MainActivity;
 import com.hl.api.receiver.ReceiverActivity;
 import com.hl.api.thread.ThreadActivity;
+import com.hl.base.BaseActivity;
 
 /**
  * Created on 2017/4/6.
  */
-public class ApiMainActivity extends AppCompatActivity {
+public class ApiMainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

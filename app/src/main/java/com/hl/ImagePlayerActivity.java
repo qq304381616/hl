@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+
+import com.hl.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,14 @@ import java.util.List;
 /**
  * 图片播放器
  */
-public class ImagePlayerActivity extends AppCompatActivity {
+public class ImagePlayerActivity extends BaseActivity {
 
     private ImageView imageView;
 
     private List<Bitmap> list = new ArrayList<Bitmap>();
+
     @Override
-     protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imageplayer);
         imageView = (ImageView) findViewById(R.id.imageview);
@@ -28,7 +30,7 @@ public class ImagePlayerActivity extends AppCompatActivity {
 //        final Bitmap b = BitmapFactory.decodeFile("/sdcard/8/" + 1 + ".jpg");
 //        imageView.setImageBitmap(b);
 
-         start();
+        start();
     }
 
     private void start() {
@@ -49,7 +51,7 @@ public class ImagePlayerActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            imageView.setImageBitmap(list.get(j-1));
+                            imageView.setImageBitmap(list.get(j - 1));
 
                         }
                     });
@@ -64,5 +66,5 @@ public class ImagePlayerActivity extends AppCompatActivity {
         }).start();
     }
 
-    int j= 1;
+    int j = 1;
 }

@@ -33,31 +33,7 @@
             android:layout_height="48dp"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
-            android:text="design" />
-
-        <TextView
-            android:id="@+id/tv_js"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="webview、h5、js交互" />
-
-        <TextView
-            android:id="@+id/tv_knowledge"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="安卓知识库" />
-
-        <TextView
-            android:id="@+id/tv_permission"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="6.0运行时权限" />
+            android:text="控件集合" />
 
         <TextView
             android:id="@+id/tv_system"
@@ -68,20 +44,12 @@
             android:text="系统功能" />
 
         <TextView
-            android:id="@+id/tv_widget"
+            android:id="@+id/tv_knowledge"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
-            android:text="widget控件集合" />
-
-        <TextView
-            android:id="@+id/tv_map"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="安卓Map集合" />
+            android:text="安卓知识库" />
 
         <TextView
             android:id="@+id/tv_video"

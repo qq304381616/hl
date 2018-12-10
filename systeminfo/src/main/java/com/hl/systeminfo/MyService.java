@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-public class MyService extends Service {
+import com.hl.utils.L;
 
-    private static final String LOG_TAG = "MyService";
+public class MyService extends Service {
 
     public MyService() {
     }
@@ -17,7 +17,7 @@ public class MyService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e(LOG_TAG, "onStartCommand");
+        L.e("onStartCommand");
 //        stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -29,7 +29,7 @@ public class MyService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        Log.e(LOG_TAG, "onBind");
+        L.e( "onBind");
         // TODO: Return the communication channel to the service.
         return null;
 
@@ -42,7 +42,7 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e(LOG_TAG, "onCreate");
+        L.e( "onCreate");
     }
 
     /**
@@ -51,6 +51,6 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(LOG_TAG, "onDestroy");
+        L.e( "onDestroy");
     }
 }

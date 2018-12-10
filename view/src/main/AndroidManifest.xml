@@ -1,0 +1,29 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hl.view">
+
+    <application>
+        <activity android:name=".ui.ViewMainActivity" />
+        <activity
+            android:name=".ui.ToolBarActivity"
+            android:theme="@style/ViewAppTheme" />
+        <activity
+            android:name=".ui.ToolBarAppBarLayoutActivity"
+            android:theme="@style/ViewAppTheme" />
+        <activity
+            android:name=".ui.ToolBarCollapsingToolbarLayoutActivity"
+            android:theme="@style/ViewAppTheme" />
+        <activity
+            android:name=".ui.CoordinatorlayoutActivity"
+            android:theme="@style/ViewAppTheme" />
+
+        <activity android:name=".ui.WidgetActivity" />
+        <activity android:name=".ui.TextureViewActivity" />
+        <activity android:name=".ui.SwipeRefreshLayoutActivity" />
+        <activity android:name=".ui.SeekbarActivity" />
+        <activity android:name=".ui.SwipeRefreshRecyclerActivity" />
+        <activity android:name=".ui.HeadRecyclerActivity" />
+        <activity android:name=".ui.RecyclerDoubleActivity" />
+        <activity android:name=".ui.QuickRecyclerActivity" />
+        <activity android:name=".ui.BannerActivity" />
+    </application>
+</manifest>
