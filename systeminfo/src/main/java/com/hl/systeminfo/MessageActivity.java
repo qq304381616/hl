@@ -1,4 +1,4 @@
-package com.hl;
+package com.hl.systeminfo;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -38,7 +38,7 @@ public class MessageActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message);
+        setContentView(R.layout.system_activity_message);
 
         messageContentObserver = new MessageContentObserver(MessageActivity.this, handler);
         getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, messageContentObserver);

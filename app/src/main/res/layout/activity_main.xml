@@ -60,22 +60,6 @@
             android:text="视频播放器" />
 
         <TextView
-            android:id="@+id/tv_message"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="短信收发" />
-
-        <TextView
-            android:id="@+id/tv_imageplayer"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:text="播放图片" />
-
-        <TextView
             android:id="@+id/tv_net"
             android:layout_width="match_parent"
             android:layout_height="48dp"

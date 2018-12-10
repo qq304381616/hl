@@ -226,6 +226,15 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(new Intent( new Intent(SystemMainActivity.this, TextToSpeechActivity.class)));
             }
         });
+
+        // 短信收发
+        findViewById(R.id.tv_message).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent( new Intent(SystemMainActivity.this, MessageActivity.class)));
+            }
+        });
+
     }
 
     public void createAlarm(String message, int hour, int minutes) {

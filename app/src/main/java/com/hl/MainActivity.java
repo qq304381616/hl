@@ -27,8 +27,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_knowledge).setOnClickListener(this);
         findViewById(R.id.tv_system).setOnClickListener(this);
         findViewById(R.id.tv_video).setOnClickListener(this);
-        findViewById(R.id.tv_message).setOnClickListener(this);
-        findViewById(R.id.tv_imageplayer).setOnClickListener(this);
         findViewById(R.id.tv_net).setOnClickListener(this);
         findViewById(R.id.tv_skin).setOnClickListener(this);
         findViewById(R.id.api).setOnClickListener(this);
@@ -55,12 +53,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_video:
                 startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
-                break;
-            case R.id.tv_message:
-                startActivity(new Intent(MainActivity.this, MessageActivity.class));
-                break;
-            case R.id.tv_imageplayer:
-                startActivity(new Intent(MainActivity.this, ImagePlayerActivity.class));
                 break;
             case R.id.tv_net:
                 startActivity(new Intent(MainActivity.this, NetTestActivity.class));

@@ -35,7 +35,6 @@ public class VideoViewActivity extends BaseActivity {
         videoView.start();
         videoView.requestFocus();
 
-
         TextView tv_pre = (TextView) findViewById(R.id.tv_pre);
         TextView tv_next = (TextView) findViewById(R.id.tv_next);
         tv_pre.setOnClickListener(new View.OnClickListener() {

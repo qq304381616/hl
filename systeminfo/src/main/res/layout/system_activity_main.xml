@@ -148,5 +148,11 @@
             android:gravity="center"
             android:text="文字转语音" />
 
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="短信收发" />
     </LinearLayout>
 </ScrollView>
