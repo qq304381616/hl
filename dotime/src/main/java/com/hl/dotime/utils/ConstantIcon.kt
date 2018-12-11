@@ -1,0 +1,93 @@
+package com.hl.dotime.utils
+
+import com.hl.dotime.R
+
+class ConstantIcon {
+
+    companion object {
+        val list = listOf(
+                "type_101",
+                "type_102",
+                "type_103",
+                "type_104",
+                "type_105",
+                "type_106",
+                "type_107",
+                "type_108",
+                "type_109",
+                "type_110",
+                "type_111",
+                "type_112",
+                "type_113",
+                "type_114",
+                "type_115",
+                "type_116",
+                "type_117",
+                "type_118",
+                "type_119",
+                "type_120",
+                "type_121",
+                "type_122",
+                "type_123",
+                "type_124",
+                "type_125",
+                "type_126",
+                "type_127",
+                "type_128",
+                "type_129",
+                "type_130",
+                "type_131",
+                "type_132",
+                "type_133",
+                "type_134",
+                "type_135",
+                "type_136",
+                "type_137",
+                "type_138",
+                "type_139")
+
+        val map = mapOf(
+                Pair("type_101", R.drawable.type_101),
+                Pair("type_102", R.drawable.type_102),
+                Pair("type_103", R.drawable.type_103),
+                Pair("type_104", R.drawable.type_104),
+                Pair("type_105", R.drawable.type_105),
+                Pair("type_106", R.drawable.type_106),
+                Pair("type_107", R.drawable.type_107),
+                Pair("type_108", R.drawable.type_108),
+                Pair("type_109", R.drawable.type_109),
+                Pair("type_110", R.drawable.type_110),
+                Pair("type_111", R.drawable.type_111),
+                Pair("type_112", R.drawable.type_112),
+                Pair("type_113", R.drawable.type_113),
+                Pair("type_114", R.drawable.type_114),
+                Pair("type_115", R.drawable.type_115),
+                Pair("type_116", R.drawable.type_116),
+                Pair("type_117", R.drawable.type_117),
+                Pair("type_118", R.drawable.type_118),
+                Pair("type_119", R.drawable.type_119),
+                Pair("type_120", R.drawable.type_120),
+                Pair("type_121", R.drawable.type_121),
+                Pair("type_122", R.drawable.type_122),
+                Pair("type_123", R.drawable.type_123),
+                Pair("type_124", R.drawable.type_124),
+                Pair("type_125", R.drawable.type_125),
+                Pair("type_126", R.drawable.type_126),
+                Pair("type_127", R.drawable.type_127),
+                Pair("type_128", R.drawable.type_128),
+                Pair("type_129", R.drawable.type_129),
+                Pair("type_130", R.drawable.type_130),
+                Pair("type_131", R.drawable.type_131),
+                Pair("type_132", R.drawable.type_132),
+                Pair("type_133", R.drawable.type_133),
+                Pair("type_134", R.drawable.type_134),
+                Pair("type_135", R.drawable.type_135),
+                Pair("type_136", R.drawable.type_136),
+                Pair("type_137", R.drawable.type_137),
+                Pair("type_138", R.drawable.type_138),
+                Pair("type_139", R.drawable.type_139))
+
+        val DEFAULT_ICON_NAME = list[0]
+        val DEFAULT_ICON_COLOR = "#FF0081FF"
+    }
+}

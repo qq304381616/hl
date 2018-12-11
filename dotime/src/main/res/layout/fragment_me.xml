@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_backup_db"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height_48"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="备份数据"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/tv_recover_db"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height_48"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="恢复数据"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height_48"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="关于"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16" />
+</LinearLayout>

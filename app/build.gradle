@@ -35,4 +35,5 @@ dependencies {
     implementation project(':device')
     implementation project(':base')
     implementation project(':view')
+    implementation project(':dotime')
 }
