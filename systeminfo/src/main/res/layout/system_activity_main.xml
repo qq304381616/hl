@@ -1,130 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/base_layout_toolbar" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_create_alarm"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="闹钟" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_start_timer"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="定时器" />
+            <TextView
+                android:id="@+id/tv_create_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="闹钟" />
 
-        <TextView
-            android:id="@+id/tv_show_alarms"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="显示所有闹钟" />
+            <TextView
+                android:id="@+id/tv_start_timer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="定时器" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="日历事件" />
+            <TextView
+                android:id="@+id/tv_show_alarms"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="显示所有闹钟" />
 
-        <TextView
-            android:id="@+id/camera1"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="调用照相" />
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="日历事件" />
 
-        <TextView
-            android:id="@+id/camera2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="调用照相2" />
+            <TextView
+                android:id="@+id/camera1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="调用照相" />
 
-        <TextView
-            android:id="@+id/tv_applist"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="应用列表" />
+            <TextView
+                android:id="@+id/camera2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="调用照相2" />
 
-        <TextView
-            android:id="@+id/tv_vibrator"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="震动" />
+            <TextView
+                android:id="@+id/tv_applist"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="应用列表" />
 
-        <TextView
-            android:id="@+id/tv_wakelock"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="屏幕常亮" />
+            <TextView
+                android:id="@+id/tv_vibrator"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="震动" />
 
-        <TextView
-            android:id="@+id/tv_contacts"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="通讯录列表" />
+            <TextView
+                android:id="@+id/tv_wakelock"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="屏幕常亮" />
 
-        <TextView
-            android:id="@+id/tv_image"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="打开相册选择照片" />
+            <TextView
+                android:id="@+id/tv_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="通讯录列表" />
 
-        <TextView
-            android:id="@+id/tv_screen_landscape"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="横屏" />
+            <TextView
+                android:id="@+id/tv_image"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="打开相册选择照片" />
 
-        <TextView
-            android:id="@+id/tv_screen_portrait"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="竖屏" />
+            <TextView
+                android:id="@+id/tv_screen_landscape"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="横屏" />
 
-        <TextView
-            android:id="@+id/tv_screen_sensor"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="支持旋转" />
+            <TextView
+                android:id="@+id/tv_screen_portrait"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="竖屏" />
 
-        <TextView
-            android:id="@+id/tv_vibrate"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="震动" />
+            <TextView
+                android:id="@+id/tv_screen_sensor"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="支持旋转" />
 
-        <TextView
-            android:id="@+id/tv_text_to_speech"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="文字转语音" />
+            <TextView
+                android:id="@+id/tv_vibrate"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="震动" />
 
-        <TextView
-            android:id="@+id/tv_message"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="短信收发" />
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/tv_text_to_speech"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="文字转语音" />
+
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="短信收发" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

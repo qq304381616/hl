@@ -14,6 +14,7 @@ public class KnowledgeMainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.knowledge_activity_main);
+        initToolbar(true);
 
         // Touch事件分发
         findViewById(R.id.tv_touch).setOnClickListener(new View.OnClickListener() {

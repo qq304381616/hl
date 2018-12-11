@@ -15,13 +15,17 @@ import com.hl.view.R;
 import com.hl.view.adapter.ViewMainAdapter;
 import com.hl.view.ui.dialog.DialogMainActivity;
 
+/**
+ * 控件集合
+ */
 public class ViewMainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.view_activity_view_main);
+        initToolbar(true);
+
         findViewById(R.id.tv_easy).setOnClickListener(this);
         findViewById(R.id.tv_dialog).setOnClickListener(this);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);

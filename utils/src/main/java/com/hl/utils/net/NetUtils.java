@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.hl.utils.LogUtils;
+import com.hl.utils.L;
 import com.hl.utils.base.MyApplication;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -151,12 +151,12 @@ public class NetUtils {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                LogUtils.e("Upload", "success");
+                L.e( "success");
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                LogUtils.e("Upload error:", t.getMessage());
+                L.e( t.getMessage());
             }
         });
     }

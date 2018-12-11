@@ -11,7 +11,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
         <activity android:name="com.hl.systeminfo.contact.ContactsActivity" />
-        <activity android:name=".SystemMainActivity" />
+        <activity
+            android:name=".SystemMainActivity"
+            android:label="系统功能" />
         <activity android:name=".AppsInfoListActivity" />
         <activity android:name=".TextToSpeechActivity" />
         <activity android:name=".MessageActivity" />

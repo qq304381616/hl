@@ -1,7 +1,5 @@
 package com.hl.systeminfo;
 
-
-import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -21,13 +19,11 @@ import android.widget.Toast;
 import com.hl.base.BaseActivity;
 import com.hl.systeminfo.contact.ContactsActivity;
 import com.hl.utils.BitmapUtils;
-import com.hl.utils.LogUtils;
+import com.hl.utils.L;
 
 import java.util.Calendar;
 
 public class SystemMainActivity extends BaseActivity {
-
-    private static final String TAG = SystemMainActivity.class.getSimpleName();
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_ALBUM = 2;
@@ -39,6 +35,7 @@ public class SystemMainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.system_activity_main);
+        initToolbar(true);
 
         // 闹钟
         findViewById(R.id.tv_create_alarm).setOnClickListener(new View.OnClickListener() {
@@ -190,7 +187,7 @@ public class SystemMainActivity extends BaseActivity {
         findViewById(R.id.tv_text_to_speech).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent( new Intent(SystemMainActivity.this, TextToSpeechActivity.class)));
+                startActivity(new Intent(new Intent(SystemMainActivity.this, TextToSpeechActivity.class)));
             }
         });
 
@@ -198,7 +195,7 @@ public class SystemMainActivity extends BaseActivity {
         findViewById(R.id.tv_message).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent( new Intent(SystemMainActivity.this, MessageActivity.class)));
+                startActivity(new Intent(new Intent(SystemMainActivity.this, MessageActivity.class)));
             }
         });
 
@@ -274,7 +271,7 @@ public class SystemMainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtils.e(TAG, "SystemMainActivity onActivityResult");
+        L.e("SystemMainActivity onActivityResult");
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
                 Bitmap thumbnail = data.getParcelableExtra("data");

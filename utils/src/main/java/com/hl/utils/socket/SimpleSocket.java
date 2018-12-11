@@ -3,7 +3,7 @@ package com.hl.utils.socket;
 import android.content.Context;
 
 import com.hl.utils.FileUtils;
-import com.hl.utils.LogUtils;
+import com.hl.utils.L;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,8 +19,6 @@ import java.nio.ByteBuffer;
  * 建立socket链接
  */
 public class SimpleSocket {
-
-    private static final String TAG = "SimpleSocket";
 
     public static final short LOGIN = 1001; // 登陆
     public static final short LINECHECK = 1005; // 心跳
@@ -58,7 +56,7 @@ public class SimpleSocket {
 
     public void setBufferSize(int bufferSize) {
         if (bufferSize > Short.MAX_VALUE) {
-            LogUtils.e("TAG", "bufferSize 超过最大限制");
+            L.e("TAG", "bufferSize 超过最大限制");
         }
         this.bufferSize = bufferSize;
     }
@@ -88,7 +86,7 @@ public class SimpleSocket {
     public synchronized void runThread() {
         socketThread = new GoloSocketThread();
         socketThread.start();
-        LogUtils.e(TAG, "socket 开始连接 ");
+        L.e( "socket 开始连接 ");
     }
 
     class GoloSocketThread extends Thread {
@@ -137,7 +135,7 @@ public class SimpleSocket {
                             if (thisCount > 0) {
                                 index += thisCount;
                                 readNullNum = 0;
-                                // LogG.e(Tag, "readNullNum = 0 ； index < 2 时");
+                                // LogG.e( "readNullNum = 0 ； index < 2 时");
                             } else {
                                 run = false;
                                 break;
@@ -147,7 +145,7 @@ public class SimpleSocket {
                             if (thisCount > 0) {
                                 index += thisCount;
                                 readNullNum = 0;
-                                // LogG.e(Tag, "readNullNum = 0 ； else 时");
+                                // LogG.e( "readNullNum = 0 ； else 时");
                             } else {
                                 run = false;
                                 break;
@@ -178,7 +176,7 @@ public class SimpleSocket {
                 } catch (Exception e) {
                     e.printStackTrace();
                     run = false;
-                    // LogG.toE(Tag, "Socket 链接异常", e);
+                    // LogG.toE( "Socket 链接异常", e);
                 } finally {
 
                     try {
@@ -243,7 +241,7 @@ public class SimpleSocket {
         result.setExtra(extra);
         result.setResult(new String(b));
 
-        LogUtils.e(TAG, result.toString());
+        L.e( result.toString());
 
         if (mSocketListener != null) {
             mSocketListener.onGetInfo(result);
@@ -282,13 +280,13 @@ public class SimpleSocket {
     }
 
     public synchronized void reConnect() {
-        LogUtils.e(TAG, "socket reConnect()");
+        L.e( "socket reConnect()");
         if (socketThread != null && isLogin)
             socketThread.run = false;
     }
 
     public synchronized void close() {
-        LogUtils.e(TAG, "socket 关闭连接 ");
+        L.e( "socket 关闭连接 ");
         if (socketThread != null) {
             socketThread.run = false;
             socketThread.isClose = true;
@@ -366,7 +364,7 @@ public class SimpleSocket {
             if (bt != null) {
                 s = new String(bt);
             }
-            LogUtils.e(TAG, "Socket sendInfo : " + com + " | " + s);
+            L.e( "Socket sendInfo : " + com + " | " + s);
         } catch (IOException e) {
             e.printStackTrace();
             reConnect();
@@ -381,7 +379,7 @@ public class SimpleSocket {
         String path = f.path;
         byte[] b = FileUtils.getBuffer(path);
 
-        LogUtils.e(TAG, "文件长度: " + b.length + " | " + "bufferSize: " + bufferSize);
+        L.e( "文件长度: " + b.length + " | " + "bufferSize: " + bufferSize);
 
         try {
             for (int i = f.getIndex(); i < b.length; i += bufferSize - 50) {

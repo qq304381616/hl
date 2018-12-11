@@ -62,7 +62,7 @@ public class ProcessUtils {
                         context.startActivity(intent);
                     }
                     if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName) != AppOpsManager.MODE_ALLOWED) {
-                        LogUtils.e("getForegroundApp", "没有打开\"有权查看使用权限的应用\"选项");
+                        L.e( "没有打开\"有权查看使用权限的应用\"选项");
                         return null;
                     }
                     UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
@@ -81,7 +81,7 @@ public class ProcessUtils {
                     e.printStackTrace();
                 }
             } else {
-                LogUtils.e("getForegroundApp", "无\"有权查看使用权限的应用\"选项");
+                L.e( "无\"有权查看使用权限的应用\"选项");
             }
         }
         return null;

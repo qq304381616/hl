@@ -95,10 +95,10 @@ public class NetworkUtils {
         ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 123.125.114.144", false);
         boolean ret = result.result == 0;
         if (result.errorMsg != null) {
-            LogUtils.e("isAvailableByPing errorMsg", result.errorMsg);
+            L.e(result.errorMsg);
         }
         if (result.successMsg != null) {
-            LogUtils.e("isAvailableByPing successMsg", result.successMsg);
+            L.e( result.successMsg);
         }
         return ret;
     }

@@ -83,7 +83,7 @@ public class MD5Utils {
                 }
             }
         }
-        LogUtils.e("MD5Utils", "生成文件MD5 : " + value);
+        L.e("生成文件MD5 : " + value);
         return value;
     }
 }

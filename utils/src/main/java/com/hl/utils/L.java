@@ -23,7 +23,7 @@ public class L {
     private static boolean logSwitch = BuildConfig.DEBUG;
     private static boolean log2FileSwitch = false;
     private static char logFilter = 'v';
-    private static String tag = "<zklc>";
+    private static String tag = "<hl>";
     private static String dir = "/sdcard/log/";
     private static final int LOG_LENGTH = 2000;  // 单条日志长度限制，超出需要截取多次输出，否则可能丢失
 

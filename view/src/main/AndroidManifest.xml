@@ -2,7 +2,9 @@
     package="com.hl.view">
 
     <application>
-        <activity android:name=".ui.ViewMainActivity" />
+        <activity
+            android:name=".ui.ViewMainActivity"
+            android:label="控件" />
         <activity
             android:name=".ui.ToolBarActivity"
             android:theme="@style/ViewAppTheme" />

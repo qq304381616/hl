@@ -172,13 +172,13 @@ public class DateUtils {
 
 	public static String formatChinaDate(String startTime) {
 		String start = getDate(getTimeFromString(startTime, YYYY_MM_DD), CHINA_FORMAT).substring(5);
-		LogUtils.e("DateUtils", "start===" + start);
+		L.e( "start===" + start);
 		return start;
 	}
 
 	public static String formatChinaDate2(String startTime) {
 		String start = getDate(getTimeFromString(startTime, YYYY_MM_DD), CHINA_FORMAT);
-		LogUtils.e("DateUtils", "start===" + start);
+		L.e( "start===" + start);
 		return start;
 	}
 

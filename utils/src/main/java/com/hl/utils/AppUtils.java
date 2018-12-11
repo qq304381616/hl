@@ -138,7 +138,7 @@ public class AppUtils {
             return true;
         }
         if (result.errorMsg != null) {
-            LogUtils.e("isAppRoot", result.errorMsg);
+            L.e(result.errorMsg);
         }
         return false;
     }

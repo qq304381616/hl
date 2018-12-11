@@ -5,7 +5,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <activity android:name=".KnowledgeMainActivity" />
+        <activity
+            android:name=".KnowledgeMainActivity"
+            android:label="安卓知识库" />
         <activity android:name=".touch.TouchActivity" />
         <activity android:name=".permission.PermissionActivity" />
         <activity android:name=".AndroidMapActivity" />
