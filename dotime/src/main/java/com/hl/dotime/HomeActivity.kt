@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import com.hl.dotime.base.BaseActivity
 import com.hl.dotime.ui.TaskDetailsActivity
 import com.hl.dotime.ui.filter.FilterCountActivity
 import com.hl.dotime.utils.PermissionUtils
@@ -23,9 +24,7 @@ import java.util.*
  * 主页
  * Created by HL on 2018/5/16.
  */
-class HomeActivity : AppCompatActivity() {
-
-    private var TAG: String = "HomeActivity"
+class HomeActivity : BaseActivity() {
 
     private var mTabTl: TabLayout? = null
     private var mContentVp: ViewPager? = null
@@ -49,6 +48,8 @@ class HomeActivity : AppCompatActivity() {
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar!!.setHomeButtonEnabled(true) //设置返回键可用
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true) // 给左上角图标的左边加上一个返回的图标 。对应ActionBar.DISPLAY_HOME_AS_UP
 
         task = TaskFragment.newInstance("task")
         taskManager = TaskManagerFragment.newInstance("task_manager")
@@ -115,8 +116,8 @@ class HomeActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.add_task -> {
                 // 增加计时任务
                 val intent = Intent(this, TaskDetailsActivity::class.java)
@@ -131,6 +132,10 @@ class HomeActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBack() {
+        super.onBack()
+        finish()
+    }
     private fun initTab(position: Int) {
         for (i in tabIndicators!!.indices) {
             val itemTab = mTabTl!!.getTabAt(i)

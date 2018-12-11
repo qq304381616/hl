@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
-            android:label="主页"
+            android:label="dotime"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.ModifyTaskActivity"

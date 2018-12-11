@@ -34,4 +34,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':ColorPicker')
     implementation 'com.google.code.gson:gson:2.8.2'
+
+    implementation project(':base')
 }
