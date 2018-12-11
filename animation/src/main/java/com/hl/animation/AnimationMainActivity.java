@@ -25,14 +25,16 @@ import java.util.List;
 
 
 public class AnimationMainActivity extends BaseActivity {
-    private boolean fromXml = true;
+
+    private static final boolean fromXml = true;
     private ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.animation_activity_main);
-        iv = (ImageView) findViewById(R.id.iv);
+        initToolbar(true);
+        iv =  findViewById(R.id.iv);
     }
 
     public void onClick(View v) {
@@ -43,7 +45,7 @@ public class AnimationMainActivity extends BaseActivity {
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.alpha);
                 iv.startAnimation(animation);
             } else {
-                /**
+                /*
                  * 第一个参数fromAlpha为 动画开始时候透明度
                  *第二个参数toAlpha为 动画结束时候透明度
                  */
@@ -56,7 +58,7 @@ public class AnimationMainActivity extends BaseActivity {
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.scale);
                 iv.startAnimation(animation);
             } else {
-                /**
+                /*
                  * 第一个参数fromX为动画起始时 X坐标上的伸缩尺寸
                  * 第二个参数toX为动画结束时 X坐标上的伸缩尺寸
                  * 第三个参数fromY为动画起始时Y坐标上的伸缩尺寸
@@ -77,7 +79,7 @@ public class AnimationMainActivity extends BaseActivity {
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate);
                 iv.startAnimation(animation);
             } else {
-                /**
+                /*
                  * 第一个参数fromDegrees为动画起始时角度
                  * 第二个参数toDegrees为动画结束角度
                  * 第三个参数pivotXType为动画在X轴相对于物件位置类型
@@ -94,7 +96,7 @@ public class AnimationMainActivity extends BaseActivity {
                 Animation animation = AnimationUtils.loadAnimation(this, R.anim.translate);
                 iv.startAnimation(animation);
             } else {
-                /**
+                /*
                  * 第一个参数fromXDelta为动画起始时的x坐标
                  * 第二个参数toXDelta为动画结束时的x坐标
                  * 第三个参数fromYDelta为动画起始时的y坐标
@@ -102,7 +104,7 @@ public class AnimationMainActivity extends BaseActivity {
                  */
                 Animation animation = new TranslateAnimation(0, 500, 0, 0);
                 animation.setDuration(2000);
-                /**设置插值器：先加速，后减速**/
+                /*设置插值器：先加速，后减速*/
                 animation.setInterpolator(new AccelerateDecelerateInterpolator());
                 iv.startAnimation(animation);
             }
@@ -134,14 +136,14 @@ public class AnimationMainActivity extends BaseActivity {
             AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f, 1.0f);
             alphaAnimation.setDuration(1000);
             alphaAnimation.setRepeatCount(10);
-            /**倒序重复REVERSE  正序重复RESTART**/
+            /*倒序重复REVERSE  正序重复RESTART**/
             alphaAnimation.setRepeatMode(Animation.REVERSE);
             iv.startAnimation(alphaAnimation);
         } else if (id == R.id.animation_group4) {
             Animation translateAnimation = new TranslateAnimation(-10, 10, 0, 0);
             translateAnimation.setDuration(100);
             translateAnimation.setRepeatCount(10);
-            /**倒序重复REVERSE  正序重复RESTART**/
+            /*倒序重复REVERSE  正序重复RESTART**/
             translateAnimation.setRepeatMode(Animation.REVERSE);
             iv.startAnimation(translateAnimation);
         } else if (id == R.id.animation_frame) {
@@ -160,15 +162,15 @@ public class AnimationMainActivity extends BaseActivity {
      * 布局动画
      */
     private void commonAdapterTest() {
-        ListView listView = (ListView) findViewById(R.id.listview);
-        List<String> datas = new ArrayList<>();
+        ListView listView =  findViewById(R.id.listview);
+        List<String> data = new ArrayList<>();
         for (int i = 0; i < 18; i++) {
-            datas.add("万能适配器测试" + i);
+            data.add("万能适配器测试" + i);
         }
         LayoutAnimationController layoutAnimationController = new LayoutAnimationController(AnimationUtils.loadAnimation(this, R.anim.zoom_in));
         layoutAnimationController.setOrder(LayoutAnimationController.ORDER_NORMAL);
         listView.setLayoutAnimation(layoutAnimationController);
-        listView.setAdapter(new CommonAdapter<String>(this, datas, R.layout.animation_item) {
+        listView.setAdapter(new CommonAdapter<String>(this, data, R.layout.animation_item) {
 
             @Override
             protected void convertView(View item, String s) {

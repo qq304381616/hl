@@ -23,10 +23,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(com.hl.view.R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setOnMenuItemClickListener(onMenuItemClick); // 设置监听
+        initToolbar(false);
 
         findViewById(R.id.tv_test).setOnClickListener(this);
         findViewById(R.id.tv_animation).setOnClickListener(this);
@@ -46,17 +43,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return true;
     }
 
-    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            int id = menuItem.getItemId();
-            if (id == R.id.action_edit) {
-                startActivity(new Intent(MainActivity.this, HomeActivity.class));
-            }
-            return true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_do_time) {
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
-    };
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onClick(View v) {
