@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.hl.base.BaseActivity;
 import com.hl.view.R;
 import com.hl.view.adapter.ViewMainAdapter;
+import com.hl.view.ui.dialog.DialogMainActivity;
 
 public class ViewMainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -22,6 +23,7 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
 
         setContentView(R.layout.view_activity_view_main);
         findViewById(R.id.tv_easy).setOnClickListener(this);
+        findViewById(R.id.tv_dialog).setOnClickListener(this);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
         findViewById(R.id.tv_navigationview).setOnClickListener(this);
         findViewById(R.id.tv_coordinatorlayout).setOnClickListener(this);
@@ -62,6 +64,8 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
                     .show(); // Don’t forget to show!
         } else if (id == R.id.tv_easy) {
             startActivity(new Intent(ViewMainActivity.this, WidgetActivity.class));
+        } else if (id == R.id.tv_dialog) {
+            startActivity(new Intent(ViewMainActivity.this, DialogMainActivity.class));
         } else if (id == R.id.tv_navigationview) {
             startActivity(new Intent(ViewMainActivity.this, NavigationViewActivity.class));
         } else if (id == R.id.tv_page_sliding_tab) {

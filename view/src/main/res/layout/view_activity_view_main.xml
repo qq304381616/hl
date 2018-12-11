@@ -14,6 +14,13 @@
         android:text="基本控件" />
 
     <TextView
+        android:id="@+id/tv_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="dialog" />
+
+    <TextView
         android:id="@+id/tv_toolbar"
         android:layout_width="match_parent"
         android:layout_height="64dp"
