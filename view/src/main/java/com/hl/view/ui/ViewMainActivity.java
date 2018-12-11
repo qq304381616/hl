@@ -28,6 +28,7 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.tv_toolbar).setOnClickListener(this);
         findViewById(R.id.tv_toolbar2).setOnClickListener(this);
         findViewById(R.id.tv_toolbar3).setOnClickListener(this);
+        findViewById(R.id.tv_page_sliding_tab).setOnClickListener(this);
 
         TabLayout tablayout = findViewById(R.id.tablayout);
 //        tablayout.addTab(tablayout.newTab().setText("全部"));
@@ -63,6 +64,9 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
             startActivity(new Intent(ViewMainActivity.this, WidgetActivity.class));
         } else if (id == R.id.tv_navigationview) {
             startActivity(new Intent(ViewMainActivity.this, NavigationViewActivity.class));
+        } else if (id == R.id.tv_page_sliding_tab) {
+            Intent intent = new Intent(ViewMainActivity.this, com.hl.tab.ui.activity.MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.tv_coordinatorlayout) {
             startActivity(new Intent(ViewMainActivity.this, CoordinatorlayoutActivity.class));
         } else if (id == R.id.tv_toolbar) {

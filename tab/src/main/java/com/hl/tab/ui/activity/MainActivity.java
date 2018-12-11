@@ -9,12 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.hl.base.BaseActivity;
 import com.hl.tab.R;
 import com.hl.tab.ui.adapter.MainPagerAdapter;
 import com.hl.tab.view.PagerSlidingTab;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawLayout;

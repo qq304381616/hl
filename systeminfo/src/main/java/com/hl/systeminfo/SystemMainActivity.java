@@ -101,14 +101,6 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        //PageSlidingTab
-        findViewById(R.id.tv_page_sliding_tab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SystemMainActivity.this, com.hl.tab.ui.activity.MainActivity.class);
-                startActivity(intent);
-            }
-        });
         //震动
         findViewById(R.id.tv_vibrator).setOnClickListener(new View.OnClickListener() {
             @Override
