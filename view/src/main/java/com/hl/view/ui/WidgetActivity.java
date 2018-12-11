@@ -10,7 +10,7 @@ import com.hl.base.BaseActivity;
 import com.hl.view.R;
 
 /**
- * 控件集合
+ * 基本控件
  */
 public class WidgetActivity extends BaseActivity implements View.OnClickListener {
 
