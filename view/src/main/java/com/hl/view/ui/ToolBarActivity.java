@@ -37,7 +37,7 @@ public class ToolBarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity_toolbar);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher); // 设置icon
         toolbar.setTitle("大标题"); // 大标题
         toolbar.setSubtitle("小标题"); // 小标题

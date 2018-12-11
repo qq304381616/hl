@@ -2,6 +2,9 @@ package com.hl;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.hl.animation.AnimationMainActivity;
@@ -21,6 +24,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = findViewById(com.hl.view.R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setOnMenuItemClickListener(onMenuItemClick); // 设置监听
+
         findViewById(R.id.tv_test).setOnClickListener(this);
         findViewById(R.id.tv_animation).setOnClickListener(this);
         findViewById(R.id.tv_design).setOnClickListener(this);
@@ -32,6 +39,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.api).setOnClickListener(this);
         findViewById(R.id.device).setOnClickListener(this);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            int id = menuItem.getItemId();
+            if (id == R.id.action_edit) {
+            }
+            return true;
+        }
+    };
 
     @Override
     public void onClick(View v) {

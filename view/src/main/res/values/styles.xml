@@ -10,8 +10,7 @@
     <!-- menu 弹出的菜单样式 -->
     <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
         <item name="android:colorBackground">#000000</item>
-        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle
-        </item> <!--新增一个item，用于控制menu-->
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item> <!--新增一个item，用于控制menu-->
     </style>
 
     <!--把该属性改为false即可使menu位置位于toolbar之下-->
