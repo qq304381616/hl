@@ -33,6 +33,13 @@ public class ApiMainActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.tv_eventbus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ApiMainActivity.this, EventBusActivity.class));
+            }
+        });
+
         findViewById(R.id.tv_thread).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

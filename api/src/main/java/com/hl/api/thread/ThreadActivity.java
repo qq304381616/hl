@@ -31,7 +31,7 @@ public class ThreadActivity extends BaseActivity {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplication(), "主线程运行 " + Thread.currentThread().getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "Handler Looper方式主线程运行 " + Thread.currentThread().getName(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -43,7 +43,7 @@ public class ThreadActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplication(), "主线程运行 " + Thread.currentThread().getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "runOnUiThread 方式主线程运行 " + Thread.currentThread().getName(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -52,33 +52,29 @@ public class ThreadActivity extends BaseActivity {
         tv_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    Runnable r = new Runnable() {
-                        @Override
-                        public void run() {
-                            long l = System.currentTimeMillis();
-                            long sum = 0;
-                            int i = 0;
-                            for (; i < 10; i++) {
-                                L.e("isInterrupted：" + t.isInterrupted());
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        long l = System.currentTimeMillis();
+                        long sum = 0;
+                        int i = 0;
+                        for (; i < 10; i++) {
+                            L.e("isInterrupted：" + t.isInterrupted());
 
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    L.e("Exception getMessage：" + e.toString());
-                                }
-                                sum += i;
+                            try {
+                                Thread.sleep(1000); // 当执行 t.interrupt();。 会进入catch语句 结束本线程
+                            } catch (InterruptedException e) {
+                                L.e("Exception getMessage：" + e.toString());
                             }
-                            L.e("sum：" + sum);
-                            L.e("i：" + i);
-                            L.e("运行时间：" + (System.currentTimeMillis() - l));
+                            sum += i;
                         }
-                    };
-                    t = new Thread(r);
-                    t.start();
-                } catch (Exception e) {
-                    L.e("Exception getMessage：" + e.getMessage());
-                }
+                        L.e("sum：" + sum);
+                        L.e("i：" + i);
+                        L.e("运行时间：" + (System.currentTimeMillis() - l));
+                    }
+                };
+                t = new Thread(r);
+                t.start();
             }
         });
 
@@ -90,8 +86,7 @@ public class ThreadActivity extends BaseActivity {
             }
         });
 
-        // ---------------------------------------------------------------------------
-
+        // 线程池
         findViewById(R.id.tv_thread_pool).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

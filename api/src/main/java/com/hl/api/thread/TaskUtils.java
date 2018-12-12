@@ -1,11 +1,11 @@
 package com.hl.api.thread;
 
+import java.util.Random;
+
 /**
  * Created on 2017/5/25.
  */
 public class TaskUtils {
-
-    private static final String TAG = TaskUtils.class.getSimpleName();
 
     private static TaskUtils instance;
 
@@ -24,13 +24,11 @@ public class TaskUtils {
         new Thread(downloadTaskManagerThread).start();
     }
 
-    // 检查未上传。
     public void start() {
-        //3.请求下载
-        String[] items = new String[]{"下载1", "下载2", "下载3", "下载4", "下载5"};
-
-        for (int i = 0; i < items.length; i++) {
-            add(items[i]);
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) { // 增加5个下载到队列。注意名称重复的不会重新下载
+            int id = r.nextInt(100);
+            add("下载" + id);
         }
     }
 

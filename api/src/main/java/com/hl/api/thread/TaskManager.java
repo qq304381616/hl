@@ -1,6 +1,6 @@
 package com.hl.api.thread;
 
-import android.util.Log;
+import com.hl.utils.L;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,7 +10,6 @@ import java.util.Set;
  * Created on 2017/3/24.
  */
 public class TaskManager {
-    private static final String TAG="TaskManager";
     // UI请求队列
     private LinkedList<ITaskRunnable> downloadTasks;
     // 任务不能重复
@@ -40,14 +39,14 @@ public class TaskManager {
                 downloadTasks.addLast(downloadTask);
             }
         }
-
     }
+
     public boolean isTaskRepeat(String fileId) {
         synchronized (taskIdSet) {
             if (taskIdSet.contains(fileId)) {
                 return true;
             } else {
-                Log.e(TAG, "下载管理器增加下载任务："+ fileId);
+                L.e("下载管理器增加下载任务：" + fileId);
                 taskIdSet.add(fileId);
                 return false;
             }
@@ -57,7 +56,7 @@ public class TaskManager {
     public ITaskRunnable getDownloadTask() {
         synchronized (downloadTasks) {
             if (downloadTasks.size() > 0) {
-                Log.e(TAG,"下载管理器增加下载任务："+"取出任务");
+                L.e("下载管理器增加下载任务：" + "取出任务");
                 ITaskRunnable downloadTask = downloadTasks.removeFirst();
                 return downloadTask;
             }

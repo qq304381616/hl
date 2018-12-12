@@ -24,6 +24,13 @@
                 android:text="zxing扫码" />
 
             <TextView
+                android:id="@+id/tv_eventbus"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="eventbus" />
+
+            <TextView
                 android:id="@+id/tv_thread"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
