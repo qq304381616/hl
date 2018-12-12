@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@android:color/holo_blue_bright"
-        android:padding="20dp"
-        android:text="OkHttp3.0\n线程池任务队列"/>
+    <include layout="@layout/base_layout_toolbar" />
 
-    <TextView
-        android:id="@+id/tv_thread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@android:color/holo_blue_bright"
-        android:padding="20dp"
-        android:text="thread 线程"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_jpush"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@android:color/holo_blue_bright"
-        android:padding="20dp"
-        android:text="极光推送"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_receiver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@android:color/holo_blue_bright"
-        android:padding="20dp"
-        android:text="广播测试"/>
+            <TextView
+                android:id="@+id/tv_scan"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="zxing扫码" />
 
+            <TextView
+                android:id="@+id/tv_thread"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="thread 线程" />
+
+            <TextView
+                android:id="@+id/tv_jpush"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="极光推送" />
+
+            <TextView
+                android:id="@+id/tv_receiver"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="广播测试" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

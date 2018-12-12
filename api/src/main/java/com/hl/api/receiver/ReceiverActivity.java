@@ -10,7 +10,6 @@ import com.hl.base.BaseActivity;
 
 /**
  * Created on 2017/6/7.
- * 接收文件的测试类
  */
 
 public class ReceiverActivity extends BaseActivity implements MyBroadcastReceiver.EventHandler, MyBroadcastReceiver.Shutdown, MyBroadcastReceiver.BootCompleted, MyBroadcastReceiver.BatteryChanged, MyBroadcastReceiver.PowerConnected, MyBroadcastReceiver.ScreenOff {
@@ -25,7 +24,7 @@ public class ReceiverActivity extends BaseActivity implements MyBroadcastReceive
         receiver = new MyBroadcastReceiver();
         receiver.registerReceiver(this);
 
-        text = (TextView) findViewById(R.id.text);
+        text = findViewById(R.id.text);
 
     }
 
