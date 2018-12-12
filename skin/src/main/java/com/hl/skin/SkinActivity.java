@@ -1,7 +1,6 @@
 package com.hl.skin;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.hl.base.BaseActivity;
 import com.hl.utils.SDCardUtils;
@@ -10,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * 皮肤测试类
+ * 皮肤测试类 父类
  */
 public class SkinActivity extends BaseActivity {
 

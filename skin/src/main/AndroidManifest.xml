@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hl.skin">
+    package="com.hl.skin">
 
     <application
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <activity android:name=".SkinMainActivity"/>
+        <activity android:name=".SkinMainActivity" />
     </application>
 
 </manifest>

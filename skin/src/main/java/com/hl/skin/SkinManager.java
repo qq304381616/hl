@@ -13,10 +13,10 @@ import java.lang.reflect.Method;
  */
 public class SkinManager {
 
-    Context context;
-    static SkinManager instance = new SkinManager();
-    String skinPackage; // 插件的包名
-    Resources skinResource;
+    private static SkinManager instance = new SkinManager();
+    private Context context;
+    private String skinPackage; // 插件的包名
+    private Resources skinResource;
 
     public static SkinManager getInstance() {
         return instance;
@@ -51,7 +51,6 @@ public class SkinManager {
         }
         String resName = context.getResources().getResourceEntryName(resId);
         int trueResId = skinResource.getIdentifier(resName, "color", skinPackage);
-        int color = skinResource.getColor(trueResId);
-        return color;
+        return skinResource.getColor(trueResId);
     }
 }
