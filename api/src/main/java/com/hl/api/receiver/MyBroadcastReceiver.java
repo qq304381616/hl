@@ -58,6 +58,31 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    public void registerReceiver(Context c) {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        c.registerReceiver(this, filter);
+
+        mListeners.add((EventHandler) c);
+        shutdowns.add((Shutdown) c);
+        bootCompleteds.add((BootCompleted) c);
+        batteryChanged.add((BatteryChanged) c);
+        powerConnected.add((PowerConnected) c);
+        screenOff.add((ScreenOff) c);
+    }
+
+    public void unregisterReceiver(Context c) {
+        c.unregisterReceiver(this);
+
+        mListeners.remove(c);
+        shutdowns.remove(c);
+        bootCompleteds.remove(c);
+        batteryChanged.remove(c);
+        powerConnected.remove(c);
+        screenOff.remove(c);
+    }
+
     public interface EventHandler {
         void onNetChange();
     }
@@ -83,30 +108,4 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     public interface ScreenOff {
         void onScreenOff();
     }
-
-    public void registerReceiver(Context c) {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        c.registerReceiver(this, filter);
-
-        mListeners.add((EventHandler) c);
-        shutdowns.add((Shutdown) c);
-        bootCompleteds.add((BootCompleted) c);
-        batteryChanged.add((BatteryChanged) c);
-        powerConnected.add((PowerConnected) c);
-        screenOff.add((ScreenOff) c);
-    }
-
-    public void unregisterReceiver(Context c) {
-        c.unregisterReceiver(this);
-
-        mListeners.remove(c);
-        shutdowns.remove( c);
-        bootCompleteds.remove( c);
-        batteryChanged.remove( c);
-        powerConnected.remove( c);
-        screenOff.remove( c);
-    }
-
 }

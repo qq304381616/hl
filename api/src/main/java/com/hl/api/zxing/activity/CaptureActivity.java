@@ -82,6 +82,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private ImageView scanLine;
     private String imagePath = null;
     private Rect mCropRect = null;
+    private boolean isHasSurface = false;
 
     public Handler getHandler() {
         return handler;
@@ -90,8 +91,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     public CameraManager getCameraManager() {
         return cameraManager;
     }
-
-    private boolean isHasSurface = false;
 
     @Override
     public void onCreate(Bundle icicle) {

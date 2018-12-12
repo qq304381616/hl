@@ -9,19 +9,19 @@ public class TaskUtils {
 
     private static TaskUtils instance;
 
-    public static synchronized TaskUtils getInstance() {
-        if (instance == null) {
-            instance = new TaskUtils();
-        }
-        return instance;
-    }
-
     public TaskUtils() {
         //1.new一个线程管理队列
         TaskManager.getInstance();
         //2.new一个线程池，并启动
         TaskManagerThread downloadTaskManagerThread = new TaskManagerThread();
         new Thread(downloadTaskManagerThread).start();
+    }
+
+    public static synchronized TaskUtils getInstance() {
+        if (instance == null) {
+            instance = new TaskUtils();
+        }
+        return instance;
     }
 
     public void start() {

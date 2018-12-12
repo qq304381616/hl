@@ -2,23 +2,24 @@
     android:id="@+id/layout_root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/tiledstripes" >
+    android:background="@drawable/tiledstripes">
 
-    <LinearLayout  android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:padding="20dip" >
+        android:padding="20dip">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#9C9C9C"
             android:orientation="vertical"
-            android:padding="10dip" >
+            android:padding="10dip">
 
-         <TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="设置Tag和Alias "
@@ -31,13 +32,13 @@
             android:layout_marginTop="10dip"
             android:background="@drawable/corners_bg"
             android:orientation="vertical"
-            android:paddingBottom="20dip"
-            android:paddingTop="20dip" >
+            android:paddingTop="20dip"
+            android:paddingBottom="20dip">
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -49,9 +50,9 @@
                     style="@style/push_tag"
                     android:layout_width="160dip"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
                     android:layout_marginLeft="5dip"
                     android:layout_marginRight="5dip"
+                    android:textColor="#000000"
                     android:textSize="15sp" />
 
                 <Button
@@ -65,7 +66,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,7 +98,7 @@
             android:layout_marginTop="10dip"
             android:background="#9C9C9C"
             android:orientation="vertical"
-             android:padding="10dip" >
+            android:padding="10dip">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -112,13 +113,15 @@
             android:layout_marginTop="10dip"
             android:background="@drawable/corners_bg"
             android:orientation="vertical"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip">
+
             <Button
                 android:id="@+id/setStyle0"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="定制通知栏样式：AddActions" />
+
             <Button
                 android:id="@+id/setStyle1"
                 android:layout_width="fill_parent"
@@ -138,8 +141,8 @@
             android:layout_marginTop="10dip"
             android:background="#9C9C9C"
             android:orientation="vertical"
-            android:padding="10dip"
-            >
+            android:padding="10dip">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,8 +156,9 @@
             android:layout_marginTop="10dip"
             android:background="@drawable/corners_bg"
             android:orientation="vertical"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip">
+
             <Button
                 android:id="@+id/bu_setTime"
                 android:layout_width="fill_parent"

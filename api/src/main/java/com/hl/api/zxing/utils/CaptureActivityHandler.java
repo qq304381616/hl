@@ -41,10 +41,6 @@ public class CaptureActivityHandler extends Handler {
     private final CameraManager cameraManager;
     private State state;
 
-    private enum State {
-        PREVIEW, SUCCESS, DONE
-    }
-
     public CaptureActivityHandler(CaptureActivity activity, CameraManager cameraManager, int decodeMode) {
         this.activity = activity;
         decodeThread = new DecodeThread(activity, decodeMode);
@@ -103,6 +99,10 @@ public class CaptureActivityHandler extends Handler {
             state = State.PREVIEW;
             cameraManager.requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
         }
+    }
+
+    private enum State {
+        PREVIEW, SUCCESS, DONE
     }
 
 }

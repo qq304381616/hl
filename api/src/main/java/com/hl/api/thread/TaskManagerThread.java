@@ -6,10 +6,10 @@ import java.util.concurrent.Executors;
 
 public class TaskManagerThread implements Runnable {
 
-    private TaskManager taskManager;
-    private ExecutorService pool;   // 创建一个可重用固定线程数的线程池
     private final int POOL_SIZE = 1; // 线程池大小
     private final int SLEEP_TIME = 1000;  // 轮询时间
+    private TaskManager taskManager;
+    private ExecutorService pool;   // 创建一个可重用固定线程数的线程池
     private boolean isStop = false;// 是否停止
 
     public TaskManagerThread() {

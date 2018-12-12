@@ -10,12 +10,12 @@ import java.util.Set;
  * Created on 2017/3/24.
  */
 public class TaskManager {
+
+    private static TaskManager taskMananger;
     // UI请求队列
     private LinkedList<ITaskRunnable> downloadTasks;
     // 任务不能重复
     private Set<String> taskIdSet;
-
-    private static TaskManager taskMananger;
 
     private TaskManager() {
 

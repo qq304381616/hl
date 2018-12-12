@@ -41,18 +41,17 @@ public class CameraManager {
 
     private final Context context;
     private final CameraConfigurationManager configManager;
-    private Camera camera;
-    private AutoFocusManager autoFocusManager;
-
-    private boolean initialized;
-    private boolean previewing;
-    private int requestedCameraId = -1;
     /**
      * Preview frames are delivered here, which we pass on to the registered
      * handler. Make sure to clear the handler so it will only receive one
      * message.
      */
     private final PreviewCallback previewCallback;
+    private Camera camera;
+    private AutoFocusManager autoFocusManager;
+    private boolean initialized;
+    private boolean previewing;
+    private int requestedCameraId = -1;
 
     public CameraManager(Context context) {
         this.context = context;

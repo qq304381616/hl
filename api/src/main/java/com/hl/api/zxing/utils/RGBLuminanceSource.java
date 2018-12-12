@@ -46,6 +46,13 @@ public class RGBLuminanceSource extends LuminanceSource {
         this(loadBitmap(path));
     }
 
+    private static Bitmap loadBitmap(String path) throws FileNotFoundException {
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        if (bitmap == null) {
+            throw new FileNotFoundException("Couldn't open " + path);
+        }
+        return bitmap;
+    }
 
     @Override
     public byte[] getMatrix() {
@@ -64,13 +71,5 @@ public class RGBLuminanceSource extends LuminanceSource {
         }
         System.arraycopy(luminances, arg0 * width, arg1, 0, width);
         return arg1;
-    }
-
-    private static Bitmap loadBitmap(String path) throws FileNotFoundException {
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-        if (bitmap == null) {
-            throw new FileNotFoundException("Couldn't open " + path);
-        }
-        return bitmap;
     }
 }
