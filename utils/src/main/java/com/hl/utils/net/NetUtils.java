@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.hl.utils.L;
-import com.hl.utils.base.MyApplication;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.BufferedReader;
@@ -67,8 +66,8 @@ public class NetUtils {
                 .readTimeout(10, TimeUnit.SECONDS)//设置读取超时时间
                 .writeTimeout(10, TimeUnit.SECONDS);//设置写入超时时间
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
-        Cache cache = new Cache(MyApplication.getContext().getCacheDir(), cacheSize);
-        builder.cache(cache);
+//        Cache cache = new Cache(Baseapp.getContext().getCacheDir(), cacheSize);
+//        builder.cache(cache);
         mOkHttpClient = builder.build();
 
         return new Retrofit.Builder()

@@ -1,13 +1,12 @@
 package com.hl.dotime.base
 
 import android.annotation.SuppressLint
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.hl.dotime.R
 
 @SuppressLint("Registered")
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : com.hl.base.BaseActivity() {
 
     private var toolbar: Toolbar? = null
 
@@ -33,9 +32,5 @@ open class BaseActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         onBack()
-    }
-
-    open fun onBack() {
-
     }
 }

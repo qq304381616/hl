@@ -73,6 +73,6 @@ public class HttpCallback implements Observer<JsonElement> {
     }
 
     protected void onFailure(String message) {
-        if (isToast) Toast.makeText(mLoadingView.getContext(), message, Toast.LENGTH_SHORT).show();
+//        if (isToast) Toast.makeText(mLoadingView.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

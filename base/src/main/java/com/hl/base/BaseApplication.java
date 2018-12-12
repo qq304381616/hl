@@ -1,19 +1,23 @@
 package com.hl.base;
 
 import android.app.Application;
-import android.content.Context;
+
+import com.hl.utils.CrashUtils;
+import com.squareup.leakcanary.LeakCanary;
 
 public class BaseApplication extends Application {
 
-    private static Context mContext;
+    private static BaseApplication instance;
+
+    public static BaseApplication getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
-    }
-
-    public static Context getContext() {
-        return mContext;
+        instance = this;
+        LeakCanary.install(this);
+        CrashUtils.getInstance().init(this);
     }
 }

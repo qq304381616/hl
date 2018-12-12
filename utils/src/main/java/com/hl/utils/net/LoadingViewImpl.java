@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 
-import com.hl.utils.base.MyApplication;
-
 /**
  * Created on 2017/5/26.
  */
@@ -15,7 +13,7 @@ public class LoadingViewImpl implements ILoadingView {
 
     @Override
     public Context getContext() {
-        return MyApplication.getContext();
+        return null;  // TODO
     }
 
     public void showLoading() {
