@@ -26,7 +26,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -53,6 +52,7 @@ import com.hl.api.zxing.utils.BeepManager;
 import com.hl.api.zxing.utils.CaptureActivityHandler;
 import com.hl.api.zxing.utils.InactivityTimer;
 import com.hl.api.zxing.utils.RGBLuminanceSource;
+import com.hl.utils.L;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -68,8 +68,6 @@ import java.util.Hashtable;
  * @author Sean Owen
  */
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
-
-    private static final String TAG = CaptureActivity.class.getSimpleName();
 
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
@@ -148,10 +146,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             cursor.close();
             Result result1 = paresQRciseBitmap(imagePath);
             if (result1 == null) {
-                Log.e(TAG, "解析二维码：失败");
+                L.e( "解析二维码：失败");
                 Toast.makeText(this, "二维码解析失败", Toast.LENGTH_SHORT).show();
             } else {
-                Log.e(TAG, "解析二维码：" + result1.toString());
+                L.e("解析二维码：" + result1.toString());
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putString("result", result1.toString());
@@ -252,7 +250,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (holder == null) {
-            Log.e(TAG, "*** WARNING *** surfaceCreated() gave us a null surface!");
+            L.e( "*** WARNING *** surfaceCreated() gave us a null surface!");
         }
         if (!isHasSurface) {
             isHasSurface = true;
@@ -294,7 +292,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             throw new IllegalStateException("No SurfaceHolder provided");
         }
         if (cameraManager.isOpen()) {
-            Log.w(TAG, "initCamera() while already open -- late SurfaceView callback?");
+            L.e( "initCamera() while already open -- late SurfaceView callback?");
             return;
         }
         try {
@@ -307,12 +305,12 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
             initCrop();
         } catch (IOException ioe) {
-            Log.w(TAG, ioe);
+            L.e(ioe);
             displayFrameworkBugMessageAndExit();
         } catch (RuntimeException e) {
             // Barcode Scanner has seen crashes in the wild of this variety:
             // java.?lang.?RuntimeException: Fail to connect to camera service
-            Log.w(TAG, "Unexpected error initializing camera", e);
+            L.e("Unexpected error initializing camera", e);
             displayFrameworkBugMessageAndExit();
         }
     }
