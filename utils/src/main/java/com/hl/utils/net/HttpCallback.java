@@ -38,7 +38,6 @@ public class HttpCallback implements Observer<JsonElement> {
     public void onError(Throwable e) {
         L.e( "onError");
         if (mLoadingView != null && isLoading) mLoadingView.hideLoading();
-        if (isToast) Toast.makeText(mLoadingView.getContext(), "网络异常", Toast.LENGTH_SHORT).show();
         L.e( e.getMessage());
         e.printStackTrace();
     }

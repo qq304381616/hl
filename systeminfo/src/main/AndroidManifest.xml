@@ -17,6 +17,7 @@
         <activity android:name=".AppsInfoListActivity" />
         <activity android:name=".TextToSpeechActivity" />
         <activity android:name=".MessageActivity" />
+        <activity android:name=".VideoViewActivity" />
 
     </application>
 

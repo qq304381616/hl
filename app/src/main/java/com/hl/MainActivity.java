@@ -2,7 +2,6 @@ package com.hl;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,11 +9,11 @@ import android.view.View;
 import com.hl.animation.AnimationMainActivity;
 import com.hl.api.ApiMainActivity;
 import com.hl.base.BaseActivity;
-import com.hl.devices.DeviceMainActivity;import com.hl.dotime.HomeActivity;
+import com.hl.devices.DeviceMainActivity;
+import com.hl.dotime.HomeActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
-import com.hl.utils.net.NetTestActivity;
 import com.hl.view.ui.ViewMainActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -30,8 +29,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_design).setOnClickListener(this);
         findViewById(R.id.tv_knowledge).setOnClickListener(this);
         findViewById(R.id.tv_system).setOnClickListener(this);
-        findViewById(R.id.tv_video).setOnClickListener(this);
-        findViewById(R.id.tv_net).setOnClickListener(this);
         findViewById(R.id.tv_skin).setOnClickListener(this);
         findViewById(R.id.api).setOnClickListener(this);
         findViewById(R.id.device).setOnClickListener(this);
@@ -69,12 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_system:
                 startActivity(new Intent(MainActivity.this, SystemMainActivity.class));
-                break;
-            case R.id.tv_video:
-                startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
-                break;
-            case R.id.tv_net:
-                startActivity(new Intent(MainActivity.this, NetTestActivity.class));
                 break;
             case R.id.tv_skin:
                 startActivity(new Intent(MainActivity.this, SkinMainActivity.class));

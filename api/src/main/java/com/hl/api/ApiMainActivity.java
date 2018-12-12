@@ -40,6 +40,13 @@ public class ApiMainActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.tv_net).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ApiMainActivity.this, NetTestActivity.class));
+            }
+        });
+
         findViewById(R.id.tv_thread).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

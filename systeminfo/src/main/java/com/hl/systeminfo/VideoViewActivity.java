@@ -1,4 +1,4 @@
-package com.hl;
+package com.hl.systeminfo;
 
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
@@ -11,7 +11,9 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.hl.base.BaseActivity;
+import com.hl.utils.FileUtils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -25,18 +27,20 @@ public class VideoViewActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_videoview);
+        setContentView(R.layout.system_activity_videoview);
 
-        String path = "/sdcard/8/c.avi";
+        String path = "/sdcard/hl/file/test.mp4";
+        FileUtils.CheckExistsAndCopy(this, new File(path));
+
         Uri uri = Uri.parse(path);
-        videoView = (VideoView) this.findViewById(R.id.videoview);
+        videoView = this.findViewById(R.id.videoview);
         videoView.setMediaController(new MediaController(this));
         videoView.setVideoURI(uri);
         videoView.start();
         videoView.requestFocus();
 
-        TextView tv_pre = (TextView) findViewById(R.id.tv_pre);
-        TextView tv_next = (TextView) findViewById(R.id.tv_next);
+        TextView tv_pre = findViewById(R.id.tv_pre);
+        TextView tv_next = findViewById(R.id.tv_next);
         tv_pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +55,7 @@ public class VideoViewActivity extends BaseActivity {
             }
         });
 
-        // createVideoThumbnail(videoView.getCurrentPosition(), path, "/sdcard/1.png");
+//         createVideoThumbnail(videoView.getCurrentPosition(), path, "/sdcard/1.png");
     }
 
 

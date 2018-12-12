@@ -421,8 +421,8 @@ public class FileUtils {
         try {
             AssetManager am = c.getAssets();
             InputStream is = am.open(f.getName());
+            createOrExistsDir(f.getParentFile());
             FileOutputStream fos = new FileOutputStream(f.getParent() + File.separator + f.getName());
-
             byte[] buf = new byte[1024];
             int len = 0;
             len = is.read(buf);

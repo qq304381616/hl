@@ -195,6 +195,14 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(new Intent(new Intent(SystemMainActivity.this, MessageActivity.class)));
             }
         });
+
+        // 视频播放
+        findViewById(R.id.tv_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(new Intent(SystemMainActivity.this, VideoViewActivity.class)));
+            }
+        });
     }
 
     public void createAlarm(String message, int hour, int minutes) {
