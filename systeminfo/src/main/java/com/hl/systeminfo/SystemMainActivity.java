@@ -8,13 +8,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Toast;
+import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.hl.base.BaseActivity;
 import com.hl.systeminfo.contact.ContactsActivity;
@@ -27,9 +28,6 @@ public class SystemMainActivity extends BaseActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_ALBUM = 2;
-
-    // 屏幕常亮状态
-    private boolean isWakeLock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,21 +106,20 @@ public class SystemMainActivity extends BaseActivity {
                 // vibrator.cancel(); // 取消震动
             }
         });
-        //屏幕常亮
-        findViewById(R.id.tv_wakelock).setOnClickListener(new View.OnClickListener() {
+
+        CheckBox cb_wakelock = findViewById(R.id.cb_wakelock);
+        cb_wakelock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "My Tag");
-                if (isWakeLock) {
-                    Toast.makeText(SystemMainActivity.this, "打开屏幕常亮", Toast.LENGTH_SHORT).show();
-                    mWakeLock.acquire();
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 } else {
-                    Toast.makeText(SystemMainActivity.this, "关闭屏幕常亮", Toast.LENGTH_SHORT).show();
-                    mWakeLock.acquire();
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
                 }
             }
         });
+
         //通讯录列表
         findViewById(R.id.tv_contacts).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +195,6 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(new Intent(new Intent(SystemMainActivity.this, MessageActivity.class)));
             }
         });
-
     }
 
     public void createAlarm(String message, int hour, int minutes) {
@@ -256,14 +252,6 @@ public class SystemMainActivity extends BaseActivity {
                 .putExtra(CalendarContract.Events.EVENT_LOCATION, location)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, begin)
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
-
-    public void showMap(Uri geoLocation) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(geoLocation);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }

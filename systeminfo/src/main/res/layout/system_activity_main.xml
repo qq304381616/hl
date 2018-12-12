@@ -12,7 +12,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -71,11 +71,11 @@
                 android:gravity="center"
                 android:text="震动" />
 
-            <TextView
-                android:id="@+id/tv_wakelock"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
+            <CheckBox
+                android:id="@+id/cb_wakelock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="屏幕常亮" />
 
             <TextView
@@ -92,26 +92,35 @@
                 android:gravity="center"
                 android:text="打开相册选择照片" />
 
-            <TextView
-                android:id="@+id/tv_screen_landscape"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="横屏" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_screen_portrait"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="竖屏" />
+                <TextView
+                    android:id="@+id/tv_screen_landscape"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="横屏" />
 
-            <TextView
-                android:id="@+id/tv_screen_sensor"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="支持旋转" />
+                <TextView
+                    android:id="@+id/tv_screen_portrait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="竖屏" />
+
+                <TextView
+                    android:id="@+id/tv_screen_sensor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="支持旋转" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_vibrate"
