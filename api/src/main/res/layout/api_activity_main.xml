@@ -31,6 +31,13 @@
                 android:text="eventbus" />
 
             <TextView
+                android:id="@+id/tv_pinyin"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:gravity="center"
+                android:text="pinyin4j" />
+
+            <TextView
                 android:id="@+id/tv_net"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"

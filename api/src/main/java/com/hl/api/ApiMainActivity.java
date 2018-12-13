@@ -55,6 +55,13 @@ public class ApiMainActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.tv_pinyin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ApiMainActivity.this, PinyinActivity.class));
+            }
+        });
+
         findViewById(R.id.tv_net).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
