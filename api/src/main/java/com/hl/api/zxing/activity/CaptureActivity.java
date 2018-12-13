@@ -146,7 +146,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             cursor.close();
             Result result1 = paresQRciseBitmap(imagePath);
             if (result1 == null) {
-                L.e( "解析二维码：失败");
+                L.e("解析二维码：失败");
                 Toast.makeText(this, "二维码解析失败", Toast.LENGTH_SHORT).show();
             } else {
                 L.e("解析二维码：" + result1.toString());
@@ -250,7 +250,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (holder == null) {
-            L.e( "*** WARNING *** surfaceCreated() gave us a null surface!");
+            L.e("*** WARNING *** surfaceCreated() gave us a null surface!");
         }
         if (!isHasSurface) {
             isHasSurface = true;
@@ -292,7 +292,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
             throw new IllegalStateException("No SurfaceHolder provided");
         }
         if (cameraManager.isOpen()) {
-            L.e( "initCamera() while already open -- late SurfaceView callback?");
+            L.e("initCamera() while already open -- late SurfaceView callback?");
             return;
         }
         try {

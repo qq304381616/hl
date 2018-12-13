@@ -27,6 +27,8 @@
         <activity android:name=".ui.RecyclerDoubleActivity" />
         <activity android:name=".ui.QuickRecyclerActivity" />
         <activity android:name=".ui.BannerActivity" />
-        <activity android:name=".ui.dialog.DialogMainActivity" />
+        <activity
+            android:name=".ui.dialog.DialogMainActivity"
+            android:label="Dialog" />
     </application>
 </manifest>

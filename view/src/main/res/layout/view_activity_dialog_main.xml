@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/base_layout_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_base_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="普通显示信息dialog" />
+
     <TextView
         android:id="@+id/tv_num_picker"
         android:layout_width="match_parent"

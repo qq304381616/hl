@@ -14,8 +14,8 @@ import com.hl.api.receiver.ReceiverActivity;
 import com.hl.api.thread.ThreadActivity;
 import com.hl.api.zxing.activity.CaptureActivity;
 import com.hl.base.BaseActivity;
+import com.hl.base.dialog.DialogUtils;
 import com.hl.utils.L;
-import com.hl.utils.ToastUtils;
 import com.hl.utils.permission.PermissionUtils;
 
 import java.util.Arrays;
@@ -89,9 +89,12 @@ public class ApiMainActivity extends BaseActivity {
         if (requestCode == GO_SCAN_RESULT_CODE) {
             switch (resultCode) {
                 case Activity.RESULT_OK:
-                    final String result = data.getExtras().getString("result");
-                    L.e("扫一扫结果：" + result);
-                    ToastUtils.showShortToast(getApplicationContext(), result);
+                    Bundle bundle = data.getExtras();
+                    if (bundle != null) {
+                        final String result = bundle.getString("result");
+                        L.e("扫一扫结果：" + result);
+                        DialogUtils.createBaseDialog(ApiMainActivity.this, "", result).show();
+                    }
             }
         }
     }
