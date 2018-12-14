@@ -22,7 +22,7 @@ public class RecyclerDoubleActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity_recyclerdouble);
-        RecyclerView recyclerParent = (RecyclerView) findViewById(R.id.recycler_parent);
+        RecyclerView recyclerParent = findViewById(R.id.recycler_parent);
 
         recyclerParent.setLayoutManager(new LinearLayoutManager(this));
         ParentAdapter adapter = new ParentAdapter(this);
