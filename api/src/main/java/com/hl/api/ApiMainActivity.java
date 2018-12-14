@@ -3,6 +3,8 @@ package com.hl.api;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +15,11 @@ import com.hl.api.jpush.MainActivity;
 import com.hl.api.receiver.ReceiverActivity;
 import com.hl.api.thread.ThreadActivity;
 import com.hl.api.zxing.activity.CaptureActivity;
+import com.hl.api.zxing.activity.ResultActivity;
+import com.hl.api.zxing.utils.QRUtils;
 import com.hl.base.BaseActivity;
 import com.hl.base.dialog.DialogUtils;
+import com.hl.utils.BitmapUtils;
 import com.hl.utils.L;
 import com.hl.utils.permission.PermissionUtils;
 
@@ -48,6 +53,13 @@ public class ApiMainActivity extends BaseActivity {
             }
         });
 
+        findViewById(R.id.tv_make_scan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ApiMainActivity.this, ResultActivity.class));
+
+            }
+        });
         findViewById(R.id.tv_eventbus).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

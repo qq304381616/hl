@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore.Images.ImageColumns;
@@ -436,4 +439,74 @@ public class BitmapUtils {
         }
         return type;
     }
+
+    /**
+     * 两张图片叠加
+     *
+     * @param out  大图
+     * @param in   中间小图
+     * @param size 大小图比例
+     * @return
+     */
+    public static Bitmap centerBitmap(Bitmap out, Bitmap in, float size) {
+        int divider = 4; // 里边图白边宽度
+        if (in == null) return out;
+        final Bitmap alterBitmap = Bitmap.createBitmap(out.getWidth(), out.getHeight(), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(alterBitmap);
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(out, new Matrix(), paint);
+        Bitmap sb = centerSquareScaleBitmap(in);
+        final Bitmap bitmap1 = scaleBitmap(out.getWidth() / size, sb);
+        int i1 = out.getWidth() / 2 - bitmap1.getWidth() / 2;
+        canvas.drawRect(i1 - divider, i1 - divider, i1 + divider + bitmap1.getWidth(), i1 + divider + bitmap1.getWidth(), paint);
+        canvas.drawBitmap(bitmap1, i1, i1, paint);
+        return alterBitmap;
+    }
+
+    /**
+     * 按尺寸缩放图片
+     */
+    public static Bitmap scaleBitmap(float size, Bitmap bitmap) {
+        float scale = size / bitmap.getWidth();
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale); //长和宽放大缩小的比例
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+
+    public static Bitmap centerSquareScaleBitmap(Bitmap bitmap) {
+        Bitmap result = bitmap;
+        int widthOrg = bitmap.getWidth();
+        int heightOrg = bitmap.getHeight();
+        int edgeLength = widthOrg > heightOrg ? heightOrg : widthOrg;
+
+        if (widthOrg >= edgeLength && heightOrg >= edgeLength) {
+            //压缩到一个最小长度是edgeLength的bitmap
+            int longerEdge = edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg);
+            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
+            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
+            Bitmap scaledBitmap;
+
+            try {
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+            } catch (Exception e) {
+                return null;
+            }
+
+            //从图中截取正中间的正方形部分。
+            int xTopLeft = (scaledWidth - edgeLength) / 2;
+            int yTopLeft = (scaledHeight - edgeLength) / 2;
+
+            try {
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
+//                scaledBitmap.recycle();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return result;
+    }
+
 }

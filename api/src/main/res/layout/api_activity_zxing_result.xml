@@ -6,24 +6,31 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
+    <include layout="@layout/base_layout_toolbar" />
+
     <ImageView
-        android:id="@+id/result_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/iv_1"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="@android:color/darker_gray"
         android:scaleType="fitXY" />
 
+    <ImageView
+        android:id="@+id/iv_2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@android:color/darker_gray"
+        android:scaleType="fitXY" />
+
+    <EditText
+        android:id="@+id/et_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
-        android:id="@+id/result_text"
+        android:id="@+id/tv_make"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:background="#D8D8D8"
-        android:gravity="left|top"
-        android:padding="10dp"
-        android:textColor="@android:color/black"
-        android:textSize="14sp" />
-
+        android:gravity="center"
+        android:text="生成二维码" />
 </LinearLayout>
