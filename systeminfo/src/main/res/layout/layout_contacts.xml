@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/layoutContainer"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:padding="8dp" >
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/et_search"
@@ -36,7 +36,7 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent">
 
         <ListView
             android:id="@+id/lv_contacts"

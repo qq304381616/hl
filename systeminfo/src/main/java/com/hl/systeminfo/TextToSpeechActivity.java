@@ -1,6 +1,5 @@
 package com.hl.systeminfo;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;

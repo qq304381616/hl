@@ -9,23 +9,23 @@
         android:layout_height="match_parent" />
 
     <TextView
-        android:layout_marginTop="20dp"
         android:id="@+id/tv_pre"
-        android:layout_marginLeft="20dp"
-        android:padding="10dp"
-        android:text="上一帧"
-        android:background="@android:color/white"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:padding="10dp"
+        android:text="上一帧" />
 
     <TextView
-        android:background="@android:color/white"
-        android:layout_marginTop="20dp"
         android:id="@+id/tv_next"
-        android:layout_marginRight="20dp"
-        android:padding="10dp"
-        android:layout_alignParentRight="true"
-        android:text="下一帧"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/white"
+        android:padding="10dp"
+        android:text="下一帧" />
 </RelativeLayout>

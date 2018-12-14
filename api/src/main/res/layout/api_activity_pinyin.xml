@@ -20,7 +20,7 @@
                 android:id="@+id/et_input"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:text="毛驴" />
+                android:text="金银铝" />
 
             <TextView
                 android:id="@+id/tv_py1"

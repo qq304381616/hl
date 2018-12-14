@@ -33,18 +33,16 @@ public class ContactsActivity extends BaseActivity {
     ListView mListView;
     EditText etSearch;
     ImageView ivClearText;
-
+    Context mContext;
+    String chReg = "[\\u4E00-\\u9FA5]+";// 中文字符串匹配
     private SideBar sideBar;
     private TextView dialog;
-
     private List<SortModel> mAllContactsList;
     private ContactsSortAdapter adapter;
-    Context mContext;
     /**
      * 汉字转换成拼音的类
      */
     private CharacterParser characterParser;
-
     /**
      * 根据拼音来排列ListView里面的数据类
      */
@@ -308,8 +306,6 @@ public class ContactsActivity extends BaseActivity {
         }
         return filterList;
     }
-
-    String chReg = "[\\u4E00-\\u9FA5]+";// 中文字符串匹配
 
     // String chReg="[^\\u4E00-\\u9FA5]";//除中文外的字符匹配
 

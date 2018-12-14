@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_layout_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TYPE_ACCELEROMETER"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="加速度传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_AMBIENT_TEMPERATURE"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="周围温度传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_GRAVITY"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="重力传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_GYROSCOPE"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="陀螺仪传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_LIGHT"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="光照传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_LINEAR_ACCELERATION"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="线性加速度传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_MAGNETIC_FIELD"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="磁力传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_ORIENTATION"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="方向传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_PRESSURE"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="压力传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_PROXIMITY"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="接近传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_RELATIVE_HUMIDITY"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="相对湿度传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_ROTATION_VECTOR"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="旋转矢量传感器" />
+
+            <TextView
+                android:id="@+id/TYPE_TEMPERATURE"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="温度传感器" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

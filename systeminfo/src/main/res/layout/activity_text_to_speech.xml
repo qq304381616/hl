@@ -5,11 +5,11 @@
     android:orientation="vertical">
 
     <EditText
-        android:text="测试，语音播放"
         android:id="@+id/et_text"
         android:layout_width="match_parent"
         android:layout_height="46dp"
-        android:hint="请输入播放的文字" />
+        android:hint="请输入播放的文字"
+        android:text="测试，语音播放" />
 
     <Button
         android:id="@+id/btn_play"

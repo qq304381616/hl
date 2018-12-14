@@ -18,6 +18,9 @@
         <activity android:name=".TextToSpeechActivity" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".VideoViewActivity" />
+        <activity
+            android:name=".SensorMainActivity"
+            android:label="传感器" />
 
     </application>
 

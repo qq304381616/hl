@@ -35,6 +35,13 @@ public class SystemMainActivity extends BaseActivity {
         setContentView(R.layout.system_activity_main);
         initToolbar(true);
 
+        // 传感器
+        findViewById(R.id.tv_sensor).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SystemMainActivity.this, SensorMainActivity.class));
+            }
+        });
         // 闹钟
         findViewById(R.id.tv_create_alarm).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,23 +15,18 @@ import com.hl.systeminfo.R;
 
 
 public class SideBar extends View {
-    // 触摸事件
-    private OnTouchingLetterChangedListener onTouchingLetterChangedListener;
     // 26个字母
     public static String[] b = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
             "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "#"};
-    private int choose = -1;// 选中
-    private Paint paint = new Paint();
-
-    private TextView mTextDialog;
-    private float singleHeight;
     public static int dialogColor[] = {R.drawable.dialog_color_blue, R.drawable.dialog_color_green,
             R.drawable.dialog_color_orange, R.drawable.dialog_color_purple, R.drawable.dialog_color_red};
+    // 触摸事件
+    private OnTouchingLetterChangedListener onTouchingLetterChangedListener;
+    private int choose = -1;// 选中
+    private Paint paint = new Paint();
+    private TextView mTextDialog;
+    private float singleHeight;
     ;
-
-    public void setTextView(TextView mTextDialog) {
-        this.mTextDialog = mTextDialog;
-    }
 
     public SideBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -43,6 +38,10 @@ public class SideBar extends View {
 
     public SideBar(Context context) {
         super(context);
+    }
+
+    public void setTextView(TextView mTextDialog) {
+        this.mTextDialog = mTextDialog;
     }
 
     /**

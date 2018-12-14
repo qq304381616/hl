@@ -16,6 +16,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_sensor"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="传感器" />
+
+            <TextView
                 android:id="@+id/tv_create_alarm"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

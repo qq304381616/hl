@@ -154,11 +154,11 @@ public class ContactUtils {
     }
 
     class A {
+        public SortToken sortToken;
         private String name;
         private List<String> account;
         private String sortKey;
         private String book;
-        public SortToken sortToken;
 
         public String getName() {
             return name;

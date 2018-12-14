@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="64dp">
+    android:layout_width="match_parent"
+    android:layout_height="64dp">
 
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:padding="10dip"/>
+        android:padding="10dip" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,26 +17,26 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="name"
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="name" />
 
         <TextView
-            android:text="package"
             android:id="@+id/tv_package_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"/>
+            android:layout_marginTop="2dp"
+            android:text="package" />
 
 
     </LinearLayout>
 
     <View
-        android:layout_marginLeft="64dp"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="64dp"
+        android:background="@android:color/darker_gray" />
 
 </RelativeLayout>

@@ -35,11 +35,6 @@ import java.util.Locale;
  * 来自android4.2源码
  */
 public class HanziToPinyin {
-    private static final String TAG = "HanziToPinyin";
-
-    // Turn on this flag when we want to check internal data structure.
-    private static final boolean DEBUG = false;
-
     /**
      * Unihans array.
      * <p>
@@ -117,7 +112,6 @@ public class HanziToPinyin {
             '\u4e13', '\u5986', '\u96b9', '\u5b92', '\u5353', '\u4e72',
             '\u5b97', '\u90b9', '\u79df', '\u94bb', '\u539c', '\u5c0a',
             '\u6628', '\u5159', '\u9fc3', '\u9fc4',};
-
     /**
      * Pinyin array.
      * <p>
@@ -337,7 +331,9 @@ public class HanziToPinyin {
             {90, 85, 73, 0, 0, 0}, {90, 85, 78, 0, 0, 0},
             {90, 85, 79, 0, 0, 0}, {0, 0, 0, 0, 0, 0},
             {83, 72, 65, 78, 0, 0}, {0, 0, 0, 0, 0, 0},};
-
+    private static final String TAG = "HanziToPinyin";
+    // Turn on this flag when we want to check internal data structure.
+    private static final boolean DEBUG = false;
     /**
      * First and last Chinese character with known Pinyin according to zh collation
      */
@@ -348,40 +344,6 @@ public class HanziToPinyin {
 
     private static HanziToPinyin sInstance;
     private final boolean mHasChinaCollator;
-
-    public static class Token {
-        /**
-         * Separator between target string for each source char
-         */
-        public static final String SEPARATOR = " ";
-
-        public static final int LATIN = 1;
-        public static final int PINYIN = 2;
-        public static final int UNKNOWN = 3;
-
-        public Token() {
-        }
-
-        public Token(int type, String source, String target) {
-            this.type = type;
-            this.source = source;
-            this.target = target;
-        }
-
-        /**
-         * Type of this token, ASCII, PINYIN or UNKNOWN.
-         */
-        public int type;
-        /**
-         * Original string before translation.
-         */
-        public String source;
-        /**
-         * Translated string of source. For Han, target is corresponding Pinyin. Otherwise target is
-         * original string in source.
-         */
-        public String target;
-    }
 
     protected HanziToPinyin(boolean hasChinaCollator) {
         mHasChinaCollator = hasChinaCollator;
@@ -555,5 +517,36 @@ public class HanziToPinyin {
         String str = sb.toString();
         tokens.add(new Token(tokenType, str, str));
         sb.setLength(0);
+    }
+
+    public static class Token {
+        /**
+         * Separator between target string for each source char
+         */
+        public static final String SEPARATOR = " ";
+
+        public static final int LATIN = 1;
+        public static final int PINYIN = 2;
+        public static final int UNKNOWN = 3;
+        /**
+         * Type of this token, ASCII, PINYIN or UNKNOWN.
+         */
+        public int type;
+        /**
+         * Original string before translation.
+         */
+        public String source;
+        /**
+         * Translated string of source. For Han, target is corresponding Pinyin. Otherwise target is
+         * original string in source.
+         */
+        public String target;
+        public Token() {
+        }
+        public Token(int type, String source, String target) {
+            this.type = type;
+            this.source = source;
+            this.target = target;
+        }
     }
 }

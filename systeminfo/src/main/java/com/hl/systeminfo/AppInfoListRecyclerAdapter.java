@@ -26,6 +26,7 @@ public class AppInfoListRecyclerAdapter extends Adapter<AppInfoListRecyclerAdapt
     private LayoutInflater inflater;
     private PackageManager mPackageManager;
     private Context mContext;
+    private OnItemClickListener mOnItemClickListener;
 
     public AppInfoListRecyclerAdapter(Context c) {
         this.inflater = LayoutInflater.from(c);
@@ -67,33 +68,9 @@ public class AppInfoListRecyclerAdapter extends Adapter<AppInfoListRecyclerAdapt
         return mPacks == null ? 0 : mPacks.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
-
-        ImageView iv_icon;
-        TextView tv_name;
-        TextView tv_package_name;
-
-        public Holder(View view) {
-            super(view);
-            iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
-            tv_name = (TextView) view.findViewById(R.id.tv_name);
-            tv_package_name = (TextView) view.findViewById(R.id.tv_package_name);
-
-        }
-    }
-
-    private OnItemClickListener mOnItemClickListener;
-
-    public interface OnItemClickListener {
-        void onClick(int position);
-
-        void onLongClick(int position);
-    }
-
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
-
 
     /**
      * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
@@ -108,5 +85,26 @@ public class AppInfoListRecyclerAdapter extends Adapter<AppInfoListRecyclerAdapt
         }
 
         return -1;
+    }
+
+    public interface OnItemClickListener {
+        void onClick(int position);
+
+        void onLongClick(int position);
+    }
+
+    public static class Holder extends RecyclerView.ViewHolder {
+
+        ImageView iv_icon;
+        TextView tv_name;
+        TextView tv_package_name;
+
+        public Holder(View view) {
+            super(view);
+            iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+            tv_name = (TextView) view.findViewById(R.id.tv_name);
+            tv_package_name = (TextView) view.findViewById(R.id.tv_package_name);
+
+        }
     }
 }
