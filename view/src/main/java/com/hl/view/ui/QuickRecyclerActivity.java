@@ -2,46 +2,44 @@ package com.hl.view.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.hl.base.BaseActivity;
+import com.hl.base.BaseConstant;
+import com.hl.base.entity.BaseDataEntity;
+import com.hl.base.utils.Utils;
 import com.hl.utils.views.SideBar;
 import com.hl.view.R;
+import com.hl.view.ViewBaseActivity;
 import com.hl.view.adapter.QuickAdapter;
-import com.hl.view.entity.SortModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Recycler 右侧字母 快速定位
  */
-public class QuickRecyclerActivity extends BaseActivity {
+public class QuickRecyclerActivity extends ViewBaseActivity {
 
     private RecyclerView recycler;
     private QuickAdapter adapter;
-    private SideBar sideBar;
-    private TextView dialog;
-    private List<SortModel> mAllContactsList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity_quick_recycler);
-        recycler = (RecyclerView) findViewById(R.id.recycler_quick);
+        initToolbar(true);
+
+        recycler = findViewById(R.id.recycler_quick);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new QuickAdapter(this);
         recycler.setAdapter(adapter);
         recycler.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
 
-        sideBar = (SideBar) findViewById(R.id.sidrbar);
-        dialog = (TextView) findViewById(R.id.dialog);
+        SideBar sideBar = findViewById(R.id.sidrbar);
+        TextView dialog = findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
 
         // 设置右侧[A-Z]快速导航栏触摸监听
@@ -61,33 +59,17 @@ public class QuickRecyclerActivity extends BaseActivity {
     }
 
     private void initData() {
+        List<BaseDataEntity> data = BaseConstant.getData("张三", 5);
+        data.addAll(BaseConstant.getData("李四", 5));
+        data.addAll(BaseConstant.getData("王五", 5));
+        data.addAll(BaseConstant.getData("阿凡达", 5));
 
-        mAllContactsList = new ArrayList<SortModel>();
-        mAllContactsList.add(new SortModel("zhangsan", "z"));
-        mAllContactsList.add(new SortModel("lisi", "l"));
-        mAllContactsList.add(new SortModel("wangwu", "w"));
-
-        for (int i = 0; i < 20; i++) {
-            mAllContactsList.add(new SortModel("wangwu" + i, "w"));
+        for (BaseDataEntity s : data) {
+            s.setFirst(Utils.getLetter(s.getInfo()));
         }
+        Collections.sort(data);
 
-        Collections.sort(mAllContactsList, new PinyinComparator());
-
-        adapter.setData(mAllContactsList);
+        adapter.setData(data);
         adapter.notifyDataSetChanged();
     }
-
-    class PinyinComparator implements Comparator<SortModel> {
-
-        public int compare(SortModel o1, SortModel o2) {
-            if (o1.getSortLetters().equals("@") || o2.getSortLetters().equals("#")) {
-                return -1;
-            } else if (o1.getSortLetters().equals("#") || o2.getSortLetters().equals("@")) {
-                return 1;
-            } else {
-                return o1.getSortLetters().compareTo(o2.getSortLetters());
-            }
-        }
-    }
-
 }

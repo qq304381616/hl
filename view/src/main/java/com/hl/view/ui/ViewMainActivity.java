@@ -27,6 +27,7 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
         initToolbar(true);
 
         findViewById(R.id.tv_easy).setOnClickListener(this);
+        findViewById(R.id.tv_recycler).setOnClickListener(this);
         findViewById(R.id.tv_dialog).setOnClickListener(this);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
         findViewById(R.id.tv_navigationview).setOnClickListener(this);
@@ -66,6 +67,8 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
                         }
                     })
                     .show(); // Don’t forget to show!
+        } else if (id == R.id.tv_recycler) {
+            startActivity(new Intent(ViewMainActivity.this, RecyclerViewActivity.class));
         } else if (id == R.id.tv_easy) {
             startActivity(new Intent(ViewMainActivity.this, WidgetActivity.class));
         } else if (id == R.id.tv_dialog) {

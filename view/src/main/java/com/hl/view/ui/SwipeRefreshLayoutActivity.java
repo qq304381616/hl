@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.hl.base.BaseActivity;
 import com.hl.view.R;
+import com.hl.view.ViewBaseActivity;
 
 /**
  * google 下拉刷新组件
  */
-public class SwipeRefreshLayoutActivity extends BaseActivity {
+public class SwipeRefreshLayoutActivity extends ViewBaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,8 +20,7 @@ public class SwipeRefreshLayoutActivity extends BaseActivity {
         setContentView(R.layout.view_activity_swiperefreshlayout);
 
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swiperefreshlayout);
-
-        final TextView widget_tv = (TextView) findViewById(R.id.widget_tv);
+        final TextView widget_tv = findViewById(R.id.widget_tv);
         //设置刷新时动画的颜色，可以设置4个
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

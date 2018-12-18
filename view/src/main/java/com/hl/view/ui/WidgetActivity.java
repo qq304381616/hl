@@ -21,10 +21,6 @@ public class WidgetActivity extends BaseActivity implements View.OnClickListener
 
         findViewById(R.id.textureview).setOnClickListener(this);
         findViewById(R.id.tv_swiperefreshlayout).setOnClickListener(this);
-        findViewById(R.id.tv_refresh).setOnClickListener(this);
-        findViewById(R.id.tv_recycler_head).setOnClickListener(this);
-        findViewById(R.id.tv_recyclerviewdouble).setOnClickListener(this);
-        findViewById(R.id.tv_quick_recyclerview).setOnClickListener(this);
         findViewById(R.id.tv_seekbar).setOnClickListener(this);
         findViewById(R.id.tv_banner).setOnClickListener(this);
     }
@@ -36,16 +32,8 @@ public class WidgetActivity extends BaseActivity implements View.OnClickListener
             startActivity(new Intent(WidgetActivity.this, TextureViewActivity.class));
         } else if (id == R.id.tv_swiperefreshlayout) {
             startActivity(new Intent(WidgetActivity.this, SwipeRefreshLayoutActivity.class));
-        } else if (id == R.id.tv_refresh) {
-            startActivity(new Intent(WidgetActivity.this, SwipeRefreshRecyclerActivity.class));
-        } else if (id == R.id.tv_recycler_head) {
-            startActivity(new Intent(WidgetActivity.this, HeadRecyclerActivity.class));
         } else if (id == R.id.tv_seekbar) {
             startActivity(new Intent(WidgetActivity.this, SeekbarActivity.class));
-        } else if (id == R.id.tv_recyclerviewdouble) {
-            startActivity(new Intent(WidgetActivity.this, RecyclerDoubleActivity.class));
-        } else if (id == R.id.tv_quick_recyclerview) {
-            startActivity(new Intent(WidgetActivity.this, QuickRecyclerActivity.class));
         } else if (id == R.id.tv_banner) {
             startActivity(new Intent(WidgetActivity.this, BannerActivity.class));
         }

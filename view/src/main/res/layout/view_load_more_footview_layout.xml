@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/loadLayout"
-              android:padding="10dp"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-
-              android:gravity="center"
-              android:orientation="vertical">
+    android:id="@+id/loadLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dip"
         android:layout_marginTop="5dip"
+        android:layout_marginBottom="5dip"
         android:gravity="center">
 
         <ProgressBar
@@ -20,7 +19,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_centerVertical="true"
-            android:indeterminate="false"/>
+            android:indeterminate="false" />
 
         <TextView
             android:id="@+id/tvLoadText"
@@ -33,7 +32,6 @@
             android:clickable="true"
             android:text="魂牵梦萦 魂牵梦萦 "
             android:textColor="#000000"
-            android:textSize="16sp"/>
+            android:textSize="16sp" />
     </RelativeLayout>
-
 </LinearLayout>

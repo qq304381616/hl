@@ -34,34 +34,6 @@
             android:text="SwipeRefreshLayout 下拉刷新" />
 
         <TextView
-            android:id="@+id/tv_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="SwipeRefreshLayout 下拉刷新 上拉加载" />
-
-        <TextView
-            android:id="@+id/tv_recycler_head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="RecyclerView 带头布局的" />
-
-        <TextView
-            android:id="@+id/tv_recyclerviewdouble"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="RecyclerView 嵌套" />
-
-        <TextView
-            android:id="@+id/tv_quick_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="RecyclerView 右侧首字母快速定位" />
-
-        <TextView
             android:id="@+id/tv_seekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

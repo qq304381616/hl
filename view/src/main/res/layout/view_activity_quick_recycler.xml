@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_quick"
+    <include layout="@layout/base_layout_toolbar" />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/white"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/dialog"
-        android:layout_width="80.0dip"
-        android:layout_height="80.0dip"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textColor="#ffffffff"
-        android:textSize="30.0dip"
-        android:visibility="invisible"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_quick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
 
-    <com.hl.utils.views.SideBar
-        android:id="@+id/sidrbar"
-        android:layout_width="30.0dip"
-        android:layout_height="match_parent"
-        android:layout_gravity="right|center"/>
+        <TextView
+            android:id="@+id/dialog"
+            android:layout_width="80.0dip"
+            android:layout_height="80.0dip"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dip"
+            android:visibility="invisible" />
 
-</FrameLayout>
+        <com.hl.utils.views.SideBar
+            android:id="@+id/sidrbar"
+            android:layout_width="30.0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center" />
+    </FrameLayout>
+</LinearLayout>

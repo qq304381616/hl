@@ -20,15 +20,34 @@
 
         <activity android:name=".ui.WidgetActivity" />
         <activity android:name=".ui.TextureViewActivity" />
-        <activity android:name=".ui.SwipeRefreshLayoutActivity" />
+        <activity
+            android:name=".ui.SwipeRefreshLayoutActivity"
+            android:label="下拉刷新" />
         <activity android:name=".ui.SeekbarActivity" />
-        <activity android:name=".ui.SwipeRefreshRecyclerActivity" />
-        <activity android:name=".ui.HeadRecyclerActivity" />
-        <activity android:name=".ui.RecyclerDoubleActivity" />
-        <activity android:name=".ui.QuickRecyclerActivity" />
+        <activity
+            android:name=".ui.SwipeRefreshRecyclerActivity"
+            android:label="下拉上拉" />
+        <activity
+            android:name=".ui.HeadRecyclerActivity"
+            android:label="head" />
+        <activity
+            android:name=".ui.RecyclerDoubleActivity"
+            android:label="嵌套" />
+        <activity
+            android:name=".ui.QuickRecyclerActivity"
+            android:label="右侧字母定位" />
         <activity android:name=".ui.BannerActivity" />
         <activity
             android:name=".ui.dialog.DialogMainActivity"
             android:label="Dialog" />
+        <activity
+            android:name=".ui.NavigationViewActivity"
+            android:label="左划" />
+        <activity
+            android:name=".ui.RecyclerViewActivity"
+            android:label="RecyclerView" />
+        <activity
+            android:name=".ui.recycler.DeleteRecyclerActivity"
+            android:label="滑动删除" />
     </application>
 </manifest>
