@@ -14,7 +14,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     private LayoutInflater inflater;
     private List<String> mDatas;
 
-    public RecyclerAdapter(Context context , List<String> datas) {
+    public RecyclerAdapter(Context context, List<String> datas) {
         inflater = LayoutInflater.from(context);
         this.mDatas = datas;
     }
@@ -22,7 +22,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public RecyclerAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerAdapter.MyViewHolder holder = new RecyclerAdapter.MyViewHolder(inflater.inflate(android.R.layout.simple_list_item_1, parent,
-                false) );
+                false));
         return holder;
     }
 

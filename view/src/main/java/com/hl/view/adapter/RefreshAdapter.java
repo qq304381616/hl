@@ -21,19 +21,17 @@ import java.util.List;
  */
 public class RefreshAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context mContext;
-    private LayoutInflater mInflater;
-    private List<BaseDataEntity> mData;
-    private static final int TYPE_ITEM = 0;
-    private static final int TYPE_FOOTER = 1;
-
     //上拉加载更多
     public static final int PULLUP_LOAD_MORE = 0;
     //正在加载中
     public static final int LOADING_MORE = 1;
     //没有加载更多 隐藏
     public static final int NO_LOAD_MORE = 2;
-
+    private static final int TYPE_ITEM = 0;
+    private static final int TYPE_FOOTER = 1;
+    private Context mContext;
+    private LayoutInflater mInflater;
+    private List<BaseDataEntity> mData;
     //上拉加载更多状态-默认为0
     private int mLoadMoreStatus = 0;
 
@@ -94,6 +92,24 @@ public class RefreshAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    public void AddHeaderItem(List<BaseDataEntity> items) {
+        mData.addAll(0, items);
+        notifyDataSetChanged();
+    }
+
+    public void AddFooterItem(List<BaseDataEntity> items) {
+        mData.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 更新加载更多状态
+     */
+    public void changeMoreStatus(int status) {
+        mLoadMoreStatus = status;
+        notifyDataSetChanged();
+    }
+
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_name;
@@ -126,24 +142,5 @@ public class RefreshAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mLoadLayout = itemView.findViewById(R.id.loadLayout);
 
         }
-    }
-
-
-    public void AddHeaderItem(List<BaseDataEntity> items) {
-        mData.addAll(0, items);
-        notifyDataSetChanged();
-    }
-
-    public void AddFooterItem(List<BaseDataEntity> items) {
-        mData.addAll(items);
-        notifyDataSetChanged();
-    }
-
-    /**
-     * 更新加载更多状态
-     */
-    public void changeMoreStatus(int status) {
-        mLoadMoreStatus = status;
-        notifyDataSetChanged();
     }
 }

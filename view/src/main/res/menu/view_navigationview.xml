@@ -4,10 +4,10 @@
         <item
             android:id="@+id/menu1"
             android:checked="true"
-            android:title="menu1"/>
+            android:title="menu1" />
 
         <item
             android:id="@+id/menu2"
-            android:title="menu2"/>
+            android:title="menu2" />
     </group>
 </menu>

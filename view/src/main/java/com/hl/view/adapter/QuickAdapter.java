@@ -50,17 +50,6 @@ public class QuickAdapter extends Adapter<RecyclerView.ViewHolder> {
         return mData == null ? 0 : mData.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tv_name;
-
-        ItemViewHolder(View view) {
-            super(view);
-            tv_name = view.findViewById(R.id.tv_name);
-        }
-    }
-
-
     /**
      * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
      */
@@ -73,5 +62,15 @@ public class QuickAdapter extends Adapter<RecyclerView.ViewHolder> {
             }
         }
         return -1;
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
+
+        TextView tv_name;
+
+        ItemViewHolder(View view) {
+            super(view);
+            tv_name = view.findViewById(R.id.tv_name);
+        }
     }
 }

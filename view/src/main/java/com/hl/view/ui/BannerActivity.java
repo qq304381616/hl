@@ -1,6 +1,5 @@
 package com.hl.view.ui;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
@@ -50,6 +49,14 @@ public class BannerActivity extends BaseActivity {
     private TextView title;
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
+    /**
+     * 接收子线程传递过来的数据
+     */
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            mViewPaper.setCurrentItem(currentItem);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +111,20 @@ public class BannerActivity extends BaseActivity {
     }
 
     /**
+     * 利用线程池定时执行动画轮播
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutorService.scheduleWithFixedDelay(
+                new ViewPageTask(),
+                2,
+                2,
+                TimeUnit.SECONDS);
+    }
+
+    /**
      * 自定义Adapter
      *
      * @author liuyazhuang
@@ -122,7 +143,6 @@ public class BannerActivity extends BaseActivity {
 
         @Override
         public void destroyItem(ViewGroup view, int position, Object object) {
-            // TODO Auto-generated method stub
 //			super.destroyItem(container, position, object);
 //			view.removeView(view.getChildAt(position));
 //			view.removeViewAt(position);
@@ -131,25 +151,9 @@ public class BannerActivity extends BaseActivity {
 
         @Override
         public Object instantiateItem(ViewGroup view, int position) {
-            // TODO Auto-generated method stub
             view.addView(images.get(position));
             return images.get(position);
         }
-    }
-
-    /**
-     * 利用线程池定时执行动画轮播
-     */
-    @Override
-    protected void onStart() {
-        // TODO Auto-generated method stub
-        super.onStart();
-        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.scheduleWithFixedDelay(
-                new ViewPageTask(),
-                2,
-                2,
-                TimeUnit.SECONDS);
     }
 
     private class ViewPageTask implements Runnable {
@@ -160,13 +164,4 @@ public class BannerActivity extends BaseActivity {
             mHandler.sendEmptyMessage(0);
         }
     }
-
-    /**
-     * 接收子线程传递过来的数据
-     */
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            mViewPaper.setCurrentItem(currentItem);
-        }
-    };
 }

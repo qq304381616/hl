@@ -18,11 +18,14 @@ import java.util.List;
  */
 public class HeadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private static final int TYPE_HEAD = 0;
+    private static final int TYPE_ITEM = 1;
     private LayoutInflater mInflater;
     private List<BaseDataEntity> mData;
 
-    private static final int TYPE_HEAD = 0;
-    private static final int TYPE_ITEM = 1;
+    public HeadAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
     public List<BaseDataEntity> getData() {
         return mData;
@@ -30,10 +33,6 @@ public class HeadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void setData(List<BaseDataEntity> mData) {
         this.mData = mData;
-    }
-
-    public HeadAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
     }
 
     @NonNull

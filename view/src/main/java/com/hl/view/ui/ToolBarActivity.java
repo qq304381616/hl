@@ -2,7 +2,6 @@ package com.hl.view.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +31,25 @@ import com.hl.view.R;
  */
 public class ToolBarActivity extends BaseActivity {
 
+    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            int id = menuItem.getItemId();
+            String msg = "";
+            if (id == R.id.action_edit) {
+                msg += "Click edit";
+            } else if (id == R.id.action_share) {
+                msg += "Click share";
+            } else if (id == R.id.action_settings) {
+                msg += "Click setting";
+            }
+
+            Toast.makeText(ToolBarActivity.this, msg, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,25 +73,6 @@ public class ToolBarActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.view_menu_toolbar, menu);
         return true;
     }
-
-    private Toolbar.OnMenuItemClickListener onMenuItemClick = new Toolbar.OnMenuItemClickListener() {
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            int id = menuItem.getItemId();
-            String msg = "";
-            if (id == R.id.action_edit) {
-                msg += "Click edit";
-            } else if (id == R.id.action_share) {
-                msg += "Click share";
-            } else if (id == R.id.action_settings) {
-                msg += "Click setting";
-            }
-
-            Toast.makeText(ToolBarActivity.this, msg, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
