@@ -23,16 +23,6 @@
         android:orientation="horizontal"
         android:paddingLeft="8dp">
 
-        <CheckBox
-            android:id="@+id/cbChecked"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/selector_checkbox_contact"
-            android:button="@null"
-            android:clickable="false"
-            android:focusable="false"
-            android:visibility="visible" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

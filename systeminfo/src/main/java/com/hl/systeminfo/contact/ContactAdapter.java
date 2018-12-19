@@ -1,4 +1,4 @@
-package com.hl.view.adapter;
+package com.hl.systeminfo.contact;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,20 +10,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hl.base.entity.BaseDataEntity;
-import com.hl.view.R;
+import com.hl.systeminfo.R;
 
 import java.util.List;
 import java.util.Locale;
 
 /**
- * 右测字母定位
+ * 通讯录
  */
-public class QuickAdapter extends Adapter<RecyclerView.ViewHolder> {
+public class ContactAdapter extends Adapter<RecyclerView.ViewHolder> {
 
     private List<BaseDataEntity> mData;
     private LayoutInflater inflater;
 
-    public QuickAdapter(Context c) {
+    public ContactAdapter(Context c) {
         this.inflater = LayoutInflater.from(c);
     }
 
