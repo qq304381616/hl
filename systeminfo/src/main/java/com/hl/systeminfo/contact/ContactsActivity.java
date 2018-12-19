@@ -66,6 +66,7 @@ public class ContactsActivity extends BaseActivity {
                 } else {
                     adapter.setData(mAllContactsList);
                 }
+                adapter.setSearchText(s);
                 adapter.notifyDataSetChanged();
                 rv_contacts.scrollToPosition(0);
             }

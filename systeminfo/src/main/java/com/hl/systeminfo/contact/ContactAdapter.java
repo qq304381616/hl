@@ -2,6 +2,7 @@ package com.hl.systeminfo.contact;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.hl.base.entity.BaseDataEntity;
 import com.hl.systeminfo.R;
+import com.hl.utils.StringUtils;
 import com.hl.utils.views.SideBar;
 
 import java.util.List;
@@ -23,13 +25,20 @@ public class ContactAdapter extends Adapter<RecyclerView.ViewHolder> implements 
 
     private List<BaseDataEntity> mData;
     private LayoutInflater inflater;
+    private String searchText;
+    private Context mContext;
 
     public ContactAdapter(Context c) {
         this.inflater = LayoutInflater.from(c);
+        mContext = c;
     }
 
     public void setData(List<BaseDataEntity> data) {
         this.mData = data;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
     }
 
     @NonNull
@@ -43,7 +52,7 @@ public class ContactAdapter extends Adapter<RecyclerView.ViewHolder> implements 
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         final BaseDataEntity data = mData.get(position);
-        itemViewHolder.tv_name.setText(data.getInfo());
+        itemViewHolder.tv_name.setText(StringUtils.getColorString(data.getInfo(), searchText, ContextCompat.getColor(mContext, R.color.colorPrimaryDark)));
     }
 
     @Override
