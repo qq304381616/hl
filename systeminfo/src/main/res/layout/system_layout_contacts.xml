@@ -6,33 +6,10 @@
 
     <include layout="@layout/base_layout_toolbar" />
 
-    <FrameLayout
+    <com.hl.base.view.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:padding="8dp">
-
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/text_field"
-            android:drawableLeft="@drawable/search"
-            android:drawablePadding="4dp"
-            android:hint="搜索"
-            android:paddingLeft="4dp"
-            android:paddingRight="40dp"
-            android:singleLine="true"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:id="@+id/ivClearText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:padding="4dp"
-            android:src="@drawable/clear_button"
-            android:visibility="invisible" />
-    </FrameLayout>
+        android:layout_height="48dp" />
 
     <FrameLayout
         android:layout_width="match_parent"

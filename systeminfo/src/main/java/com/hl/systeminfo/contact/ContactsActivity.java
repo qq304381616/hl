@@ -4,17 +4,12 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hl.base.BaseActivity;
 import com.hl.base.entity.BaseDataEntity;
 import com.hl.base.utils.Utils;
+import com.hl.base.view.SearchView;
 import com.hl.systeminfo.R;
 import com.hl.utils.views.SideBar;
 
@@ -27,8 +22,7 @@ import java.util.List;
 public class ContactsActivity extends BaseActivity {
 
     private RecyclerView rv_contacts;
-    private EditText etSearch;
-    private ImageView ivClearText;
+    private SearchView search_view;
     private SideBar sideBar;
     private List<BaseDataEntity> mAllContactsList;
     private ContactAdapter adapter;
@@ -42,8 +36,7 @@ public class ContactsActivity extends BaseActivity {
         sideBar = findViewById(R.id.sidrbar);
         TextView dialog = findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
-        ivClearText = findViewById(R.id.ivClearText);
-        etSearch = findViewById(R.id.et_search);
+        search_view = findViewById(R.id.search_view);
         rv_contacts = findViewById(R.id.rv_contacts);
 
         rv_contacts.setLayoutManager(new LinearLayoutManager(this));
@@ -52,6 +45,7 @@ public class ContactsActivity extends BaseActivity {
         rv_contacts.setAdapter(adapter);
 
         initListener();
+
         mAllContactsList = Utils.getContacts(this);
         adapter.setData(mAllContactsList);
         adapter.notifyDataSetChanged();
@@ -59,37 +53,16 @@ public class ContactsActivity extends BaseActivity {
 
     private void initListener() {
 
-        /*清除输入字符 */
-        ivClearText.setOnClickListener(new OnClickListener() {
-
+        search_view.setCallback(new SearchView.Callback() {
             @Override
-            public void onClick(View v) {
-                etSearch.setText("");
-            }
-        });
-
-        etSearch.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            public void onQueryTextSubmit(String s) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable e) {
-                String content = etSearch.getText().toString();
-                if ("".equals(content)) {
-                    ivClearText.setVisibility(View.INVISIBLE);
-                } else {
-                    ivClearText.setVisibility(View.VISIBLE);
-                }
-                if (content.length() > 0) {
-                    adapter.setData(search(content));
+            public void onQueryTextChange(String s) {
+                if (s.length() > 0) {
+                    adapter.setData(search(s));
                 } else {
                     adapter.setData(mAllContactsList);
                 }
