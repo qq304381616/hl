@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hl.view">
 
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动 -->
+
     <application>
         <activity
             android:name=".ui.ViewMainActivity"
@@ -30,6 +32,9 @@
         <activity
             android:name=".ui.HeadRecyclerActivity"
             android:label="head" />
+        <activity
+            android:name=".ui.MoveRecyclerActivity"
+            android:label="移动" />
         <activity
             android:name=".ui.RecyclerDoubleActivity"
             android:label="嵌套" />

@@ -54,5 +54,12 @@ public class RecyclerViewActivity extends ViewBaseActivity {
                 startActivity(new Intent(RecyclerViewActivity.this, QuickRecyclerActivity.class));
             }
         });
+
+        findViewById(R.id.tv_move).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RecyclerViewActivity.this, MoveRecyclerActivity.class));
+            }
+        });
     }
 }

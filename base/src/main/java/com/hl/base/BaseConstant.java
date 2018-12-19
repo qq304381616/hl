@@ -16,6 +16,10 @@ public class BaseConstant {
         return getData(name, 12);
     }
 
+    public static List<BaseDataEntity> getData(int count) {
+        return getData("item", count);
+    }
+
     public static List<BaseDataEntity> getData(String name, int count) {
         List<BaseDataEntity> data = new ArrayList<>();
         for (int i = 0; i < count; i++) {

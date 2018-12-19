@@ -41,4 +41,11 @@
         android:layout_height="64dp"
         android:gravity="center"
         android:text="RecyclerView 右侧首字母快速定位" />
+
+    <TextView
+        android:id="@+id/tv_move"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="RecyclerView 移动位置" />
 </LinearLayout>
