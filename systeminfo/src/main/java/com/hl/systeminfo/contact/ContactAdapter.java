@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hl.base.entity.BaseDataEntity;
 import com.hl.systeminfo.R;
+import com.hl.utils.views.SideBar;
 
 import java.util.List;
 import java.util.Locale;
@@ -18,7 +19,7 @@ import java.util.Locale;
 /**
  * 通讯录
  */
-public class ContactAdapter extends Adapter<RecyclerView.ViewHolder> {
+public class ContactAdapter extends Adapter<RecyclerView.ViewHolder> implements SideBar.ScrollListener {
 
     private List<BaseDataEntity> mData;
     private LayoutInflater inflater;
@@ -53,6 +54,7 @@ public class ContactAdapter extends Adapter<RecyclerView.ViewHolder> {
     /**
      * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置
      */
+    @Override
     public int getPositionForSection(int section) {
         for (int i = 0; i < mData.size(); i++) {
             String sortStr = mData.get(i).getFirst();

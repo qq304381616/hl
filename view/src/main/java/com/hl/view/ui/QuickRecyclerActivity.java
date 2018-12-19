@@ -23,7 +23,6 @@ import java.util.List;
  */
 public class QuickRecyclerActivity extends ViewBaseActivity {
 
-    private RecyclerView recycler;
     private QuickAdapter adapter;
 
     @Override
@@ -32,7 +31,7 @@ public class QuickRecyclerActivity extends ViewBaseActivity {
         setContentView(R.layout.view_activity_quick_recycler);
         initToolbar(true);
 
-        recycler = findViewById(R.id.recycler_quick);
+        RecyclerView recycler = findViewById(R.id.recycler_quick);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter = new QuickAdapter(this);
         recycler.setAdapter(adapter);
@@ -41,19 +40,7 @@ public class QuickRecyclerActivity extends ViewBaseActivity {
         SideBar sideBar = findViewById(R.id.sidrbar);
         TextView dialog = findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
-
-        // 设置右侧[A-Z]快速导航栏触摸监听
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                // 该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    recycler.scrollToPosition(position);
-                }
-            }
-        });
+        sideBar.initListener(adapter, recycler);
 
         initData();
     }

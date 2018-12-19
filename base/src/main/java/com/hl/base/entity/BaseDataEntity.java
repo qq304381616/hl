@@ -1,6 +1,6 @@
 package com.hl.base.entity;
 
-public class BaseDataEntity extends BaseSort implements Comparable<BaseDataEntity> {
+public class BaseDataEntity extends BaseSort {
     private int id;
     private String info;
 
@@ -23,10 +23,5 @@ public class BaseDataEntity extends BaseSort implements Comparable<BaseDataEntit
 
     public void setInfo(String info) {
         this.info = info;
-    }
-
-    @Override
-    public int compareTo(BaseDataEntity o) {
-        return getFirst().compareTo(o.getFirst());
     }
 }

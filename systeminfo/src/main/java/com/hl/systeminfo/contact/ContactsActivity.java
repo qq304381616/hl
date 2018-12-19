@@ -23,7 +23,6 @@ public class ContactsActivity extends BaseActivity {
 
     private RecyclerView rv_contacts;
     private SearchView search_view;
-    private SideBar sideBar;
     private List<BaseDataEntity> mAllContactsList;
     private ContactAdapter adapter;
 
@@ -33,17 +32,18 @@ public class ContactsActivity extends BaseActivity {
         setContentView(R.layout.system_layout_contacts);
         initToolbar(true);
 
-        sideBar = findViewById(R.id.sidrbar);
+        SideBar sideBar = findViewById(R.id.sidrbar);
         TextView dialog = findViewById(R.id.dialog);
         sideBar.setTextView(dialog);
         search_view = findViewById(R.id.search_view);
         rv_contacts = findViewById(R.id.rv_contacts);
 
         rv_contacts.setLayoutManager(new LinearLayoutManager(this));
-        rv_contacts.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        rv_contacts.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         adapter = new ContactAdapter(this);
         rv_contacts.setAdapter(adapter);
 
+        sideBar.initListener(adapter, rv_contacts);
         initListener();
 
         mAllContactsList = Utils.getContacts(this);
@@ -68,19 +68,6 @@ public class ContactsActivity extends BaseActivity {
                 }
                 adapter.notifyDataSetChanged();
                 rv_contacts.scrollToPosition(0);
-            }
-        });
-
-        // 设置右侧[A-Z]快速导航栏触摸监听
-        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
-
-            @Override
-            public void onTouchingLetterChanged(String s) {
-                // 该字母首次出现的位置
-                int position = adapter.getPositionForSection(s.charAt(0));
-                if (position != -1) {
-                    rv_contacts.scrollToPosition(position);
-                }
             }
         });
     }

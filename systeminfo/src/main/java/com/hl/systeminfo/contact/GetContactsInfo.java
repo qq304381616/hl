@@ -49,12 +49,11 @@ public class GetContactsInfo {
      * 6.称呼
      * 7.网站
      * 8.即时消息
-     *-- 9.互联网通话
+     * -- 9.互联网通话
      * 10.生日
      * 11.农历生日
      * 12.备注
      * 13.群组
-     *
      *
      * @return
      * @throws JSONException
@@ -1003,8 +1002,6 @@ public class GetContactsInfo {
             }
         }
         cursor.close();
-        //Log.i("contactData", contactData.toString());
-        CLogUtils.write(contactData.toString());
         return contactData.toString();
     }
 }

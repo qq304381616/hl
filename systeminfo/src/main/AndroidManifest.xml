@@ -16,7 +16,9 @@
         <activity
             android:name=".SystemMainActivity"
             android:label="系统功能" />
-        <activity android:name=".AppsInfoListActivity" />
+        <activity
+            android:name=".appinfo.AppsInfoListActivity"
+            android:label="应用列表" />
         <activity android:name=".TextToSpeechActivity" />
         <activity android:name=".MessageActivity" />
         <activity android:name=".VideoViewActivity" />

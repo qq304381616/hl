@@ -3,7 +3,7 @@ package com.hl.base.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BaseSort implements Parcelable {
+public class BaseSort implements Parcelable, Comparable<BaseSort> {
     private String first;
 
     public String getFirst() {
@@ -42,4 +42,9 @@ public class BaseSort implements Parcelable {
             return new BaseSort[size];
         }
     };
+
+    @Override
+    public int compareTo(BaseSort o) {
+        return getFirst().compareTo(o.getFirst());
+    }
 }

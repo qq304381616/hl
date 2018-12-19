@@ -28,15 +28,5 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:text="package" />
-
-
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="64dp"
-        android:background="@android:color/darker_gray" />
-
 </RelativeLayout>

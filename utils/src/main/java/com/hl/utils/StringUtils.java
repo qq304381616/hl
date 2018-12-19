@@ -1,6 +1,5 @@
 package com.hl.utils;
 
-import android.content.Context;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -11,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -39,51 +40,40 @@ public class StringUtils {
     }
 
     /**
-     * 设置指定文字，指定颜色
+     * 指定位置 变色
      *
-     * @param s     原字符串
-     * @param style 带颜色字符串
-     * @param c
-     * @param color 颜色
-     * @return
-     */
-    public static CharSequence getColorString(String s, String style, Context c, int color) {
-        if (!s.contains(style)) {
-            return s;
-        } else {
-            int len = s.indexOf(style);
-            SpannableStringBuilder builder = new SpannableStringBuilder(s);
-            ForegroundColorSpan span = new ForegroundColorSpan(c.getResources().getColor(color));
-            builder.setSpan(span, len, len + style.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            return builder;
-        }
-    }
-
-    /**
-     * 将指定位置的文字变色
-     *
-     * @param changeText
-     * @param resource
+     * @param text
+     * @param start
+     * @param end
      * @param color
      * @return
      */
-    @SuppressWarnings("deprecation")
-    public static SpannableStringBuilder makeColorText(String changeText, String resource, Context c, int color) {
-        SpannableStringBuilder style = new SpannableStringBuilder(resource);
-        int start = 0;
-        int index = resource.indexOf(changeText, start);
-        if (index != -1) {
-            style.setSpan(new ForegroundColorSpan(c.getResources().getColor(color)), index, index + changeText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            while (index != -1) {
-                start = index + changeText.length();
-                index = resource.indexOf(changeText, start);
-                if (index != -1) {
-                    style.setSpan(new ForegroundColorSpan(c.getResources().getColor(color)), index, index + changeText.length(),
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-            }
+    public static CharSequence getColorString(String text, int start, int end, int color) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(text);
+        builder.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return builder;
+    }
+
+    /**
+     * 指定文字 变化。全文匹配
+     *
+     * @param text  原字符串
+     * @param style 带颜色字符串
+     * @param color 颜色
+     * @return
+     */
+    public static CharSequence getColorString(String text, String style, int color) {
+        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(style) || !text.contains(style)) {
+            return text;
         }
-        return style;
+        SpannableStringBuilder builder = new SpannableStringBuilder(text);
+        Pattern r = Pattern.compile(style);
+        Matcher m = r.matcher(text);
+        while (m.find()) {
+            ForegroundColorSpan span = new ForegroundColorSpan(color);
+            builder.setSpan(span, m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        return builder;
     }
 
     /**

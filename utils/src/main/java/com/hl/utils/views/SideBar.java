@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +28,6 @@ public class SideBar extends View {
     private float singleHeight;
     public static int dialogColor[] = {R.drawable.utils_dialog_color_blue, R.drawable.utils_dialog_color_green,
             R.drawable.utils_dialog_color_orange, R.drawable.utils_dialog_color_purple, R.drawable.utils_dialog_color_red};
-    ;
 
     public void setTextView(TextView mTextDialog) {
         this.mTextDialog = mTextDialog;
@@ -42,6 +43,28 @@ public class SideBar extends View {
 
     public SideBar(Context context) {
         super(context);
+    }
+
+    public interface ScrollListener {
+        int getPositionForSection(int c);
+    }
+
+    public void initListener(final ScrollListener adapter, final RecyclerView recycler) {
+        // 设置右侧[A-Z]快速导航栏触摸监听
+        setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                // 该字母首次出现的位置
+                int position = adapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    recycler.scrollToPosition(position);
+                    LinearLayoutManager mLayoutManager = (LinearLayoutManager) recycler.getLayoutManager();
+                    if (mLayoutManager != null)
+                        mLayoutManager.scrollToPositionWithOffset(position, 0);
+                }
+            }
+        });
     }
 
     /**

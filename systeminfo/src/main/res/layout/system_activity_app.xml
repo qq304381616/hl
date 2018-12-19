@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <include layout="@layout/base_layout_toolbar" />
+
+    <com.hl.base.view.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:color/darker_gray"
-        android:gravity="center" />
+        android:layout_height="48dp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:layout_below="@id/tv_title">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
+            android:id="@+id/rv_app"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -37,4 +37,4 @@
             android:layout_height="match_parent"
             android:layout_gravity="right|center" />
     </FrameLayout>
-</RelativeLayout>
+</LinearLayout>
