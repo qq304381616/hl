@@ -12,6 +12,7 @@
         android:drawableLeft="@drawable/base_search"
         android:drawablePadding="4dp"
         android:hint="搜索"
+        android:imeOptions="actionSearch"
         android:paddingLeft="4dp"
         android:paddingRight="40dp"
         android:singleLine="true"
