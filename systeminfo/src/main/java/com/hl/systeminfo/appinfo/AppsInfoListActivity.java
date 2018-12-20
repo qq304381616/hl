@@ -3,8 +3,6 @@ package com.hl.systeminfo.appinfo;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,12 +14,19 @@ import com.hl.base.utils.Pinyin;
 import com.hl.base.utils.Utils;
 import com.hl.base.view.SearchView;
 import com.hl.systeminfo.R;
-import com.hl.utils.L;
 import com.hl.utils.views.SideBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 显示所有已安装应用列表
@@ -32,15 +37,6 @@ public class AppsInfoListActivity extends BaseActivity {
     private AppInfoListRecyclerAdapter adapter;
     private SearchView search_view;
     private RecyclerView rv_app;
-
-    private Handler handler = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            adapter.notifyDataSetChanged();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +60,19 @@ public class AppsInfoListActivity extends BaseActivity {
 
         initListener();
 
-        new Thread(new Runnable() {
+        Disposable subscribe = Observable.create(new ObservableOnSubscribe<List<AppEntity>>() {
             @Override
-            public void run() {
-                packs = getInstalledApps(getApplication());
-                adapter.setData(packs);
-                handler.sendEmptyMessage(0);
+            public void subscribe(ObservableEmitter<List<AppEntity>> emitter) throws Exception {
+                emitter.onNext(getInstalledApps(getApplication()));
             }
-        }).start();
+        }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<AppEntity>>() {
+            @Override
+            public void accept(List<AppEntity> s) throws Exception {
+                packs = s;
+                adapter.setData(packs);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     private void initListener() {
@@ -121,13 +122,6 @@ public class AppsInfoListActivity extends BaseActivity {
         for (PackageInfo p : packs) {
             AppEntity sm = new AppEntity();
             String name = p.applicationInfo.loadLabel(c.getPackageManager()).toString();
-            String nameSort = Utils.getLetter(name);
-            L.e("name : " + name);
-            L.e("package : " + p.packageName);
-            L.e("versionName : " + p.versionName);
-            L.e("versionCode : " + p.versionCode);
-            L.e("icon : " + p.applicationInfo.loadIcon(c.getPackageManager()));
-            L.e("nameSort : " + nameSort);
             sm.setName(name);
             sm.setFirst(Utils.getLetter(name));
             sm.setSimple(new Pinyin().setSimple(true).getPinYin(name));

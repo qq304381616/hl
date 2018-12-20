@@ -96,7 +96,7 @@ public class AppInfoListRecyclerAdapter extends Adapter<RecyclerView.ViewHolder>
         TextView tv_name;
         TextView tv_package_name;
 
-        public ItemViewHolder(View view) {
+        ItemViewHolder(View view) {
             super(view);
             iv_icon = view.findViewById(R.id.iv_icon);
             tv_name = view.findViewById(R.id.tv_name);

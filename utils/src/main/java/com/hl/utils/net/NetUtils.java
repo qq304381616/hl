@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Cache;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -150,12 +149,12 @@ public class NetUtils {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                L.e( "success");
+                L.e("success");
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                L.e( t.getMessage());
+                L.e(t.getMessage());
             }
         });
     }
