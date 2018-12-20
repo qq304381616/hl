@@ -1,17 +1,16 @@
 package com.hl.knowledge.touch;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.widget.Button;
 
 import com.hl.utils.L;
 
 /**
  * 自定义view
  */
-public class MyButton extends Button {
+public class MyButton extends AppCompatButton {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
@@ -20,8 +19,15 @@ public class MyButton extends Button {
     }
 
     @Override
+    public boolean performClick() {
+        L.e("view performClick");
+        return super.performClick();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         L.e("view onTouchEvent");
+        performClick();
         return super.onTouchEvent(event);
     }
 

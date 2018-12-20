@@ -21,12 +21,13 @@ public class TouchActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.know_activity_touch);
-        Button btn_click = (Button) findViewById(R.id.btn_click);
+        initToolbar(true);
 
+        Button btn_click =  findViewById(R.id.btn_click);
         btn_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                L.e("view onClick");
+                L.e("activity onClick");
             }
         });
 
@@ -34,7 +35,7 @@ public class TouchActivity extends BaseActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                L.e("view onTouch");
+                L.e("activity onTouch");
                 return false;
             }
         });

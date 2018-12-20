@@ -8,7 +8,9 @@
         <activity
             android:name=".KnowledgeMainActivity"
             android:label="安卓知识库" />
-        <activity android:name=".touch.TouchActivity" />
+        <activity
+            android:name=".touch.TouchActivity"
+            android:label="事件分发" />
         <activity android:name=".permission.PermissionActivity" />
         <activity android:name=".AndroidMapActivity" />
 
