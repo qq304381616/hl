@@ -22,7 +22,6 @@ public class MoveRecyclerActivity extends BaseActivity {
 
     private BaseRecyclerAdapter adapter;
 
-
     //为RecycleView绑定触摸事件
     private ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
         @Override
