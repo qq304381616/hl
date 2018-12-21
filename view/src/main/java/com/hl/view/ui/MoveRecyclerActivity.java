@@ -22,25 +22,6 @@ public class MoveRecyclerActivity extends BaseActivity {
 
     private BaseRecyclerAdapter adapter;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.base_activity_recycler);
-        initToolbar(true);
-
-        RecyclerView rv_base = findViewById(R.id.rv_base);
-
-        adapter = new BaseRecyclerAdapter(this);
-        rv_base.setLayoutManager(new GridLayoutManager(this, 4));
-        rv_base.setAdapter(adapter);
-
-        adapter.setData(BaseConstant.getData(30));
-        adapter.notifyDataSetChanged();
-
-        helper.attachToRecyclerView(rv_base);
-    }
-
-
     //为RecycleView绑定触摸事件
     private ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
         @Override
@@ -105,4 +86,22 @@ public class MoveRecyclerActivity extends BaseActivity {
             animation.startNow();
         }
     });
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.base_activity_recycler);
+        initToolbar(true);
+
+        RecyclerView rv_base = findViewById(R.id.rv_base);
+
+        adapter = new BaseRecyclerAdapter(this);
+        rv_base.setLayoutManager(new GridLayoutManager(this, 4));
+        rv_base.setAdapter(adapter);
+
+        adapter.setData(BaseConstant.getData(30));
+        adapter.notifyDataSetChanged();
+
+        helper.attachToRecyclerView(rv_base);
+    }
 }
