@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
@@ -9,6 +9,7 @@ android {
     buildToolsVersion '28.0.3'
 
     defaultConfig {
+        applicationId "com.hl.dotime"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 5
