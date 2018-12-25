@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.hl"
+        applicationId rootProject.ext.android["applicationId"]
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -28,11 +28,15 @@ dependencies {
     implementation project(':animation')
     implementation project(':mvp')
     implementation project(':tab')
-    implementation project(':systeminfo')
     implementation project(':skin')
     implementation project(':api')
     implementation project(':knowledge')
     implementation project(':device')
     implementation project(':base')
     implementation project(':view')
+
+    if (!isBuildAsModule.toBoolean()) {
+        implementation project(':dotime')
+        implementation project(':systeminfo')
+    }
 }

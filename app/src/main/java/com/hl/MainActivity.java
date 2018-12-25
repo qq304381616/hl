@@ -10,6 +10,7 @@ import com.hl.animation.AnimationMainActivity;
 import com.hl.api.ApiMainActivity;
 import com.hl.base.BaseActivity;
 import com.hl.devices.DeviceMainActivity;
+import com.hl.dotime.HomeActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
@@ -43,7 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_do_time) {
-//            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

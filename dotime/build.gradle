@@ -1,7 +1,10 @@
-apply plugin: 'com.android.application'
+if (isBuildAsModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -9,7 +12,6 @@ android {
     buildToolsVersion '28.0.3'
 
     defaultConfig {
-        applicationId "com.hl.dotime"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 5
@@ -20,6 +22,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            if (isBuildAsModule.toBoolean()) {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            }
         }
     }
 }
