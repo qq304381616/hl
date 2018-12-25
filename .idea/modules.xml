@@ -13,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/java/java.iml" filepath="$PROJECT_DIR$/java/java.iml" />
       <module fileurl="file://$PROJECT_DIR$/jni/jni.iml" filepath="$PROJECT_DIR$/jni/jni.iml" />
       <module fileurl="file://$PROJECT_DIR$/knowledge/knowledge.iml" filepath="$PROJECT_DIR$/knowledge/knowledge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kotlin/kotlin.iml" filepath="$PROJECT_DIR$/kotlin/kotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_picture_library/lib_picture_library.iml" filepath="$PROJECT_DIR$/lib_picture_library/lib_picture_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_record_mp3/lib_record_mp3.iml" filepath="$PROJECT_DIR$/lib_record_mp3/lib_record_mp3.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib_ucrop/lib_ucrop.iml" filepath="$PROJECT_DIR$/lib_ucrop/lib_ucrop.iml" />
