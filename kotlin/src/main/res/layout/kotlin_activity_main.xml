@@ -8,6 +8,7 @@
     <include layout="@layout/base_layout_toolbar" />
 
     <TextView
+        android:gravity="center"
         android:id="@+id/tv_global_scope"
         android:layout_width="match_parent"
         android:layout_height="64dp"

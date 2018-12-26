@@ -3,5 +3,6 @@
 
     <application>
         <activity android:name=".KotlinMainActivity" />
+        <activity android:name=".GlobalScopeActivity" />
     </application>
 </manifest>
