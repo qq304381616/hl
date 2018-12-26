@@ -1,1 +1,1 @@
-include ':app', ':animation', ':java', ':utils', ':mvp', ':tab', ':jni', ':systeminfo', ':skin', ':api', ':knowledge', ':device', ':lib_record_mp3', ':lib_ucrop', ':lib_picture_library', ':base', ':view', ':ColorPicker', ':dotime', ':kotlin'
+include ':app', ':animation', ':java', ':utils', ':mvp', ':tab', ':jni', ':systeminfo', ':skin', ':api', ':knowledge', ':device', ':lib_record_mp3', ':lib_ucrop', ':lib_picture_library', ':base', ':view', ':ColorPicker', ':dotime', ':kotlin', ':greendao_copy'

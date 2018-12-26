@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
       <module fileurl="file://$PROJECT_DIR$/device/device.iml" filepath="$PROJECT_DIR$/device/device.iml" />
       <module fileurl="file://$PROJECT_DIR$/dotime/dotime.iml" filepath="$PROJECT_DIR$/dotime/dotime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greendao_copy/greendao_copy.iml" filepath="$PROJECT_DIR$/greendao_copy/greendao_copy.iml" />
       <module fileurl="file://$PROJECT_DIR$/hl.iml" filepath="$PROJECT_DIR$/hl.iml" />
       <module fileurl="file://$PROJECT_DIR$/java/java.iml" filepath="$PROJECT_DIR$/java/java.iml" />
       <module fileurl="file://$PROJECT_DIR$/jni/jni.iml" filepath="$PROJECT_DIR$/jni/jni.iml" />
