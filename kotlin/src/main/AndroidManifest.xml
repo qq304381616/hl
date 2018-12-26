@@ -1,2 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hl.kotlin" />
+    package="com.hl.kotlin">
+
+    <application>
+        <activity android:name=".KotlinMainActivity" />
+    </application>
+</manifest>

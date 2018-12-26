@@ -17,6 +17,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_kotlin"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="kotlin" />
+
+            <TextView
                 android:id="@+id/tv_touch"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

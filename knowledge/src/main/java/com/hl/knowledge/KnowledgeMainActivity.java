@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.hl.base.AppRouter;
 import com.hl.base.BaseActivity;
 import com.hl.knowledge.permission.PermissionActivity;
 import com.hl.knowledge.touch.TouchActivity;
@@ -15,6 +16,14 @@ public class KnowledgeMainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.knowledge_activity_main);
         initToolbar(true);
+
+        // kotlin
+        findViewById(R.id.tv_kotlin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppRouter.turnPage(KnowledgeMainActivity.this, "com.hl.kotlin.KotlinMainActivity");
+            }
+        });
 
         // Touch事件分发
         findViewById(R.id.tv_touch).setOnClickListener(new View.OnClickListener() {
