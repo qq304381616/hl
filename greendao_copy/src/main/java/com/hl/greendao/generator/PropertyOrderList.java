@@ -18,4 +18,10 @@ public class PropertyOrderList {
         propertiesOrder.add(null);
     }
 
+    public List<Property> getProperties(){
+        return properties;
+    }
+    public List<String> getPropertiesOrder(){
+        return propertiesOrder;
+    }
 }
