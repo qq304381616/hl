@@ -27,6 +27,10 @@ public class Schema {
         this(DEFAULT_NAME, version, defaultJavaPackage);
     }
 
+    public List<Entity> getEntities() {
+        return entities;
+    }
+
     public Entity addEntity(String className) {
         Entity entity = new Entity(this, className);
         entities.add(entity);

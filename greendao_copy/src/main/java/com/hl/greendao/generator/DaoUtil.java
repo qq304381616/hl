@@ -1,5 +1,12 @@
 package com.hl.greendao.generator;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class DaoUtil {
 
     public static String dbName(String javaName) {
@@ -20,4 +27,32 @@ public class DaoUtil {
     }
 
 
+    public static byte[] readAllBytes(File file) throws IOException {
+        FileInputStream is = new FileInputStream(file);
+        try {
+            return readAllBytes(is);
+        }finally {
+            is.close();
+        }
+    }
+
+    private static byte[] readAllBytes(FileInputStream in) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        copyAllBytes(in, out);
+        return out.toByteArray();
+    }
+
+    private static int copyAllBytes(FileInputStream in, ByteArrayOutputStream out) throws IOException {
+        int byteCount = 0;
+        byte[] buffer = new byte[4096];
+        while(true){
+            int read = in.read(buffer);
+            if (read == -1) {
+                break;
+            }
+            out.write(buffer, 0, read);
+            byteCount += read;
+        }
+        return byteCount;
+    }
 }

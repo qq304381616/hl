@@ -41,6 +41,14 @@ public class Entity {
         toOneRelations = new ArrayList<>();
     }
 
+    public String getJavaPackage() {
+        return javaPackage;
+    }
+
+    public String getClassNameDao() {
+        return classNameDao;
+    }
+
     public Property.PropertyBuilder addIdProperty() {
         Property.PropertyBuilder builder = addLongProperty("id");
         builder.dbName("_id").primaryKey();
@@ -166,4 +174,7 @@ public class Entity {
         // TODO   暂不实现
     }
 
+    public boolean getHasKeepSections() {
+        return hasKeepSections;
+    }
 }
