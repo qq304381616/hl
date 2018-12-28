@@ -21,6 +21,9 @@ public class DaoGenerator {
     private Pattern patternKeepMethods;
 
     private Template templateDao;
+    private Template templateEntity;
+    private Template templateDaoMaster;
+    private Template templateDaoSession;
 
     public DaoGenerator() throws IOException {
         patternKeepIncludes = compilePattern("INCLUDES");
@@ -29,7 +32,20 @@ public class DaoGenerator {
 
         Configuration config = getConfiguration("dao.ftl");
         templateDao = config.getTemplate("dao.ftl");
+        templateEntity = config.getTemplate("entity.ftl");
+        templateDaoMaster = config.getTemplate("dao-master.ftl");
+        templateDaoSession = config.getTemplate("dao-session.ftl");
+    }
 
+    public static void main(String[] args) throws IOException {
+        Schema schema = new Schema(1, "com.greenrobot.testdao");
+        Entity addressEntity = schema.addEntity("Addresse");
+        Property idProperty = addressEntity.addIdProperty().getProperty();
+        addressEntity.addIntProperty("count").index();
+        addressEntity.addIntProperty("dummy").notNull();
+
+        DaoGenerator daoGenerator = new DaoGenerator();
+        daoGenerator.generateAll(schema, "F:\\code\\hl\\greendao_copy\\build\\test-out");
     }
 
     private Pattern compilePattern(String sectionName) {
@@ -40,19 +56,9 @@ public class DaoGenerator {
 
     private Configuration getConfiguration(String probingTemplate) throws IOException {
         Configuration config = new Configuration(Configuration.VERSION_2_3_23);
-        config.setClassForTemplateLoading(getClass(), "/");
+        config.setDirectoryForTemplateLoading(new File("F:\\code\\hl\\greendao_copy\\src\\main\\assets")); // com.hl.greendao.generator.DaoGenerator
         config.getTemplate(probingTemplate);
         return config;
-    }
-
-    public static void main(String[] args) throws IOException {
-        Schema schema = new Schema(1, "com.greenrobot.testdao");
-        Entity addressEntity = schema.addEntity("Addresse");
-        Property idProperty = addressEntity.addIdProperty().getProperty();
-        addressEntity.addIntProperty("count").index();
-        addressEntity.addIntProperty("dummy").notNull();
-
-        new DaoGenerator().generateAll(schema, "build/test-out");
     }
 
     public void generateAll(Schema schema, String outDir) {
@@ -72,9 +78,12 @@ public class DaoGenerator {
         List<Entity> entities = schema.getEntities();
         for (Entity entity : entities) {
             generate(templateDao, outDirFile, entity.getJavaPackage(), entity.getClassNameDao(), schema, entity);
-
-            // TODO
+            generate(templateEntity, outDirFile, entity.getJavaPackage(), entity.getClassName(), schema, entity);
         }
+        generate(templateDaoMaster, outDirFile, schema.getDefaultJavaPackage(),
+                schema.getPrefix() + "DaoMaster", schema, null);
+        generate(templateDaoSession, outDirFile, schema.getDefaultJavaPackage(),
+                schema.getPrefix() + "DaoSession", schema, null);
     }
 
     private void generate(Template template, File outDirFile, String javaPackage, String javaClassName, Schema schema, Entity entity) {

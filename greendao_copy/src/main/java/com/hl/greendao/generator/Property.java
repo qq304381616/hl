@@ -4,11 +4,13 @@ public class Property {
 
     private final Schema schema;
     private final Entity entity;
-    private PropertyType propertyType;
     private final String propertyName;
+    private PropertyType propertyType;
+    private String customTypeClassName;
 
     private String dbName;
     private String dbType;
+    private String customType;
 
     private boolean unique;
     private boolean notNull;
@@ -20,8 +22,8 @@ public class Property {
     private boolean pkDesc;
     private boolean pkAutoincrement;
 
-    private String constraints ;
-    private int ordinal ;
+    private String constraints;
+    private int ordinal;
     private String javaType;
 
     private Index index;
@@ -33,8 +35,91 @@ public class Property {
         this.propertyName = propertyName;
     }
 
+    public boolean isUnique() {
+        return unique;
+    }
+
+    public boolean isNonDefaultDbName() {
+        return nonDefaultDbName;
+    }
+
+    public boolean isAutoincrement() {
+        return pkAutoincrement;
+    }
+
+    public boolean isNotNull() {
+        return notNull;
+    }
+
+    public String getDbType() {
+        return dbType;
+    }
+
+    public String getJavaType() {
+        return javaType;
+    }
+
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public String getJavaTypeInEntity() {
+        if (customTypeClassName != null) {
+            return customTypeClassName;
+        } else {
+            return javaType;
+        }
+    }
+
     public void setOrdinal(int ordinal) {
-        this.ordinal = ordinal ;
+        this.ordinal = ordinal;
+    }
+
+    public String getDatabaseValueExpression() {
+        return getDatabaseValueExpression(propertyName);
+    }
+
+    public String getDatabaseValueExpressionNotNull() {
+        return getDatabaseValueExpression("entity.get" + DaoUtil.capFirst(propertyName) + "()");
+    }
+
+    public String getDatabaseValueExpression(String entityValue) {
+        StringBuilder builder = new StringBuilder();
+        if (customType != null) {
+            builder.append(propertyName).append("Converter.convertToDatabaseValue(");
+        }
+        builder.append(entityValue);
+        if (customType != null) {
+            builder.append(')');
+        }
+        if (propertyType == PropertyType.Boolean) {
+            builder.append(" ? 1L : 0L");
+        } else if (propertyType == PropertyType.Date) {
+            builder.append(".getTime()");
+        }
+        return builder.toString();
+    }
+
+    public String getEntityValueExpression(String databaseValue) {
+        StringBuilder builder = new StringBuilder();
+        if (customType != null) {
+            builder.append(propertyName).append("Converter.convertToDatabaseValue(");
+        }
+        if (propertyType == PropertyType.Byte) {
+            builder.append("(byte) ");
+        } else if (propertyType == PropertyType.Date) {
+            builder.append("new java.util.date(");
+        }
+        builder.append(databaseValue);
+        if (propertyType == PropertyType.Boolean) {
+            builder.append("(byte)");
+        } else if (propertyType == PropertyType.Date) {
+            builder.append(')');
+        }
+        if (customType != null) {
+            builder.append(')');
+        }
+        return builder.toString();
     }
 
     public void init2ndPass() {
@@ -51,7 +136,7 @@ public class Property {
 
         if (notNull && !nonPrimitiveType) {
             javaType = schema.mapToJavaTypeNotNull(propertyType);
-        }else {
+        } else {
             javaType = schema.mapToJavaTypeNullable(propertyType);
         }
     }
@@ -119,14 +204,14 @@ public class Property {
             return this;
         }
 
-        public PropertyBuilder index(){
+        public PropertyBuilder index() {
             Index index = new Index();
             index.addProperty(property);
             property.entity.addIndex(index);
             return this;
         }
 
-        public PropertyBuilder primaryKey(){
+        public PropertyBuilder primaryKey() {
             property.primaryKey = true;
             return this;
         }

@@ -10,21 +10,35 @@ public class Schema {
     private final int version;
     private final String name;
     private final String defaultJavaPackage; // == defaultJavaPackageDao == defaultJavaPackageTest
-
     private final List<Entity> entities;
-    private boolean hasKeepSectionsByDefault ;
-    private boolean useActiveEntitiesByDefault ;
+    private final String prefix;
+    private String defaultJavaPackageDao; // == defaultJavaPackageDao == defaultJavaPackageTest
+    private String defaultJavaPackageTest; // == defaultJavaPackageDao == defaultJavaPackageTest
+    private boolean hasKeepSectionsByDefault;
+    private boolean useActiveEntitiesByDefault;
 
     public Schema(String name, int version, String defaultJavaPackage) {
-        this.version = version;
         this.name = name;
+        this.prefix = name.equals(DEFAULT_NAME) ? "" : DaoUtil.capFirst(name);
+        this.version = version;
         this.defaultJavaPackage = defaultJavaPackage;
         entities = new ArrayList<>();
-
     }
 
     public Schema(int version, String defaultJavaPackage) {
         this(DEFAULT_NAME, version, defaultJavaPackage);
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 
     public List<Entity> getEntities() {
@@ -38,6 +52,9 @@ public class Schema {
     }
 
     public void init2ndPass() {
+        defaultJavaPackageDao = defaultJavaPackage;
+        defaultJavaPackageTest = defaultJavaPackage;
+
         for (Entity entity : entities) {
             entity.init2ndPass();
         }
@@ -51,6 +68,14 @@ public class Schema {
 
     public String getDefaultJavaPackage() {
         return defaultJavaPackage;
+    }
+
+    public String getDefaultJavaPackageDao() {
+        return defaultJavaPackageDao;
+    }
+
+    public String getDefaultJavaPackageTest() {
+        return defaultJavaPackageTest;
     }
 
     public String mapToDbType(PropertyType propertyType) {

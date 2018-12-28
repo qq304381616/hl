@@ -1,12 +1,12 @@
 package com.hl.greendao.generator;
 
-public class Index extends PropertyOrderList{
+public class Index extends PropertyOrderList {
 
     private String name;
     private boolean nonDefaultName;
 
     public String getName() {
-        return name ;
+        return name;
     }
 
     public void setDefaultName(String name) {

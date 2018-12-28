@@ -1,10 +1,8 @@
 package com.hl.greendao.generator;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DaoUtil {
@@ -12,7 +10,7 @@ public class DaoUtil {
     public static String dbName(String javaName) {
         StringBuilder builder = new StringBuilder(javaName);
         for (int i = 1; i < builder.length(); i++) {
-            boolean lastWasUpper = Character.isUpperCase(builder.charAt(i-1));
+            boolean lastWasUpper = Character.isUpperCase(builder.charAt(i - 1));
             boolean isUpper = Character.isUpperCase(builder.charAt(i));
             if (isUpper && !lastWasUpper) {
                 builder.insert(i, '_');
@@ -22,7 +20,7 @@ public class DaoUtil {
         return builder.toString().toUpperCase();
     }
 
-    public static String capFirst(String string){
+    public static String capFirst(String string) {
         return Character.toUpperCase(string.charAt(0)) + (string.length() > 1 ? string.substring(1) : "");
     }
 
@@ -31,7 +29,7 @@ public class DaoUtil {
         FileInputStream is = new FileInputStream(file);
         try {
             return readAllBytes(is);
-        }finally {
+        } finally {
             is.close();
         }
     }
@@ -45,7 +43,7 @@ public class DaoUtil {
     private static int copyAllBytes(FileInputStream in, ByteArrayOutputStream out) throws IOException {
         int byteCount = 0;
         byte[] buffer = new byte[4096];
-        while(true){
+        while (true) {
             int read = in.read(buffer);
             if (read == -1) {
                 break;

@@ -8,26 +8,30 @@ import java.util.Set;
 public class Entity {
     private final Schema schema;
     private final String className;
-
-    private String dbName;
-    private boolean nonDefaultDbName;
-    private String classNameDao;
-    private String classNameTest;
-    private String javaPackage; // == javaPackageDao == javaPackageTest
-    private Property pkProperty;
-    private String pkType;
-
     private final List<Property> properties;
     private final List<Property> propertiesPk;
     private final List<Property> propertiesNonPk;
     private final List<Index> multiIndexes;
     private final Set<String> propertyNames;
     private final List<Index> indexes;
-    private List<Property> propertiesColumns;
     private final List<ToOne> toOneRelations;
-
+    private final List<ToManyBase> toManyRelations;
+    private final List<ToManyBase> incomingToManyRelations;
+    private String dbName;
+    private boolean nonDefaultDbName;
+    private String classNameDao;
+    private String classNameTest;
+    private String javaPackage; // == javaPackageDao == javaPackageTest
+    private String javaPackageDao; // == javaPackageDao == javaPackageTest
+    private String javaPackageTest; // == javaPackageDao == javaPackageTest
+    private Property pkProperty;
+    private String pkType;
+    private List<Property> propertiesColumns;
     private Boolean active;
     private Boolean hasKeepSections;
+    private boolean protobuf;
+    private boolean skipCreationInDb;
+    private boolean constructors;
 
     public Entity(Schema schema, String className) {
         this.schema = schema;
@@ -39,14 +43,85 @@ public class Entity {
         multiIndexes = new ArrayList<>();
         indexes = new ArrayList<>();
         toOneRelations = new ArrayList<>();
+        toManyRelations = new ArrayList<>();
+        incomingToManyRelations = new ArrayList<>();
+        constructors = true;
+    }
+
+    public List<ToManyBase> getToManyRelations() {
+        return toManyRelations;
+    }
+
+    public List<Index> getMultiIndexes() {
+        return multiIndexes;
+    }
+
+    public boolean isNonDefaultDbName() {
+        return nonDefaultDbName;
+    }
+
+    public boolean isConstructors() {
+        return constructors;
+    }
+
+    public List<ToOne> getToOneRelations() {
+        return toOneRelations;
+    }
+
+    public boolean isSkipCreationInDb() {
+        return skipCreationInDb;
+    }
+
+    public List<ToManyBase> getIncomingToManyRelations() {
+        return incomingToManyRelations;
+    }
+
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    public List<Property> getPropertiesColumns() {
+        return propertiesColumns;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getPkType() {
+        return pkType;
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public boolean isProtobuf() {
+        return protobuf;
     }
 
     public String getJavaPackage() {
         return javaPackage;
     }
 
+    public String getJavaPackageDao() {
+        return javaPackageDao;
+    }
+
+    public String getJavaPackageTest() {
+        return javaPackageTest;
+    }
+
     public String getClassNameDao() {
         return classNameDao;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public Property.PropertyBuilder addIdProperty() {
@@ -119,6 +194,8 @@ public class Entity {
             hasKeepSections = schema.isHasKeepSectionsByDefault();
         }
 
+        active = false;
+
         init2ndPassIndexNamesWithDefault();
 
         // TODO  contentProviders 暂不实现
@@ -155,6 +232,8 @@ public class Entity {
         }
         if (javaPackage == null) {
             javaPackage = schema.getDefaultJavaPackage();
+            javaPackageDao = javaPackage;
+            javaPackageTest = javaPackage;
         }
     }
 

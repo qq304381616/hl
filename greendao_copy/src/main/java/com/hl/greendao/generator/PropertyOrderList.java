@@ -8,7 +8,7 @@ public class PropertyOrderList {
     private List<Property> properties;
     private List<String> propertiesOrder;
 
-    public PropertyOrderList(){
+    public PropertyOrderList() {
         properties = new ArrayList<>();
         propertiesOrder = new ArrayList<>();
     }
@@ -18,10 +18,11 @@ public class PropertyOrderList {
         propertiesOrder.add(null);
     }
 
-    public List<Property> getProperties(){
+    public List<Property> getProperties() {
         return properties;
     }
-    public List<String> getPropertiesOrder(){
+
+    public List<String> getPropertiesOrder() {
         return propertiesOrder;
     }
 }
