@@ -22,8 +22,6 @@ task compilesingle(type: JavaCompile) {
 }
 
 task execlass(type: JavaExec) {
-    File f = new File(classfilepath)
-    println(f.getAbsolutePath())
     classpath = files(classfilepath, project.configurations.buildDependencies)
     main = 'com.hl.greendao.generator.DaoGenerator'
 }
