@@ -1,9 +1,41 @@
 apply plugin: 'com.android.library'
 
+ext.classfilepath = 'build/bin' // 生成class的临时目录
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+configurations {
+    buildDependencies
+}
+
+dependencies {
+    buildDependencies "org.freemarker:freemarker:2.3.23"
+}
+
+task compilesingle(type: JavaCompile) {
+    source = 'src/main/java'
+    include "com/hl/greendao/generator/*.java"
+    classpath = project.configurations.buildDependencies
+    destinationDir = file(classfilepath)
+}
+
+task execlass(type: JavaExec) {
+    File f = new File(classfilepath)
+    println(f.getAbsolutePath())
+    classpath = files(classfilepath, project.configurations.buildDependencies)
+    main = 'com.hl.greendao.generator.DaoGenerator'
+}
+
+task exec {
+    compilesingle.execute() // 编译java为class文件
+    execlass.exec() // 执行class
+    delete file(classfilepath) // 删除编译生成的class文件
+}
+
 android {
     compileSdkVersion 28
-
-
 
     defaultConfig {
         minSdkVersion 21
@@ -21,7 +53,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
