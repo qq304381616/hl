@@ -1,4 +1,4 @@
-package com.hl.greendao.generator.core;
+package com.hl.greendao.core;
 
 public class Property {
     public final int ordinal ;

@@ -1,4 +1,4 @@
-package com.hl.greendao.generator.core.database;
+package com.hl.greendao.core.database;
 
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,16 +1,17 @@
-package com.hl.greendao.generator.core.identityscope;
+package com.hl.greendao.core.identityscope;
+
+import com.hl.greendao.core.internal.LongHashMap;
 
 import java.lang.ref.Reference;
-import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class IdentityScopeObject<K, T> implements IdentityScope<K, T> {
+public class IdentityScopeLong<T> implements IdentityScope<Long, T> {
 
-    private final HashMap<K, Reference<T>> map;
+    private final LongHashMap<Reference<T>> map;
     private final ReentrantLock lock;
 
-    public IdentityScopeObject() {
-        map = new HashMap<>();
+    public IdentityScopeLong() {
+        map = new LongHashMap<>();
         lock = new ReentrantLock();
     }
 

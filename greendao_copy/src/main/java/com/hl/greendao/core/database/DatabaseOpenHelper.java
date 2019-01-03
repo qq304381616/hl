@@ -1,4 +1,4 @@
-package com.hl.greendao.generator.core.database;
+package com.hl.greendao.core.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

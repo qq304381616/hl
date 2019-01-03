@@ -1,4 +1,4 @@
-package com.hl.greendao.generator.core.internal;
+package com.hl.greendao.core.internal;
 
 import java.util.Arrays;
 

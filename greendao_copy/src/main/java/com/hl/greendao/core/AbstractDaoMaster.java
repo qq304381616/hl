@@ -1,8 +1,8 @@
-package com.hl.greendao.generator.core;
+package com.hl.greendao.core;
 
-import com.hl.greendao.generator.core.database.Database;
-import com.hl.greendao.generator.core.identityscope.IdentityScopeType;
-import com.hl.greendao.generator.core.internal.DaoConfig;
+import com.hl.greendao.core.database.Database;
+import com.hl.greendao.core.identityscope.IdentityScopeType;
+import com.hl.greendao.core.internal.DaoConfig;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,13 +1,13 @@
-package com.hl.greendao.generator.core.internal;
+package com.hl.greendao.core.internal;
 
-import com.hl.greendao.generator.core.AbstractDao;
-import com.hl.greendao.generator.core.DaoException;
-import com.hl.greendao.generator.core.Property;
-import com.hl.greendao.generator.core.database.Database;
-import com.hl.greendao.generator.core.identityscope.IdentityScope;
-import com.hl.greendao.generator.core.identityscope.IdentityScopeLong;
-import com.hl.greendao.generator.core.identityscope.IdentityScopeObject;
-import com.hl.greendao.generator.core.identityscope.IdentityScopeType;
+import com.hl.greendao.core.AbstractDao;
+import com.hl.greendao.core.DaoException;
+import com.hl.greendao.core.Property;
+import com.hl.greendao.core.database.Database;
+import com.hl.greendao.core.identityscope.IdentityScope;
+import com.hl.greendao.core.identityscope.IdentityScopeLong;
+import com.hl.greendao.core.identityscope.IdentityScopeObject;
+import com.hl.greendao.core.identityscope.IdentityScopeType;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

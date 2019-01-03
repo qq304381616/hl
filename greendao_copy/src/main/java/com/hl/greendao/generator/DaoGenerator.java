@@ -40,11 +40,10 @@ public class DaoGenerator {
     public static void main(String[] args) throws IOException {
         System.out.println("gradle exec main");
 
-        Schema schema = new Schema(1, "com.hl.greendao.generator.demo");
+        Schema schema = new Schema(1, "com.hl.greendao.gen");
         Entity addressEntity = schema.addEntity("Addresse");
         Property idProperty = addressEntity.addIdProperty().getProperty();
-        addressEntity.addIntProperty("count").index();
-        addressEntity.addIntProperty("dummy").notNull();
+        addressEntity.addStringProperty("name");
 
         DaoGenerator daoGenerator = new DaoGenerator();
         daoGenerator.generateAll(schema, ".\\src\\main\\java");

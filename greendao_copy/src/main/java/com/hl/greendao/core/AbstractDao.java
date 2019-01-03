@@ -1,15 +1,15 @@
-package com.hl.greendao.generator.core;
+package com.hl.greendao.core;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
-import com.hl.greendao.generator.core.database.Database;
-import com.hl.greendao.generator.core.database.DatabaseStatement;
-import com.hl.greendao.generator.core.identityscope.IdentityScope;
-import com.hl.greendao.generator.core.identityscope.IdentityScopeLong;
-import com.hl.greendao.generator.core.internal.DaoConfig;
-import com.hl.greendao.generator.core.internal.TableStatements;
+import com.hl.greendao.core.database.Database;
+import com.hl.greendao.core.database.DatabaseStatement;
+import com.hl.greendao.core.identityscope.IdentityScope;
+import com.hl.greendao.core.identityscope.IdentityScopeLong;
+import com.hl.greendao.core.internal.DaoConfig;
+import com.hl.greendao.core.internal.TableStatements;
 
 public abstract class AbstractDao<T, K> {
 

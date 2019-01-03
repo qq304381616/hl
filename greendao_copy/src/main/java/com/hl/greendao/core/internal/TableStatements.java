@@ -1,7 +1,7 @@
-package com.hl.greendao.generator.core.internal;
+package com.hl.greendao.core.internal;
 
-import com.hl.greendao.generator.core.database.Database;
-import com.hl.greendao.generator.core.database.DatabaseStatement;
+import com.hl.greendao.core.database.Database;
+import com.hl.greendao.core.database.DatabaseStatement;
 
 public class TableStatements {
     private final Database db;

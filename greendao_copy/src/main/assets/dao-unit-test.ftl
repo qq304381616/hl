@@ -21,9 +21,9 @@ package ${entity.javaPackageTest};
 
 <#assign isStringPK = entity.pkProperty?? && entity.pkProperty.propertyType == "String" />
 <#if isStringPK>
-import com.hl.greendao.generator.core.test.AbstractDaoTestStringPk;
+import com.hl.greendao.core.test.AbstractDaoTestStringPk;
 <#else>
-import com.hl.greendao.generator.core.test.AbstractDaoTestLongPk;
+import com.hl.greendao.core.test.AbstractDaoTestLongPk;
 </#if>
 
 import ${entity.javaPackage}.${entity.className};

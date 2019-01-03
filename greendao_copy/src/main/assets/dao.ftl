@@ -33,17 +33,17 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
-import com.hl.greendao.generator.core.AbstractDao;
-import com.hl.greendao.generator.core.Property;
+import com.hl.greendao.core.AbstractDao;
+import com.hl.greendao.core.Property;
 <#if entity.toOneRelations?has_content>
-import com.hl.greendao.generator.core.internal.SqlUtils;
+import com.hl.greendao.core.internal.SqlUtils;
 </#if>
-import com.hl.greendao.generator.core.internal.DaoConfig;
-import com.hl.greendao.generator.core.database.Database;
-import com.hl.greendao.generator.core.database.DatabaseStatement;
+import com.hl.greendao.core.internal.DaoConfig;
+import com.hl.greendao.core.database.Database;
+import com.hl.greendao.core.database.DatabaseStatement;
 <#if entity.incomingToManyRelations?has_content>
-import com.hl.greendao.generator.core.query.Query;
-import com.hl.greendao.generator.core.query.QueryBuilder;
+import com.hl.greendao.core.query.Query;
+import com.hl.greendao.core.query.QueryBuilder;
 </#if>
 
 <#if entity.javaPackageDao != schema.defaultJavaPackageDao>

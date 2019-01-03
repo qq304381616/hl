@@ -11,9 +11,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import com.hl.greendao.generator.core.DaoLog;
-import com.hl.greendao.generator.core.database.StandardDatabase;
-import com.hl.greendao.generator.core.database.Database;
+import com.hl.greendao.core.DaoLog;
+import com.hl.greendao.core.database.StandardDatabase;
+import com.hl.greendao.core.database.Database;
 
 import ${schema.defaultJavaPackageDao}.${schema.prefix}DaoSession;
 import ${entity.javaPackageDao}.${entity.classNameDao};

@@ -25,11 +25,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
-import com.hl.greendao.generator.core.AbstractDaoMaster;
-import com.hl.greendao.generator.core.database.StandardDatabase;
-import com.hl.greendao.generator.core.database.Database;
-import com.hl.greendao.generator.core.database.DatabaseOpenHelper;
-import com.hl.greendao.generator.core.identityscope.IdentityScopeType;
+import com.hl.greendao.core.AbstractDaoMaster;
+import com.hl.greendao.core.database.StandardDatabase;
+import com.hl.greendao.core.database.Database;
+import com.hl.greendao.core.database.DatabaseOpenHelper;
+import com.hl.greendao.core.identityscope.IdentityScopeType;
 
 <#list schema.entities as entity>
 <#if schema.defaultJavaPackageDao != entity.javaPackageDao>

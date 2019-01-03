@@ -1,4 +1,4 @@
-package com.hl.greendao.generator.core.identityscope;
+package com.hl.greendao.core.identityscope;
 
 public enum  IdentityScopeType {
     Session, None

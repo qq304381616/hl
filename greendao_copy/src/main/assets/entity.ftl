@@ -32,14 +32,14 @@ along with greenDAO Generator.  If not, see <http://www.gnu.org/licenses/>.
 }</#macro>
 package ${entity.javaPackage};
 
-import com.hl.greendao.generator.annotation.*;
+import com.hl.greendao.annotation.*;
 
 <#if entity.toManyRelations?has_content>
 import java.util.List;
 </#if>
 <#if entity.active>
 import ${schema.defaultJavaPackageDao}.${schema.prefix}DaoSession;
-import com.hl.greendao.generator.core.DaoException;
+import com.hl.greendao.core.DaoException;
 
 </#if>
 <#if entity.additionalImportsEntity?has_content>

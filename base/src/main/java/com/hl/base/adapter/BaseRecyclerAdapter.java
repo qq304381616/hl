@@ -61,6 +61,24 @@ public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ItemHolder(View view) {
             super(view);
             tv_name = view.findViewById(R.id.tv_name);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
+    }
+
+    private ItemClickListener itemClickListener;
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(int position);
     }
 }

@@ -143,6 +143,10 @@ public class Entity {
         return addProperty(PropertyType.Int, propertyName);
     }
 
+    public Property.PropertyBuilder addStringProperty(String propertyName) {
+        return addProperty(PropertyType.String, propertyName);
+    }
+
     public Property.PropertyBuilder addProperty(PropertyType propertyType, String propertyName) {
         if (!propertyNames.add(propertyName)) {
             throw new RuntimeException("Property already defined" + propertyName);
