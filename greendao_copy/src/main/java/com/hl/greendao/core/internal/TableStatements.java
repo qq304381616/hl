@@ -26,4 +26,20 @@ public class TableStatements {
         this.allColumns = allColumns;
         this.pkColumns = pkColumns;
     }
+
+    public DatabaseStatement getInsertStatement() {
+        if (insertStatement == null) {
+            String sql = SqlUtils.createSqlInsert("INSERT INTO ", tablename, allColumns);
+            DatabaseStatement newInsertStatement = db.compileStatement(sql);
+            synchronized (this) {
+                if (insertStatement == null) {
+                    insertStatement = newInsertStatement;
+                }
+            }
+            if (insertStatement != newInsertStatement) {
+                newInsertStatement.close();
+            }
+        }
+        return insertStatement;
+    }
 }

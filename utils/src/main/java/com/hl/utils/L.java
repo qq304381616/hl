@@ -92,63 +92,63 @@ public class L {
     }
 
     public static void v(Object msg) {
-        log(tag, msg.toString(), null, 'i');
+        log(tag, msg == null ? "" : msg.toString(), null, 'i');
     }
 
     public static void v(String tag, Object msg) {
-        log(tag, msg.toString(), null, 'i');
+        log(tag, msg == null ? "" : msg.toString(), null, 'i');
     }
 
     public static void v(String tag, Object msg, Throwable tr) {
-        log(tag, msg.toString(), tr, 'v');
+        log(tag, msg == null ? "" : msg.toString(), tr, 'v');
     }
 
     public static void d(Object msg) {
-        log(tag, msg.toString(), null, 'd');
+        log(tag, msg == null ? "" : msg.toString(), null, 'd');
     }
 
     public static void d(String tag, Object msg) {
-        log(tag, msg.toString(), null, 'd');
+        log(tag, msg == null ? "" : msg.toString(), null, 'd');
     }
 
     public static void d(String tag, Object msg, Throwable tr) {
-        log(tag, msg.toString(), tr, 'd');
+        log(tag, msg == null ? "" : msg.toString(), tr, 'd');
     }
 
     public static void i(Object msg) {
-        log(tag, msg.toString(), null, 'i');
+        log(tag, msg == null ? "" : msg.toString(), null, 'i');
     }
 
     public static void i(String tag, Object msg) {
-        log(tag, msg.toString(), null, 'i');
+        log(tag, msg == null ? "" : msg.toString(), null, 'i');
     }
 
     public static void i(String tag, Object msg, Throwable tr) {
-        log(tag, msg.toString(), tr, 'i');
+        log(tag, msg == null ? "" : msg.toString(), tr, 'i');
     }
 
     public static void w(Object msg) {
-        log(tag, msg.toString(), null, 'w');
+        log(tag, msg == null ? "" : msg.toString(), null, 'w');
     }
 
     public static void w(String tag, Object msg) {
-        log(tag, msg.toString(), null, 'w');
+        log(tag, msg == null ? "" : msg.toString(), null, 'w');
     }
 
     public static void w(String tag, Object msg, Throwable tr) {
-        log(tag, msg.toString(), tr, 'w');
+        log(tag, msg == null ? "" : msg.toString(), tr, 'w');
     }
 
     public static void e(Object msg) {
-        log(tag, msg.toString(), null, 'e');
+        log(tag, msg == null ? "" : msg.toString(), null, 'e');
     }
 
     public static void e(String tag, Object msg) {
-        log(tag, msg.toString(), null, 'e');
+        log(tag, msg == null ? "" : msg.toString(), null, 'e');
     }
 
     public static void e(String tag, Object msg, Throwable tr) {
-        log(tag, msg.toString(), tr, 'e');
+        log(tag, msg == null ? "" : msg.toString(), tr, 'e');
     }
 
     /**
