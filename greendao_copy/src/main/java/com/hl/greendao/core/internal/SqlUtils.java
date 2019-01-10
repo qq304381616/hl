@@ -2,7 +2,6 @@ package com.hl.greendao.core.internal;
 
 import com.hl.greendao.core.DaoException;
 import com.hl.greendao.core.Property;
-import com.hl.greendao.core.query.QueryBuilder;
 
 public class SqlUtils {
 
@@ -11,6 +10,16 @@ public class SqlUtils {
             builder.append(tablePrefix).append('.');
         }
         builder.append('"').append(property.columnName).append('"');
+        return builder;
+    }
+
+    public static StringBuilder appendColumnsEqValue(StringBuilder builder, String tableAlias, String[] columns) {
+        for (int i = 0; i < columns.length; i++) {
+            appendColumn(builder, tableAlias, columns[i]).append("=?");
+            if (i < columns.length - 1) {
+                builder.append(',');
+            }
+        }
         return builder;
     }
 
@@ -69,6 +78,17 @@ public class SqlUtils {
         StringBuilder builder = new StringBuilder(distinct ? "SELECT DISTINCT " : "SELECT ");
         SqlUtils.appendColumns(builder, tableAlisa, columns).append(" FROM ");
         builder.append('"').append(tablename).append('"').append(' ').append(tableAlisa).append(' ');
+        return builder.toString();
+    }
+
+    public static String createSqlDelete(String tablename, String[] columns) {
+        String quotedTablename = '"' + tablename + '"';
+        StringBuilder builder = new StringBuilder("DELETE FROM ");
+        builder.append(quotedTablename);
+        if (columns != null && columns.length > 0) {
+            builder.append(" WHERE ");
+            appendColumnsEqValue(builder, quotedTablename, columns);
+        }
         return builder.toString();
     }
 }

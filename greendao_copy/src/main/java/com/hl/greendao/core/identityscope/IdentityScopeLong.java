@@ -97,4 +97,14 @@ public class IdentityScopeLong<T> implements IdentityScope<Long, T> {
             return null;
         }
     }
+
+    @Override
+    public void remove(Long key) {
+        lock.lock();
+        try {
+            map.remove(key);
+        } finally {
+            lock.unlock();
+        }
+    }
 }

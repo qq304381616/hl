@@ -30,16 +30,32 @@ public class TableStatements {
     public DatabaseStatement getInsertStatement() {
         if (insertStatement == null) {
             String sql = SqlUtils.createSqlInsert("INSERT INTO ", tablename, allColumns);
-            DatabaseStatement newInsertStatement = db.compileStatement(sql);
+            DatabaseStatement s = db.compileStatement(sql);
             synchronized (this) {
                 if (insertStatement == null) {
-                    insertStatement = newInsertStatement;
+                    insertStatement = s;
                 }
             }
-            if (insertStatement != newInsertStatement) {
-                newInsertStatement.close();
+            if (insertStatement != s) {
+                s.close();
             }
         }
         return insertStatement;
+    }
+
+    public DatabaseStatement getDeleteStatement() {
+        if (deleteStatement == null) {
+            String sql = SqlUtils.createSqlDelete(tablename, pkColumns);
+            DatabaseStatement s = db.compileStatement(sql);
+            synchronized (this) {
+                if (deleteStatement == null) {
+                    deleteStatement = s;
+                }
+            }
+            if (deleteStatement != s) {
+                s.close();
+            }
+        }
+        return deleteStatement;
     }
 }

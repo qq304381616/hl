@@ -51,7 +51,10 @@ public class GreenDaoActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
 
-                // TODO 删除数据
+                BaseDataEntity baseDataEntity = adapter.getData().get(position);
+                int id = baseDataEntity.getId();
+                addresseDao.deleteByKey((long) id);
+                updateView();
             }
         });
 
@@ -63,7 +66,7 @@ public class GreenDaoActivity extends BaseActivity {
                     et_name.setText("");
 
                     final DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
-                    String comment = "Added on " + df.format(new Date() ) + " " + name;
+                    String comment = "Added on " + df.format(new Date()) + " " + name;
 
                     Addresse address = new Addresse();
                     address.setName(comment);
@@ -83,7 +86,7 @@ public class GreenDaoActivity extends BaseActivity {
         List<Addresse> list = addressQuery.list();
         List<BaseDataEntity> data = new ArrayList<>();
         for (Addresse a : list) {
-            data.add(new BaseDataEntity(0, a.getName()));
+            data.add(new BaseDataEntity((int) (long) a.getId(), a.getName()));
         }
         adapter.setData(data);
         adapter.notifyDataSetChanged();

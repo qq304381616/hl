@@ -79,4 +79,14 @@ public class IdentityScopeObject<K, T> implements IdentityScope<K, T> {
             return null;
         }
     }
+
+    @Override
+    public void remove(K key) {
+        lock.lock();
+        try {
+            map.remove(key);
+        } finally {
+            lock.unlock();
+        }
+    }
 }

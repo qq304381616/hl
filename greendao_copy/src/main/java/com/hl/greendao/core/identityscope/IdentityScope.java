@@ -17,4 +17,6 @@ public interface IdentityScope <K, T>{
     T get(K key);
 
     T getNoLock(K key);
+
+    void remove(K key);
 }

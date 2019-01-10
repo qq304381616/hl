@@ -242,6 +242,72 @@ public abstract class AbstractDao<T, K> {
         }
     }
 
+    public void deleteAll() {
+        db.execSQL("DELETE FROM '" + config.tablename + "'");
+        if (identityScope != null) {
+            identityScope.clear();
+        }
+    }
+
+    public void delete(T entity) {
+        assertSinglePk();
+        K key = getKeyVerified(entity);
+        deleteByKey(key);
+    }
+
+    public void deleteByKey(K key) {
+        assertSinglePk();
+        DatabaseStatement stmt = statements.getDeleteStatement();
+        if (db.isDbLockedByCurrentThread()) {
+            synchronized (stmt) {
+                deleteByKeyInsideSynchronized(key, stmt);
+            }
+        } else {
+            db.beginTransaction();
+            try {
+                synchronized (stmt) {
+                    deleteByKeyInsideSynchronized(key, stmt);
+                }
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+        }
+        if (identityScope != null) {
+            identityScope.remove(key);
+        }
+    }
+
+    private void deleteByKeyInsideSynchronized(K key, DatabaseStatement stmt) {
+        if (key instanceof Long) {
+            stmt.bindLong(1, (Long) key);
+        } else if (key == null) {
+            throw new DaoException("Cannot delete entity, key is null");
+        } else {
+            stmt.bindString(1, key.toString());
+        }
+        stmt.execute();
+    }
+
+    protected K getKeyVerified(T entity) {
+        K key = getKey(entity);
+        if (key == null) {
+            if (entity == null) {
+                throw new NullPointerException("Entity may not be null");
+            } else {
+                throw new DaoException("Entity has no key");
+            }
+        } else {
+            return key;
+        }
+    }
+
+    protected void assertSinglePk() {
+        if (config.pkColumns.length != 1) {
+            throw new DaoException(this + " (" + config.tablename + ") dose not a single-column primary key");
+        }
+    }
+
     public Property[] getProperties() {
         return config.properties;
     }

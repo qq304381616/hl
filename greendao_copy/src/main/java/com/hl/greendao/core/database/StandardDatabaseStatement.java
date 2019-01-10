@@ -11,6 +11,11 @@ public class StandardDatabaseStatement implements DatabaseStatement {
     }
 
     @Override
+    public void execute() {
+        delegate.execute();
+    }
+
+    @Override
     public void clearBindings() {
         delegate.clearBindings();
     }

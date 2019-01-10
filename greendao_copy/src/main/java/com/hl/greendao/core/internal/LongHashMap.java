@@ -18,6 +18,27 @@ public final class LongHashMap<T> {
         return null;
     }
 
+    public T remove(long key) {
+        int index = ((((int) (key >>> 32)) ^ ((int) (key))) & 0x7fffffff) % capacity;
+        Entry<T> previous = null;
+        Entry<T> entry = table[index];
+        while (entry != null) {
+            Entry<T> next = entry.next;
+            if (entry.key == key) {
+                if (previous == null) {
+                    table[index] = next;
+                } else {
+                    previous.next = next;
+                }
+                size--;
+                return entry.value;
+            }
+            previous = entry;
+            entry = next;
+        }
+        return null;
+    }
+
     final static class Entry<T> {
         final long key;
         T value;
