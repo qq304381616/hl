@@ -124,6 +124,10 @@ public class Entity {
         return className;
     }
 
+    public Property getPkProperty() {
+        return pkProperty;
+    }
+
     public Property.PropertyBuilder addIdProperty() {
         Property.PropertyBuilder builder = addLongProperty("id");
         builder.dbName("_id").primaryKey();

@@ -57,7 +57,8 @@ public class DaoGenerator {
 
     private Configuration getConfiguration(String probingTemplate) throws IOException {
         Configuration config = new Configuration(Configuration.VERSION_2_3_23);
-        config.setDirectoryForTemplateLoading(new File("src\\main\\assets")); // com.hl.greendao.generator.DaoGenerator
+//        config.setDirectoryForTemplateLoading(new File("F:\\code\\hl\\greendao_copy\\src\\main\\assets"));
+        config.setDirectoryForTemplateLoading(new File("src\\main\\assets"));
         config.getTemplate(probingTemplate);
         return config;
     }

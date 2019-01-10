@@ -63,6 +63,14 @@ public class Property {
         return propertyName;
     }
 
+    public int getOrdinal() {
+        return ordinal;
+    }
+
+    public String getConstraints() {
+        return constraints;
+    }
+
     public String getJavaTypeInEntity() {
         if (customTypeClassName != null) {
             return customTypeClassName;
