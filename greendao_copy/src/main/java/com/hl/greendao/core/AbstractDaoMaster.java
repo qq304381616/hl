@@ -16,7 +16,7 @@ public abstract class AbstractDaoMaster {
     public AbstractDaoMaster(Database db, int schemaVersion) {
         this.db = db;
         this.schemaVersion = schemaVersion;
-        this.daoConfigMap = new HashMap<Class<? extends AbstractDao<?,?>>,DaoConfig>();
+        this.daoConfigMap = new HashMap<>();
     }
 
     protected void registerDaoClass(Class<? extends AbstractDao<?, ?>> daoClass) {

@@ -41,9 +41,14 @@ public class DaoGenerator {
         System.out.println("gradle exec main");
 
         Schema schema = new Schema(1, "com.hl.greendao.gen");
+
         Entity addressEntity = schema.addEntity("Addresse");
         Property idProperty = addressEntity.addIdProperty().getProperty();
         addressEntity.addStringProperty("name");
+
+        Entity schoolEntity = schema.addEntity("School");
+        schoolEntity.addIdProperty();
+        schoolEntity.addStringProperty("name");
 
         DaoGenerator daoGenerator = new DaoGenerator();
         daoGenerator.generateAll(schema, ".\\src\\main\\java");
