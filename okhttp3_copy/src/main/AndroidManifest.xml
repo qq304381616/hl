@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hl.okhttp3">
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!--网络-->
+
+    <application>
+        <activity android:name=".example.OkhttpMainActivity" />
+    </application>
+</manifest>

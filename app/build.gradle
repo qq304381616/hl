@@ -39,4 +39,5 @@ dependencies {
     }
     implementation project(':kotlin')
     implementation project(':greendao_copy')
+    implementation project(':okhttp3_copy')
 }

@@ -87,6 +87,14 @@
                 android:background="@android:drawable/list_selector_background"
                 android:gravity="center"
                 android:text="手写greendao" />
+
+            <TextView
+                android:id="@+id/tv_okhttp3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@android:drawable/list_selector_background"
+                android:gravity="center"
+                android:text="手写okhttp3" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
