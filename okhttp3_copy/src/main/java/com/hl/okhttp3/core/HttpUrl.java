@@ -2,7 +2,7 @@ package com.hl.okhttp3.core;
 
 import android.support.annotation.Nullable;
 
-import com.hl.okhttp3.core.internal.ws.Util;
+import com.hl.okhttp3.core.internal.Util;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,7 +39,9 @@ public final class HttpUrl {
     private final @Nullable
     String fragment;
     private final String url;
-
+    public String host() {
+        return host;
+    }
     HttpUrl(Builder builder) {
         this.scheme = builder.scheme;
         this.username = percentDecode(builder.encodedUsername, false);
@@ -110,6 +112,10 @@ public final class HttpUrl {
         } else {
             return -1;
         }
+    }
+
+    public static HttpUrl get(String url) {
+        return new Builder().parse(null, url).build();
     }
 
     public URI uri() {
@@ -200,12 +206,13 @@ public final class HttpUrl {
         return result;
     }
 
-    static boolean percentEncoded(String encoded, int pos, int limit){
+    static boolean percentEncoded(String encoded, int pos, int limit) {
         return pos + 2 < limit
                 && encoded.charAt(pos) == '%'
                 && Util.decodeHexDigit(encoded.charAt(pos + 1)) != -1
                 && Util.decodeHexDigit(encoded.charAt(pos + 2)) != -1;
     }
+
     static String canonicalize(String input, String encodeSet, boolean alreadyEncoded, boolean strict, boolean plusIsSpace, boolean asciiOnly) {
         return canonicalize(input, 0, input.length(), encodeSet, alreadyEncoded, strict, plusIsSpace, asciiOnly, null);
     }
@@ -271,7 +278,92 @@ public final class HttpUrl {
         }
     }
 
+    static List<String> queryStringToNamesAndValues(String encodedQuery) {
+        List<String> result = new ArrayList<>();
+        for (int pos = 0; pos <= encodedQuery.length(); ) {
+            int ampersandOffset = encodedQuery.indexOf('&', pos);
+            if (ampersandOffset == -1) ampersandOffset = encodedQuery.length();
+
+            int equalsOffset = encodedQuery.indexOf('=', pos);
+            if (equalsOffset == -1 || equalsOffset > ampersandOffset) {
+                result.add(encodedQuery.substring(pos, ampersandOffset));
+                result.add(null); // No value for this name.
+            } else {
+                result.add(encodedQuery.substring(pos, equalsOffset));
+                result.add(encodedQuery.substring(equalsOffset + 1, ampersandOffset));
+            }
+            pos = ampersandOffset + 1;
+        }
+        return result;
+    }
+
+    public String redact() {
+        return newBuilder("/...")
+                .username("")
+                .password("")
+                .build()
+                .toString();
+    }
+    public @Nullable Builder newBuilder(String link) {
+        try {
+            return new Builder().parse(this, link);
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
+    }
+
+    public boolean isHttps() {
+        return scheme.equals("https");
+    }
+
+    public String encodedPath() {
+        int pathStart = url.indexOf('/', scheme.length() + 3); // "://".length() == 3.
+        int pathEnd = delimiterOffset(url, pathStart, url.length(), "?#");
+        return url.substring(pathStart, pathEnd);
+    }
+    public static int delimiterOffset(String input, int pos, int limit, String delimiters) {
+        for (int i = pos; i < limit; i++) {
+            if (delimiters.indexOf(input.charAt(i)) != -1) return i;
+        }
+        return limit;
+    }
+
+    public @Nullable String query() {
+        if (queryNamesAndValues == null) return null; // No query.
+        StringBuilder result = new StringBuilder();
+        namesAndValuesToQueryString(result, queryNamesAndValues);
+        return result.toString();
+    }
+
+    static void namesAndValuesToQueryString(StringBuilder out, List<String> namesAndValues) {
+        for (int i = 0, size = namesAndValues.size(); i < size; i += 2) {
+            String name = namesAndValues.get(i);
+            String value = namesAndValues.get(i + 1);
+            if (i > 0) out.append('&');
+            out.append(name);
+            if (value != null) {
+                out.append('=');
+                out.append(value);
+            }
+        }
+    }
+
+    public int port() {
+        return port;
+    }
+
+    public String scheme() {
+        return scheme;
+    }
+
+    public @Nullable HttpUrl resolve(String link) {
+        Builder builder = newBuilder(link);
+        return builder != null ? builder.build() : null;
+    }
+
     public static final class Builder {
+
+        static final String INVALID_HOST = "Invalid URL host";
 
         @Nullable
         String scheme;
@@ -361,6 +453,288 @@ public final class HttpUrl {
                 encodedFragment = canonicalize(
                         encodedFragment, FRAGMENT_ENCODE_SET_URI, true, true, false, false);
             }
+            return this;
+        }
+
+
+        Builder parse(@Nullable HttpUrl base, String input) {
+            int pos = Util.skipLeadingAsciiWhitespace(input, 0, input.length());
+            int limit = Util.skipTrailingAsciiWhitespace(input, pos, input.length());
+
+            // Scheme.
+            int schemeDelimiterOffset = schemeDelimiterOffset(input, pos, limit);
+            if (schemeDelimiterOffset != -1) {
+                if (input.regionMatches(true, pos, "https:", 0, 6)) {
+                    this.scheme = "https";
+                    pos += "https:".length();
+                } else if (input.regionMatches(true, pos, "http:", 0, 5)) {
+                    this.scheme = "http";
+                    pos += "http:".length();
+                } else {
+                    throw new IllegalArgumentException("Expected URL scheme 'http' or 'https' but was '"
+                            + input.substring(0, schemeDelimiterOffset) + "'");
+                }
+            } else if (base != null) {
+                this.scheme = base.scheme;
+            } else {
+                throw new IllegalArgumentException(
+                        "Expected URL scheme 'http' or 'https' but no colon was found");
+            }
+
+            // Authority.
+            boolean hasUsername = false;
+            boolean hasPassword = false;
+            int slashCount = slashCount(input, pos, limit);
+            if (slashCount >= 2 || base == null || !base.scheme.equals(this.scheme)) {
+                // Read an authority if either:
+                //  * The input starts with 2 or more slashes. These follow the scheme if it exists.
+                //  * The input scheme exists and is different from the base URL's scheme.
+                //
+                // The structure of an authority is:
+                //   username:password@host:port
+                //
+                // Username, password and port are optional.
+                //   [username[:password]@]host[:port]
+                pos += slashCount;
+                authority:
+                while (true) {
+                    int componentDelimiterOffset = Util.delimiterOffset(input, pos, limit, "@/\\?#");
+                    int c = componentDelimiterOffset != limit
+                            ? input.charAt(componentDelimiterOffset)
+                            : -1;
+                    switch (c) {
+                        case '@':
+                            // User info precedes.
+                            if (!hasPassword) {
+                                int passwordColonOffset = Util.delimiterOffset(
+                                        input, pos, componentDelimiterOffset, ':');
+                                String canonicalUsername = canonicalize(input, pos, passwordColonOffset,
+                                        USERNAME_ENCODE_SET, true, false, false, true, null);
+                                this.encodedUsername = hasUsername
+                                        ? this.encodedUsername + "%40" + canonicalUsername
+                                        : canonicalUsername;
+                                if (passwordColonOffset != componentDelimiterOffset) {
+                                    hasPassword = true;
+                                    this.encodedPassword = canonicalize(input, passwordColonOffset + 1,
+                                            componentDelimiterOffset, PASSWORD_ENCODE_SET, true, false, false, true,
+                                            null);
+                                }
+                                hasUsername = true;
+                            } else {
+                                this.encodedPassword = this.encodedPassword + "%40" + canonicalize(input, pos,
+                                        componentDelimiterOffset, PASSWORD_ENCODE_SET, true, false, false, true, null);
+                            }
+                            pos = componentDelimiterOffset + 1;
+                            break;
+
+                        case -1:
+                        case '/':
+                        case '\\':
+                        case '?':
+                        case '#':
+                            // Host info precedes.
+                            int portColonOffset = portColonOffset(input, pos, componentDelimiterOffset);
+                            if (portColonOffset + 1 < componentDelimiterOffset) {
+                                host = canonicalizeHost(input, pos, portColonOffset);
+                                port = parsePort(input, portColonOffset + 1, componentDelimiterOffset);
+                                if (port == -1) {
+                                    throw new IllegalArgumentException("Invalid URL port: \""
+                                            + input.substring(portColonOffset + 1, componentDelimiterOffset) + '"');
+                                }
+                            } else {
+                                host = canonicalizeHost(input, pos, portColonOffset);
+                                port = defaultPort(scheme);
+                            }
+                            if (host == null) {
+                                throw new IllegalArgumentException(
+                                        INVALID_HOST + ": \"" + input.substring(pos, portColonOffset) + '"');
+                            }
+                            pos = componentDelimiterOffset;
+                            break authority;
+                    }
+                }
+            } else {
+                // This is a relative link. Copy over all authority components. Also maybe the path & query.
+                this.encodedUsername = base.encodedUsername();
+                this.encodedPassword = base.encodedPassword();
+                this.host = base.host;
+                this.port = base.port;
+                this.encodedPathSegments.clear();
+                this.encodedPathSegments.addAll(base.encodedPathSegments());
+                if (pos == limit || input.charAt(pos) == '#') {
+                    encodedQuery(base.encodedQuery());
+                }
+            }
+
+            // Resolve the relative path.
+            int pathDelimiterOffset = Util.delimiterOffset(input, pos, limit, "?#");
+            resolvePath(input, pos, pathDelimiterOffset);
+            pos = pathDelimiterOffset;
+
+            // Query.
+            if (pos < limit && input.charAt(pos) == '?') {
+                int queryDelimiterOffset = Util.delimiterOffset(input, pos, limit, '#');
+                this.encodedQueryNamesAndValues = queryStringToNamesAndValues(canonicalize(
+                        input, pos + 1, queryDelimiterOffset, QUERY_ENCODE_SET, true, false, true, true, null));
+                pos = queryDelimiterOffset;
+            }
+
+            // Fragment.
+            if (pos < limit && input.charAt(pos) == '#') {
+                this.encodedFragment = canonicalize(
+                        input, pos + 1, limit, FRAGMENT_ENCODE_SET, true, false, false, false, null);
+            }
+
+            return this;
+        }
+
+        private static int slashCount(String input, int pos, int limit) {
+            int slashCount = 0;
+            while (pos < limit) {
+                char c = input.charAt(pos);
+                if (c == '\\' || c == '/') {
+                    slashCount++;
+                    pos++;
+                } else {
+                    break;
+                }
+            }
+            return slashCount;
+        }
+
+        private static int portColonOffset(String input, int pos, int limit) {
+            for (int i = pos; i < limit; i++) {
+                switch (input.charAt(i)) {
+                    case '[':
+                        while (++i < limit) {
+                            if (input.charAt(i) == ']') break;
+                        }
+                        break;
+                    case ':':
+                        return i;
+                }
+            }
+            return limit; // No colon.
+        }
+
+        private void resolvePath(String input, int pos, int limit) {
+            // Read a delimiter.
+            if (pos == limit) {
+                // Empty path: keep the base path as-is.
+                return;
+            }
+            char c = input.charAt(pos);
+            if (c == '/' || c == '\\') {
+                // Absolute path: reset to the default "/".
+                encodedPathSegments.clear();
+                encodedPathSegments.add("");
+                pos++;
+            } else {
+                // Relative path: clear everything after the last '/'.
+                encodedPathSegments.set(encodedPathSegments.size() - 1, "");
+            }
+
+            // Read path segments.
+            for (int i = pos; i < limit; ) {
+                int pathSegmentDelimiterOffset = Util.delimiterOffset(input, i, limit, "/\\");
+                boolean segmentHasTrailingSlash = pathSegmentDelimiterOffset < limit;
+                push(input, i, pathSegmentDelimiterOffset, segmentHasTrailingSlash, true);
+                i = pathSegmentDelimiterOffset;
+                if (segmentHasTrailingSlash) i++;
+            }
+        }
+
+        private void push(String input, int pos, int limit, boolean addTrailingSlash,
+                          boolean alreadyEncoded) {
+            String segment = canonicalize(
+                    input, pos, limit, PATH_SEGMENT_ENCODE_SET, alreadyEncoded, false, false, true, null);
+            if (isDot(segment)) {
+                return; // Skip '.' path segments.
+            }
+            if (isDotDot(segment)) {
+                pop();
+                return;
+            }
+            if (encodedPathSegments.get(encodedPathSegments.size() - 1).isEmpty()) {
+                encodedPathSegments.set(encodedPathSegments.size() - 1, segment);
+            } else {
+                encodedPathSegments.add(segment);
+            }
+            if (addTrailingSlash) {
+                encodedPathSegments.add("");
+            }
+        }
+
+        private void pop() {
+            String removed = encodedPathSegments.remove(encodedPathSegments.size() - 1);
+
+            // Make sure the path ends with a '/' by either adding an empty string or clearing a segment.
+            if (removed.isEmpty() && !encodedPathSegments.isEmpty()) {
+                encodedPathSegments.set(encodedPathSegments.size() - 1, "");
+            } else {
+                encodedPathSegments.add("");
+            }
+        }
+
+        private boolean isDot(String input) {
+            return input.equals(".") || input.equalsIgnoreCase("%2e");
+        }
+
+        private boolean isDotDot(String input) {
+            return input.equals("..")
+                    || input.equalsIgnoreCase("%2e.")
+                    || input.equalsIgnoreCase(".%2e")
+                    || input.equalsIgnoreCase("%2e%2e");
+        }
+
+        private static int parsePort(String input, int pos, int limit) {
+            try {
+                // Canonicalize the port string to skip '\n' etc.
+                String portString = canonicalize(input, pos, limit, "", false, false, false, true, null);
+                int i = Integer.parseInt(portString);
+                if (i > 0 && i <= 65535) return i;
+                return -1;
+            } catch (NumberFormatException e) {
+                return -1; // Invalid port.
+            }
+        }
+
+        private static int schemeDelimiterOffset(String input, int pos, int limit) {
+            if (limit - pos < 2) return -1;
+
+            char c0 = input.charAt(pos);
+            if ((c0 < 'a' || c0 > 'z') && (c0 < 'A' || c0 > 'Z'))
+                return -1; // Not a scheme start char.
+
+            for (int i = pos + 1; i < limit; i++) {
+                char c = input.charAt(i);
+
+                if ((c >= 'a' && c <= 'z')
+                        || (c >= 'A' && c <= 'Z')
+                        || (c >= '0' && c <= '9')
+                        || c == '+'
+                        || c == '-'
+                        || c == '.') {
+                    continue; // Scheme character. Keep going.
+                } else if (c == ':') {
+                    return i; // Scheme prefix!
+                } else {
+                    return -1; // Non-scheme character before the first ':'.
+                }
+            }
+
+            return -1; // No ':'; doesn't start with a scheme.
+        }
+
+        public Builder username(String username) {
+            if (username == null) throw new NullPointerException("username == null");
+            this.encodedUsername = canonicalize(username, USERNAME_ENCODE_SET, false, false, false, true);
+            return this;
+        }
+
+        public Builder password(String password) {
+            if (password == null) throw new NullPointerException("password == null");
+            this.encodedPassword = canonicalize(password, PASSWORD_ENCODE_SET, false, false, false, true);
             return this;
         }
     }

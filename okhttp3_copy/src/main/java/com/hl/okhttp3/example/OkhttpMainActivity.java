@@ -11,6 +11,7 @@ import com.hl.okhttp3.core.OkHttpClient;
 import com.hl.okhttp3.core.Request;
 import com.hl.okhttp3.core.Response;
 import com.hl.okhttp3.core.ResponseBody;
+import com.hl.utils.L;
 
 import java.io.IOException;
 
@@ -26,20 +27,27 @@ public class OkhttpMainActivity extends BaseActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OkHttpClient client = new OkHttpClient();
 
-                Request request = new Request.Builder().url("").build();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        OkHttpClient client = new OkHttpClient();
 
-                Response response = null;
-                try {
-                    response = client.newCall(request).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                ResponseBody body = response.body();
+                        Request request = new Request.Builder().url("https://www.baidu.com/").build();
+
+                        Response response = null;
+                        try {
+                            response = client.newCall(request).execute();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        ResponseBody body = response.body();
+
+                        L.e(body);
+                    }
+                }).start();
 
             }
         });
     }
-
 }
