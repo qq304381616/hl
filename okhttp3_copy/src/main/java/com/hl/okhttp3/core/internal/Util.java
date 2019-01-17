@@ -215,16 +215,10 @@ public final class Util {
         }
     }
 
-    /**
-     * Returns an immutable copy of {@code list}.
-     */
     public static <T> List<T> immutableList(List<T> list) {
         return Collections.unmodifiableList(new ArrayList<>(list));
     }
 
-    /**
-     * Returns an immutable copy of {@code map}.
-     */
     public static <K, V> Map<K, V> immutableMap(Map<K, V> map) {
         Map<K, V> objectObjectMap = Collections.emptyMap();
         return map.isEmpty()
@@ -232,9 +226,6 @@ public final class Util {
                 : Collections.unmodifiableMap(new LinkedHashMap<>(map));
     }
 
-    /**
-     * Returns an immutable list containing {@code elements}.
-     */
     @SafeVarargs
     public static <T> List<T> immutableList(T... elements) {
         return Collections.unmodifiableList(Arrays.asList(elements.clone()));
@@ -251,10 +242,6 @@ public final class Util {
         };
     }
 
-    /**
-     * Returns an array containing only elements found in {@code first} and also in {@code
-     * second}. The returned elements are in the same order as in {@code first}.
-     */
     public static String[] intersect(
             Comparator<? super String> comparator, String[] first, String[] second) {
         List<String> result = new ArrayList<>();
@@ -269,12 +256,6 @@ public final class Util {
         return result.toArray(new String[result.size()]);
     }
 
-    /**
-     * Returns true if there is an element in {@code first} that is also in {@code second}. This
-     * method terminates if any intersection is found. The sizes of both arguments are assumed to be
-     * so small, and the likelihood of an intersection so great, that it is not worth the CPU cost of
-     * sorting or the memory cost of hashing.
-     */
     public static boolean nonEmptyIntersection(
             Comparator<String> comparator, String[] first, String[] second) {
         if (first == null || second == null || first.length == 0 || second.length == 0) {
@@ -472,9 +453,6 @@ public final class Util {
         return VERIFY_AS_IP_ADDRESS.matcher(host).matches();
     }
 
-    /**
-     * Returns a {@link Locale#US} formatted {@link String}.
-     */
     public static String format(String format, Object... args) {
         return String.format(Locale.US, format, args);
     }

@@ -158,10 +158,6 @@ final class RealCall implements Call {
             return RealCall.this;
         }
 
-        /**
-         * Attempt to enqueue this async call on {@code executorService}. This will attempt to clean up
-         * if the executor has been shut down by reporting the call as failed.
-         */
         void executeOn(ExecutorService executorService) {
             assert (!Thread.holdsLock(client.dispatcher()));
             boolean success = false;

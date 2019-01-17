@@ -32,7 +32,6 @@ public class OkhttpMainActivity extends BaseActivity {
                     @Override
                     public void run() {
                         OkHttpClient client = new OkHttpClient();
-
                         Request request = new Request.Builder().url("https://www.baidu.com").build();
 
                         Response response = null;

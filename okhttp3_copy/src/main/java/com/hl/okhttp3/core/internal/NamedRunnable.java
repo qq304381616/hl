@@ -1,7 +1,6 @@
 package com.hl.okhttp3.core.internal;
 
-import com.hl.okhttp3.core.internal.Util;
-
+// 执行线程，初始化线程名
 public abstract class NamedRunnable implements Runnable {
     protected final String name;
 
@@ -20,5 +19,8 @@ public abstract class NamedRunnable implements Runnable {
         }
     }
 
+    /**
+     * 执行方法
+     */
     protected abstract void execute();
 }

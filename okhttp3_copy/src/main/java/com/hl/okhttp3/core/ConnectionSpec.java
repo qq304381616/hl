@@ -2,39 +2,22 @@ package com.hl.okhttp3.core;
 
 import android.support.annotation.Nullable;
 
+import com.hl.okhttp3.core.internal.Util;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
 import javax.net.ssl.SSLSocket;
-import com.hl.okhttp3.core.internal.Util;
 
 import static com.hl.okhttp3.core.internal.Util.concat;
 import static com.hl.okhttp3.core.internal.Util.indexOf;
 import static com.hl.okhttp3.core.internal.Util.intersect;
 import static com.hl.okhttp3.core.internal.Util.nonEmptyIntersection;
 
-/**
- * Specifies configuration for the socket connection that HTTP traffic travels through. For {@code
- * https:} URLs, this includes the TLS version and cipher suites to use when negotiating a secure
- * connection.
- *
- * <p>The TLS versions configured in a connection spec are only be used if they are also enabled in
- * the SSL socket. For example, if an SSL socket does not have TLS 1.3 enabled, it will not be used
- * even if it is present on the connection spec. The same policy also applies to cipher suites.
- *
- * <p>Use {@link Builder#allEnabledTlsVersions()} and {@link Builder#allEnabledCipherSuites} to
- * defer all feature selection to the underlying SSL socket.
- *
- * <p>The configuration of each spec changes with each OkHttp release. This is annoying: upgrading
- * your OkHttp library can break connectivity to certain web servers! But it’s a necessary annoyance
- * because the TLS ecosystem is dynamic and staying up to date is necessary to stay secure. See
- * <a href="https://github.com/square/okhttp/wiki/TLS-Configuration-History">OkHttp's TLS
- * Configuration History</a> to track these changes.
- */
 public final class ConnectionSpec {
 
-    // Most secure but generally supported list.
-    private static final CipherSuite[] RESTRICTED_CIPHER_SUITES = new CipherSuite[] {
+    private static final CipherSuite[] RESTRICTED_CIPHER_SUITES = new CipherSuite[]{
             // TLSv1.3
             CipherSuite.TLS_AES_128_GCM_SHA256,
             CipherSuite.TLS_AES_256_GCM_SHA384,
@@ -53,7 +36,7 @@ public final class ConnectionSpec {
     // This is nearly equal to the cipher suites supported in Chrome 51, current as of 2016-05-25.
     // All of these suites are available on Android 7.0; earlier releases support a subset of these
     // suites. https://github.com/square/okhttp/issues/1972
-    private static final CipherSuite[] APPROVED_CIPHER_SUITES = new CipherSuite[] {
+    private static final CipherSuite[] APPROVED_CIPHER_SUITES = new CipherSuite[]{
             // TLSv1.3
             CipherSuite.TLS_AES_128_GCM_SHA256,
             CipherSuite.TLS_AES_256_GCM_SHA384,
@@ -80,42 +63,32 @@ public final class ConnectionSpec {
             CipherSuite.TLS_RSA_WITH_3DES_EDE_CBC_SHA,
     };
 
-    /** A secure TLS connection that requires a recent client platform and a recent server. */
     public static final ConnectionSpec RESTRICTED_TLS = new Builder(true)
             .cipherSuites(RESTRICTED_CIPHER_SUITES)
             .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
             .supportsTlsExtensions(true)
             .build();
 
-    /**
-     * A modern TLS configuration that works on most client platforms and can connect to most servers.
-     * This is OkHttp's default configuration.
-     */
     public static final ConnectionSpec MODERN_TLS = new Builder(true)
             .cipherSuites(APPROVED_CIPHER_SUITES)
             .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2)
             .supportsTlsExtensions(true)
             .build();
 
-    /**
-     * A backwards-compatible fallback configuration that works on obsolete client platforms and can
-     * connect to obsolete servers. When possible, prefer to upgrade your client platform or server
-     * rather than using this configuration.
-     */
     public static final ConnectionSpec COMPATIBLE_TLS = new Builder(true)
             .cipherSuites(APPROVED_CIPHER_SUITES)
             .tlsVersions(TlsVersion.TLS_1_3, TlsVersion.TLS_1_2, TlsVersion.TLS_1_1, TlsVersion.TLS_1_0)
             .supportsTlsExtensions(true)
             .build();
 
-    /** Unencrypted, unauthenticated connections for {@code http:} URLs. */
     public static final ConnectionSpec CLEARTEXT = new Builder(false).build();
 
     final boolean tls;
     final boolean supportsTlsExtensions;
     final @Nullable
     String[] cipherSuites;
-    final @Nullable String[] tlsVersions;
+    final @Nullable
+    String[] tlsVersions;
 
     ConnectionSpec(Builder builder) {
         this.tls = builder.tls;
@@ -128,19 +101,13 @@ public final class ConnectionSpec {
         return tls;
     }
 
-    /**
-     * Returns the cipher suites to use for a connection. Returns null if all of the SSL socket's
-     * enabled cipher suites should be used.
-     */
-    public @Nullable List<CipherSuite> cipherSuites() {
+    public @Nullable
+    List<CipherSuite> cipherSuites() {
         return cipherSuites != null ? CipherSuite.forJavaNames(cipherSuites) : null;
     }
 
-    /**
-     * Returns the TLS versions to use when negotiating a connection. Returns null if all of the SSL
-     * socket's enabled TLS versions should be used.
-     */
-    public @Nullable List<TlsVersion> tlsVersions() {
+    public @Nullable
+    List<TlsVersion> tlsVersions() {
         return tlsVersions != null ? TlsVersion.forJavaNames(tlsVersions) : null;
     }
 
@@ -148,7 +115,6 @@ public final class ConnectionSpec {
         return supportsTlsExtensions;
     }
 
-    /** Applies this spec to {@code sslSocket}. */
     void apply(SSLSocket sslSocket, boolean isFallback) {
         ConnectionSpec specToApply = supportedSpec(sslSocket, isFallback);
 
@@ -160,10 +126,6 @@ public final class ConnectionSpec {
         }
     }
 
-    /**
-     * Returns a copy of this that omits cipher suites and TLS versions not enabled by {@code
-     * sslSocket}.
-     */
     private ConnectionSpec supportedSpec(SSLSocket sslSocket, boolean isFallback) {
         String[] cipherSuitesIntersection = cipherSuites != null
                 ? intersect(CipherSuite.ORDER_BY_NAME, sslSocket.getEnabledCipherSuites(), cipherSuites)
@@ -188,17 +150,6 @@ public final class ConnectionSpec {
                 .build();
     }
 
-    /**
-     * Returns {@code true} if the socket, as currently configured, supports this connection spec. In
-     * order for a socket to be compatible the enabled cipher suites and protocols must intersect.
-     *
-     * <p>For cipher suites, at least one of the {@link #cipherSuites() required cipher suites} must
-     * match the socket's enabled cipher suites. If there are no required cipher suites the socket
-     * must have at least one cipher suite enabled.
-     *
-     * <p>For protocols, at least one of the {@link #tlsVersions() required protocols} must match the
-     * socket's enabled protocols.
-     */
     public boolean isCompatible(SSLSocket socket) {
         if (!tls) {
             return false;
@@ -217,7 +168,8 @@ public final class ConnectionSpec {
         return true;
     }
 
-    @Override public boolean equals(@Nullable Object other) {
+    @Override
+    public boolean equals(@Nullable Object other) {
         if (!(other instanceof ConnectionSpec)) return false;
         if (other == this) return true;
 
@@ -233,7 +185,8 @@ public final class ConnectionSpec {
         return true;
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         int result = 17;
         if (tls) {
             result = 31 * result + Arrays.hashCode(cipherSuites);
@@ -243,7 +196,8 @@ public final class ConnectionSpec {
         return result;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         if (!tls) {
             return "ConnectionSpec()";
         }
@@ -257,8 +211,10 @@ public final class ConnectionSpec {
 
     public static final class Builder {
         boolean tls;
-        @Nullable String[] cipherSuites;
-        @Nullable String[] tlsVersions;
+        @Nullable
+        String[] cipherSuites;
+        @Nullable
+        String[] tlsVersions;
         boolean supportsTlsExtensions;
 
         Builder(boolean tls) {
@@ -327,13 +283,9 @@ public final class ConnectionSpec {
             return this;
         }
 
-        /**
-         * @deprecated since OkHttp 3.13 all TLS-connections are expected to support TLS extensions.
-         *     In a future release setting this to true will be unnecessary and setting it to false will
-         *     have no effect.
-         */
         public Builder supportsTlsExtensions(boolean supportsTlsExtensions) {
-            if (!tls) throw new IllegalStateException("no TLS extensions for cleartext connections");
+            if (!tls)
+                throw new IllegalStateException("no TLS extensions for cleartext connections");
             this.supportsTlsExtensions = supportsTlsExtensions;
             return this;
         }
