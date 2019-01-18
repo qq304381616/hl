@@ -1,9 +1,6 @@
 package com.hl.okhttp3.core.internal.http;
 
 
-import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import com.hl.okhttp3.core.Call;
 import com.hl.okhttp3.core.Connection;
 import com.hl.okhttp3.core.EventListener;
@@ -11,9 +8,13 @@ import com.hl.okhttp3.core.Interceptor;
 import com.hl.okhttp3.core.Request;
 import com.hl.okhttp3.core.Response;
 import com.hl.okhttp3.core.internal.Internal;
+import com.hl.okhttp3.core.internal.Util;
 import com.hl.okhttp3.core.internal.connection.RealConnection;
 import com.hl.okhttp3.core.internal.connection.StreamAllocation;
-import com.hl.okhttp3.core.internal.Util;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * A concrete interceptor chain that carries the entire interceptor chain: all application
@@ -49,35 +50,42 @@ public final class RealInterceptorChain implements Interceptor.Chain {
         this.writeTimeout = writeTimeout;
     }
 
-    @Override public Connection connection() {
+    @Override
+    public Connection connection() {
         return connection;
     }
 
-    @Override public int connectTimeoutMillis() {
+    @Override
+    public int connectTimeoutMillis() {
         return connectTimeout;
     }
 
-    @Override public Interceptor.Chain withConnectTimeout(int timeout, TimeUnit unit) {
+    @Override
+    public Interceptor.Chain withConnectTimeout(int timeout, TimeUnit unit) {
         int millis = Util.checkDuration("timeout", timeout, unit);
         return new RealInterceptorChain(interceptors, streamAllocation, httpCodec, connection, index,
                 request, call, eventListener, millis, readTimeout, writeTimeout);
     }
 
-    @Override public int readTimeoutMillis() {
+    @Override
+    public int readTimeoutMillis() {
         return readTimeout;
     }
 
-    @Override public Interceptor.Chain withReadTimeout(int timeout, TimeUnit unit) {
+    @Override
+    public Interceptor.Chain withReadTimeout(int timeout, TimeUnit unit) {
         int millis = Util.checkDuration("timeout", timeout, unit);
         return new RealInterceptorChain(interceptors, streamAllocation, httpCodec, connection, index,
                 request, call, eventListener, connectTimeout, millis, writeTimeout);
     }
 
-    @Override public int writeTimeoutMillis() {
+    @Override
+    public int writeTimeoutMillis() {
         return writeTimeout;
     }
 
-    @Override public Interceptor.Chain withWriteTimeout(int timeout, TimeUnit unit) {
+    @Override
+    public Interceptor.Chain withWriteTimeout(int timeout, TimeUnit unit) {
         int millis = Util.checkDuration("timeout", timeout, unit);
         return new RealInterceptorChain(interceptors, streamAllocation, httpCodec, connection, index,
                 request, call, eventListener, connectTimeout, readTimeout, millis);
@@ -91,7 +99,8 @@ public final class RealInterceptorChain implements Interceptor.Chain {
         return httpCodec;
     }
 
-    @Override public Call call() {
+    @Override
+    public Call call() {
         return call;
     }
 
@@ -99,21 +108,21 @@ public final class RealInterceptorChain implements Interceptor.Chain {
         return eventListener;
     }
 
-    @Override public Request request() {
+    @Override
+    public Request request() {
         return request;
     }
 
-    @Override public Response proceed(Request request) throws IOException {
+    @Override
+    public Response proceed(Request request) throws IOException {
         return proceed(request, streamAllocation, httpCodec, connection);
     }
 
-    public Response proceed(Request request, StreamAllocation streamAllocation, HttpCodec httpCodec,
-                            RealConnection connection) throws IOException {
+    public Response proceed(Request request, StreamAllocation streamAllocation, HttpCodec httpCodec, RealConnection connection) throws IOException {
         if (index >= interceptors.size()) throw new AssertionError();
 
         calls++;
 
-        // If we already have a stream, confirm that the incoming request will use it.
         if (this.httpCodec != null && !this.connection.supportsUrl(request.url())) {
             throw new IllegalStateException("network interceptor " + interceptors.get(index - 1)
                     + " must retain the same host and port");

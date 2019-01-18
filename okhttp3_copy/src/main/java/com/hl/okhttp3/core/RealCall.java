@@ -2,12 +2,6 @@ package com.hl.okhttp3.core;
 
 import android.support.annotation.Nullable;
 
-import java.io.IOException;
-import java.io.InterruptedIOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.RejectedExecutionException;
 import com.hl.okhttp3.core.internal.NamedRunnable;
 import com.hl.okhttp3.core.internal.cache.CacheInterceptor;
 import com.hl.okhttp3.core.internal.connection.ConnectInterceptor;
@@ -17,29 +11,31 @@ import com.hl.okhttp3.core.internal.http.CallServerInterceptor;
 import com.hl.okhttp3.core.internal.http.RealInterceptorChain;
 import com.hl.okhttp3.core.internal.http.RetryAndFollowUpInterceptor;
 import com.hl.okhttp3.core.internal.platform.Platform;
+
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.RejectedExecutionException;
+
 import okio.AsyncTimeout;
 import okio.Timeout;
 
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static com.hl.okhttp3.core.internal.platform.Platform.INFO;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 final class RealCall implements Call {
     final OkHttpClient client;
     final RetryAndFollowUpInterceptor retryAndFollowUpInterceptor;
     final AsyncTimeout timeout;
 
-    /**
-     * There is a cycle between the {@link Call} and {@link EventListener} that makes this awkward.
-     * This will be set after we create the call instance then create the event listener instance.
-     */
     private @Nullable
     EventListener eventListener;
 
-    /** The application's original request unadulterated by redirects or auth headers. */
     final Request originalRequest;
     final boolean forWebSocket;
 
-    // Guarded by this.
     private boolean executed;
 
     private RealCall(OkHttpClient client, Request originalRequest, boolean forWebSocket) {
@@ -48,7 +44,8 @@ final class RealCall implements Call {
         this.forWebSocket = forWebSocket;
         this.retryAndFollowUpInterceptor = new RetryAndFollowUpInterceptor(client);
         this.timeout = new AsyncTimeout() {
-            @Override protected void timedOut() {
+            @Override
+            protected void timedOut() {
                 cancel();
             }
         };
@@ -56,18 +53,20 @@ final class RealCall implements Call {
     }
 
     static RealCall newRealCall(OkHttpClient client, Request originalRequest, boolean forWebSocket) {
-        // Safely publish the Call instance to the EventListener.
         RealCall call = new RealCall(client, originalRequest, forWebSocket);
         call.eventListener = client.eventListenerFactory().create(call);
         return call;
     }
 
-    @Override public Request request() {
+    @Override
+    public Request request() {
         return originalRequest;
     }
 
-    @Override public Response execute() throws IOException {
+    @Override
+    public Response execute() throws IOException {
         synchronized (this) {
+            // 不允许重复执行
             if (executed) throw new IllegalStateException("Already Executed");
             executed = true;
         }
@@ -88,7 +87,8 @@ final class RealCall implements Call {
         }
     }
 
-    @Nullable IOException timeoutExit(@Nullable IOException cause) {
+    @Nullable
+    IOException timeoutExit(@Nullable IOException cause) {
         if (!timeout.exit()) return cause;
 
         InterruptedIOException e = new InterruptedIOException("timeout");
@@ -103,7 +103,8 @@ final class RealCall implements Call {
         retryAndFollowUpInterceptor.setCallStackTrace(callStackTrace);
     }
 
-    @Override public void enqueue(Callback responseCallback) {
+    @Override
+    public void enqueue(Callback responseCallback) {
         synchronized (this) {
             if (executed) throw new IllegalStateException("Already Executed");
             executed = true;
@@ -113,24 +114,30 @@ final class RealCall implements Call {
         client.dispatcher().enqueue(new AsyncCall(responseCallback));
     }
 
-    @Override public void cancel() {
+    @Override
+    public void cancel() {
         retryAndFollowUpInterceptor.cancel();
     }
 
-    @Override public Timeout timeout() {
+    @Override
+    public Timeout timeout() {
         return timeout;
     }
 
-    @Override public synchronized boolean isExecuted() {
+    @Override
+    public synchronized boolean isExecuted() {
         return executed;
     }
 
-    @Override public boolean isCanceled() {
+    @Override
+    public boolean isCanceled() {
         return retryAndFollowUpInterceptor.isCanceled();
     }
 
-    @SuppressWarnings("CloneDoesntCallSuperClone") // We are a final type & this saves clearing state.
-    @Override public RealCall clone() {
+    @SuppressWarnings("CloneDoesntCallSuperClone")
+    // We are a final type & this saves clearing state.
+    @Override
+    public RealCall clone() {
         return RealCall.newRealCall(client, originalRequest, forWebSocket);
     }
 
@@ -176,7 +183,8 @@ final class RealCall implements Call {
             }
         }
 
-        @Override protected void execute() {
+        @Override
+        protected void execute() {
             boolean signalledCallback = false;
             timeout.enter();
             try {
