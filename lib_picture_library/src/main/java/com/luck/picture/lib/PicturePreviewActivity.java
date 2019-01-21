@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.hl.base.view.photoview.PhotoView;
+import com.hl.base.view.photoview.PhotoViewAttacher;
 import com.luck.picture.lib.anim.OptAnimationLoader;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -41,9 +44,6 @@ import com.yalantis.ucrop.model.CutInfo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * author：luck
@@ -90,6 +90,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         if (!RxBus.getDefault().isRegistered(this)) {
             RxBus.getDefault().register(this);
         }
+
+        Log.e("TAG", "aaaaaaaaaaaaaaaaaaaaaaaaa");
         inflater = LayoutInflater.from(this);
         screenWidth = ScreenUtils.getScreenWidth(this);
         int status_color = AttrsUtils.getTypeValueColor(this, R.attr.picture_status_color);
@@ -389,7 +391,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View contentView = inflater.inflate(R.layout.picture_image_preview, container, false);
-            final PhotoView imageView = (PhotoView) contentView.findViewById(R.id.preview_image);
+            final PhotoView imageView =  contentView.findViewById(R.id.preview_image);
             ImageView iv_play = (ImageView) contentView.findViewById(R.id.iv_play);
             LocalMedia media = images.get(position);
             if (media != null) {

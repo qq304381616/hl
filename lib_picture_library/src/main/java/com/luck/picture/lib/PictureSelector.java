@@ -126,40 +126,6 @@ public final class PictureSelector {
     }
 
     /**
-     * set preview image
-     *
-     * @param position
-     * @param medias
-     */
-    public void externalPicturePreview(int position, List<LocalMedia> medias) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Intent intent = new Intent(getActivity(), PictureExternalPreviewActivity.class);
-            intent.putExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST, (Serializable) medias);
-            intent.putExtra(PictureConfig.EXTRA_POSITION, position);
-            getActivity().startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.a5, 0);
-        }
-    }
-
-    /**
-     * set preview image
-     *
-     * @param position
-     * @param medias
-     * @param directory_path
-     */
-    public void externalPicturePreview(int position, String directory_path, List<LocalMedia> medias) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Intent intent = new Intent(getActivity(), PictureExternalPreviewActivity.class);
-            intent.putExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST, (Serializable) medias);
-            intent.putExtra(PictureConfig.EXTRA_POSITION, position);
-            intent.putExtra(PictureConfig.DIRECTORY_PATH, directory_path);
-            getActivity().startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.a5, 0);
-        }
-    }
-
-    /**
      * set preview video
      *
      * @param path

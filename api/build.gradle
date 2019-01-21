@@ -38,5 +38,8 @@ dependencies {
     // 扫码
     implementation files('libs/zxing.jar')
 
+    // 选择图片
+    api project(':lib_picture_library')
+
     implementation project(':base')
 }

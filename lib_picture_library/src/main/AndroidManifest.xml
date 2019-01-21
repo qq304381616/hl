@@ -30,9 +30,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensor" />
         <activity
-            android:name=".PictureExternalPreviewActivity"
-            android:screenOrientation="behind" />
-        <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -44,6 +41,17 @@
             android:name=".PicturePlayAudioActivity"
             android:screenOrientation="behind"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <!-- 照片选择库 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
