@@ -95,7 +95,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             case PictureConfig.UPDATE_FLAG:
                 // 预览时勾选图片更新回调
                 List<LocalMedia> selectImages = obj.medias;
-                anim = selectImages.size() > 0 ? true : false;
+                anim = selectImages.size() > 0;
                 int position = obj.position;
                 DebugUtil.i(TAG, "刷新下标::" + position);
                 adapter.bindSelectImages(selectImages);
@@ -166,17 +166,17 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      */
     private void initView(Bundle savedInstanceState) {
 
-        rl_picture_title = (RelativeLayout) findViewById(R.id.rl_picture_title);
-        picture_left_back = (ImageView) findViewById(R.id.picture_left_back);
-        picture_title = (TextView) findViewById(R.id.picture_title);
-        picture_right = (TextView) findViewById(R.id.picture_right);
-        picture_tv_ok = (TextView) findViewById(R.id.picture_tv_ok);
-        picture_id_preview = (TextView) findViewById(R.id.picture_id_preview);
-        picture_tv_img_num = (TextView) findViewById(R.id.picture_tv_img_num);
-        picture_recycler = (RecyclerView) findViewById(R.id.picture_recycler);
-        rl_bottom = (RelativeLayout) findViewById(R.id.rl_bottom);
-        id_ll_ok = (LinearLayout) findViewById(R.id.id_ll_ok);
-        tv_empty = (TextView) findViewById(R.id.tv_empty);
+        rl_picture_title = findViewById(R.id.rl_picture_title);
+        picture_left_back = findViewById(R.id.picture_left_back);
+        picture_title = findViewById(R.id.picture_title);
+        picture_right = findViewById(R.id.picture_right);
+        picture_tv_ok = findViewById(R.id.picture_tv_ok);
+        picture_id_preview = findViewById(R.id.picture_id_preview);
+        picture_tv_img_num = findViewById(R.id.picture_tv_img_num);
+        picture_recycler = findViewById(R.id.picture_recycler);
+        rl_bottom = findViewById(R.id.rl_bottom);
+        id_ll_ok = findViewById(R.id.id_ll_ok);
+        tv_empty = findViewById(R.id.tv_empty);
         rl_bottom.setVisibility(selectionMode == PictureConfig.SINGLE ? View.GONE : View.VISIBLE);
         isNumComplete(numComplete);
         if (mimeType == PictureMimeType.ofAll()) {
@@ -274,7 +274,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      * none number style
      */
     private void isNumComplete(boolean numComplete) {
-        picture_tv_ok.setText(numComplete ? getString(R.string.picture_done_front_num, 0, maxSelectNum)
+        picture_tv_ok.setText(numComplete ? getString(R.string.picture_done_front_num, "0", String.valueOf(maxSelectNum))
                 : getString(R.string.picture_please_select));
         if (!numComplete) {
             animation = AnimationUtils.loadAnimation(this, R.anim.modal_in);
@@ -424,9 +424,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     /**
      * 生成uri
-     *
-     * @param cameraFile
-     * @return
      */
     private Uri parUri(File cameraFile) {
         Uri imageUri;
@@ -486,8 +483,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
             if (minSelectNum > 0 && selectionMode == PictureConfig.MULTIPLE) {
                 if (size < minSelectNum) {
-                    String str = eqImg ? getString(R.string.picture_min_img_num, minSelectNum)
-                            : getString(R.string.picture_min_video_num, minSelectNum);
+                    String str = eqImg ? getString(R.string.picture_min_img_num, String.valueOf(minSelectNum))
+                            : getString(R.string.picture_min_video_num, String.valueOf(minSelectNum));
                     showToast(str);
                     return;
                 }
@@ -510,8 +507,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     /**
      * 播放音频
-     *
-     * @param path
      */
     private void audioDialog(final String path) {
         audioDialog = new CustomDialog(mContext,
@@ -519,13 +514,13 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 ,
                 R.layout.picture_audio_dialog, R.style.Theme_dialog);
         audioDialog.getWindow().setWindowAnimations(R.style.Dialog_Audio_StyleAnim);
-        tv_musicStatus = (TextView) audioDialog.findViewById(R.id.tv_musicStatus);
-        tv_musicTime = (TextView) audioDialog.findViewById(R.id.tv_musicTime);
-        musicSeekBar = (SeekBar) audioDialog.findViewById(R.id.musicSeekBar);
-        tv_musicTotal = (TextView) audioDialog.findViewById(R.id.tv_musicTotal);
-        tv_PlayPause = (TextView) audioDialog.findViewById(R.id.tv_PlayPause);
-        tv_Stop = (TextView) audioDialog.findViewById(R.id.tv_Stop);
-        tv_Quit = (TextView) audioDialog.findViewById(R.id.tv_Quit);
+        tv_musicStatus = audioDialog.findViewById(R.id.tv_musicStatus);
+        tv_musicTime = audioDialog.findViewById(R.id.tv_musicTime);
+        musicSeekBar = audioDialog.findViewById(R.id.musicSeekBar);
+        tv_musicTotal = audioDialog.findViewById(R.id.tv_musicTotal);
+        tv_PlayPause = audioDialog.findViewById(R.id.tv_PlayPause);
+        tv_Stop = audioDialog.findViewById(R.id.tv_Stop);
+        tv_Quit = audioDialog.findViewById(R.id.tv_Quit);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -538,7 +533,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         musicSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser == true) {
+                if (fromUser) {
                     mediaPlayer.seekTo(progress);
                 }
             }
@@ -596,8 +591,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     /**
      * 初始化音频播放组件
-     *
-     * @param path
      */
     private void initPlayer(String path) {
         mediaPlayer = new MediaPlayer();
@@ -671,7 +664,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             tv_musicStatus.setText(getString(R.string.picture_pause_audio));
             playOrPause();
         }
-        if (isPlayAudio == false) {
+        if (!isPlayAudio) {
             handler.post(runnable);
             isPlayAudio = true;
         }
@@ -679,8 +672,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     /**
      * 停止播放
-     *
-     * @param path
      */
     public void stop(String path) {
         if (mediaPlayer != null) {
@@ -828,11 +819,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         }
     }
 
-
     /**
      * change image selector state
-     *
-     * @param selectImages
      */
     public void changeImageNumber(List<LocalMedia> selectImages) {
         // 如果选择的视频没有预览功能
@@ -852,7 +840,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             picture_tv_ok.setTextColor(complete_textColor);
             if (numComplete) {
                 picture_tv_ok.setText(getString
-                        (R.string.picture_done_front_num, selectImages.size(), maxSelectNum));
+                        (R.string.picture_done_front_num, String.valueOf(selectImages.size()), String.valueOf(maxSelectNum)));
             } else {
                 if (!anim) {
                     picture_tv_img_num.startAnimation(animation);
@@ -869,7 +857,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             picture_id_preview.setTextColor
                     (ContextCompat.getColor(mContext, R.color.tab_color_false));
             if (numComplete) {
-                picture_tv_ok.setText(getString(R.string.picture_done_front_num, 0, maxSelectNum));
+                picture_tv_ok.setText(getString(R.string.picture_done_front_num, "0", String.valueOf(maxSelectNum)));
             } else {
                 picture_tv_img_num.setVisibility(View.INVISIBLE);
                 picture_tv_ok.setText(getString(R.string.picture_please_select));
@@ -1010,8 +998,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     /**
      * 手动添加拍照后的相片到图片列表，并设为选中
-     *
-     * @param media
      */
     private void manualSaveFolder(LocalMedia media) {
         try {

@@ -11,14 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.lib.config
- * email：893855882@qq.com
- * data：2017/5/24
- */
-
 public final class PictureSelectionConfig implements Serializable {
     public int mimeType;
     public boolean camera;

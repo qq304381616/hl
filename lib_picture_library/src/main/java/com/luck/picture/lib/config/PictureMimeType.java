@@ -1,20 +1,11 @@
 package com.luck.picture.lib.config;
 
-
 import android.media.MediaMetadataRetriever;
 import android.text.TextUtils;
 
 import com.luck.picture.lib.tools.DebugUtil;
 
 import java.io.File;
-
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.lib.config
- * email：893855882@qq.com
- * data：2017/5/24
- */
 
 public final class PictureMimeType {
     public static int ofAll() {

@@ -1,14 +1,5 @@
 package com.luck.picture.lib.config;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.lib.config
- * describe：PictureSelector Final Class
- * email：893855882@qq.com
- * data：2017/5/24
- */
-
 public final class PictureConfig {
     public final static String FC_TAG = "picture";
     public final static String EXTRA_RESULT_SELECTION = "extra_result_media";

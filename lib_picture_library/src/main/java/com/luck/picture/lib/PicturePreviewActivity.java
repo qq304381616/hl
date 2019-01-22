@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +44,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.ui
- * email：893855882@qq.com
- * data：16/12/31
- */
 public class PicturePreviewActivity extends PictureBaseActivity implements View.OnClickListener, Animation.AnimationListener {
     private ImageView picture_left_back;
     private TextView tv_img_num, tv_title, tv_ok;
@@ -90,8 +82,6 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         if (!RxBus.getDefault().isRegistered(this)) {
             RxBus.getDefault().register(this);
         }
-
-        Log.e("TAG", "aaaaaaaaaaaaaaaaaaaaaaaaa");
         inflater = LayoutInflater.from(this);
         screenWidth = ScreenUtils.getScreenWidth(this);
         int status_color = AttrsUtils.getTypeValueColor(this, R.attr.picture_status_color);
@@ -111,7 +101,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         tv_img_num = (TextView) findViewById(R.id.tv_img_num);
         tv_title = (TextView) findViewById(R.id.picture_title);
         position = getIntent().getIntExtra(PictureConfig.EXTRA_POSITION, 0);
-        tv_ok.setText(numComplete ? getString(R.string.picture_done_front_num, 0, maxSelectNum)
+        tv_ok.setText(numComplete ? getString(R.string.picture_done_front_num, String.valueOf(0), String.valueOf(maxSelectNum))
                 : getString(R.string.picture_please_select));
 
         tv_img_num.setSelected(checkNumMode ? true : false);
@@ -154,7 +144,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
                         check.setSelected(false);
                     }
                     if (selectImages.size() >= maxSelectNum && isChecked) {
-                        showToast(getString(R.string.picture_message_max_num, maxSelectNum));
+                        showToast(getString(R.string.picture_message_max_num, String.valueOf(maxSelectNum)));
                         check.setSelected(false);
                         return;
                     }
@@ -323,7 +313,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
             tv_ok.setTextColor(preview_complete_textColor);
             id_ll_ok.setEnabled(true);
             if (numComplete) {
-                tv_ok.setText(getString(R.string.picture_done_front_num, selectImages.size(), maxSelectNum));
+                tv_ok.setText(getString(R.string.picture_done_front_num, String.valueOf(selectImages.size()), String.valueOf(maxSelectNum)));
             } else {
                 if (refresh) {
                     tv_img_num.startAnimation(animation);
@@ -336,7 +326,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
             id_ll_ok.setEnabled(false);
             tv_ok.setTextColor(ContextCompat.getColor(this, R.color.tab_color_false));
             if (numComplete) {
-                tv_ok.setText(getString(R.string.picture_done_front_num, 0, maxSelectNum));
+                tv_ok.setText(getString(R.string.picture_done_front_num, "0", String.valueOf(maxSelectNum)));
             } else {
                 tv_img_num.setVisibility(View.INVISIBLE);
                 tv_ok.setText(getString(R.string.picture_please_select));
@@ -391,7 +381,7 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             View contentView = inflater.inflate(R.layout.picture_image_preview, container, false);
-            final PhotoView imageView =  contentView.findViewById(R.id.preview_image);
+            final PhotoView imageView = contentView.findViewById(R.id.preview_image);
             ImageView iv_play = (ImageView) contentView.findViewById(R.id.iv_play);
             LocalMedia media = images.get(position);
             if (media != null) {
@@ -460,8 +450,8 @@ public class PicturePreviewActivity extends PictureBaseActivity implements View.
             if (minSelectNum > 0) {
                 if (size < minSelectNum && selectionMode == PictureConfig.MULTIPLE) {
                     boolean eqImg = pictureType.startsWith(PictureConfig.IMAGE);
-                    String str = eqImg ? getString(R.string.picture_min_img_num, minSelectNum)
-                            : getString(R.string.picture_min_video_num, minSelectNum);
+                    String str = eqImg ? getString(R.string.picture_min_img_num, String.valueOf(minSelectNum))
+                            : getString(R.string.picture_min_video_num, String.valueOf(minSelectNum));
                     showToast(str);
                     return;
                 }
