@@ -1,6 +1,5 @@
 package com.luck.picture.lib.rxbus2;
 
-
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,14 +19,8 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
-/**
- * RxBus
- * Created by gorden on 2016/5/12.
- * update 2017/3/1
- */
 @SuppressWarnings("unused")
 public class RxBus {
-    public static final String LOG_BUS = "RXBUS_LOG";
     private static volatile RxBus defaultInstance;
 
     private Map<Class, List<Disposable>> subscriptionsByEventType = new HashMap<>();
@@ -60,7 +53,6 @@ public class RxBus {
      * 根据传递的 eventType 类型返回特定类型(eventType)的 被观察者
      *
      * @param eventType 事件类型
-     * @return return
      */
     public  <T> Flowable<T> toObservable(Class<T> eventType) {
         return bus.toFlowable(BackpressureStrategy.BUFFER).ofType(eventType);
@@ -262,9 +254,6 @@ public class RxBus {
 
     /**
      * 是否注册
-     *
-     * @param subscriber
-     * @return
      */
     public synchronized boolean isRegistered(Object subscriber) {
         return eventTypesBySubscriber.containsKey(subscriber);

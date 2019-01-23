@@ -19,4 +19,10 @@ public class DialogUtils {
         builder.setNegativeButton("取消", null);
         return builder.create();
     }
+
+    public static Dialog getLoading(Context c) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(c);
+        builder.setMessage("加载中...");
+        return builder.create();
+    }
 }

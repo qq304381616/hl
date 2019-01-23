@@ -39,6 +39,12 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void setTitleText(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
