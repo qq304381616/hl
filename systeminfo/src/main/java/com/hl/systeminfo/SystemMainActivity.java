@@ -211,6 +211,14 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(new Intent(new Intent(SystemMainActivity.this, VideoViewActivity.class)));
             }
         });
+
+        // 通知
+        findViewById(R.id.tv_notification).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(new Intent(SystemMainActivity.this, NotificationActivity.class)));
+            }
+        });
     }
 
     public void createAlarm(String message, int hour, int minutes) {

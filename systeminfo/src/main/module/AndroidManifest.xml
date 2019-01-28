@@ -25,7 +25,9 @@
         <activity
             android:name=".SensorMainActivity"
             android:label="传感器" />
-
+        <activity
+            android:name=".NotificationActivity"
+            android:label="通知" />
     </application>
 
 </manifest>
