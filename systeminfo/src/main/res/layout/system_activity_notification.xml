@@ -16,32 +16,88 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_notification"
+                android:id="@+id/btn_simple"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="46dp"
                 android:gravity="center"
                 android:text="普通通知" />
 
             <TextView
-                android:id="@+id/tv_progress"
+                android:id="@+id/btn_action"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="点击事件" />
+
+            <TextView
+                android:id="@+id/btn_remote_input"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="输入事件" />
+
+            <TextView
+                android:id="@+id/btn_big_picture_style"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="大图" />
+
+            <TextView
+                android:id="@+id/btn_big_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="大文本" />
+
+            <TextView
+                android:id="@+id/btn_inbox_style"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="多行文本" />
+
+            <TextView
+                android:id="@+id/btn_media_style"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="多媒体" />
+
+            <TextView
+                android:id="@+id/btn_messaging_style"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="消息通知" />
+
+            <TextView
+                android:id="@+id/btn_progress"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
                 android:gravity="center"
                 android:text="进度条" />
 
             <TextView
-                android:id="@+id/tv_while"
+                android:id="@+id/btn_custom_heads_up"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="46dp"
                 android:gravity="center"
-                android:text="循环滚动条" />
+                android:text="头布局" />
 
             <TextView
-                android:id="@+id/tv_view"
+                android:id="@+id/btn_custom"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="46dp"
                 android:gravity="center"
-                android:text="自定义界面的" />
+                android:text="自定义布局" />
+
+            <TextView
+                android:id="@+id/btn_clear_all"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:gravity="center"
+                android:text="清空通知" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.hl.base.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,8 +15,8 @@ import com.hl.base.R;
  */
 public class TestActivity extends BaseActivity {
 
-    public static Intent getIntent(Activity activity, String message) {
-        Intent intent = new Intent(activity, TestActivity.class);
+    public static Intent getIntent(Context c, String message) {
+        Intent intent = new Intent(c, TestActivity.class);
         intent.putExtra("msg", message);
         return intent;
     }

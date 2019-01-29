@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import com.hl.base.BaseActivity;
 import com.hl.systeminfo.appinfo.AppsInfoListActivity;
 import com.hl.systeminfo.contact.ContactsActivity;
+import com.hl.systeminfo.notification.NotificationActivity;
 import com.hl.utils.BitmapUtils;
 import com.hl.utils.L;
 

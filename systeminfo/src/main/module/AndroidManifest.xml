@@ -26,8 +26,10 @@
             android:name=".SensorMainActivity"
             android:label="传感器" />
         <activity
-            android:name=".NotificationActivity"
+            android:name=".notification.NotificationActivity"
             android:label="通知" />
+
+        <service android:name=".notification.NotificationService" />
     </application>
 
 </manifest>
