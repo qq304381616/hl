@@ -14,5 +14,10 @@ public class ConstraintLayoutActivity extends BaseActivity {
         setContentView(R.layout.view_activity_constraintlayout);
         initToolbar(true);
 
+        String text = "layout_constraintLeft_toLeftOf 相对于控件上下左右的位置，值id/parent \n" +
+                "0dp 占用剩余全部空间\n" +
+                "layout_constraintDimensionRatio 宽高比例" +
+                "Guideline : layout_constraintGuide_begin指定具体偏移值，layout_constraintGuide_percent可指定偏移百分比。";
+
     }
 }

@@ -17,6 +17,7 @@ public class LayoutActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity_layout);
+        initToolbar(true);
 
         findViewById(R.id.tv_constraintLayout).setOnClickListener(new View.OnClickListener() {
             @Override
