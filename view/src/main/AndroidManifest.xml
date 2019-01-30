@@ -21,6 +21,8 @@
             android:theme="@style/ViewAppTheme" />
 
         <activity android:name=".ui.WidgetActivity" />
+        <activity android:name=".ui.LayoutActivity" />
+        <activity android:name=".ui.ConstraintLayoutActivity" />
         <activity android:name=".ui.TextureViewActivity" />
         <activity
             android:name=".ui.SwipeRefreshLayoutActivity"
