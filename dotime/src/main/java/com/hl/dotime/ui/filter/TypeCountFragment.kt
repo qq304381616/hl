@@ -14,6 +14,7 @@ import com.hl.dotime.adapter.TypeCountAdapter
 import com.hl.dotime.db.entity.FilterList
 import java.util.*
 
+// 分类统计
 class TypeCountFragment : Fragment() {
 
     private lateinit var typeCountAdapter: TypeCountAdapter
@@ -50,7 +51,7 @@ class TypeCountFragment : Fragment() {
             if (map.containsKey(j.taskId)) {
                 map.get(j.taskId!!)!!.time = before + map.get(j.taskId!!)!!.time
             } else {
-                map.put(j.taskId!!, Category(j.name!!, j.iconName!!, j.iconColor!!, before, 0))
+                map.put(j.taskId!!, Category(j.name!!, j.iconName!!, j.iconColor!!, before, 0f))
             }
         }
 
@@ -58,9 +59,9 @@ class TypeCountFragment : Fragment() {
 
         for (i in map.values) {
             if (countTime == 0L) {
-                i.percent = 0
+                i.percent = 0f
             } else {
-                i.percent = (i.time * 100 / countTime).toInt()
+                i.percent = String.format("%.2f", i.time * 100f / countTime).toFloat() // 格式化保留两位小数
             }
             list.add(i)
         }
@@ -70,5 +71,5 @@ class TypeCountFragment : Fragment() {
         return list
     }
 
-    class Category(var taskName: String, var taskIconName: String, var taskIconColor: String, var time: Long, var percent: Int)
+    class Category(var taskName: String, var taskIconName: String, var taskIconColor: String, var time: Long, var percent: Float)
 }
