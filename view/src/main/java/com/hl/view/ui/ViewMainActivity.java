@@ -14,6 +14,7 @@ import com.hl.base.BaseActivity;
 import com.hl.view.R;
 import com.hl.view.adapter.ViewMainAdapter;
 import com.hl.view.ui.dialog.DialogMainActivity;
+import com.hl.view.ui.pip.PipActivity;
 
 /**
  * 控件集合
@@ -29,6 +30,7 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
         findViewById(R.id.tv_easy).setOnClickListener(this);
         findViewById(R.id.tv_layout).setOnClickListener(this);
         findViewById(R.id.tv_recycler).setOnClickListener(this);
+        findViewById(R.id.tv_pip).setOnClickListener(this);
         findViewById(R.id.tv_dialog).setOnClickListener(this);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
         findViewById(R.id.tv_navigationview).setOnClickListener(this);
@@ -70,6 +72,8 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
                     .show(); // Don’t forget to show!
         } else if (id == R.id.tv_recycler) {
             startActivity(new Intent(ViewMainActivity.this, RecyclerViewActivity.class));
+        } else if (id == R.id.tv_pip) { // 画中画
+            startActivity(new Intent(ViewMainActivity.this, PipActivity.class));
         } else if (id == R.id.tv_easy) {
             startActivity(new Intent(ViewMainActivity.this, WidgetActivity.class));
         } else if (id == R.id.tv_layout) {

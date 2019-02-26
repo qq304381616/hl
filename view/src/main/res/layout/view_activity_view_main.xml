@@ -30,6 +30,13 @@
         android:text="RecyclerView" />
 
     <TextView
+        android:id="@+id/tv_pip"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="画中画" />
+
+    <TextView
         android:id="@+id/tv_dialog"
         android:layout_width="match_parent"
         android:layout_height="64dp"

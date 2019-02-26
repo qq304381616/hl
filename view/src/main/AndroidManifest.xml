@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hl.view">
 
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- 震动 -->
@@ -56,5 +57,17 @@
         <activity
             android:name=".ui.recycler.DeleteRecyclerActivity"
             android:label="滑动删除" />
+        <activity
+            android:name=".ui.pip.PipActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:label="画中画"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n" />
+        <activity
+            android:name=".ui.pip.MediaSessionPlaybackActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:label="画中画"
+            android:supportsPictureInPicture="true"
+            tools:targetApi="n" />
     </application>
 </manifest>
