@@ -82,7 +82,7 @@ public class Notifications {
 
     private Notification.Builder getNotification(Context context) {
         Notification.Builder builder = new Notification.Builder(context);
-        builder.setSmallIcon(R.mipmap.leak_canary_icon); // 左侧小图标
+        builder.setSmallIcon(R.mipmap.ic_launcher); // 左侧小图标
         builder.setContentTitle("notify title"); // 标题
         builder.setContentText("notify text"); // 内容
         builder.setAutoCancel(true); // 设置点击后删除通知
