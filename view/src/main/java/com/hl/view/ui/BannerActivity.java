@@ -62,24 +62,24 @@ public class BannerActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_widget_activity_banner);
-        mViewPaper = (ViewPager) findViewById(R.id.vp);
+        mViewPaper = findViewById(R.id.vp);
 
         //显示的图片
-        images = new ArrayList<ImageView>();
+        images = new ArrayList<>();
         for (int i = 0; i < imageIds.length; i++) {
             ImageView imageView = new ImageView(this);
             imageView.setBackgroundResource(imageIds[i]);
             images.add(imageView);
         }
         //显示的小点
-        dots = new ArrayList<View>();
+        dots = new ArrayList<>();
         dots.add(findViewById(R.id.dot_0));
         dots.add(findViewById(R.id.dot_1));
         dots.add(findViewById(R.id.dot_2));
         dots.add(findViewById(R.id.dot_3));
         dots.add(findViewById(R.id.dot_4));
 
-        title = (TextView) findViewById(R.id.title);
+        title = findViewById(R.id.title);
         title.setText(titles[0]);
 
         adapter = new ViewPagerAdapter();
