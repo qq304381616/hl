@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hl.tool">
+
+    <application>
+        <activity android:name=".ToolMainActivity" />
+        <activity android:name=".color.TransparencyActivity" />
+    </application>
+</manifest>

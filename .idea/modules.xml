@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/skin/skin.iml" filepath="$PROJECT_DIR$/skin/skin.iml" />
       <module fileurl="file://$PROJECT_DIR$/systeminfo/systeminfo.iml" filepath="$PROJECT_DIR$/systeminfo/systeminfo.iml" />
       <module fileurl="file://$PROJECT_DIR$/tab/tab.iml" filepath="$PROJECT_DIR$/tab/tab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tool/tool.iml" filepath="$PROJECT_DIR$/tool/tool.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/view/view.iml" filepath="$PROJECT_DIR$/view/view.iml" />
     </modules>

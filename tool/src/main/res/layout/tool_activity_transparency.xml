@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_layout_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#FF000000"
+                android:gravity="center"
+                android:text="100%	                FF"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#E6000000"
+                android:gravity="center"
+                android:text="90%		                E6"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#CC000000"
+                android:gravity="center"
+                android:text="80%		                CC"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#B3000000"
+                android:gravity="center"
+                android:text="70%		                B3"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#99000000"
+                android:gravity="center"
+                android:text="60%		                99"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#80000000"
+                android:gravity="center"
+                android:text="50%		                80"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#66000000"
+                android:gravity="center"
+                android:text="40%		                66"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#4D000000"
+                android:gravity="center"
+                android:text="30%		                4D"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#33000000"
+                android:gravity="center"
+                android:text="20%		                33"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#1A000000"
+                android:gravity="center"
+                android:text="10%		                1A"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:background="#00000000"
+                android:gravity="center"
+                android:text="0%		                00"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

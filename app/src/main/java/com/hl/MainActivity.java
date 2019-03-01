@@ -16,6 +16,7 @@ import com.hl.knowledge.KnowledgeMainActivity;
 import com.hl.okhttp3.example.OkhttpMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
+import com.hl.tool.ToolMainActivity;
 import com.hl.view.ui.ViewMainActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.device).setOnClickListener(this);
         findViewById(R.id.tv_greendao).setOnClickListener(this);
         findViewById(R.id.tv_okhttp3).setOnClickListener(this);
+        findViewById(R.id.tv_tool).setOnClickListener(this);
     }
 
     @Override
@@ -85,6 +87,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_okhttp3:
                 startActivity(new Intent(MainActivity.this, OkhttpMainActivity.class));
+                break;
+            case R.id.tv_tool:
+                startActivity(new Intent(MainActivity.this, ToolMainActivity.class));
                 break;
         }
     }
