@@ -2,6 +2,7 @@ package com.hl.api;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.hl.api.zxing.activity.CaptureActivity;
 import com.hl.api.zxing.activity.ResultActivity;
 import com.hl.base.BaseActivity;
 import com.hl.base.dialog.DialogUtils;
+import com.hl.utils.ClipboardUtils;
 import com.hl.utils.L;
 import com.hl.utils.permission.PermissionUtils;
 
@@ -116,7 +118,12 @@ public class ApiMainActivity extends BaseActivity {
                     if (bundle != null) {
                         final String result = bundle.getString("result");
                         L.e("扫一扫结果：" + result);
-                        DialogUtils.createBaseDialog(ApiMainActivity.this, "", result).show();
+                        DialogUtils.createBaseDialog(ApiMainActivity.this, "", result, "复制", "取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ClipboardUtils.copyText(getApplicationContext(), result);
+                            }
+                        }).show();
                     }
             }
         }
