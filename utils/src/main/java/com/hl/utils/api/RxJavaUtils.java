@@ -3,6 +3,8 @@ package com.hl.utils.api;
 
 import android.support.annotation.NonNull;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -45,7 +47,9 @@ public class RxJavaUtils {
 //        test_from();
 //        test_from_filter();
 //        test_from_take();
-        test_from_take_onOnNext();
+//        test_from_take_onOnNext();
+        // 定时任务
+        timer();
 
     }
 
@@ -365,5 +369,27 @@ public class RxJavaUtils {
         });
     }
 
+    // 定时任务
+    private static void timer() {
+        // 加上这个线程，作用是等待下边执行后再结束此方法
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        Observable.interval(0, 1, TimeUnit.SECONDS)
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        System.out.println("timer = " + aLong + "");
+                    }
+                });
+    }
 }
 

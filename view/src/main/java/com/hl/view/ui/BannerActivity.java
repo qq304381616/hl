@@ -108,6 +108,12 @@ public class BannerActivity extends BaseActivity {
                 TimeUnit.SECONDS);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        scheduledExecutorService.shutdown();
+    }
+
     /**
      * 自定义Adapter
      *

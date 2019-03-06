@@ -27,7 +27,6 @@ public class OkhttpMainActivity extends BaseActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -45,7 +44,6 @@ public class OkhttpMainActivity extends BaseActivity {
                         L.e(body);
                     }
                 }).start();
-
             }
         });
     }

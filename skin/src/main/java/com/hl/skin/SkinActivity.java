@@ -29,8 +29,7 @@ public class SkinActivity extends BaseActivity {
             }
         }
         if (new File(SKIM_APK_PATH).exists()) {
-            SkinManager.getInstance().init(this);
-            SkinManager.getInstance().loadSkin(SKIM_APK_PATH);
+            SkinManager.getInstance().loadSkin(this, SKIM_APK_PATH);
         }
     }
 }

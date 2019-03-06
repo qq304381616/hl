@@ -20,6 +20,11 @@ import com.hl.dotime.db.service.TaskService
 import com.hl.dotime.ui.TaskDetailsActivity
 import com.hl.dotime.utils.DateUtils
 import com.hl.dotime.utils.UUIDUtils
+import com.hl.utils.L
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by HL on 2018/5/16.
@@ -35,6 +40,7 @@ class TaskFragment : Fragment() {
     private lateinit var recordTimerService: RecordTimerService
     private lateinit var taskService: TaskService
     private lateinit var rv_task_list: RecyclerView
+    private var subscribe: Disposable? = null
 
     companion object {
         private val EXTRA_CONTENT = "content"
@@ -106,16 +112,13 @@ class TaskFragment : Fragment() {
             //相当于Fragment的onResume
             isLoop = true
             // 定时1秒 循环更新计时器
-            Thread(Runnable {
-                while (isLoop!!) {
-                    if (isLoop!!) {
-                        Thread.sleep(1000)
-                        if (activity != null) {
-                            activity!!.runOnUiThread { taskStaringAdapter.notifyDataSetChanged() }
+            subscribe = Observable.interval(0, 1, TimeUnit.SECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        if (isLoop!! && taskStaringAdapter.itemCount > 0) {
+                            taskStaringAdapter.notifyDataSetChanged()
                         }
                     }
-                }
-            }).start()
         } else {
             //相当于Fragment的onPause
             isLoop = false
@@ -125,6 +128,9 @@ class TaskFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         activity!!.unregisterReceiver(receiver)
+        if (subscribe != null) {
+            subscribe!!.dispose()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

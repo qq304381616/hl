@@ -18,6 +18,6 @@ public class SkinMainActivity extends SkinActivity {
         TextView tv_skin = findViewById(R.id.tv_skin);
 
         tv_self.setTextColor(getResources().getColor(R.color.colorPrimary));
-        tv_skin.setTextColor(SkinManager.getInstance().getColor(R.color.colorPrimary));
+        tv_skin.setTextColor(SkinManager.getInstance().getColor(this, R.color.colorPrimary));
     }
 }

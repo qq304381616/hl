@@ -14,7 +14,6 @@ import java.lang.reflect.Method;
 public class SkinManager {
 
     private static SkinManager instance = new SkinManager();
-    private Context context;
     private String skinPackage; // 插件的包名
     private Resources skinResource;
 
@@ -22,11 +21,7 @@ public class SkinManager {
         return instance;
     }
 
-    public void init(Context c) {
-        this.context = c;
-    }
-
-    public void loadSkin(String path) {
+    public void loadSkin(Context context, String path) {
         PackageManager packageManager = context.getPackageManager();
         PackageInfo packageInfo = packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
         skinPackage = packageInfo.packageName;
@@ -45,7 +40,7 @@ public class SkinManager {
     }
 
     // resId = R.color.colorPrimary
-    public int getColor(int resId) {
+    public int getColor(Context context,int resId) {
         if (skinResource == null) {
             return resId;
         }
