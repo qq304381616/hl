@@ -13,4 +13,11 @@
         android:layout_height="64dp"
         android:gravity="center"
         android:text="ConstraintLayout" />
+
+    <TextView
+        android:id="@+id/tv_nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="NestedScrollView" />
 </LinearLayout>

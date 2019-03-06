@@ -25,5 +25,12 @@ public class LayoutActivity extends BaseActivity {
                 startActivity(new Intent(LayoutActivity.this, ConstraintLayoutActivity.class));
             }
         });
+
+        findViewById(R.id.tv_nestedScrollView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LayoutActivity.this, NestedScrollViewActivity.class));
+            }
+        });
     }
 }

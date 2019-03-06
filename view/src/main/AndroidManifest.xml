@@ -72,5 +72,8 @@
         <activity
             android:name=".ui.ButtonActivity"
             android:label="Button" />
+        <activity
+            android:name=".ui.NestedScrollViewActivity"
+            android:label="Button" />
     </application>
 </manifest>
