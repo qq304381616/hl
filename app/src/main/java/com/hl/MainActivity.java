@@ -17,6 +17,7 @@ import com.hl.okhttp3.example.OkhttpMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
 import com.hl.tool.ToolMainActivity;
+import com.hl.utils.ToastUtils;
 import com.hl.view.ui.ViewMainActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         int id = v.getId();
         switch (id) {
             case R.id.tv_test:
+                ToastUtils.showShortToast(getApplicationContext(), "测试");
                 break;
             case R.id.tv_animation:
                 startActivity(new Intent(MainActivity.this, AnimationMainActivity.class));
