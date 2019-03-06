@@ -7,12 +7,18 @@
 
     <include layout="@layout/base_layout_toolbar" />
 
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher" />
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +27,7 @@
 
         <Button
             android:id="@+id/animation_alpha"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -28,6 +35,7 @@
 
         <Button
             android:id="@+id/animation_scale"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -35,6 +43,7 @@
 
         <Button
             android:id="@+id/animation_rotate"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -42,6 +51,7 @@
 
         <Button
             android:id="@+id/animation_translate"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -55,6 +65,7 @@
 
         <Button
             android:id="@+id/animation_group1"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -62,6 +73,7 @@
 
         <Button
             android:id="@+id/animation_group2"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -69,6 +81,7 @@
 
         <Button
             android:id="@+id/animation_group3"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -76,6 +89,7 @@
 
         <Button
             android:id="@+id/animation_group4"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -89,6 +103,7 @@
 
         <Button
             android:id="@+id/animation_frame"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -96,6 +111,7 @@
 
         <Button
             android:id="@+id/animation_layout"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"
@@ -103,6 +119,7 @@
 
         <Button
             android:id="@+id/animation_activity"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClick"

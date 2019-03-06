@@ -11,5 +11,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:onClick="onClick"
-        android:text="返回第一个Activity" />
+        android:text="返回第一个Activity"
+        android:textColor="@color/white" />
 </LinearLayout>

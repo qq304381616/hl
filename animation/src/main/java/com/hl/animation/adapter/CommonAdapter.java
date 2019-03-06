@@ -11,10 +11,8 @@ import android.widget.ListView;
 import java.util.List;
 
 /**
- * Created by yuandl on 2016-10-13.
  * 万能适配器
  */
-
 public abstract class CommonAdapter<T> extends BaseAdapter {
     private Context context;
     private List<T> datas;
@@ -44,11 +42,8 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            Log.d("listview", "---------LayoutInflater()-----------" + position);
             convertView = LayoutInflater.from(context).inflate(layoutId, null);
-        } else {
         }
-//        Log.d("listview", "---------getView()-----------" + position);
         T t = getItem(position);
         convertView(convertView, t);
         return convertView;
@@ -72,14 +67,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
             View view = listView.getChildAt(position - firstVisiblePosition);
             getView(position, view, listView);
         }
-
     }
 
     /**
      * 需要去实现的对item中的view的设置操作
-     *
-     * @param item
-     * @param t
      */
     protected abstract void convertView(View item, T t);
 

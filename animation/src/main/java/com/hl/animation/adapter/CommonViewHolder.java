@@ -5,10 +5,7 @@ import android.util.SparseArray;
 import android.view.View;
 
 /**
- * Created by yuandl on 2016-10-13.
  * 万能的ViewHolder
- *
- * @author
  */
 public class CommonViewHolder {
     /**
@@ -17,7 +14,6 @@ public class CommonViewHolder {
      * @return
      */
     public static <T extends View> T get(View view, int id) {
-
         SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
         //如果根view没有用来缓存View的集合
         if (viewHolder == null) {

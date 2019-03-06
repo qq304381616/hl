@@ -23,7 +23,9 @@ import com.hl.base.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 动画
+ */
 public class AnimationMainActivity extends BaseActivity {
 
     private static final boolean fromXml = true;
@@ -34,7 +36,7 @@ public class AnimationMainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.animation_activity_main);
         initToolbar(true);
-        iv =  findViewById(R.id.iv);
+        iv = findViewById(R.id.iv);
     }
 
     public void onClick(View v) {
@@ -162,7 +164,7 @@ public class AnimationMainActivity extends BaseActivity {
      * 布局动画
      */
     private void commonAdapterTest() {
-        ListView listView =  findViewById(R.id.listview);
+        ListView listView = findViewById(R.id.listview);
         List<String> data = new ArrayList<>();
         for (int i = 0; i < 18; i++) {
             data.add("万能适配器测试" + i);
