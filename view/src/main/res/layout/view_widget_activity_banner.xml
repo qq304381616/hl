@@ -56,24 +56,7 @@
                     android:layout_marginRight="2dip"
                     android:background="@drawable/view_widget_dot_normal" />
 
-                <View
-                    android:id="@+id/dot_3"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/view_widget_dot_normal" />
-
-                <View
-                    android:id="@+id/dot_4"
-                    android:layout_width="5dip"
-                    android:layout_height="5dip"
-                    android:layout_marginLeft="2dip"
-                    android:layout_marginRight="2dip"
-                    android:background="@drawable/view_widget_dot_normal" />
-
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>
-
 </RelativeLayout>

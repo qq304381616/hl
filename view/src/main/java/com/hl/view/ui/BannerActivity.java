@@ -1,7 +1,7 @@
 package com.hl.view.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -32,31 +32,19 @@ public class BannerActivity extends BaseActivity {
     private int oldPosition = 0;
     //存放图片的id
     private int[] imageIds = new int[]{
-            R.drawable.a,
-            R.drawable.b,
-            R.drawable.c,
-            R.drawable.d,
-            R.drawable.e
+            R.drawable.banner1,
+            R.drawable.banner2,
+            R.drawable.banner3,
     };
     //存放图片的标题
     private String[] titles = new String[]{
-            "巩俐不低俗，我就不能低俗",
-            "扑树又回来啦！再唱经典老歌引万人大合唱",
-            "揭秘北京电影如何升级",
-            "乐视网TV版大派送",
-            "热血屌丝的反杀"
+            "标题1",
+            "标题2",
+            "标题3",
     };
     private TextView title;
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
-    /**
-     * 接收子线程传递过来的数据
-     */
-    private Handler mHandler = new Handler() {
-        public void handleMessage(android.os.Message msg) {
-            mViewPaper.setCurrentItem(currentItem);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +54,9 @@ public class BannerActivity extends BaseActivity {
 
         //显示的图片
         images = new ArrayList<>();
-        for (int i = 0; i < imageIds.length; i++) {
+        for (int imageId : imageIds) {
             ImageView imageView = new ImageView(this);
-            imageView.setBackgroundResource(imageIds[i]);
+            imageView.setBackgroundResource(imageId);
             images.add(imageView);
         }
         //显示的小点
@@ -76,8 +64,6 @@ public class BannerActivity extends BaseActivity {
         dots.add(findViewById(R.id.dot_0));
         dots.add(findViewById(R.id.dot_1));
         dots.add(findViewById(R.id.dot_2));
-        dots.add(findViewById(R.id.dot_3));
-        dots.add(findViewById(R.id.dot_4));
 
         title = findViewById(R.id.title);
         title.setText(titles[0]);
@@ -85,8 +71,11 @@ public class BannerActivity extends BaseActivity {
         adapter = new ViewPagerAdapter();
         mViewPaper.setAdapter(adapter);
 
-        mViewPaper.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPaper.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
 
+            }
 
             @Override
             public void onPageSelected(int position) {
@@ -99,12 +88,7 @@ public class BannerActivity extends BaseActivity {
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onPageScrollStateChanged(int i) {
 
             }
         });
@@ -119,8 +103,8 @@ public class BannerActivity extends BaseActivity {
         scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleWithFixedDelay(
                 new ViewPageTask(),
-                2,
-                2,
+                5,
+                5,
                 TimeUnit.SECONDS);
     }
 
@@ -132,27 +116,25 @@ public class BannerActivity extends BaseActivity {
     private class ViewPagerAdapter extends PagerAdapter {
 
         @Override
+        public void destroyItem(@NonNull ViewGroup view, int position, @NonNull Object object) {
+            view.removeView(images.get(position));
+        }
+
+        @NonNull
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup view, int position) {
+            view.addView(images.get(position));
+            return images.get(position);
+        }
+
+        @Override
         public int getCount() {
             return images.size();
         }
 
         @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == arg1;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup view, int position, Object object) {
-//			super.destroyItem(container, position, object);
-//			view.removeView(view.getChildAt(position));
-//			view.removeViewAt(position);
-            view.removeView(images.get(position));
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup view, int position) {
-            view.addView(images.get(position));
-            return images.get(position);
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object o) {
+            return view == o;
         }
     }
 
@@ -161,7 +143,13 @@ public class BannerActivity extends BaseActivity {
         @Override
         public void run() {
             currentItem = (currentItem + 1) % imageIds.length;
-            mHandler.sendEmptyMessage(0);
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mViewPaper.setCurrentItem(currentItem);
+                }
+            });
         }
     }
 }
