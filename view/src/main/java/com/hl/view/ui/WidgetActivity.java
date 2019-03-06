@@ -18,6 +18,9 @@ public class WidgetActivity extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_activity_widget);
 
+        initToolbar(true);
+
+        findViewById(R.id.tv_button).setOnClickListener(this);
         findViewById(R.id.textureview).setOnClickListener(this);
         findViewById(R.id.tv_swiperefreshlayout).setOnClickListener(this);
         findViewById(R.id.tv_seekbar).setOnClickListener(this);
@@ -29,6 +32,8 @@ public class WidgetActivity extends BaseActivity implements View.OnClickListener
         int id = v.getId();
         if (id == R.id.textureview) {
             startActivity(new Intent(WidgetActivity.this, TextureViewActivity.class));
+        } else if (id == R.id.tv_button) {
+            startActivity(new Intent(WidgetActivity.this, ButtonActivity.class));
         } else if (id == R.id.tv_swiperefreshlayout) {
             startActivity(new Intent(WidgetActivity.this, SwipeRefreshLayoutActivity.class));
         } else if (id == R.id.tv_seekbar) {
