@@ -26,7 +26,6 @@ import com.hl.dotime.utils.ConstantIcon
 import com.hl.dotime.utils.UUIDUtils
 import com.hl.dotime.utils.Utils
 
-
 class ModifyTaskActivity : BaseActivity() {
 
     private lateinit var et_name: EditText
@@ -145,6 +144,7 @@ class ModifyTaskActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         adapter.data = taskGroupService.queryAll()
+        spinner!!.adapter = adapter;
     }
 
     private fun showColorPickerDialog() {
