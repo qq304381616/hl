@@ -44,7 +44,6 @@ class TaskFragment : Fragment() {
 
     companion object {
         private val EXTRA_CONTENT = "content"
-        private var isLoop: Boolean? = false
 
         fun newInstance(content: String): TaskFragment {
             val arguments = Bundle()
@@ -103,33 +102,6 @@ class TaskFragment : Fragment() {
                     }
                 }
             }
-        }
-    }
-
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (isVisibleToUser) {
-            //相当于Fragment的onResume
-            isLoop = true
-            // 定时1秒 循环更新计时器
-            subscribe = Observable.interval(0, 1, TimeUnit.SECONDS)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        if (isLoop!! && taskStaringAdapter.itemCount > 0) {
-                            taskStaringAdapter.notifyDataSetChanged()
-                        }
-                    }
-        } else {
-            //相当于Fragment的onPause
-            isLoop = false
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        activity!!.unregisterReceiver(receiver)
-        if (subscribe != null) {
-            subscribe!!.dispose()
         }
     }
 
@@ -241,7 +213,25 @@ class TaskFragment : Fragment() {
         })
 
         rv_task.adapter = taskQuickAdapter
+
+        // 定时1秒 循环更新计时器
+        subscribe = Observable.interval(1, 1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { aLong ->
+                    if (taskStaringAdapter.itemCount > 0) {
+                        taskStaringAdapter.notifyDataSetChanged()
+                    }
+                }
+
         return contentView
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity!!.unregisterReceiver(receiver)
+        if (subscribe != null) {
+            subscribe!!.dispose()
+        }
     }
 
     private fun showDelDialog(position: Int) {
