@@ -1,4 +1,4 @@
-package com.hl.view.ui;
+package com.hl.view.ui.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,14 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Toolbar的制造折叠效果,
+ * Toolbar的扩展与收缩, 上下拉动 ，显示与隐藏ToolBar
  */
-public class ToolBarCollapsingToolbarLayoutActivity extends BaseActivity {
+public class ToolBarAppBarLayoutActivity extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_design_activity_toolbar_collapsingtlayout);
+        setContentView(R.layout.view_design_activity_toolbar_appbarlayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("title");

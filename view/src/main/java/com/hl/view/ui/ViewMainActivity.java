@@ -15,6 +15,7 @@ import com.hl.view.R;
 import com.hl.view.adapter.ViewMainAdapter;
 import com.hl.view.ui.dialog.DialogMainActivity;
 import com.hl.view.ui.pip.PipActivity;
+import com.hl.view.ui.toolbar.ToolBarMainActivity;
 
 /**
  * 控件集合
@@ -29,32 +30,12 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
 
         findViewById(R.id.tv_easy).setOnClickListener(this);
         findViewById(R.id.tv_layout).setOnClickListener(this);
+        findViewById(R.id.tv_toolbar).setOnClickListener(this);
         findViewById(R.id.tv_recycler).setOnClickListener(this);
         findViewById(R.id.tv_pip).setOnClickListener(this);
         findViewById(R.id.tv_dialog).setOnClickListener(this);
         findViewById(R.id.tv_SnackBar).setOnClickListener(this);
-        findViewById(R.id.tv_navigationview).setOnClickListener(this);
-        findViewById(R.id.tv_coordinatorlayout).setOnClickListener(this);
-        findViewById(R.id.tv_toolbar).setOnClickListener(this);
-        findViewById(R.id.tv_toolbar2).setOnClickListener(this);
-        findViewById(R.id.tv_toolbar3).setOnClickListener(this);
         findViewById(R.id.tv_page_sliding_tab).setOnClickListener(this);
-
-        TabLayout tablayout = findViewById(R.id.tablayout);
-//        tablayout.addTab(tablayout.newTab().setText("全部"));
-//        tablayout.addTab(tablayout.newTab().setText("类别A"));
-//        tablayout.addTab(tablayout.newTab().setText("类别B"));
-        tablayout.setSelectedTabIndicatorColor(getResources().getColor(android.R.color.holo_green_dark));
-        tablayout.setSelectedTabIndicatorHeight(8);
-        tablayout.setTabTextColors(Color.BLACK, getResources().getColor(android.R.color.holo_green_dark));
-
-        ViewPager viewpager = findViewById(R.id.viewpager);
-        ViewMainAdapter adapter = new ViewMainAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TestFragment(), "专题1");
-        adapter.addFragment(new TestFragment(), "专题2");
-        adapter.addFragment(new TestFragment(), "专题3");
-        viewpager.setAdapter(adapter);
-        tablayout.setupWithViewPager(viewpager);
     }
 
     @Override
@@ -76,23 +57,15 @@ public class ViewMainActivity extends BaseActivity implements View.OnClickListen
             startActivity(new Intent(ViewMainActivity.this, PipActivity.class));
         } else if (id == R.id.tv_easy) {
             startActivity(new Intent(ViewMainActivity.this, WidgetActivity.class));
+        } else if (id == R.id.tv_toolbar) {
+            startActivity(new Intent(ViewMainActivity.this, ToolBarMainActivity.class));
         } else if (id == R.id.tv_layout) {
             startActivity(new Intent(ViewMainActivity.this, LayoutActivity.class));
         } else if (id == R.id.tv_dialog) {
             startActivity(new Intent(ViewMainActivity.this, DialogMainActivity.class));
-        } else if (id == R.id.tv_navigationview) {
-            startActivity(new Intent(ViewMainActivity.this, NavigationViewActivity.class));
         } else if (id == R.id.tv_page_sliding_tab) {
             Intent intent = new Intent(ViewMainActivity.this, com.hl.tab.ui.activity.MainActivity.class);
             startActivity(intent);
-        } else if (id == R.id.tv_coordinatorlayout) {
-            startActivity(new Intent(ViewMainActivity.this, CoordinatorlayoutActivity.class));
-        } else if (id == R.id.tv_toolbar) {
-            startActivity(new Intent(ViewMainActivity.this, ToolBarActivity.class));
-        } else if (id == R.id.tv_toolbar2) {
-            startActivity(new Intent(ViewMainActivity.this, ToolBarAppBarLayoutActivity.class));
-        } else if (id == R.id.tv_toolbar3) {
-            startActivity(new Intent(ViewMainActivity.this, ToolBarCollapsingToolbarLayoutActivity.class));
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.hl.view.ui;
+package com.hl.view.ui.toolbar;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

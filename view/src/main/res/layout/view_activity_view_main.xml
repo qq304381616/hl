@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,6 +20,13 @@
         android:layout_height="64dp"
         android:gravity="center"
         android:text="布局控件" />
+
+    <TextView
+        android:id="@+id/tv_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="toolbar" />
 
     <TextView
         android:id="@+id/tv_recycler"
@@ -44,27 +50,6 @@
         android:text="dialog" />
 
     <TextView
-        android:id="@+id/tv_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="toolbar" />
-
-    <TextView
-        android:id="@+id/tv_toolbar2"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="Toolbar的扩展与收缩" />
-
-    <TextView
-        android:id="@+id/tv_toolbar3"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="Toolbar的折叠" />
-
-    <TextView
         android:id="@+id/tv_SnackBar"
         android:layout_width="match_parent"
         android:layout_height="64dp"
@@ -72,35 +57,9 @@
         android:text="SnackBar" />
 
     <TextView
-        android:id="@+id/tv_navigationview"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="左划抽屉菜单navigationview" />
-
-    <TextView
-        android:id="@+id/tv_coordinatorlayout"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:gravity="center"
-        android:text="coordinatorlayout" />
-
-    <TextView
         android:id="@+id/tv_page_sliding_tab"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:gravity="center"
         android:text="PageSlidingTab" />
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="46dp" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
 </LinearLayout>

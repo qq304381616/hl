@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
      * 初始化View
      */
     private void initView() {
-        drawLayout = (DrawerLayout) findViewById(R.id.drawLayout);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
-        pagerSlidingTab = (PagerSlidingTab) findViewById(R.id.pagerSlidingTab);
+        drawLayout = findViewById(R.id.drawLayout);
+        viewPager = findViewById(R.id.viewPager);
+        pagerSlidingTab = findViewById(R.id.pagerSlidingTab);
         viewPager.setAdapter(new MainPagerAdapter(this, getSupportFragmentManager()));
         pagerSlidingTab.setViewPager(viewPager);/*绑定pagerSlidingTab和ViewPager*/
     }
