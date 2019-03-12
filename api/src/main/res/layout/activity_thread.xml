@@ -54,4 +54,14 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="下载队列线程池" />
+
+    <TextView
+        android:id="@+id/tv_thread_async"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/holo_blue_bright"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="同步线程 synchronized / ReentrantLock" />
 </LinearLayout>

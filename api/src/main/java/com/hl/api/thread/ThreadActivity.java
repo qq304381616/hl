@@ -11,6 +11,9 @@ import com.hl.api.R;
 import com.hl.base.BaseActivity;
 import com.hl.utils.L;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Created on 2017/3/24.
  */
@@ -93,5 +96,41 @@ public class ThreadActivity extends BaseActivity {
                 TaskUtils.getInstance().start();
             }
         });
+
+        findViewById(R.id.tv_thread_async).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thread();
+            }
+        });
+    }
+
+    private void thread() {
+        MyRunnable a = new MyRunnable();
+        new Thread(a).start();
+        MyRunnable b = new MyRunnable();
+        new Thread(b).start();
+    }
+
+    private Lock lock = new ReentrantLock();
+
+    class MyRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            lock.lock();
+//            synchronized (ThreadActivity.this) {
+            int i = 0;
+            while (i < 10) {
+                L.e(Thread.currentThread().getName() + " : " + i++);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            lock.unlock();
+//            }
+        }
     }
 }
