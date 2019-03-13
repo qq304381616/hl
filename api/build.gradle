@@ -42,4 +42,5 @@ dependencies {
     api project(':lib_picture_library')
 
     implementation project(':base')
+    implementation project(':okhttp3')
 }

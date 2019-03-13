@@ -40,7 +40,7 @@ public class OkHttp3Utils {
     }
 
     // 异步GET请求
-    private void get(String url, final OkHttpCallback callback) {
+    public void get(String url, final OkHttpCallback callback) {
         final Request request = new Request.Builder()
                 .url(url)
                 .get()//默认就是GET请求，可以不写
@@ -63,7 +63,7 @@ public class OkHttp3Utils {
     }
 
     // 同步GET请求
-    private OkHttpCallback getAsync(String url) {
+    public OkHttpCallback getAsync(String url) {
         final OkHttpCallback callback = new OkHttpCallback();
         final Request request = new Request.Builder()
                 .url(url)
@@ -80,7 +80,7 @@ public class OkHttp3Utils {
     }
 
     // POST方式提交表单
-    private void postForm(String url, Map<String, String> params, final OkHttpCallback callback) {
+    public void postForm(String url, Map<String, String> params, final OkHttpCallback callback) {
         FormBody.Builder builder = new FormBody.Builder();
         if (params != null) {
             for (Map.Entry<String, String> entries : params.entrySet()) {
@@ -108,7 +108,7 @@ public class OkHttp3Utils {
     }
 
     // POST方式提交表单
-    private OkHttpCallback postAsyncForm(String url, Map<String, String> params) {
+    public OkHttpCallback postAsyncForm(String url, Map<String, String> params) {
         final OkHttpCallback callback = new OkHttpCallback();
         FormBody.Builder builder = new FormBody.Builder();
         if (params != null) {
@@ -133,7 +133,7 @@ public class OkHttp3Utils {
     }
 
     //  POST方式提交String
-    private void postString() {
+    public void postString() {
         MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
         String requestBody = "I am Jdqm.";
         Request request = new Request.Builder()
@@ -159,7 +159,7 @@ public class OkHttp3Utils {
     }
 
     // POST方式提交流
-    private void postStream() {
+    public void postStream() {
         RequestBody requestBody = new RequestBody() {
             @Nullable
             @Override
@@ -196,7 +196,7 @@ public class OkHttp3Utils {
     }
 
     // POST提交文件
-    private void postFile() {
+    public void postFile() {
         MediaType mediaType = MediaType.parse("text/x-markdown; charset=utf-8");
         File file = new File("test.md");
         Request request = new Request.Builder()
@@ -225,7 +225,7 @@ public class OkHttp3Utils {
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
     //  POST方式提交分块请求
-    private void postPart() {
+    public void postPart() {
         // Use the imgur image upload API as documented at https://api.imgur.com/endpoints/image
         MultipartBody body = new MultipartBody.Builder("AaB03x")
                 .setType(MultipartBody.FORM)
