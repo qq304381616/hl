@@ -35,6 +35,9 @@ dependencies {
 
     implementation files('libs/jcore-android_v1.1.1.jar')
 
+    // 腾讯 office 读取能力
+    implementation files('libs/tbs_sdk_thirdapp_v3.2.0.1104_43200_sharewithdownload_withfilereader_withoutGame_obfs_20170609_115346.jar')
+
     // 扫码
     implementation files('libs/zxing.jar')
 

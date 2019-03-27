@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.text.TextUtils;
 import android.util.Base64;
 
 import java.io.BufferedInputStream;
@@ -1679,11 +1680,23 @@ public class FileUtils {
         return actualimagecursor.getString(actual_image_column_index);
     }
 
-    /**
-     * 获取文件扩展名
+    /***
+     * 获取文件类型(扩展名)
+     *
+     * @param path 文件路径
+     * @return 文件的格式
      */
     public static String getFilePrefix(String path) {
-        String fileName = new File(path).getName();
-        return fileName.substring(fileName.lastIndexOf(".") + 1);
+        String str = "";
+
+        if (TextUtils.isEmpty(path)) {
+            return str;
+        }
+        int i = path.lastIndexOf('.');
+        if (i <= -1) {
+            return str;
+        }
+        str = path.substring(i + 1);
+        return str;
     }
 }
