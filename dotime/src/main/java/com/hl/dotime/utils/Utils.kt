@@ -2,6 +2,7 @@ package com.hl.dotime.utils
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Environment
 import android.support.graphics.drawable.VectorDrawableCompat
 import android.widget.ImageView
 import java.io.File
@@ -17,7 +18,7 @@ class Utils {
         }
 
         fun setSVGColor(c: Context, iv: ImageView, id: Int, color: String) {
-            val vectorDrawableCompat = VectorDrawableCompat.create(c.getResources(), id, c.getTheme());
+            val vectorDrawableCompat = VectorDrawableCompat.create(c.resources, id, c.theme)
             vectorDrawableCompat?.mutate()
             vectorDrawableCompat?.setTint(Color.parseColor(color))
             iv.setImageDrawable(vectorDrawableCompat)
@@ -34,14 +35,32 @@ class Utils {
          */
         fun getAppVersionCode(c: Context): String {
             try {
-                val pm = c.getPackageManager();
-                val pi = pm.getPackageInfo(c.getPackageName(), 0);
-                return pi.versionName;
+                val pm = c.packageManager
+                val pi = pm.getPackageInfo(c.packageName, 0)
+                return pi.versionName
                 // versioncode = pi.versionCode;
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return "";
+            return ""
+        }
+
+        fun getAppSDCardPath(path: String): File {
+            return File(File(Environment.getExternalStorageDirectory(), Constant.APP_SDCARD_PATH), path)
+        }
+
+        fun copyFile(re: File, to: File): Boolean {
+            if (!re.exists()) {
+                return false
+            }
+            if (!to.parentFile.exists()) {
+                to.parentFile.mkdirs()
+            }
+            if (to.exists()) {
+                to.delete()
+            }
+            copyFile(re.absolutePath, to.absolutePath)
+            return true
         }
     }
 }

@@ -77,7 +77,7 @@ class TaskService(private val mContext: Context) {
     fun queryAll(): ArrayList<Task> {
         val helper = MySQLiteOpenHelper(mContext)
         val db = helper.readableDatabase
-        val cursor = db.query(TABLE_NAME, null, "is_del=?", arrayOf("0"), null, null, null)
+        val cursor = db.query(TABLE_NAME, null, "is_del=?", arrayOf("0"), null, null, "create_time desc")
         val list: ArrayList<Task> = ArrayList()
         while (cursor.moveToNext()) {
             val id = cursor.getString(cursor.getColumnIndex("id"))

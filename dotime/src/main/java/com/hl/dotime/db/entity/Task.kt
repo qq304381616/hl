@@ -13,6 +13,7 @@ class Task() : Parcelable {
     var isDel: Int? = null
     var iconName: String? = null
     var iconColor: String? = null
+    var createTime: Long? = 0
 
     var groupName: String? = null
 
@@ -23,6 +24,7 @@ class Task() : Parcelable {
         isDel = parcel.readValue(Int::class.java.classLoader) as? Int
         iconName = parcel.readString()
         iconColor = parcel.readString()
+        createTime = parcel.readValue(Long::class.java.classLoader) as? Long
         groupName = parcel.readString()
     }
 
@@ -33,6 +35,7 @@ class Task() : Parcelable {
         parcel.writeValue(isDel)
         parcel.writeString(iconName)
         parcel.writeString(iconColor)
+        parcel.writeValue(createTime)
         parcel.writeString(groupName)
     }
 

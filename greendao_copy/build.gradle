@@ -27,9 +27,9 @@ task execlass(type: JavaExec) {
 }
 
 task exec {
-    compilesingle.execute() // 编译java为class文件
-    execlass.exec() // 执行class
-    delete file(classfilepath) // 删除编译生成的class文件
+//    compilesingle.execute() // 编译java为class文件
+//    execlass.exec() // 执行class
+//    delete file(classfilepath) // 删除编译生成的class文件
 }
 
 android {

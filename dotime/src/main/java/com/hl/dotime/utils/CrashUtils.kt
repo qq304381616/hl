@@ -1,6 +1,5 @@
 package com.hl.dotime.utils
 
-import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.io.PrintWriter
@@ -10,7 +9,7 @@ import java.util.*
 class CrashUtils private constructor() : Thread.UncaughtExceptionHandler {
 
     private var mHandler: Thread.UncaughtExceptionHandler? = null
-    private var crashDir: String? = "/sdcard/dotime/"
+    private var crashDir = Utils.getAppSDCardPath("crash")
 
     fun init() {
         mHandler = Thread.getDefaultUncaughtExceptionHandler()
@@ -19,14 +18,13 @@ class CrashUtils private constructor() : Thread.UncaughtExceptionHandler {
 
     override fun uncaughtException(thread: Thread, throwable: Throwable) {
         val now = SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-        val fullPath = "$crashDir$now.txt"
-        if (!File(crashDir).exists()) {
-            File(crashDir).mkdirs()
+        if (!crashDir.exists()) {
+            crashDir.mkdirs()
         }
         Thread(Runnable {
             var pw: PrintWriter? = null
             try {
-                pw = PrintWriter(FileWriter(fullPath, false))
+                pw = PrintWriter(FileWriter(crashDir.absolutePath + now + ".txt", false))
                 throwable.printStackTrace(pw)
                 var cause: Throwable? = throwable.cause
                 while (cause != null) {
