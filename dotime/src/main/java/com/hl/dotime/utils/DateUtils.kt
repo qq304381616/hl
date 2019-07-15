@@ -1,7 +1,7 @@
 package com.hl.dotime.utils
 
-import android.util.Log
 import com.hl.dotime.entity.FilterCount
+import com.hl.utils.L
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,9 +30,9 @@ class DateUtils {
         }
 
         fun getFilterTime(type: Int, current: Long, step: Int): FilterCount {
-            Log.e("TAG", "type: $type ")
-            Log.e("TAG", "current: $current ")
-            Log.e("TAG", "step: $step ")
+            L.e("type: $type ")
+            L.e("current: $current ")
+            L.e("step: $step ")
             val result: Array<Long>
             val c = Calendar.getInstance()
             if (current != -1L) {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.hl.dotime.R
@@ -15,6 +14,7 @@ import com.hl.dotime.db.entity.FilterList
 import com.hl.dotime.db.service.TaskRecordService
 import com.hl.dotime.entity.FilterCount
 import com.hl.dotime.utils.DateUtils
+import com.hl.utils.L
 import java.util.*
 
 class FilterCountActivity : BaseActivity(), View.OnClickListener {
@@ -133,8 +133,8 @@ class FilterCountActivity : BaseActivity(), View.OnClickListener {
 
     private fun getFilterTime(curr: Long, step: Int) {
         filter = DateUtils.getFilterTime(type, curr, step)
-        Log.e("TAG", DateUtils.getYMDHMS(filter.start))
-        Log.e("TAG", DateUtils.getYMDHMS(filter.end))
+        L.e(DateUtils.getYMDHMS(filter.start))
+        L.e(DateUtils.getYMDHMS(filter.end))
         updateData()
     }
 }

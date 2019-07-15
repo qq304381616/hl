@@ -3,7 +3,7 @@ package com.hl.dotime.db
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
+import com.hl.utils.L
 import java.util.*
 
 class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase.CursorFactory?, version: Int)//必须通过super调用父类当中的构造函数
@@ -51,8 +51,8 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
     //数据库升级时调用
     //如果DATABASE_VERSION值被改为2,系统发现现有数据库版本不同,即会调用onUpgrade（）方法
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        Log.e(TAG, "旧数据库版本：$oldVersion")
-        Log.e(TAG, "新数据库版本：$newVersion")
+        L.e(TAG, "旧数据库版本：$oldVersion")
+        L.e(TAG, "新数据库版本：$newVersion")
         when (oldVersion) {
             1 -> {
                 updateTo2(db)
