@@ -33,7 +33,7 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
     //当数据库创建的时候被调用
     override fun onCreate(db: SQLiteDatabase) {
         println("创建数据库和表")
-        //创建了数据库并创建一个叫records的表
+        //创建了数据库和表
         //SQLite数据创建支持的数据类型： 整型数据，字符串类型，日期类型，二进制的数据类型
         //execSQL用于执行SQL语句
         //完成数据库的创建
@@ -66,24 +66,24 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
     }
 
     // 增加列
-    fun updateTo2(db: SQLiteDatabase) {
+    private fun updateTo2(db: SQLiteDatabase) {
         db.execSQL("ALTER TABLE $TASK ADD icon_name text")
         db.execSQL("ALTER TABLE $TASK ADD icon_color text")
     }
 
     // 增加默认数据
-    fun update2Date(db: SQLiteDatabase) {
+    private fun update2Date(db: SQLiteDatabase) {
         db.execSQL("UPDATE $TASK SET icon_name = '" + Date() + "'")
     }
 
     // 增加列
-    fun updateTo3(db: SQLiteDatabase) {
+    private fun updateTo3(db: SQLiteDatabase) {
         db.execSQL("ALTER TABLE $TASK ADD create_time Long")
         db.execSQL("ALTER TABLE $TASK_GROUP ADD create_time Long")
     }
 
     // 增加默认数据
-    fun update3Date(db: SQLiteDatabase) {
+    private fun update3Date(db: SQLiteDatabase) {
         db.execSQL("UPDATE $TASK SET create_time = '" + System.currentTimeMillis() + "'")
         db.execSQL("UPDATE $TASK_GROUP SET create_time = '" + System.currentTimeMillis() + "'")
     }
