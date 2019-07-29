@@ -17,8 +17,15 @@ import com.hl.okhttp3.example.OkhttpMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
 import com.hl.tool.ToolMainActivity;
+import com.hl.utils.L;
 import com.hl.utils.ToastUtils;
+import com.hl.utils.api.eventbus.MyEvent;
+import com.hl.view.ui.PicActivity;
 import com.hl.view.ui.ViewMainActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -27,6 +34,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar(false);
+        EventBus.getDefault().register(this);
 
         findViewById(R.id.tv_test).setOnClickListener(this);
         findViewById(R.id.tv_animation).setOnClickListener(this);
@@ -94,5 +102,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(MainActivity.this, ToolMainActivity.class));
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MyEvent event) {
+        L.e(event.toString());
+        if (event.getType() == 1000) {
+            Intent intent = new Intent(this, PicActivity.class);
+            intent.putExtra("pic", String.valueOf(event.getMessage()));
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
