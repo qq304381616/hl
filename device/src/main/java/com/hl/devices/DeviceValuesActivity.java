@@ -19,11 +19,11 @@ public class DeviceValuesActivity extends BaseActivity {
         setContentView(R.layout.device_activity_values);
 
         // string
-        TextView tv_string = (TextView) findViewById(R.id.tv_string);
+        TextView tv_string = findViewById(R.id.tv_string);
         tv_string.setText(getResources().getString(R.string.string_info));
 
         // dimens
-        TextView tv_dimens = (TextView) findViewById(R.id.tv_dimens);
+        TextView tv_dimens = findViewById(R.id.tv_dimens);
         float px = getResources().getDimension(R.dimen.dimens_dp);
         float dp = SizeUtils.px2dp(this, px);
         tv_dimens.setText(num2Type(dp) + " - " + dp + " dp" + " == " + px + " px");
