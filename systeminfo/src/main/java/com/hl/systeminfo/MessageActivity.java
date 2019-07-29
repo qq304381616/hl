@@ -43,8 +43,8 @@ public class MessageActivity extends BaseActivity {
         messageContentObserver = new MessageContentObserver(MessageActivity.this, handler);
         getContentResolver().registerContentObserver(Uri.parse("content://sms/"), true, messageContentObserver);
 
-        tv_send = (TextView) findViewById(R.id.tv_send);
-        tv_message = (TextView) findViewById(R.id.tv_message);
+        tv_send = findViewById(R.id.tv_send);
+        tv_message = findViewById(R.id.tv_message);
 
         tv_send.setOnClickListener(new View.OnClickListener() {
             @Override
