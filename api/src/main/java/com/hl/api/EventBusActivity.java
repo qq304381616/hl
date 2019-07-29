@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hl.base.BaseActivity;
-import com.hl.base.eventbus.MyEvent;
 import com.hl.utils.L;
+import com.hl.utils.api.eventbus.MyEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

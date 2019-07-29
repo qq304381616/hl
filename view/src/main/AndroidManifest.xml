@@ -78,5 +78,6 @@
         <activity
             android:name=".ui.toolbar.ToolBarMainActivity"
             android:label="Toolbar" />
+        <activity android:name=".ui.PicActivity" />
     </application>
 </manifest>

@@ -1,13 +1,13 @@
-package com.hl.base.eventbus;
+package com.hl.utils.api.eventbus;
 
 public class MyEvent {
 
     private Integer type;
-    private Object Message;
+    private Object message;
 
     public MyEvent(Integer type, Object message) {
         this.type = type;
-        Message = message;
+        this.message = message;
     }
 
     public Integer getType() {
@@ -19,18 +19,18 @@ public class MyEvent {
     }
 
     public Object getMessage() {
-        return Message;
+        return message;
     }
 
     public void setMessage(Object message) {
-        Message = message;
+        this.message = message;
     }
 
     @Override
     public String toString() {
         return "MyEvent{" +
                 "type=" + type +
-                ", Message=" + Message +
+                ", Message=" + message +
                 '}';
     }
 }

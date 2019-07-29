@@ -21,8 +21,11 @@ import com.hl.base.BaseActivity;
 import com.hl.systeminfo.appinfo.AppsInfoListActivity;
 import com.hl.systeminfo.contact.ContactsActivity;
 import com.hl.systeminfo.notification.NotificationActivity;
-import com.hl.utils.BitmapUtils;
 import com.hl.utils.L;
+import com.hl.utils.PhotoAlbumUtils;
+import com.hl.utils.api.eventbus.MyEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Calendar;
@@ -144,13 +147,8 @@ public class SystemMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                } else {
-                    intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-                }
+                intent.setAction(Intent.ACTION_PICK);
                 intent.setType("image/*");
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(intent, REQUEST_IMAGE_ALBUM);
             }
         });
@@ -303,11 +301,15 @@ public class SystemMainActivity extends BaseActivity {
                     photoPath = uri.getEncodedPath();
                 }
                 L.e("拍照返回图片路径:" + photoPath);
+
+                EventBus.getDefault().post(new MyEvent(1000, photoPath));
             }
         } else if (requestCode == REQUEST_IMAGE_ALBUM) {
             if (resultCode == RESULT_OK) {
-                Uri uri = data.getData();
-                String path = BitmapUtils.getRealFilePath(this, uri);
+                String photoPath = PhotoAlbumUtils.getRealPathFromUri(this, data.getData());
+                L.e("相册返回图片路径:" + photoPath);
+
+                EventBus.getDefault().post(new MyEvent(1000, photoPath));
             }
         }
     }
