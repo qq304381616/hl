@@ -58,13 +58,6 @@
                 android:text="调用照相" />
 
             <TextView
-                android:id="@+id/camera2"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="调用照相2" />
-
-            <TextView
                 android:id="@+id/tv_applist"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -163,6 +156,13 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="通知" />
+
+            <TextView
+                android:id="@+id/tv_path"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="存储目录" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

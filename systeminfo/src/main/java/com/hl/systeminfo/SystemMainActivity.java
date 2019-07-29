@@ -4,7 +4,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.os.Vibrator;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -24,12 +24,16 @@ import com.hl.systeminfo.notification.NotificationActivity;
 import com.hl.utils.BitmapUtils;
 import com.hl.utils.L;
 
+import java.io.File;
 import java.util.Calendar;
 
 public class SystemMainActivity extends BaseActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_ALBUM = 2;
+
+    private File cameraSavePath; // 拍照照片路径
+    private Uri uri; // 照片uri
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,23 +84,21 @@ public class SystemMainActivity extends BaseActivity {
         findViewById(R.id.camera1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cameraSavePath = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(mLocationForPhotos, targetFilename));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //如果是7.0以上，使用FileProvider，否则会报错
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    uri = FileProvider.getUriForFile(getApplicationContext(), getPackageName() + ".provider", cameraSavePath);
+                } else {
+                    uri = Uri.fromFile(cameraSavePath);
+                }
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, uri); //设置拍照后图片保存的位置
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
                 }
             }
         });
-        //调用照相2
-        findViewById(R.id.camera2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-                }
-            }
-        });
+
         //应用列表
         findViewById(R.id.tv_applist).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +145,7 @@ public class SystemMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if (Build.VERSION.SDK_INT < 19) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {//因为Android SDK在4.4版本后图片action变化了 所以在这里先判断一下
                     intent.setAction(Intent.ACTION_GET_CONTENT);
                 } else {
                     intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
@@ -220,6 +222,14 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(new Intent(new Intent(SystemMainActivity.this, NotificationActivity.class)));
             }
         });
+
+        // 存储目录
+        findViewById(R.id.tv_path).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(new Intent(SystemMainActivity.this, PathActivity.class)));
+            }
+        });
     }
 
     public void createAlarm(String message, int hour, int minutes) {
@@ -287,7 +297,13 @@ public class SystemMainActivity extends BaseActivity {
         L.e("SystemMainActivity onActivityResult");
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
-                Bitmap thumbnail = data.getParcelableExtra("data");
+                String photoPath;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    photoPath = String.valueOf(cameraSavePath);
+                } else {
+                    photoPath = uri.getEncodedPath();
+                }
+                L.e("拍照返回图片路径:" + photoPath);
             }
         } else if (requestCode == REQUEST_IMAGE_ALBUM) {
             if (resultCode == RESULT_OK) {
@@ -296,5 +312,4 @@ public class SystemMainActivity extends BaseActivity {
             }
         }
     }
-
 }
