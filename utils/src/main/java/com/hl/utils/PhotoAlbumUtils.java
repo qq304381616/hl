@@ -150,6 +150,7 @@ public class PhotoAlbumUtils {
 
         String info = "";
         info += "## orientation=" + orientation + "\n";
+        info += "## orientation=" + BitmapUtils.getBitmapDegree(path) + "\n";
         info += "## dateTime=" + dateTime + "\n";
         info += "## make=" + make + "\n";
         info += "## model=" + model + "\n";
