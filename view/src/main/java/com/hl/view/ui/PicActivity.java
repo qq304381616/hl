@@ -52,6 +52,7 @@ public class PicActivity extends BaseActivity {
             try {
                 String info = PhotoAlbumUtils.getPhotoInfo(pic);
                 tv_info.setText(info);
+                tv_info.setVisibility(View.VISIBLE);
             } catch (IOException e) {
                 e.printStackTrace();
             }

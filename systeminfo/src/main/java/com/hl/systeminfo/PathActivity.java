@@ -28,11 +28,11 @@ public class PathActivity extends BaseActivity {
         s += "getCacheDir: " + getCacheDir().getAbsolutePath() + "\n";
         s += "getFilesDir: " + getFilesDir().getAbsolutePath() + "\n";
         s += "getDir: " + getDir(PATH, Context.MODE_PRIVATE).getAbsolutePath() + "\n";
-
+        s += "\n";
         s += "以下文件夹程序卸载清除数据存时被清理：" + "\n";
         s += "getExternalCacheDir: " + getExternalCacheDir().getAbsolutePath() + "\n";
         s += "getExternalFilesDir: " + getExternalFilesDir(PATH).getAbsolutePath() + "\n";
-
+        s += "\n";
         s += "其他：" + "\n";
         s += "getObbDir: " + getObbDir().getAbsolutePath() + "\n";
         s += "getObbDir: " + getCodeCacheDir().getAbsolutePath() + "\n";
