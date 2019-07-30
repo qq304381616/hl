@@ -19,6 +19,7 @@ import com.hl.systeminfo.SystemMainActivity;
 import com.hl.tool.ToolMainActivity;
 import com.hl.utils.L;
 import com.hl.utils.ToastUtils;
+import com.hl.utils.api.eventbus.EventType;
 import com.hl.utils.api.eventbus.MyEvent;
 import com.hl.view.ui.PicActivity;
 import com.hl.view.ui.ViewMainActivity;
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MyEvent event) {
         L.e(event.toString());
-        if (event.getType() == 1000) {
+        if (event.getType() == EventType.TYPE_1000) {
             Intent intent = new Intent(this, PicActivity.class);
             intent.putExtra("pic", String.valueOf(event.getMessage()));
             startActivity(intent);

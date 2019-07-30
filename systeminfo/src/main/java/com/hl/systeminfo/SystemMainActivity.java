@@ -23,6 +23,7 @@ import com.hl.systeminfo.contact.ContactsActivity;
 import com.hl.systeminfo.notification.NotificationActivity;
 import com.hl.utils.L;
 import com.hl.utils.PhotoAlbumUtils;
+import com.hl.utils.api.eventbus.EventType;
 import com.hl.utils.api.eventbus.MyEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -302,14 +303,14 @@ public class SystemMainActivity extends BaseActivity {
                 }
                 L.e("拍照返回图片路径:" + photoPath);
 
-                EventBus.getDefault().post(new MyEvent(1000, photoPath));
+                EventBus.getDefault().post(new MyEvent(EventType.TYPE_1000, photoPath));
             }
         } else if (requestCode == REQUEST_IMAGE_ALBUM) {
             if (resultCode == RESULT_OK) {
                 String photoPath = PhotoAlbumUtils.getRealPathFromUri(this, data.getData());
                 L.e("相册返回图片路径:" + photoPath);
 
-                EventBus.getDefault().post(new MyEvent(1000, photoPath));
+                EventBus.getDefault().post(new MyEvent(EventType.TYPE_1000, photoPath));
             }
         }
     }
