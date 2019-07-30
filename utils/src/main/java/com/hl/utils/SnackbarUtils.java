@@ -10,20 +10,15 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/10/16
- *     desc  : Snackbar相关工具类
- * </pre>
+ * Snackbar相关工具类
  */
 public class SnackbarUtils {
+
+    private static WeakReference<Snackbar> snackbarWeakReference;
 
     private SnackbarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static WeakReference<Snackbar> snackbarWeakReference;
 
     /**
      * 显示短时snackbar

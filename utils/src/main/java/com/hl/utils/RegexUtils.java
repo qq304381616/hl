@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.hl.utils.ConstUtils.*;
 import static com.hl.utils.ConstUtils.REGEX_DATE;
 import static com.hl.utils.ConstUtils.REGEX_EMAIL;
 import static com.hl.utils.ConstUtils.REGEX_ID_CARD15;
@@ -19,12 +18,7 @@ import static com.hl.utils.ConstUtils.REGEX_USERNAME;
 import static com.hl.utils.ConstUtils.REGEX_ZH;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/2
- *     desc  : 正则相关工具类
- * </pre>
+ * 正则相关工具类
  */
 public class RegexUtils {
 

@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/2
- *     desc  : 尺寸相关工具类
- * </pre>
+ * 尺寸相关工具类
  */
 public class SizeUtils {
+
+    private static onGetSizeListener mListener;
 
     private SizeUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -122,18 +119,9 @@ public class SizeUtils {
         });
     }
 
-    /**
-     * 获取到View尺寸的监听
-     */
-    public interface onGetSizeListener {
-        void onGetSize(View view);
-    }
-
     public static void setListener(onGetSizeListener listener) {
         mListener = listener;
     }
-
-    private static onGetSizeListener mListener;
 
     /**
      * 测量视图尺寸
@@ -199,5 +187,12 @@ public class SizeUtils {
         int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         view.measure(w, h);
         return view.getMeasuredWidth();
+    }
+
+    /**
+     * 获取到View尺寸的监听
+     */
+    public interface onGetSizeListener {
+        void onGetSize(View view);
     }
 }

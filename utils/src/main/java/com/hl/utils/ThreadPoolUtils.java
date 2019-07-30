@@ -13,28 +13,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/25
- *     desc  : 线程池相关工具类
- * </pre>
+ * 线程池相关工具类
  */
 public class ThreadPoolUtils {
-
-    private ThreadPoolUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
-    public enum Type {
-        FixedThread,
-        CachedThread,
-        SingleThread,
-    }
 
     private ExecutorService exec;
     private ScheduledExecutorService scheduleExec;
 
+    private ThreadPoolUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
     /**
      * ThreadPoolUtils构造函数
      *
@@ -127,7 +115,6 @@ public class ThreadPoolUtils {
     public boolean isTerminated() {
         return exec.isTerminated();
     }
-
 
     /**
      * 请求关闭、发生超时或者当前线程中断
@@ -297,5 +284,11 @@ public class ThreadPoolUtils {
      */
     public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit) {
         return scheduleExec.scheduleWithFixedDelay(command, initialDelay, delay, unit);
+    }
+
+    public enum Type {
+        FixedThread,
+        CachedThread,
+        SingleThread,
     }
 }

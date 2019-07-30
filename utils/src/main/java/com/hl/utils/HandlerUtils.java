@@ -6,17 +6,19 @@ import android.os.Message;
 import java.lang.ref.WeakReference;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 16/11/01
- *     desc  : Handler相关工具类
- * </pre>
+ * Handler相关工具类
  */
 public class HandlerUtils {
 
     private HandlerUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    /**
+     * 收到消息回调接口
+     */
+    public interface OnReceiveMessageListener {
+        void handlerMessage(Message msg);
     }
 
     public static class HandlerHolder extends Handler {
@@ -37,12 +39,5 @@ public class HandlerUtils {
                 mListenerWeakReference.get().handlerMessage(msg);
             }
         }
-    }
-
-    /**
-     * 收到消息回调接口
-     */
-    public interface OnReceiveMessageListener {
-        void handlerMessage(Message msg);
     }
 }

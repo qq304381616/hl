@@ -41,12 +41,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/12
- *     desc  : 图片相关工具类
- * </pre>
+ * 图片相关工具类
  */
 public class ImageUtils {
 
@@ -226,17 +221,6 @@ public class ImageUtils {
     /**
      * 获取bitmap
      *
-     * @param is 输入流
-     * @return bitmap
-     */
-    public Bitmap getBitmap(InputStream is) {
-        if (is == null) return null;
-        return BitmapFactory.decodeStream(is);
-    }
-
-    /**
-     * 获取bitmap
-     *
      * @param is        输入流
      * @param maxWidth  最大宽度
      * @param maxHeight 最大高度
@@ -250,18 +234,6 @@ public class ImageUtils {
         options.inSampleSize = calculateInSampleSize(options, maxWidth, maxHeight);
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeStream(is, null, options);
-    }
-
-    /**
-     * 获取bitmap
-     *
-     * @param data   数据
-     * @param offset 偏移量
-     * @return bitmap
-     */
-    public Bitmap getBitmap(byte[] data, int offset) {
-        if (data.length == 0) return null;
-        return BitmapFactory.decodeByteArray(data, offset, data.length);
     }
 
     /**
@@ -746,15 +718,15 @@ public class ImageUtils {
         int wh = w * h;
         int div = radius + radius + 1;
 
-        int r[] = new int[wh];
-        int g[] = new int[wh];
-        int b[] = new int[wh];
+        int[] r = new int[wh];
+        int[] g = new int[wh];
+        int[] b = new int[wh];
         int rsum, gsum, bsum, x, y, i, p, yp, yi, yw;
-        int vmin[] = new int[Math.max(w, h)];
+        int[] vmin = new int[Math.max(w, h)];
 
         int divsum = (div + 1) >> 1;
         divsum *= divsum;
-        int dv[] = new int[256 * divsum];
+        int[] dv = new int[256 * divsum];
         for (i = 0; i < 256 * divsum; i++) {
             dv[i] = (i / divsum);
         }
@@ -1475,5 +1447,28 @@ public class ImageUtils {
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param is 输入流
+     * @return bitmap
+     */
+    public Bitmap getBitmap(InputStream is) {
+        if (is == null) return null;
+        return BitmapFactory.decodeStream(is);
+    }
+
+    /**
+     * 获取bitmap
+     *
+     * @param data   数据
+     * @param offset 偏移量
+     * @return bitmap
+     */
+    public Bitmap getBitmap(byte[] data, int offset) {
+        if (data.length == 0) return null;
+        return BitmapFactory.decodeByteArray(data, offset, data.length);
     }
 }

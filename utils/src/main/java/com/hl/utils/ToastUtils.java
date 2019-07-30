@@ -6,22 +6,16 @@ import android.os.Looper;
 import android.widget.Toast;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/9/29
- *     desc  : 吐司相关工具类
- * </pre>
+ * 吐司相关工具类
  */
 public class ToastUtils {
-
-    private ToastUtils() {
-        throw new UnsupportedOperationException("u can't instantiate me...");
-    }
 
     private static Toast sToast;
     private static Handler sHandler = new Handler(Looper.getMainLooper());
     private static boolean isJumpWhenMore;
+    private ToastUtils() {
+        throw new UnsupportedOperationException("u can't instantiate me...");
+    }
 
     /**
      * 吐司初始化

@@ -19,20 +19,15 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/13
- *     desc  : 转换相关工具类
- * </pre>
+ * 转换相关工具类
  */
 public class ConvertUtils {
+
+    private static final char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     private ConvertUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
      * byteArr转hexString
@@ -130,13 +125,13 @@ public class ConvertUtils {
      * 以unit为单位的内存大小转字节数
      *
      * @param memorySize 大小
-     * @param unit 单位类型
-     *             <ul>
-     *             <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
-     *             <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
-     *             <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
-     *             <li>{@link ConstUtils.MemoryUnit#GB}  : GB</li>
-     *             </ul>
+     * @param unit       单位类型
+     *                   <ul>
+     *                   <li>{@link ConstUtils.MemoryUnit#BYTE}: 字节</li>
+     *                   <li>{@link ConstUtils.MemoryUnit#KB}  : 千字节</li>
+     *                   <li>{@link ConstUtils.MemoryUnit#MB}  : 兆</li>
+     *                   <li>{@link ConstUtils.MemoryUnit#GB}  : GB</li>
+     *                   </ul>
      * @return 字节数
      */
     public static long memorySize2Byte(long memorySize, ConstUtils.MemoryUnit unit) {
@@ -359,17 +354,6 @@ public class ConvertUtils {
         } finally {
             CloseUtils.closeIO(is);
         }
-    }
-
-    /**
-     * outputStream转inputStream
-     *
-     * @param out 输出流
-     * @return inputStream子类
-     */
-    public ByteArrayInputStream output2InputStream(OutputStream out) {
-        if (out == null) return null;
-        return new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
     }
 
     /**
@@ -627,5 +611,16 @@ public class ConvertUtils {
     public static int px2sp(Context context, float pxValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
+    }
+
+    /**
+     * outputStream转inputStream
+     *
+     * @param out 输出流
+     * @return inputStream子类
+     */
+    public ByteArrayInputStream output2InputStream(OutputStream out) {
+        if (out == null) return null;
+        return new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
     }
 }

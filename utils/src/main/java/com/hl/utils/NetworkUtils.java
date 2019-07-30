@@ -23,26 +23,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/2
- *     desc  : 网络相关工具类
- * </pre>
+ * 网络相关工具类
  */
 public class NetworkUtils {
 
+    private static final int NETWORK_TYPE_GSM = 16;
+    private static final int NETWORK_TYPE_TD_SCDMA = 17;
+    private static final int NETWORK_TYPE_IWLAN = 18;
+
     private NetworkUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
-    }
-
-    public enum NetworkType {
-        NETWORK_WIFI,
-        NETWORK_4G,
-        NETWORK_3G,
-        NETWORK_2G,
-        NETWORK_UNKNOWN,
-        NETWORK_NO
     }
 
     /**
@@ -98,7 +88,7 @@ public class NetworkUtils {
             L.e(result.errorMsg);
         }
         if (result.successMsg != null) {
-            L.e( result.successMsg);
+            L.e(result.successMsg);
         }
         return ret;
     }
@@ -222,10 +212,6 @@ public class NetworkUtils {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm != null ? tm.getNetworkOperatorName() : null;
     }
-
-    private static final int NETWORK_TYPE_GSM = 16;
-    private static final int NETWORK_TYPE_TD_SCDMA = 17;
-    private static final int NETWORK_TYPE_IWLAN = 18;
 
     /**
      * 获取当前网络类型
@@ -369,14 +355,19 @@ public class NetworkUtils {
         try {
             URL url = new URL(url_s);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            if (conn.getResponseCode() == 200) {
-                return true;
-            } else {
-                return false;
-            }
+            return conn.getResponseCode() == 200;
         } catch (IOException e) {
             return false;
         }
+    }
+
+    public enum NetworkType {
+        NETWORK_WIFI,
+        NETWORK_4G,
+        NETWORK_3G,
+        NETWORK_2G,
+        NETWORK_UNKNOWN,
+        NETWORK_NO
     }
 
 }

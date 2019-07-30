@@ -5,12 +5,7 @@ import android.content.Context;
 import java.io.File;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/9/27
- *     desc  : 清除相关工具类
- * </pre>
+ * 清除相关工具类
  */
 public class CleanUtils {
 

@@ -17,17 +17,12 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 16/11/13
- *     desc  : 定位相关工具类
- * </pre>
+ * 定位相关工具类
  */
 public class LocationUtils {
 
     private static OnLocationChangeListener mListener;
-    private static MyLocationListener       myLocationListener;
+    private static MyLocationListener myLocationListener;
     private static LocationManager mLocationManager;
 
     private LocationUtils() {
@@ -188,6 +183,32 @@ public class LocationUtils {
         return address == null ? "unknown" : address.getAddressLine(0);
     }
 
+    public interface OnLocationChangeListener {
+
+        /**
+         * 获取最后一次保留的坐标
+         *
+         * @param location 坐标
+         */
+        void getLastKnownLocation(Location location);
+
+        /**
+         * 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+         *
+         * @param location 坐标
+         */
+        void onLocationChanged(Location location);
+
+        /**
+         * provider的在可用、暂时不可用和无服务三个状态直接切换时触发此函数
+         *
+         * @param provider 提供者
+         * @param status   状态
+         * @param extras   provider可选包
+         */
+        void onStatusChanged(String provider, int status, Bundle extras);//位置状态发生改变
+    }
+
     private static class MyLocationListener
             implements LocationListener {
         /**
@@ -219,10 +240,10 @@ public class LocationUtils {
                     L.e("当前GPS状态为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    L.e( "当前GPS状态为服务区外状态");
+                    L.e("当前GPS状态为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    L.e( "当前GPS状态为暂停服务状态");
+                    L.e("当前GPS状态为暂停服务状态");
                     break;
             }
         }
@@ -240,31 +261,5 @@ public class LocationUtils {
         @Override
         public void onProviderDisabled(String provider) {
         }
-    }
-
-    public interface OnLocationChangeListener {
-
-        /**
-         * 获取最后一次保留的坐标
-         *
-         * @param location 坐标
-         */
-        void getLastKnownLocation(Location location);
-
-        /**
-         * 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-         *
-         * @param location 坐标
-         */
-        void onLocationChanged(Location location);
-
-        /**
-         * provider的在可用、暂时不可用和无服务三个状态直接切换时触发此函数
-         *
-         * @param provider 提供者
-         * @param status   状态
-         * @param extras   provider可选包
-         */
-        void onStatusChanged(String provider, int status, Bundle extras);//位置状态发生改变
     }
 }

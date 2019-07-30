@@ -18,12 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/10/18
- *     desc  : 进程相关工具类
- * </pre>
+ * 进程相关工具类
  */
 public class ProcessUtils {
 
@@ -62,7 +57,7 @@ public class ProcessUtils {
                         context.startActivity(intent);
                     }
                     if (aom.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, info.uid, info.packageName) != AppOpsManager.MODE_ALLOWED) {
-                        L.e( "没有打开\"有权查看使用权限的应用\"选项");
+                        L.e("没有打开\"有权查看使用权限的应用\"选项");
                         return null;
                     }
                     UsageStatsManager usageStatsManager = (UsageStatsManager) context.getSystemService(Context.USAGE_STATS_SERVICE);
@@ -81,7 +76,7 @@ public class ProcessUtils {
                     e.printStackTrace();
                 }
             } else {
-                L.e( "无\"有权查看使用权限的应用\"选项");
+                L.e("无\"有权查看使用权限的应用\"选项");
             }
         }
         return null;

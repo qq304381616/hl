@@ -1,12 +1,7 @@
 package com.hl.utils;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/9/19
- *     desc  : 相机相关工具类
- * </pre>
+ * 相机相关工具类
  */
 public class CameraUtils {
 

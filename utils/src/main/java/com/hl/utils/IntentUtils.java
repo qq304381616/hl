@@ -12,12 +12,7 @@ import android.webkit.MimeTypeMap;
 import java.io.File;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/9/23
- *     desc  : 意图相关工具类
- * </pre>
+ * 意图相关工具类
  */
 public class IntentUtils {
 
@@ -189,8 +184,8 @@ public class IntentUtils {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
         return intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
     }
-/*
-    *//**
+    /*
+     *//**
      * 获取选择照片的Intent
      *
      * @return

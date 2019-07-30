@@ -17,29 +17,14 @@ import android.widget.LinearLayout;
 import java.lang.reflect.Method;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/9/23
- *     desc  : 栏相关工具类
- * </pre>
+ * 栏相关工具类
  */
 public class BarUtils {
+    public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
+
     private BarUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-
-    public static class StatusBarView extends View {
-        public StatusBarView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        public StatusBarView(Context context) {
-            super(context);
-        }
-    }
-
-    public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
 
     /**
      * 设置状态栏颜色
@@ -97,7 +82,7 @@ public class BarUtils {
      */
     public static void setColorForSwipeBack(Activity activity, int color, int statusBarAlpha) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            ViewGroup contentView = ((ViewGroup) activity.findViewById(android.R.id.content));
+            ViewGroup contentView = activity.findViewById(android.R.id.content);
             contentView.setPadding(0, getStatusBarHeight(activity), 0, 0);
             contentView.setBackgroundColor(calculateStatusColor(color, statusBarAlpha));
             setTransparentForWindow(activity);
@@ -482,7 +467,7 @@ public class BarUtils {
      * @param statusBarAlpha 透明值
      */
     private static void addTranslucentView(Activity activity, int statusBarAlpha) {
-        ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
+        ViewGroup contentView = activity.findViewById(android.R.id.content);
         if (contentView.getChildCount() > 1) {
             contentView.getChildAt(1).setBackgroundColor(Color.argb(statusBarAlpha, 0, 0, 0));
         } else {
@@ -713,6 +698,16 @@ public class BarUtils {
             expand.invoke(service);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static class StatusBarView extends View {
+        public StatusBarView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public StatusBarView(Context context) {
+            super(context);
         }
     }
 }

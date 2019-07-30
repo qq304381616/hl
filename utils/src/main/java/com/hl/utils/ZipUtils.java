@@ -25,17 +25,19 @@ import java.util.zip.ZipOutputStream;
 import static com.hl.utils.ConstUtils.KB;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/27
- *     desc  : 压缩相关工具类  ant.jar
- * </pre>
+ * 压缩相关工具类  ant.jar
  */
 public class ZipUtils {
 
+    // ---------------------------------------------------------------------------------------
+    private int bufferSize = 32768;// default,32KB
+
     private ZipUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
+    }
+
+    public ZipUtils(int bufferSize) {
+        this.bufferSize = bufferSize;
     }
 
     /**
@@ -202,7 +204,7 @@ public class ZipUtils {
                 ZipEntry entry = new ZipEntry(rootPath);
                 if (!StringUtils.isEmpty(comment)) entry.setComment(comment);
                 zos.putNextEntry(entry);
-                byte buffer[] = new byte[KB];
+                byte[] buffer = new byte[KB];
                 int len;
                 while ((len = is.read(buffer, 0, KB)) != -1) {
                     zos.write(buffer, 0, len);
@@ -317,7 +319,7 @@ public class ZipUtils {
                     try {
                         in = new BufferedInputStream(zf.getInputStream(entry));
                         out = new BufferedOutputStream(new FileOutputStream(file));
-                        byte buffer[] = new byte[KB];
+                        byte[] buffer = new byte[KB];
                         int len;
                         while ((len = in.read(buffer)) != -1) {
                             out.write(buffer, 0, len);
@@ -417,29 +419,6 @@ public class ZipUtils {
         return new ZipFile(zipFile).entries();
     }
 
-    // ---------------------------------------------------------------------------------------
-    private int bufferSize = 32768;// default,32KB
-
-    public ZipUtils(int bufferSize) {
-        this.bufferSize = bufferSize;
-    }
-
-    public int getBufferSize() {
-        return bufferSize;
-    }
-
-    public void setBufferSize(int bufferSize) {
-        this.bufferSize = bufferSize;
-    }
-
-    public byte[] gzip(byte[] byteArray) throws IOException {
-        return execGzip(byteArray);
-    }
-
-    public byte[] gunzip(byte[] byteArrayCompressed) throws IOException {
-        return execGunzip(byteArrayCompressed, bufferSize);
-    }
-
     /**
      * gzip压缩
      *
@@ -493,8 +472,6 @@ public class ZipUtils {
         }
 
     }
-
-    /***********************************************************************************/
 
     /**
      * 压缩文件
@@ -567,12 +544,6 @@ public class ZipUtils {
         }).start();
     }
 
-    public interface ZipCallback {
-        public void onSuccessCallback();
-
-        public void onFailureCallback();
-    }
-
     private static void compress(File file, org.apache.tools.zip.ZipOutputStream out, String basedir) {
         /* 判断是目录还是文件 */
         if (file.isDirectory()) {
@@ -596,6 +567,8 @@ public class ZipUtils {
         }
     }
 
+    /***********************************************************************************/
+
     /**
      * 压缩一个文件
      */
@@ -608,7 +581,7 @@ public class ZipUtils {
             org.apache.tools.zip.ZipEntry entry = new org.apache.tools.zip.ZipEntry(basedir + file.getName());
             out.putNextEntry(entry);
             int count;
-            byte data[] = new byte[1024 * 8];
+            byte[] data = new byte[1024 * 8];
             while ((count = bis.read(data, 0, 1024 * 8)) != -1) {
                 out.write(data, 0, count);
             }
@@ -618,4 +591,25 @@ public class ZipUtils {
         }
     }
 
+    public int getBufferSize() {
+        return bufferSize;
+    }
+
+    public void setBufferSize(int bufferSize) {
+        this.bufferSize = bufferSize;
+    }
+
+    public byte[] gzip(byte[] byteArray) throws IOException {
+        return execGzip(byteArray);
+    }
+
+    public byte[] gunzip(byte[] byteArrayCompressed) throws IOException {
+        return execGunzip(byteArrayCompressed, bufferSize);
+    }
+
+    public interface ZipCallback {
+        void onSuccessCallback();
+
+        void onFailureCallback();
+    }
 }

@@ -12,12 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/2
- *     desc  : 屏幕相关工具类
- * </pre>
+ * 屏幕相关工具类
  */
 public class ScreenUtils {
 

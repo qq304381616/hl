@@ -16,32 +16,23 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/9/27
- *     desc  : 崩溃相关工具类
- * </pre>
+ * 崩溃相关工具类
  */
-public class CrashUtils
-        implements Thread.UncaughtExceptionHandler {
+public class CrashUtils implements Thread.UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;
 
     private UncaughtExceptionHandler mHandler;
-    private boolean                  mInitialized;
+    private boolean mInitialized;
     private String crashDir;
     private String versionName;
-    private int                      versionCode;
+    private int versionCode;
 
     private CrashUtils() {
     }
 
     /**
      * 获取单例
-     * <p>在Application中初始化{@code CrashUtils.getInstance().init(this);}</p>
-     *
-     * @return 单例
      */
     public static CrashUtils getInstance() {
         if (mInstance == null) {
@@ -56,16 +47,13 @@ public class CrashUtils
 
     /**
      * 初始化
-     *
-     * @param context 上下文
-     * @return {@code true}: 成功<br>{@code false}: 失败
      */
     public boolean init(Context context) {
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            crashDir = context.getExternalCacheDir().getPath() + File.separator + "crash" + File.separator;
+            crashDir = context.getExternalCacheDir() + File.separator + "crash" + File.separator;
         } else {
-            crashDir = context.getCacheDir().getPath() + File.separator + "crash" + File.separator;
+            crashDir = context.getCacheDir() + File.separator + "crash" + File.separator;
         }
         try {
             PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -94,6 +82,10 @@ public class CrashUtils
                     pw.write(getCrashHead());
                     throwable.printStackTrace(pw);
                     Throwable cause = throwable.getCause();
+
+                    L.e(getCrashHead());
+                    L.e(throwable);
+
                     while (cause != null) {
                         cause.printStackTrace(pw);
                         cause = cause.getCause();
