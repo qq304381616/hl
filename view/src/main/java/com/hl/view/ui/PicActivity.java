@@ -1,6 +1,5 @@
 package com.hl.view.ui;
 
-import android.media.ExifInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Menu;
@@ -10,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hl.base.BaseActivity;
-import com.hl.utils.BitmapUtils;
+import com.hl.utils.PhotoAlbumUtils;
 import com.hl.utils.api.GlideUtils;
 import com.hl.view.R;
 
@@ -51,14 +50,7 @@ public class PicActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.item_info) {
             try {
-                ExifInterface mExifInterface = new ExifInterface(pic);
-                String a3 = mExifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH);
-                String a5 = mExifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH);
-                int a6 = BitmapUtils.getBitmapDegree(pic);
-
-                tv_info.setVisibility(View.VISIBLE);
-                String info = "分辨率：" + a3 + "X" + a5 + "\n";
-                info += "旋转角度：" + a6 + "\n";
+                String info = PhotoAlbumUtils.getPhotoInfo(pic);
                 tv_info.setText(info);
             } catch (IOException e) {
                 e.printStackTrace();

@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.media.ExifInterface;
+
+import java.io.IOException;
 
 /**
  * 从相册内获取照片转化工具类
@@ -111,5 +114,66 @@ public class PhotoAlbumUtils {
      */
     private static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * 获取图片信息 大小/旋转角度等。
+     */
+    public static String getPhotoInfo(String path) throws IOException {
+        ExifInterface exifInterface = new ExifInterface(path);
+
+        String orientation = exifInterface.getAttribute(ExifInterface.TAG_ORIENTATION);
+        String dateTime = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+        String make = exifInterface.getAttribute(ExifInterface.TAG_MAKE);
+        String model = exifInterface.getAttribute(ExifInterface.TAG_MODEL);
+        String flash = exifInterface.getAttribute(ExifInterface.TAG_FLASH);
+        String imageLength = exifInterface.getAttribute(ExifInterface.TAG_IMAGE_LENGTH);
+        String imageWidth = exifInterface.getAttribute(ExifInterface.TAG_IMAGE_WIDTH);
+        String latitude = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+        String longitude = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+        String latitudeRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE_REF);
+        String longitudeRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE_REF);
+        String exposureTime = exifInterface.getAttribute(ExifInterface.TAG_EXPOSURE_TIME);
+        String aperture = exifInterface.getAttribute(ExifInterface.TAG_APERTURE_VALUE);
+        String isoSpeedRatings = exifInterface.getAttribute(ExifInterface.TAG_ISO_SPEED_RATINGS);
+        String dateTimeDigitized = exifInterface.getAttribute(ExifInterface.TAG_DATETIME_DIGITIZED);
+        String subSecTime = exifInterface.getAttribute(ExifInterface.TAG_SUBSEC_TIME);
+        String subSecTimeOrig = exifInterface.getAttribute(ExifInterface.TAG_SUBSEC_TIME_ORIGINAL);
+        String subSecTimeDig = exifInterface.getAttribute(ExifInterface.TAG_SUBSEC_TIME_DIGITIZED);
+        String altitude = exifInterface.getAttribute(ExifInterface.TAG_GPS_ALTITUDE);
+        String altitudeRef = exifInterface.getAttribute(ExifInterface.TAG_GPS_ALTITUDE_REF);
+        String gpsTimeStamp = exifInterface.getAttribute(ExifInterface.TAG_GPS_TIMESTAMP);
+        String gpsDateStamp = exifInterface.getAttribute(ExifInterface.TAG_GPS_DATESTAMP);
+        String whiteBalance = exifInterface.getAttribute(ExifInterface.TAG_WHITE_BALANCE);
+        String focalLength = exifInterface.getAttribute(ExifInterface.TAG_FOCAL_LENGTH);
+        String processingMethod = exifInterface.getAttribute(ExifInterface.TAG_GPS_PROCESSING_METHOD);
+
+        String info = "";
+        info += "## orientation=" + orientation;
+        info += "## dateTime=" + dateTime;
+        info += "## make=" + make;
+        info += "## model=" + model;
+        info += "## flash=" + flash;
+        info += "## imageLength=" + imageLength;
+        info += "## imageWidth=" + imageWidth;
+        info += "## latitude=" + latitude;
+        info += "## longitude=" + longitude;
+        info += "## latitudeRef=" + latitudeRef;
+        info += "## longitudeRef=" + longitudeRef;
+        info += "## exposureTime=" + exposureTime;
+        info += "## aperture=" + aperture;
+        info += "## isoSpeedRatings=" + isoSpeedRatings;
+        info += "## dateTimeDigitized=" + dateTimeDigitized;
+        info += "## subSecTime=" + subSecTime;
+        info += "## subSecTimeOrig=" + subSecTimeOrig;
+        info += "## subSecTimeDig=" + subSecTimeDig;
+        info += "## altitude=" + altitude;
+        info += "## altitudeRef=" + altitudeRef;
+        info += "## gpsTimeStamp=" + gpsTimeStamp;
+        info += "## gpsDateStamp=" + gpsDateStamp;
+        info += "## whiteBalance=" + whiteBalance;
+        info += "## focalLength=" + focalLength;
+        info += "## processingMethod=" + processingMethod;
+        return info;
     }
 }

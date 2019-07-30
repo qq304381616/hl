@@ -10,9 +10,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore.Images.ImageColumns;
+import android.support.media.ExifInterface;
 import android.text.TextUtils;
 import android.util.Base64;
 
@@ -28,7 +28,9 @@ import java.io.OutputStream;
 
 public class BitmapUtils {
 
-    private static final String TAG = BitmapUtils.class.getSimpleName();
+    public static final int RAW_SIZE = 128;
+    private static int sWidth = 128;
+    private static int sHeight = 128;
 
     public static String getBase64FromBitmap(Bitmap bitmap, ByteArrayOutputStream bos) {
         bitmap.compress(CompressFormat.JPEG, 100, bos);
@@ -40,10 +42,6 @@ public class BitmapUtils {
         bitmap.compress(CompressFormat.JPEG, 100, bos);
         return Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT);
     }
-
-    public static final int RAW_SIZE = 128;
-    private static int sWidth = 128;
-    private static int sHeight = 128;
 
     public static void reset() {
         sWidth = RAW_SIZE;
@@ -117,14 +115,12 @@ public class BitmapUtils {
             return lowerBound;
         } else {
             return upperBound;
-
         }
     }
 
     public static Bitmap getBitmap(InputStream is) {
         try {
-            if (is == null)
-                return null;
+            if (is == null) return null;
 
             int size = is.available();
             byte[] bs = new byte[size];
@@ -134,7 +130,6 @@ public class BitmapUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return null;
     }
 
@@ -142,7 +137,7 @@ public class BitmapUtils {
      * 将Bitmap转换成String
      */
     public static String convertFileToString(File file) {
-        InputStream in = null;
+        InputStream in;
         byte[] data = null;
         // 读取图片字节数组
         try {
@@ -193,9 +188,9 @@ public class BitmapUtils {
      * Bitmap 转 base64
      */
     public static String bitmap2Base64(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(CompressFormat.JPEG, 100, baos);
-        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(CompressFormat.JPEG, 100, out);
+        return Base64.encodeToString(out.toByteArray(), Base64.DEFAULT);
     }
 
     /**
@@ -224,7 +219,7 @@ public class BitmapUtils {
         return bitMap = Bitmap.createBitmap(bitMap, 0, 0, width, height, matrix, true);
     }
 
-    public Bitmap revitionImageSize(InputStream temp, int size) throws IOException {
+    public static Bitmap revisionImageSize(InputStream temp, int size) throws IOException {
         // 取得图片
         BitmapFactory.Options options = new BitmapFactory.Options();
         // 这个参数代表，不为bitmap分配内存空间，只记录一些该图片的信息（例如图片大小），说白了就是为了内存优化
@@ -235,7 +230,7 @@ public class BitmapUtils {
         temp.close();
         // 生成压缩的图片
         int i = 0;
-        Bitmap bitmap = null;
+        Bitmap bitmap;
         while (true) {
             // 这一步是根据要设置的大小，使宽和高都能满足
             if ((options.outWidth >> i <= size) && (options.outHeight >> i <= size)) {
@@ -277,7 +272,7 @@ public class BitmapUtils {
     /**
      * 压缩图片 根据图片尺寸
      */
-    public static Bitmap getimage(String imgPath, float pixelW, float pixelH) {
+    public static Bitmap getImage(String imgPath, float pixelW, float pixelH) {
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
         newOpts.inJustDecodeBounds = true; // 即只读边不读内容
 //        newOpts.inPreferredConfig = Bitmap.Config.RGB_565;
@@ -285,13 +280,11 @@ public class BitmapUtils {
         newOpts.inJustDecodeBounds = false;
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
-        float hh = pixelH;
-        float ww = pixelW;
         int be = 1;//be=1表示不缩放
-        if (w >= h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
-            be = (int) (newOpts.outWidth / ww);
-        } else if (w <= h && h > hh) {//如果高度高的话根据宽度固定大小缩放
-            be = (int) (newOpts.outHeight / hh);
+        if (w >= h && w > pixelW) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / pixelW);
+        } else if (w <= h && h > pixelH) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / pixelH);
         }
         if (be <= 0) be = 1;
         newOpts.inSampleSize = be;//设置缩放比例
@@ -302,8 +295,8 @@ public class BitmapUtils {
     /**
      * 压缩图片 根据图片尺寸 最长这不能超过400 。
      */
-    public static Bitmap getimage(String srcPath) {
-        return getimage(srcPath, 400f, 400f);
+    public static Bitmap getImage(String srcPath) {
+        return getImage(srcPath, 400f, 400f);
     }
 
     /**
@@ -350,36 +343,25 @@ public class BitmapUtils {
      * @param path 图片绝对路径
      * @return 图片的旋转角度
      */
-    public static int getBitmapDegree(String path) {
-        int degree = 0;
-        try {
-            // 从指定路径下读取图片，并获取其EXIF信息
-            ExifInterface exifInterface = new ExifInterface(path);
-            // 获取图片的旋转信息
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            switch (orientation) {
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    degree = 90;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    degree = 180;
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    degree = 270;
-                    break;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static int getBitmapDegree(String path) throws IOException {
+        // 从指定路径下读取图片，并获取其EXIF信息
+        ExifInterface exifInterface = new ExifInterface(path);
+        // 获取图片的旋转信息
+        int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return 90;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return 180;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return 270;
+            default:
+                return 0;
         }
-        return degree;
     }
 
     /**
      * 根据URI获取文件的绝对路径
-     *
-     * @param context
-     * @param uri
-     * @return the file path or null
      */
     public static String getRealFilePath(final Context context, final Uri uri) {
         if (null == uri)
@@ -435,7 +417,7 @@ public class BitmapUtils {
         if (TextUtils.isEmpty(type)) {
             type = "未能识别的图片";
         } else {
-            type = type.substring(6, type.length()).toUpperCase();
+            type = type.substring(6).toUpperCase();
         }
         return type;
     }
@@ -446,7 +428,7 @@ public class BitmapUtils {
      * @param out  大图
      * @param in   中间小图
      * @param size 大小图比例
-     * @return
+     * @return 图片
      */
     public static Bitmap centerBitmap(Bitmap out, Bitmap in, float size) {
         int divider = 4; // 里边图白边宽度
@@ -474,7 +456,6 @@ public class BitmapUtils {
         matrix.postScale(scale, scale); //长和宽放大缩小的比例
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
-
 
     public static Bitmap centerSquareScaleBitmap(Bitmap bitmap) {
         Bitmap result = bitmap;
@@ -508,5 +489,4 @@ public class BitmapUtils {
         }
         return result;
     }
-
 }
