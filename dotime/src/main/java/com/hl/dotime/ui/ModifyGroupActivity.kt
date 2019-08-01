@@ -3,7 +3,6 @@ package com.hl.dotime.ui
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -25,7 +24,7 @@ import com.hl.dotime.utils.UUIDUtils
 class ModifyGroupActivity : BaseActivity() {
 
     private lateinit var taskGroupService: TaskGroupService
-    private lateinit var troupAdapter: GroupAdapter
+    private lateinit var groupAdapter: GroupAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,19 +33,19 @@ class ModifyGroupActivity : BaseActivity() {
         initToolbar()
 
         taskGroupService = TaskGroupService(this)
-        troupAdapter = GroupAdapter(this)
+        groupAdapter = GroupAdapter(this)
 
         val rv_group_list = findViewById<RecyclerView>(R.id.rv_group_list)
         val fab_add = findViewById<FloatingActionButton>(R.id.fab_add)
 
-        troupAdapter.setOnItemClick(object : GroupAdapter.OnItemClick {
+        groupAdapter.setOnItemClick(object : GroupAdapter.OnItemClick {
             override fun onItemClick(position: Int) {
                 // 修改
-                showModifyDialog(troupAdapter.mData!!.get(position))
+                showModifyDialog(groupAdapter.mData!!.get(position))
             }
         })
 
-        troupAdapter.setOnItemLongClick(object : GroupAdapter.OnItemLongClick {
+        groupAdapter.setOnItemLongClick(object : GroupAdapter.OnItemLongClick {
             override fun onItemLongClick(position: Int) {
                 // 删除
                 showDelDialog(position)
@@ -58,23 +57,23 @@ class ModifyGroupActivity : BaseActivity() {
         }
 
         val mLinearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        rv_group_list.setItemAnimator(DefaultItemAnimator())
+        rv_group_list.itemAnimator = DefaultItemAnimator()
         rv_group_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        rv_group_list.setLayoutManager(mLinearLayoutManager)
+        rv_group_list.layoutManager = mLinearLayoutManager
 
-        troupAdapter.mData = taskGroupService.queryAll()
-        rv_group_list.adapter = troupAdapter
+        groupAdapter.mData = taskGroupService.queryAll()
+        rv_group_list.adapter = groupAdapter
     }
 
     private fun showDelDialog(position: Int) {
-        val group = troupAdapter.mData!!.get(position)
+        val group = groupAdapter.mData!!.get(position)
         val editDialog = AlertDialog.Builder(this)
         editDialog.setTitle("确认删除？")
         editDialog.setIcon(R.mipmap.ic_launcher_round)
         editDialog.setPositiveButton("确认") { _, _ ->
             group.isDel = 1
             taskGroupService.updateDel(group)
-            troupAdapter.removeItem(position)
+            groupAdapter.removeItem(position)
         }
         editDialog.create().show()
     }
@@ -100,7 +99,7 @@ class ModifyGroupActivity : BaseActivity() {
             group.name = name
             group.isDel = 0
             taskGroupService.insert(group)
-            troupAdapter.insertItem(troupAdapter.mData!!?.size ?: 0, group)
+            groupAdapter.insertItem(groupAdapter.mData!!.size, group)
         }
         editDialog.create().show()
     }
@@ -125,8 +124,7 @@ class ModifyGroupActivity : BaseActivity() {
             }
             group.name = name
             taskGroupService.updateName(group)
-            troupAdapter.notifyDataSetChanged()
-
+            groupAdapter.notifyDataSetChanged()
         }
         editDialog.create().show()
     }
