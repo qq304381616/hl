@@ -29,10 +29,10 @@ public class VideoViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.system_activity_videoview);
 
-        String path = "/sdcard/hl/file/test.mp4";
-        FileUtils.CheckExistsAndCopy(this, new File(path));
+        File file = new File(getFilesDir(), "test.mp4");
+        FileUtils.checkExistsAndCopy(this, file);
 
-        Uri uri = Uri.parse(path);
+        Uri uri = Uri.parse(file.getAbsolutePath());
         videoView = this.findViewById(R.id.videoview);
         videoView.setMediaController(new MediaController(this));
         videoView.setVideoURI(uri);
@@ -58,6 +58,13 @@ public class VideoViewActivity extends BaseActivity {
 //         createVideoThumbnail(videoView.getCurrentPosition(), path, "/sdcard/1.png");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (videoView != null) {
+            videoView.suspend();
+        }
+    }
 
     /**
      * 获取视频指定时间帧图片  保存到手机

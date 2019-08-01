@@ -203,7 +203,7 @@ public class FileUtils {
             if (!txt.exists()) {
                 txt.createNewFile();
             }
-            byte bytes[] = new byte[1024];
+            byte[] bytes = new byte[1024];
             bytes = str.getBytes(); // 新加的
             int b = str.length(); // 改
             FileOutputStream fos = new FileOutputStream(txt);
@@ -305,7 +305,7 @@ public class FileUtils {
 
                 if (temp.isFile()) {
                     FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(newPath + "/" + (temp.getName()).toString());
+                    FileOutputStream output = new FileOutputStream(newPath + "/" + (temp.getName()));
                     byte[] b = new byte[1024 * 5];
                     int len;
                     while ((len = input.read(b)) != -1) {
@@ -405,10 +405,8 @@ public class FileUtils {
 
     /**
      * 判断文件是否存在如果不存在则 拷贝
-     *
-     * @param c
      */
-    public static void CheckExistsAndCopy(Context c, File f) {
+    public static void checkExistsAndCopy(Context c, File f) {
         if (!f.exists()) {
             copyFileFromAssets(c, f);
         }
@@ -418,7 +416,6 @@ public class FileUtils {
      * 拷贝assets下的文件到指定目录
      */
     public static void copyFileFromAssets(Context c, File f) {
-
         try {
             AssetManager am = c.getAssets();
             InputStream is = am.open(f.getName());
@@ -1154,7 +1151,7 @@ public class FileUtils {
         OutputStream os = null;
         try {
             os = new BufferedOutputStream(new FileOutputStream(file, append));
-            byte data[] = new byte[1024];
+            byte[] data = new byte[1024];
             int len;
             while ((len = is.read(data, 0, 1024)) != -1) {
                 os.write(data, 0, len);

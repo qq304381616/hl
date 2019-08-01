@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * 显示所有已安装应用列表
+ * 文字转语音
  */
 public class TextToSpeechActivity extends BaseActivity implements TextToSpeech.OnInitListener {
 
@@ -37,14 +37,14 @@ public class TextToSpeechActivity extends BaseActivity implements TextToSpeech.O
 
         tts = new TextToSpeech(this, this);
 
-        et_text = (EditText) findViewById(R.id.et_text);
-        btn_play = (Button) findViewById(R.id.btn_play);
-        btn_d1 = (Button) findViewById(R.id.btn_d1);
-        tv_d = (TextView) findViewById(R.id.tv_d);
-        btn_d2 = (Button) findViewById(R.id.btn_d2);
-        btn_s1 = (Button) findViewById(R.id.btn_s1);
-        tv_s = (TextView) findViewById(R.id.tv_s);
-        btn_s2 = (Button) findViewById(R.id.btn_s2);
+        et_text = findViewById(R.id.et_text);
+        btn_play = findViewById(R.id.btn_play);
+        btn_d1 = findViewById(R.id.btn_d1);
+        tv_d = findViewById(R.id.tv_d);
+        btn_d2 = findViewById(R.id.btn_d2);
+        btn_s1 = findViewById(R.id.btn_s1);
+        tv_s = findViewById(R.id.tv_s);
+        btn_s2 = findViewById(R.id.btn_s2);
 
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +111,6 @@ public class TextToSpeechActivity extends BaseActivity implements TextToSpeech.O
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, text);
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, map);  //播放语音
     }
-
 
     @Override
     public void onInit(int status) {

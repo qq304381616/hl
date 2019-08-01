@@ -3,6 +3,7 @@ package com.hl.systeminfo;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class PathActivity extends BaseActivity {
         s += "其他：" + "\n";
         s += "getObbDir: " + getObbDir().getAbsolutePath() + "\n";
         s += "getObbDir: " + getCodeCacheDir().getAbsolutePath() + "\n";
+        s += "Environment.getExternalStorageDirectory: " + Environment.getExternalStorageDirectory() + "\n";
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             s += "getDataDir: " + getDataDir().getAbsolutePath() + "\n";
         }
