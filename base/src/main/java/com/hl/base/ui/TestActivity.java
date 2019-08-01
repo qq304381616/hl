@@ -1,6 +1,5 @@
 package com.hl.base.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +24,7 @@ public class TestActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_activity_test);
+        initToolbar(true);
 
         TextView tv_message = findViewById(R.id.tv_message);
         tv_message.setText(getIntent().getStringExtra("msg"));

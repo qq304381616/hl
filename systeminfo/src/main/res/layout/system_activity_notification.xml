@@ -27,14 +27,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:gravity="center"
-                android:text="点击事件" />
+                android:text="点击事件6.0" />
 
             <TextView
                 android:id="@+id/btn_remote_input"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:gravity="center"
-                android:text="输入事件" />
+                android:text="输入事件6.0" />
 
             <TextView
                 android:id="@+id/btn_big_picture_style"
@@ -62,14 +62,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:gravity="center"
-                android:text="多媒体" />
+                android:text="多媒体6.0" />
 
             <TextView
                 android:id="@+id/btn_messaging_style"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:gravity="center"
-                android:text="消息通知" />
+                android:text="消息通知6.0" />
 
             <TextView
                 android:id="@+id/btn_progress"
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:gravity="center"
-                android:text="头布局" />
+                android:text="头布局6.0" />
 
             <TextView
                 android:id="@+id/btn_custom"

@@ -1,6 +1,7 @@
 package com.hl.systeminfo.notification;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.RemoteInput;
@@ -13,6 +14,7 @@ import android.widget.RemoteViews;
 
 import com.hl.base.ui.TestActivity;
 import com.hl.systeminfo.R;
+import com.hl.utils.ToastUtils;
 
 /**
  * 通知
@@ -80,7 +82,7 @@ public class Notifications {
         return sInstance;
     }
 
-    private Notification.Builder getNotification(Context context) {
+    private Notification.Builder getNotification(NotificationManager nm, Context context) {
         Notification.Builder builder = new Notification.Builder(context);
         builder.setSmallIcon(R.mipmap.ic_launcher); // 左侧小图标
         builder.setContentTitle("notify title"); // 标题
@@ -94,8 +96,11 @@ public class Notifications {
 //        builder.setOngoing(true); //设置通知不可删除
         builder.setDefaults(Notification.DEFAULT_ALL); // 设置提醒 方式 跟随系统
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { // 兼容8.0
-            builder.setChannelId("cId");
+        // 兼容8.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel b = new NotificationChannel("1", "Channel信息", NotificationManager.IMPORTANCE_MIN);
+            nm.createNotificationChannel(b);
+            builder.setChannelId("1");
         }
         return builder;
     }
@@ -105,15 +110,16 @@ public class Notifications {
     }
 
     public void sendSimpleNotification(Context context, NotificationManager nm) {
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         nm.notify(NOTIFICATION_SAMPLE, nb.build());
     }
 
     public void sendActionNotification(Context context, NotificationManager nm) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            ToastUtils.showShortToast(context, "只支持6.0以上系统");
             return;
         }
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         Notification.Action yesActionBuilder = new Notification.Action.Builder(
                 Icon.createWithResource("", R.mipmap.ic_launcher),
                 "YES",
@@ -131,10 +137,11 @@ public class Notifications {
     }
 
     public void sendRemoteInputNotification(Context context, NotificationManager nm) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            ToastUtils.showShortToast(context, "只支持6.0以上系统");
             return;
         }
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
 
         //创建带输入框的按钮
         RemoteInput remoteInput = new RemoteInput.Builder(REMOTE_INPUT_RESULT_KEY).setLabel("Reply").build();
@@ -150,7 +157,7 @@ public class Notifications {
     }
 
     public void sendBigPictureStyleNotification(Context context, NotificationManager nm) {
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         //创建大视图样式
         Notification.BigPictureStyle bigPictureStyle = new Notification.BigPictureStyle()
                 .setBigContentTitle("title")
@@ -163,7 +170,7 @@ public class Notifications {
     }
 
     public void sendBigTextStyleNotification(Context context, NotificationManager nm) {
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         //创建大文字样式
         Notification.BigTextStyle bigTextStyle = new Notification.BigTextStyle()
                 .setBigContentTitle("title")
@@ -179,7 +186,7 @@ public class Notifications {
     }
 
     public void sendInboxStyleNotification(Context context, NotificationManager nm) {
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
 
         //创建信箱样式
         Notification.InboxStyle inboxStyle = new Notification.InboxStyle()
@@ -199,10 +206,11 @@ public class Notifications {
     }
 
     public void sendMediaStyleNotification(Context context, NotificationManager nm, boolean isPlaying) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            ToastUtils.showShortToast(context, "只支持6.0以上系统");
             return;
         }
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
 
         //创建Action按钮
         Intent playOrPauseIntent = new Intent(context, NotificationService.class);
@@ -246,10 +254,11 @@ public class Notifications {
     }
 
     public void sendMessagingStyleNotification(Context context, NotificationManager nm) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            ToastUtils.showShortToast(context, "只支持6.0以上系统");
             return;
         }
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         //创建信息样式
         Notification.MessagingStyle messagingStyle = new Notification.MessagingStyle("hl")
                 .setConversationTitle("title")
@@ -260,16 +269,17 @@ public class Notifications {
     }
 
     public void sendProgressViewNotification(Context context, NotificationManager nm, int progress) {
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         nb.setProgress(100, progress, false);
         nm.notify(NOTIFICATION_PROGRESS, nb.build());
     }
 
     public void sendCustomHeadsUpViewNotification(Context context, NotificationManager nm) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            ToastUtils.showShortToast(context, "只支持6.0以上系统");
             return;
         }
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
 
         //创建点击通知时发送的广播
         Intent intent = new Intent(context, TestActivity.class);
@@ -297,10 +307,7 @@ public class Notifications {
     }
 
     public void sendCustomViewNotification(Context context, NotificationManager nm, Boolean isLoved, Boolean isPlaying) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return;
-        }
-        Notification.Builder nb = getNotification(context);
+        Notification.Builder nb = getNotification(nm, context);
         //创建点击通知时发送的广播
         Intent intent = new Intent(context, TestActivity.class);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, 0);
@@ -350,11 +357,14 @@ public class Notifications {
         customBigView.setOnClickPendingIntent(R.id.iv_cancel_big, piCancel);
 
         //设置通知不可删除
-        nb.setOngoing(true)
-                //设置自定义小视图
-                .setCustomContentView(customView)
-                //设置自定义大视图
-                .setCustomBigContentView(customBigView);
+        nb.setOngoing(true);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            nb.setContent(customView);
+        } else {
+            nb.setCustomContentView(customView) //设置自定义小视图
+                    .setCustomBigContentView(customBigView);  //设置自定义大视图
+        }
+
         //发送通知
         nm.notify(NOTIFICATION_CUSTOM, nb.build());
     }

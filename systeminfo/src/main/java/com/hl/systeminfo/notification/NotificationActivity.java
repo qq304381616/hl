@@ -21,55 +21,54 @@ public class NotificationActivity extends BaseActivity {
         setContentView(R.layout.system_activity_notification);
         initToolbar(true);
 
-        final NotificationManager mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
+        final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         findViewById(R.id.btn_simple).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendSimpleNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendSimpleNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_action).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendActionNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendActionNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_remote_input).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendRemoteInputNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendRemoteInputNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_big_picture_style).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendBigPictureStyleNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendBigPictureStyleNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_big_text_style).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendBigTextStyleNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendBigTextStyleNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_inbox_style).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendInboxStyleNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendInboxStyleNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_media_style).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendMediaStyleNotification(NotificationActivity.this, mNM, false);
+                Notifications.getInstance().sendMediaStyleNotification(NotificationActivity.this, nm, false);
             }
         });
         findViewById(R.id.btn_messaging_style).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendMessagingStyleNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendMessagingStyleNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_progress).setOnClickListener(new View.OnClickListener() {
@@ -83,19 +82,19 @@ public class NotificationActivity extends BaseActivity {
         findViewById(R.id.btn_custom_heads_up).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendCustomHeadsUpViewNotification(NotificationActivity.this, mNM);
+                Notifications.getInstance().sendCustomHeadsUpViewNotification(NotificationActivity.this, nm);
             }
         });
         findViewById(R.id.btn_custom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().sendCustomViewNotification(NotificationActivity.this, mNM, false, true);
+                Notifications.getInstance().sendCustomViewNotification(NotificationActivity.this, nm, false, true);
             }
         });
         findViewById(R.id.btn_clear_all).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notifications.getInstance().clearAllNotification(mNM);
+                Notifications.getInstance().clearAllNotification(nm);
             }
         });
     }

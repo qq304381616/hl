@@ -8,17 +8,40 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.hl.base.ui.TestActivity;
+import com.hl.utils.L;
 
-import static com.hl.systeminfo.notification.Notifications.*;
+import static com.hl.systeminfo.notification.Notifications.ACTION_ANSWER;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_HEADS_UP_VIEW;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_VIEW_OPTIONS_CANCEL;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_VIEW_OPTIONS_LOVE;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_VIEW_OPTIONS_LYRICS;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_VIEW_OPTIONS_NEXT;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_VIEW_OPTIONS_PLAY_OR_PAUSE;
+import static com.hl.systeminfo.notification.Notifications.ACTION_CUSTOM_VIEW_OPTIONS_PRE;
+import static com.hl.systeminfo.notification.Notifications.ACTION_MEDIA_STYLE;
+import static com.hl.systeminfo.notification.Notifications.ACTION_NO;
+import static com.hl.systeminfo.notification.Notifications.ACTION_REJECT;
+import static com.hl.systeminfo.notification.Notifications.ACTION_REPLY;
+import static com.hl.systeminfo.notification.Notifications.ACTION_SIMPLE;
+import static com.hl.systeminfo.notification.Notifications.ACTION_YES;
+import static com.hl.systeminfo.notification.Notifications.EXTRA_OPTIONS;
+import static com.hl.systeminfo.notification.Notifications.MEDIA_STYLE_ACTION_DELETE;
+import static com.hl.systeminfo.notification.Notifications.MEDIA_STYLE_ACTION_NEXT;
+import static com.hl.systeminfo.notification.Notifications.MEDIA_STYLE_ACTION_PAUSE;
+import static com.hl.systeminfo.notification.Notifications.MEDIA_STYLE_ACTION_PLAY;
+import static com.hl.systeminfo.notification.Notifications.NOTIFICATION_ACTION;
+import static com.hl.systeminfo.notification.Notifications.NOTIFICATION_CUSTOM;
+import static com.hl.systeminfo.notification.Notifications.NOTIFICATION_CUSTOM_HEADS_UP;
+import static com.hl.systeminfo.notification.Notifications.NOTIFICATION_MEDIA_STYLE;
+import static com.hl.systeminfo.notification.Notifications.NOTIFICATION_REMOTE_INPUT;
+import static com.hl.systeminfo.notification.Notifications.REMOTE_INPUT_RESULT_KEY;
 
 /**
  *
  */
 public class NotificationService extends Service {
-    private final static String TAG = "NotificationService";
 
     public final static String ACTION_SEND_PROGRESS_NOTIFICATION = "com.android.notification.ACTION_SEND_PROGRESS_NOTIFICATION";
 
@@ -43,7 +66,7 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent != null && intent.getAction() != null) {
-            Log.i(TAG, "onStartCommand action = " + intent.getAction());
+            L.e("onStartCommand action = " + intent.getAction());
             switch (intent.getAction()) {
                 case ACTION_SIMPLE:
                     startTestActivity(ACTION_SIMPLE);
@@ -94,11 +117,12 @@ public class NotificationService extends Service {
         return START_STICKY;
     }
 
-    private void startTestActivity(String message){
+    private void startTestActivity(String message) {
         Intent testIntent = TestActivity.getIntent(mContext, message);
         testIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(testIntent);
     }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -107,7 +131,7 @@ public class NotificationService extends Service {
 
     private void dealWithActionMediaStyle(Intent intent) {
         String option = intent.getStringExtra(EXTRA_OPTIONS);
-        Log.i(TAG, "media option = " + option);
+        L.e("media option = " + option);
         if (option == null) {
             return;
         }
@@ -132,7 +156,7 @@ public class NotificationService extends Service {
         Bundle result = RemoteInput.getResultsFromIntent(intent);
         if (result != null) {
             String content = result.getString(REMOTE_INPUT_RESULT_KEY);
-            Log.i(TAG, "content = " + content);
+            L.e("content = " + content);
             mNM.cancel(NOTIFICATION_REMOTE_INPUT);
         }
     }
@@ -155,7 +179,7 @@ public class NotificationService extends Service {
 
     private void dealWithActionCustomHeadsUpView(Intent intent) {
         String headsUpOption = intent.getStringExtra(EXTRA_OPTIONS);
-        Log.i(TAG, "heads up option = " + headsUpOption);
+        L.e("heads up option = " + headsUpOption);
         if (headsUpOption == null) {
             return;
         }
