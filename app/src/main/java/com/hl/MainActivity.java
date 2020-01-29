@@ -13,6 +13,7 @@ import com.hl.devices.DeviceMainActivity;
 import com.hl.dotime.HomeActivity;
 import com.hl.greendao.example.GreenDaoActivity;
 import com.hl.knowledge.KnowledgeMainActivity;
+import com.hl.kotlin.KotlinMainActivity;
 import com.hl.okhttp3.example.OkhttpMainActivity;
 import com.hl.skin.SkinMainActivity;
 import com.hl.systeminfo.SystemMainActivity;
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.tv_skin).setOnClickListener(this);
         findViewById(R.id.api).setOnClickListener(this);
         findViewById(R.id.device).setOnClickListener(this);
+        findViewById(R.id.kotlin).setOnClickListener(this);
         findViewById(R.id.tv_greendao).setOnClickListener(this);
         findViewById(R.id.tv_okhttp3).setOnClickListener(this);
         findViewById(R.id.tv_tool).setOnClickListener(this);
@@ -92,6 +94,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.device:
                 startActivity(new Intent(MainActivity.this, DeviceMainActivity.class));
+                break;
+            case R.id.kotlin:
+                startActivity(new Intent(MainActivity.this, KotlinMainActivity.class));
                 break;
             case R.id.tv_greendao:
                 startActivity(new Intent(MainActivity.this, GreenDaoActivity.class));

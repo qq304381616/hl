@@ -79,5 +79,8 @@
             android:name=".ui.toolbar.ToolBarMainActivity"
             android:label="Toolbar" />
         <activity android:name=".ui.PicActivity" />
+        <activity
+            android:name=".ui.recycler.StartRecyclerActivity"
+            android:label="靠边" />
     </application>
 </manifest>

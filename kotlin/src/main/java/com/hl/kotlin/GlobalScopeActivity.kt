@@ -11,7 +11,7 @@ class GlobalScopeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.kotlin_activity_main)
+        setContentView(R.layout.kotlin_activity_global_scope)
         initToolbar(true)
 
         test1()

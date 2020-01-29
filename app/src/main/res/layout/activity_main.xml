@@ -81,6 +81,14 @@
                 android:text="设备信息 屏幕适配" />
 
             <TextView
+                android:id="@+id/kotlin"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@android:drawable/list_selector_background"
+                android:gravity="center"
+                android:text="kotlin" />
+
+            <TextView
                 android:id="@+id/tv_greendao"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
