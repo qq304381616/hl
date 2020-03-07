@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 
 import com.hl.base.BaseActivity;
 import com.hl.systeminfo.appinfo.AppsInfoListActivity;
+import com.hl.systeminfo.camera2.CameraActivity;
 import com.hl.systeminfo.contact.ContactsActivity;
 import com.hl.systeminfo.notification.NotificationActivity;
 import com.hl.utils.L;
@@ -100,6 +101,15 @@ public class SystemMainActivity extends BaseActivity {
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
                 }
+            }
+        });
+
+        //camera2 预览和拍照
+        findViewById(R.id.camera2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SystemMainActivity.this, CameraActivity.class);
+                startActivity(intent);
             }
         });
 
