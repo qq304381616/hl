@@ -82,5 +82,13 @@ public class KnowledgeMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+        // 监听屏幕外部滑入事件
+        findViewById(R.id.tv_out_move).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KnowledgeMainActivity.this, OutMoveActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

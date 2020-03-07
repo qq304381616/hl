@@ -71,6 +71,13 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="在两个ViewGroup里移动View" />
+
+            <TextView
+                android:id="@+id/tv_out_move"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="监听屏幕外部滑入事件" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
