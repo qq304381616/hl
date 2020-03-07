@@ -96,13 +96,21 @@ public class ActivityUtils {
     }
 
     /**
+     * 移除指定的Activity
+     */
+    public void removeActivity(Activity activity) {
+        if (activity != null) {
+            activityStack.remove(activity);
+        }
+    }
+
+    /**
      * 结束指定的Activity
      */
     public void finishActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
             activity.finish();
-            activity = null;
         }
     }
 

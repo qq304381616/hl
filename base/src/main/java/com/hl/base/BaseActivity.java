@@ -18,6 +18,10 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        /* manifest android:configChanges="keyboardHidden|orientation|screenSize"
+         * 配置前 旋转屏幕会执行 onCreate onDestroy, 并刷新布局。
+         * 配置后 旋转屏幕 会执行此方法
+         */
         L.e("onConfigurationChanged");
     }
 
@@ -69,6 +73,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         L.e("base onDestroy");
-        ActivityUtils.getInstance().finishActivity(this);
+        ActivityUtils.getInstance().removeActivity(this);
     }
 }
