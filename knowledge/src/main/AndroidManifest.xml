@@ -19,6 +19,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".LaunchModeActivityB" />
         <activity android:name=".FragmentActivity" />
+        <activity android:name=".MoveViewActivity" />
 
         <service android:name=".MyService" />
     </application>

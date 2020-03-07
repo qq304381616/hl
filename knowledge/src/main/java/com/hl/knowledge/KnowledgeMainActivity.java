@@ -48,7 +48,7 @@ public class KnowledgeMainActivity extends BaseActivity {
                 startActivity(new Intent(KnowledgeMainActivity.this, AndroidMapActivity.class));
             }
         });
-        //fragment
+        // fragment
         findViewById(R.id.tv_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class KnowledgeMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        //activity
+        // activity
         findViewById(R.id.tv_activity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,12 +65,21 @@ public class KnowledgeMainActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-        //service
+        // service
         findViewById(R.id.tv_service).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(KnowledgeMainActivity.this, MyService.class);
                 startService(intent);
+            }
+        });
+
+        // 在两个ViewGroup里移动View
+        findViewById(R.id.tv_move_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(KnowledgeMainActivity.this, MoveViewActivity.class);
+                startActivity(intent);
             }
         });
     }
