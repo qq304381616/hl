@@ -1,24 +1,10 @@
-/*
- * Copyright (C) 2008 ZXing authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.hl.api.zxing.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,10 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.zxing.BinaryBitmap;
-import com.google.zxing.ChecksumException;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.FormatException;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
@@ -56,19 +38,13 @@ import com.hl.utils.L;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Hashtable;
 
 /**
- * This activity opens the camera and does the actual scanning on a background
- * thread. It draws a viewfinder to help the user place the barcode correctly,
- * shows feedback as the image processing is happening, and then overlays the
- * results when a scan is successful.
- *
- * @author dswitkin@google.com (Daniel Switkin)
- * @author Sean Owen
+ * 扫一扫 界面
  */
 public final class CaptureActivity extends Activity implements SurfaceHolder.Callback {
 
+    public static boolean isLand = false;
     private CameraManager cameraManager;
     private CaptureActivityHandler handler;
     private InactivityTimer inactivityTimer;
@@ -78,7 +54,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private RelativeLayout scanContainer;
     private RelativeLayout scanCropView;
     private ImageView scanLine;
-    private String imagePath = null;
+    private String imagePath;
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
 
@@ -94,14 +70,16 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        isLand = this.getResources().getConfiguration().orientation != Configuration.ORIENTATION_PORTRAIT;
+
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.api_activity_zxing_capture);
 
-        scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
-        scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
-        scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
-        scanLine = (ImageView) findViewById(R.id.capture_scan_line);
+        scanPreview = findViewById(R.id.capture_preview);
+        scanContainer = findViewById(R.id.capture_container);
+        scanCropView = findViewById(R.id.capture_crop_view);
+        scanLine = findViewById(R.id.capture_scan_line);
         findViewById(R.id.tv_flash_mode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,18 +139,10 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     /**
      * 解析图片中的二维码
-     *
-     * @param bitmapPath
-     * @return
      */
     private Result paresQRciseBitmap(String bitmapPath) {
-        Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
-        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(bitmapPath, options);
 
         options.inSampleSize = options.outHeight / 400;
         if (options.inSampleSize <= 0) {
@@ -180,18 +150,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         }
 
         options.inJustDecodeBounds = false;
-        bitmap = BitmapFactory.decodeFile(bitmapPath, options);
+        Bitmap bitmap = BitmapFactory.decodeFile(bitmapPath, options);
         RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(bitmap);
         BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
         QRCodeReader reader = new QRCodeReader();
         Result result = null;
         try {
             result = reader.decode(binaryBitmap);
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        } catch (ChecksumException e) {
-            e.printStackTrace();
-        } catch (FormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
@@ -352,10 +318,18 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
      * 初始化截取的矩形区域
      */
     private void initCrop() {
-        int cameraWidth = cameraManager.getCameraResolution().y;
-        int cameraHeight = cameraManager.getCameraResolution().x;
+        int cameraWidth;
+        int cameraHeight;
+        if (isLand) {
+            cameraManager.setTest(0);
+            cameraWidth = cameraManager.getCameraResolution().x;
+            cameraHeight = cameraManager.getCameraResolution().y;
+        } else {
+            cameraWidth = cameraManager.getCameraResolution().y;
+            cameraHeight = cameraManager.getCameraResolution().x;
+        }
 
-        /** 获取布局中扫描框的位置信息 */
+        /* 获取布局中扫描框的位置信息 */
         int[] location = new int[2];
         scanCropView.getLocationInWindow(location);
 
@@ -365,21 +339,21 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         int cropWidth = scanCropView.getWidth();
         int cropHeight = scanCropView.getHeight();
 
-        /** 获取布局容器的宽高 */
+        /* 获取布局容器的宽高 */
         int containerWidth = scanContainer.getWidth();
         int containerHeight = scanContainer.getHeight();
 
-        /** 计算最终截取的矩形的左上角顶点x坐标 */
+        /* 计算最终截取的矩形的左上角顶点x坐标 */
         int x = cropLeft * cameraWidth / containerWidth;
-        /** 计算最终截取的矩形的左上角顶点y坐标 */
+        /* 计算最终截取的矩形的左上角顶点y坐标 */
         int y = cropTop * cameraHeight / containerHeight;
 
-        /** 计算最终截取的矩形的宽度 */
+        /* 计算最终截取的矩形的宽度 */
         int width = cropWidth * cameraWidth / containerWidth;
-        /** 计算最终截取的矩形的高度 */
+        /* 计算最终截取的矩形的高度 */
         int height = cropHeight * cameraHeight / containerHeight;
 
-        /** 生成最终的截取的矩形 */
+        /* 生成最终的截取的矩形 */
         mCropRect = new Rect(x, y, width + x, height + y);
     }
 

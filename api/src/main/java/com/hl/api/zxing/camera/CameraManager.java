@@ -126,7 +126,11 @@ public class CameraManager {
                 }
             }
         }
+    }
 
+    /** 设置相机预览为竖屏 */
+    public void setTest(int i) {
+        camera.setDisplayOrientation(i);
     }
 
     public synchronized boolean isOpen() {

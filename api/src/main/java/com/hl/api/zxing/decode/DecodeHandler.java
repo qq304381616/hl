@@ -73,7 +73,6 @@ public class DecodeHandler extends Handler {
         } else if (message.what == R.id.quit) {
             running = false;
             Looper.myLooper().quit();
-
         }
     }
 
@@ -89,17 +88,23 @@ public class DecodeHandler extends Handler {
     private void decode(byte[] data, int width, int height) {
         Size size = activity.getCameraManager().getPreviewSize();
 
-        // 这里需要将获取的data翻转一下，因为相机默认拿的的横屏的数据
-        byte[] rotatedData = new byte[data.length];
-        for (int y = 0; y < size.height; y++) {
-            for (int x = 0; x < size.width; x++)
-                rotatedData[x * size.height + size.height - y - 1] = data[x + y * size.width];
-        }
+        byte[] rotatedData;
+        if (!CaptureActivity.isLand) {
+            // 这里需要将获取的data翻转一下，因为相机默认拿的的横屏的数据
+            rotatedData = new byte[data.length];
+            for (int y = 0; y < size.height; y++) {
+                for (int x = 0; x < size.width; x++)
+                    rotatedData[x * size.height + size.height - y - 1] = data[x + y * size.width];
+            }
 
-        // 宽高也要调整
-        int tmp = size.width;
-        size.width = size.height;
-        size.height = tmp;
+            // 宽高也要调整
+            int tmp = size.width;
+            size.width = size.height;
+            size.height = tmp;
+
+        } else {
+            rotatedData = data;
+        }
 
         Result rawResult = null;
         PlanarYUVLuminanceSource source = buildLuminanceSource(rotatedData, size.width, size.height);
@@ -130,7 +135,6 @@ public class DecodeHandler extends Handler {
                 message.sendToTarget();
             }
         }
-
     }
 
     public boolean decode(String filepath) throws NotFoundException {
@@ -162,5 +166,4 @@ public class DecodeHandler extends Handler {
         // Go ahead and assume it's YUV rather than die.
         return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(), rect.height(), false);
     }
-
 }
