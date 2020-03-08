@@ -60,7 +60,7 @@ class TaskFragment : Fragment() {
             if (intent.action == "task") {
                 val task = intent.getParcelableExtra<Task>("task")
                 if (intent.getIntExtra("type", 0) == 1) {
-                    taskQuickAdapter.insertItem(taskQuickAdapter.mData!!?.size ?: 0, task)
+                    taskQuickAdapter.insertItem(taskQuickAdapter.mData!!.size, task)
                 } else if (intent.getIntExtra("type", 0) == 2) {
                     for (i in taskQuickAdapter.mData!!.indices) {
                         if (task.id == taskQuickAdapter.mData!!.get(i).id) {
@@ -91,7 +91,7 @@ class TaskFragment : Fragment() {
                     val taskRecord = intent.getParcelableExtra<TaskRecord>("taskRecord")
                     if (taskRecord != null) {
                         taskStaringAdapter.insertItem(0, taskRecord)
-                        rv_task_list.scrollToPosition(0); // 滑动到每1个位置
+                        rv_task_list.scrollToPosition(0) // 滑动到每1个位置
                     }
                 } else if (intent.getIntExtra("type", 0) == 2) {
                     // 修改任务分类后 通知更新界面
@@ -182,7 +182,7 @@ class TaskFragment : Fragment() {
         val rv_task = contentView.findViewById<RecyclerView>(R.id.rv_task)
 
         rv_task.itemAnimator = DefaultItemAnimator()
-        rv_task.layoutManager = GridLayoutManager(activity, 5)
+        rv_task.layoutManager = GridLayoutManager(activity, 4)
 
         taskQuickAdapter = TaskQuickAdapter(activity!!)
         taskService = TaskService(activity!!)
@@ -208,7 +208,7 @@ class TaskFragment : Fragment() {
                 r.task = taskService.queryById(r.taskId!!)
                 taskStaringAdapter.insertItem(0, r)
 
-                rv_task_list.scrollToPosition(0); // 滑动到每1个位置
+                rv_task_list.scrollToPosition(0) // 滑动到每1个位置
             }
         })
 

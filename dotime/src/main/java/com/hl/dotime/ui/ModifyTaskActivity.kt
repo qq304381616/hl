@@ -95,7 +95,7 @@ class ModifyTaskActivity : BaseActivity() {
         }
 
         button!!.setOnClickListener { _ ->
-            val name = et_name.text.toString()
+            val name = et_name.text.toString().trim()
             if (TextUtils.isEmpty(name)) {
                 Toast.makeText(this, "请填写名称", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -111,7 +111,7 @@ class ModifyTaskActivity : BaseActivity() {
 
             if (task != null) {
                 // 修改
-                task!!.name = et_name.text.toString()
+                task!!.name = name
                 task!!.groupId = group?.id
                 task!!.groupName = group?.name
                 task!!.iconName = defaultIconName
@@ -122,7 +122,7 @@ class ModifyTaskActivity : BaseActivity() {
                 // 新增
                 task = Task()
                 task!!.id = UUIDUtils.uuid
-                task!!.name = et_name.text.toString()
+                task!!.name = name
                 task!!.groupId = group?.id
                 task!!.isDel = 0
                 task!!.groupName = group?.name

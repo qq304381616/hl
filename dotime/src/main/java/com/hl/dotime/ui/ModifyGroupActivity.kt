@@ -17,7 +17,6 @@ import com.hl.dotime.db.entity.TaskGroup
 import com.hl.dotime.db.service.TaskGroupService
 import com.hl.dotime.utils.UUIDUtils
 
-
 /**
  * 分组管理
  */
@@ -85,7 +84,7 @@ class ModifyGroupActivity : BaseActivity() {
         editDialog.setIcon(R.mipmap.ic_launcher_round)
         editDialog.setView(edit)
         editDialog.setPositiveButton("确认") { _, _ ->
-            val name = edit.text.toString()
+            val name = edit.text.toString().trim()
             if (TextUtils.isEmpty(name)) {
                 Toast.makeText(this, "请填写名称", Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
@@ -113,7 +112,7 @@ class ModifyGroupActivity : BaseActivity() {
         editDialog.setIcon(R.mipmap.ic_launcher_round)
         editDialog.setView(edit)
         editDialog.setPositiveButton("确认") { _, _ ->
-            val name = edit.text.toString()
+            val name = edit.text.toString().trim()
             if (TextUtils.isEmpty(name)) {
                 Toast.makeText(this, "请填写名称", Toast.LENGTH_SHORT).show()
                 return@setPositiveButton
