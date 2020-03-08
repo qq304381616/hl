@@ -61,9 +61,9 @@ class TaskManagerFragment : Fragment() {
         })
 
         taskAdapter.mData = queryAll
-        rv_parent.setItemAnimator(DefaultItemAnimator())
+        rv_parent.itemAnimator = DefaultItemAnimator()
         rv_parent.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        rv_parent.setLayoutManager(LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false))
+        rv_parent.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rv_parent.adapter = taskAdapter
 
         fab.setOnClickListener {
@@ -73,12 +73,13 @@ class TaskManagerFragment : Fragment() {
     }
 
     private fun showDelDialog(position: Int) {
-        val task = taskAdapter.mData!!.get(position)
+        val task = taskAdapter.mData!![position]
         val dialog = AlertDialog.Builder(activity!!)
         dialog.setTitle("确认删除？")
         dialog.setIcon(R.mipmap.ic_launcher_round)
         dialog.setPositiveButton("确认") { _, _ ->
             task.isDel = 1
+            task.updateTime = System.currentTimeMillis()
             taskService.update(task)
             taskAdapter.removeItem(position)
 
@@ -116,7 +117,7 @@ class TaskManagerFragment : Fragment() {
             1002 -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val task = data!!.getParcelableExtra<Task>("task")
-                    taskAdapter.insertItem(taskAdapter.mData!!?.size ?: 0, task)
+                    taskAdapter.insertItem(taskAdapter.mData!!.size, task)
                     val intent = Intent()
                     intent.action = "task"
                     intent.putExtra("type", 1)

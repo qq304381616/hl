@@ -14,6 +14,8 @@ class Task() : Parcelable {
     var iconName: String? = null
     var iconColor: String? = null
     var createTime: Long? = 0
+    var updateTime: Long? = 0
+    var lastUseTime: Long? = 0 // 最后使用时间 用途排序
 
     var groupName: String? = null
 
@@ -25,6 +27,8 @@ class Task() : Parcelable {
         iconName = parcel.readString()
         iconColor = parcel.readString()
         createTime = parcel.readValue(Long::class.java.classLoader) as? Long
+        updateTime = parcel.readValue(Long::class.java.classLoader) as? Long
+        lastUseTime = parcel.readValue(Long::class.java.classLoader) as? Long
         groupName = parcel.readString()
     }
 
@@ -36,6 +40,8 @@ class Task() : Parcelable {
         parcel.writeString(iconName)
         parcel.writeString(iconColor)
         parcel.writeValue(createTime)
+        parcel.writeValue(updateTime)
+        parcel.writeValue(lastUseTime)
         parcel.writeString(groupName)
     }
 

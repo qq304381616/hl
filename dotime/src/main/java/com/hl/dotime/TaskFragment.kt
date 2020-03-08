@@ -20,7 +20,6 @@ import com.hl.dotime.db.service.TaskService
 import com.hl.dotime.ui.TaskDetailsActivity
 import com.hl.dotime.utils.DateUtils
 import com.hl.dotime.utils.UUIDUtils
-import com.hl.utils.L
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -207,6 +206,9 @@ class TaskFragment : Fragment() {
                 r.timerList = timerList
                 r.task = taskService.queryById(r.taskId!!)
                 taskStaringAdapter.insertItem(0, r)
+
+                t.lastUseTime = System.currentTimeMillis()
+                taskService.updateLastUseTime(t)
 
                 rv_task_list.scrollToPosition(0) // 滑动到每1个位置
             }

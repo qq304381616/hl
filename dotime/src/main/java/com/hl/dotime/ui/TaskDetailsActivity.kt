@@ -141,6 +141,9 @@ class TaskDetailsActivity : BaseActivity() {
 
                     val timerList = recordTimerService.queryByTaskRecordId(taskRecord.id!!)
                     taskRecord.timerList = timerList
+
+                    task!!.lastUseTime = System.currentTimeMillis()
+                    taskService.updateLastUseTime(task!!)
                 } else {
                     Toast.makeText(this, "请选择任务", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener

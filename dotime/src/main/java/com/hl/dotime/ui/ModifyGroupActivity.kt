@@ -71,6 +71,7 @@ class ModifyGroupActivity : BaseActivity() {
         editDialog.setIcon(R.mipmap.ic_launcher_round)
         editDialog.setPositiveButton("确认") { _, _ ->
             group.isDel = 1
+            group.updateTime = System.currentTimeMillis()
             taskGroupService.updateDel(group)
             groupAdapter.removeItem(position)
         }
@@ -97,6 +98,8 @@ class ModifyGroupActivity : BaseActivity() {
             group.id = UUIDUtils.uuid
             group.name = name
             group.isDel = 0
+            group.createTime = System.currentTimeMillis()
+            group.updateTime = System.currentTimeMillis()
             taskGroupService.insert(group)
             groupAdapter.insertItem(groupAdapter.mData!!.size, group)
         }
@@ -122,6 +125,7 @@ class ModifyGroupActivity : BaseActivity() {
                 return@setPositiveButton
             }
             group.name = name
+            group.updateTime = System.currentTimeMillis()
             taskGroupService.updateName(group)
             groupAdapter.notifyDataSetChanged()
         }

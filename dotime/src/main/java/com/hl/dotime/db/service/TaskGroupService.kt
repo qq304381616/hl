@@ -12,8 +12,7 @@ import java.util.*
 class TaskGroupService(private val mContext: Context) {
 
     companion object {
-        private val TAG = TaskService.javaClass.simpleName
-        private val TABLE_NAME = MySQLiteOpenHelper.TASK_GROUP
+        private const val TABLE_NAME = MySQLiteOpenHelper.TASK_GROUP
     }
 
     fun insert(taskGroup: TaskGroup) {
@@ -25,6 +24,8 @@ class TaskGroupService(private val mContext: Context) {
         value.put("name", taskGroup.name)
         value.put("icon", taskGroup.icon)
         value.put("is_del", taskGroup.isDel)
+        value.put("create_time", taskGroup.createTime)
+        value.put("update_time", taskGroup.updateTime)
         db.insert(TABLE_NAME, null, value)
         db.close()
     }
@@ -34,6 +35,7 @@ class TaskGroupService(private val mContext: Context) {
         val db = helper.writableDatabase
         val value = ContentValues()
         value.put("name", taskGroup.name)
+        value.put("update_time", taskGroup.updateTime)
         db.update(TABLE_NAME, value, "id=?", arrayOf(taskGroup.id))
         db.close()
     }
@@ -43,6 +45,7 @@ class TaskGroupService(private val mContext: Context) {
         val db = helper.writableDatabase
         val value = ContentValues()
         value.put("is_del", taskGroup.isDel)
+        value.put("update_time", taskGroup.updateTime)
         db.update(TABLE_NAME, value, "id=?", arrayOf(taskGroup.id))
         db.close()
     }
@@ -58,15 +61,19 @@ class TaskGroupService(private val mContext: Context) {
             val name = cursor.getString(cursor.getColumnIndex("name"))
             val icon = cursor.getString(cursor.getColumnIndex("icon"))
             val isDel = cursor.getInt(cursor.getColumnIndex("is_del"))
+            val createTime = cursor.getLong(cursor.getColumnIndex("create_time"))
+            val updateTime = cursor.getLong(cursor.getColumnIndex("update_time"))
             val group = TaskGroup()
             group.id = id
             group.parentId = parentId
             group.name = name
             group.icon = icon
             group.isDel = isDel
+            group.createTime = createTime
+            group.updateTime = updateTime
             list.add(group)
         }
-        if (cursor != null) cursor.close()
+        cursor?.close()
         db.close()
         return list;
     }

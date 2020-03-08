@@ -6,6 +6,14 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.hl.utils.L
 import java.util.*
 
+/**
+ *  升级数据库 需要修改
+ *  1， Version
+ *  2， onCreate 增加数据库字段更新
+ *  3， onUpgrade 增加数据库字段更新和数据更新
+ *  4,  增加实体字段
+ *  5,  修改service内相关字段
+ */
 class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase.CursorFactory?, version: Int)//必须通过super调用父类当中的构造函数
     : SQLiteOpenHelper(context, name, factory, version) {
 
@@ -13,7 +21,7 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
         private const val TAG = "MySQLiteOpenHelper"
 
         //数据库版本号
-        const val Version = 3
+        const val Version = 4
         const val dbName = "do_time"
         const val TASK_GROUP = "task_group"  // 任务组表，多级
         const val TASK = "task" // 任务表
@@ -44,8 +52,10 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
         db.execSQL("create table $RECORD_TIMER (id Integer primary key AUTOINCREMENT, task_record_id varchar(32), start_time Long, end_time Long, is_del Integer)")
         db.execSQL("create table $MARK (id Integer primary key AUTOINCREMENT, name varchar(200))")
 
+        // 升级数据库 需要修改 位置2
         updateTo2(db)
         updateTo3(db)
+        updateTo4(db)
     }
 
     //数据库升级时调用
@@ -53,6 +63,8 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         L.e(TAG, "旧数据库版本：$oldVersion")
         L.e(TAG, "新数据库版本：$newVersion")
+
+        // 升级数据库 需要修改 位置3
         when (oldVersion) {
             1 -> {
                 updateTo2(db)
@@ -61,6 +73,10 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
             2 -> {
                 updateTo3(db)
                 update3Date(db)
+            }
+            3 -> {
+                updateTo4(db)
+                update4Date(db)
             }
         }
     }
@@ -86,5 +102,19 @@ class MySQLiteOpenHelper(context: Context, name: String, factory: SQLiteDatabase
     private fun update3Date(db: SQLiteDatabase) {
         db.execSQL("UPDATE $TASK SET create_time = '" + System.currentTimeMillis() + "'")
         db.execSQL("UPDATE $TASK_GROUP SET create_time = '" + System.currentTimeMillis() + "'")
+    }
+
+    // 增加列
+    private fun updateTo4(db: SQLiteDatabase) {
+        db.execSQL("ALTER TABLE $TASK ADD update_time Long")
+        db.execSQL("ALTER TABLE $TASK ADD last_use_time Long")
+        db.execSQL("ALTER TABLE $TASK_GROUP ADD update_time Long")
+    }
+
+    // 增加默认数据
+    private fun update4Date(db: SQLiteDatabase) {
+        db.execSQL("UPDATE $TASK SET update_time = '" + System.currentTimeMillis() + "'")
+        db.execSQL("UPDATE $TASK SET last_use_time = '" + System.currentTimeMillis() + "'")
+        db.execSQL("UPDATE $TASK_GROUP SET update_time = '" + System.currentTimeMillis() + "'")
     }
 }

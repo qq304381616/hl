@@ -116,6 +116,7 @@ class ModifyTaskActivity : BaseActivity() {
                 task!!.groupName = group?.name
                 task!!.iconName = defaultIconName
                 task!!.iconColor = defaultColor
+                task!!.updateTime = System.currentTimeMillis()
                 taskService.update(task!!)
                 Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show()
             } else {
@@ -128,6 +129,9 @@ class ModifyTaskActivity : BaseActivity() {
                 task!!.groupName = group?.name
                 task!!.iconName = defaultIconName
                 task!!.iconColor = defaultColor
+                task!!.createTime = System.currentTimeMillis()
+                task!!.updateTime = System.currentTimeMillis()
+                task!!.lastUseTime = System.currentTimeMillis()
                 taskService.insert(task!!)
                 Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show()
             }

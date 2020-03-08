@@ -7,4 +7,5 @@ class TaskGroup {
     var icon: String? = null
     var isDel: Int? = null
     var createTime: Long? = 0
+    var updateTime: Long? = 0
 }
