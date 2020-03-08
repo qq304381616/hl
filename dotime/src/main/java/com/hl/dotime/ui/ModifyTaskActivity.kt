@@ -62,8 +62,8 @@ class ModifyTaskActivity : BaseActivity() {
         findViewById<View>(R.id.ll_choose_icon).setOnClickListener {
             showIconDialog()
         }
-        val taskService = TaskService(this);
-        taskGroupService = TaskGroupService(this);
+        val taskService = TaskService(this)
+        taskGroupService = TaskGroupService(this)
         adapter = TaskGroupAdapter(this)
 
         spinner!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -78,7 +78,7 @@ class ModifyTaskActivity : BaseActivity() {
 
         // 加载分组
         adapter.data = taskGroupService.queryAll()
-        spinner!!.adapter = adapter;
+        spinner!!.adapter = adapter
 
         task = intent.getParcelableExtra("task")
         if (task != null) {
@@ -102,6 +102,10 @@ class ModifyTaskActivity : BaseActivity() {
             }
             if (name.length > 10) {
                 Toast.makeText(this, "名称不能超过10个字符", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (group == null) {
+                Toast.makeText(this, "请选择或创建分组", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -144,7 +148,7 @@ class ModifyTaskActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         adapter.data = taskGroupService.queryAll()
-        spinner!!.adapter = adapter;
+        spinner!!.adapter = adapter
     }
 
     private fun showColorPickerDialog() {
@@ -177,7 +181,7 @@ class ModifyTaskActivity : BaseActivity() {
                 .showColorEdit(true)
                 .setColorEditTextColor(ContextCompat.getColor(this, android.R.color.holo_blue_bright))
                 .build()
-                .show();
+                .show()
     }
 
     private fun showIconDialog() {
@@ -201,10 +205,10 @@ class ModifyTaskActivity : BaseActivity() {
         }
         val dialog = builder.show()
 
-        val params = dialog.getWindow().getAttributes()
+        val params = dialog.window.attributes
         params.width = this.windowManager.defaultDisplay.width
-        params.height = this.windowManager.defaultDisplay.height / 3 * 2;
-        dialog.getWindow().setAttributes(params)
+        params.height = this.windowManager.defaultDisplay.height / 3 * 2
+        dialog.window.attributes = params
 
         iconAdapter.setOnItemClick(object : IconAdapter.OnItemClick {
             override fun onItemClick(position: Int) {
