@@ -47,15 +47,15 @@ public class OutMoveActivity extends BaseActivity {
         //按下时的时间
         long downTime;
         //边缘判定距离，
-        double margin = sWidth * 0.035;
+        double margin = sWidth * 0.3;
         //Y轴最大区间范围，即Y轴滑动超出这个范围不触发事件
-        double height = sHeight * 0.5;
+        double height = sHeight * 0.1;
         //X轴最短滑动距离 X轴滑动范围低于此值不触发事件
         double width = sWidth * 0.05;
         //是否处于此次滑动事件
         boolean work = false;
 
-        public boolean doEventFling(MotionEvent event) {
+        private boolean doEventFling(MotionEvent event) {
             switch (event.getActionMasked()) {
                 case MotionEvent.ACTION_DOWN:
                     //记录下按下的点
@@ -86,31 +86,46 @@ public class OutMoveActivity extends BaseActivity {
             return work;
         }
 
-        public boolean handle(PointF up) {
+        private boolean handle(PointF up) {
             long upTime = System.currentTimeMillis();
             float tWidth = Math.abs(down.x - up.x);
             if (maxY - minY < height && tWidth > width && (upTime - downTime) / tWidth < 2.5) {
                 //起点在左边
                 if (down.x < margin) {
-                    left();
+                    if (down.x > up.x) { // 左侧左滑
+                        leftToLeft();
+                    } else {  // 左侧右滑
+                        leftToRight();
+                    }
                     return true;
                 }
                 //起点在右边
                 if ((sWidth - down.x) < margin) {
-                    right();
+                    if (down.x <= up.x) { // 右侧右滑
+                        rightToRight();
+                    } else {
+                        rightToLeft(); // 右侧左滑
+                    }
                     return true;
                 }
             }
             return false;
         }
 
-        public void left() {
-            ToastUtils.showShortToast(getApplicationContext(), "left event");
+        private void leftToLeft() {
+            ToastUtils.showShortToast(getApplicationContext(), "left to left event");
         }
 
+        private void leftToRight() {
+            ToastUtils.showShortToast(getApplicationContext(), "left to right event");
+        }
 
-        public void right() {
-            ToastUtils.showShortToast(getApplicationContext(), "right event");
+        private void rightToRight() {
+            ToastUtils.showShortToast(getApplicationContext(), "right to right event");
+        }
+
+        private void rightToLeft() {
+            ToastUtils.showShortToast(getApplicationContext(), "right to left event");
         }
     }
 }
