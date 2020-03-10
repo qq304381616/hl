@@ -78,12 +78,12 @@ public class OutMoveActivity extends BaseActivity {
                     if (work) {
                         handle(new PointF(event.getX(), event.getY()));
                         work = false;
-                        return true;
+                        return true;  // 如果不想消费此事件，需要改成 return false
                     }
                     work = false;
             }
-            //如果当前处于边缘滑动判定过程中，则消费掉此事件不往下传递。
-            return work;
+            // 如果当前处于边缘滑动判定过程中，则消费掉此事件不往下传递。
+            return work;  // 如果不想消费此事件，需要改成 return false
         }
 
         private boolean handle(PointF up) {
