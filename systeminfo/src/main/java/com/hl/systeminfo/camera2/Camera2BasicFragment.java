@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -44,6 +46,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.hl.systeminfo.R;
+import com.hl.utils.BitmapUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -97,6 +100,7 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
      * Max preview height that is guaranteed by Camera2 API
      */
     private static final int MAX_PREVIEW_HEIGHT = 1080;
+    private static int switch_camera = CameraCharacteristics.LENS_FACING_FRONT;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -145,8 +149,7 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
      * This a callback object for the {@link ImageReader}. "onImageAvailable" will be called when a
      * still image is ready to be saved.
      */
-    private final ImageReader.OnImageAvailableListener mOnImageAvailableListener
-            = new ImageReader.OnImageAvailableListener() {
+    private final ImageReader.OnImageAvailableListener mOnImageAvailableListener = new ImageReader.OnImageAvailableListener() {
 
         @Override
         public void onImageAvailable(ImageReader reader) {
@@ -154,6 +157,8 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
         }
 
     };
+    private File resultFile;
+    private boolean takePic;
     /**
      * {@link CaptureRequest.Builder} for the camera preview
      */
@@ -181,10 +186,36 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
      */
     private int mSensorOrientation;
     /**
+     * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
+     * {@link TextureView}.
+     */
+    private final TextureView.SurfaceTextureListener mSurfaceTextureListener
+            = new TextureView.SurfaceTextureListener() {
+
+        @Override
+        public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
+            openCamera(width, height);
+        }
+
+        @Override
+        public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
+            configureTransform(width, height);
+        }
+
+        @Override
+        public boolean onSurfaceTextureDestroyed(SurfaceTexture texture) {
+            return true;
+        }
+
+        @Override
+        public void onSurfaceTextureUpdated(SurfaceTexture texture) {
+        }
+
+    };
+    /**
      * A {@link CameraCaptureSession.CaptureCallback} that handles events related to JPEG capture.
      */
-    private CameraCaptureSession.CaptureCallback mCaptureCallback
-            = new CameraCaptureSession.CaptureCallback() {
+    private CameraCaptureSession.CaptureCallback mCaptureCallback = new CameraCaptureSession.CaptureCallback() {
 
         private void process(CaptureResult result) {
             switch (mState) {
@@ -200,12 +231,16 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                             CaptureResult.CONTROL_AF_STATE_NOT_FOCUSED_LOCKED == afState) {
                         // CONTROL_AE_STATE can be null on some devices
                         Integer aeState = result.get(CaptureResult.CONTROL_AE_STATE);
-                        if (aeState == null ||
-                                aeState == CaptureResult.CONTROL_AE_STATE_CONVERGED) {
+                        if (aeState == null || aeState == CaptureResult.CONTROL_AE_STATE_CONVERGED) {
                             mState = STATE_PICTURE_TAKEN;
                             captureStillPicture();
                         } else {
                             runPrecaptureSequence();
+                        }
+                    } else if (CaptureResult.CONTROL_AE_STATE_INACTIVE == afState) {
+                        if (takePic) {
+                            captureStillPicture();
+                            takePic = false;
                         }
                     }
                     break;
@@ -245,7 +280,6 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                                        @NonNull TotalCaptureResult result) {
             process(result);
         }
-
     };
     /**
      * {@link CameraDevice.StateCallback} is called when {@link CameraDevice} changes its state.
@@ -277,34 +311,6 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                 activity.finish();
             }
         }
-
-    };
-    /**
-     * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
-     * {@link TextureView}.
-     */
-    private final TextureView.SurfaceTextureListener mSurfaceTextureListener
-            = new TextureView.SurfaceTextureListener() {
-
-        @Override
-        public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
-            openCamera(width, height);
-        }
-
-        @Override
-        public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
-            configureTransform(width, height);
-        }
-
-        @Override
-        public boolean onSurfaceTextureDestroyed(SurfaceTexture texture) {
-            return true;
-        }
-
-        @Override
-        public void onSurfaceTextureUpdated(SurfaceTexture texture) {
-        }
-
     };
 
     /**
@@ -335,8 +341,7 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
         for (Size option : choices) {
             if (option.getWidth() <= maxWidth && option.getHeight() <= maxHeight &&
                     option.getHeight() == option.getWidth() * h / w) {
-                if (option.getWidth() >= textureViewWidth &&
-                        option.getHeight() >= textureViewHeight) {
+                if (option.getWidth() >= textureViewWidth && option.getHeight() >= textureViewHeight) {
                     bigEnough.add(option);
                 } else {
                     notBigEnough.add(option);
@@ -378,8 +383,7 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.system_fragment_camera2, container, false);
     }
 
@@ -391,13 +395,35 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                 takePicture();
             }
         });
+        view.findViewById(R.id.switch_camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchCamera();
+            }
+        });
+        view.findViewById(R.id.open).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                open();
+            }
+        });
+        view.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                close();
+            }
+        });
         mTextureView = view.findViewById(R.id.texture);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFile = new File("/sdcard/", "pic.jpg");
+        File file = new File("/sdcard/hl/");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        mFile = new File(file, "image.jpg");
     }
 
     @Override
@@ -456,29 +482,24 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
         CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
         try {
             for (String cameraId : manager.getCameraIdList()) {
-                CameraCharacteristics characteristics
-                        = manager.getCameraCharacteristics(cameraId);
+                CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
 
                 // We don't use a front facing camera in this sample.
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+
+                if (facing != null && facing != switch_camera) {
                     continue;
                 }
 
-                StreamConfigurationMap map = characteristics.get(
-                        CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+                StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                 if (map == null) {
                     continue;
                 }
 
                 // For still image captures, we use the largest available size.
-                Size largest = Collections.max(
-                        Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
-                        new CompareSizesByArea());
-                mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
-                        ImageFormat.JPEG, /*maxImages*/2);
-                mImageReader.setOnImageAvailableListener(
-                        mOnImageAvailableListener, mBackgroundHandler);
+                Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new CompareSizesByArea());
+                mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, 2);
+                mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
 
                 // Find out if we need to swap dimension to get the preview size relative to sensor
                 // coordinate.
@@ -535,11 +556,9 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    mTextureView.setAspectRatio(
-                            mPreviewSize.getWidth(), mPreviewSize.getHeight());
+                    mTextureView.setAspectRatio(mPreviewSize.getWidth(), mPreviewSize.getHeight());
                 } else {
-                    mTextureView.setAspectRatio(
-                            mPreviewSize.getHeight(), mPreviewSize.getWidth());
+                    mTextureView.setAspectRatio(mPreviewSize.getHeight(), mPreviewSize.getWidth());
                 }
 
                 // Check if the flash is supported.
@@ -563,8 +582,7 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
      * Opens the camera specified by {@link Camera2BasicFragment#mCameraId}.
      */
     private void openCamera(int width, int height) {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestCameraPermission();
             return;
         }
@@ -729,6 +747,7 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
      * Initiate a still image capture.
      */
     private void takePicture() {
+        takePic = true;
         lockFocus();
     }
 
@@ -738,12 +757,10 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
     private void lockFocus() {
         try {
             // This is how to tell the camera to lock focus.
-            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
-                    CameraMetadata.CONTROL_AF_TRIGGER_START);
+            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the lock.
             mState = STATE_WAITING_LOCK;
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
+            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -756,12 +773,10 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
     private void runPrecaptureSequence() {
         try {
             // This is how to tell the camera to trigger.
-            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER,
-                    CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
+            mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the precapture sequence to be set.
             mState = STATE_WAITING_PRECAPTURE;
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
+            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
@@ -778,28 +793,40 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                 return;
             }
             // This is the CaptureRequest.Builder that we use to take a picture.
-            final CaptureRequest.Builder captureBuilder =
-                    mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
+            final CaptureRequest.Builder captureBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
             captureBuilder.addTarget(mImageReader.getSurface());
 
             // Use the same AE and AF modes as the preview.
-            captureBuilder.set(CaptureRequest.CONTROL_AF_MODE,
-                    CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
+            captureBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
             setAutoFlash(captureBuilder);
 
             // Orientation
             int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation));
 
-            CameraCaptureSession.CaptureCallback CaptureCallback
-                    = new CameraCaptureSession.CaptureCallback() {
+            CameraCaptureSession.CaptureCallback CaptureCallback = new CameraCaptureSession.CaptureCallback() {
 
                 @Override
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
-                    Log.d(TAG, mFile.toString());
+
+                    // 前置摄像头横屏会翻转图片，这里再旋转180度。
+                    int orientation = getResources().getConfiguration().orientation;
+                    if (orientation == Configuration.ORIENTATION_LANDSCAPE && switch_camera == CameraCharacteristics.LENS_FACING_FRONT) {
+                        Bitmap bitmap = BitmapUtils.rotateBitmapByDegree(BitmapFactory.decodeFile(mFile.getAbsolutePath()), 180);
+                        try {
+                            resultFile = new File("/sdcard/hl/image1.jpg");
+                            BitmapUtils.saveBitmapToFile(bitmap, resultFile.getAbsolutePath());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        resultFile = mFile;
+                    }
+
+                    showToast("Saved: " + resultFile);
+                    Log.d(TAG, resultFile.toString());
                     unlockFocus();
                 }
             };
@@ -845,6 +872,31 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    public void switchCamera() {
+        if (switch_camera == CameraCharacteristics.LENS_FACING_FRONT) {
+            switch_camera = CameraCharacteristics.LENS_FACING_BACK;
+        } else {
+            switch_camera = CameraCharacteristics.LENS_FACING_FRONT;
+        }
+
+        close();
+        open();
+    }
+
+    public void open() {
+        startBackgroundThread();
+        if (mTextureView.isAvailable()) {
+            openCamera(mTextureView.getWidth(), mTextureView.getHeight());
+        } else {
+            mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+        }
+    }
+
+    public void close() {
+        closeCamera();
+        stopBackgroundThread();
     }
 
     private void setAutoFlash(CaptureRequest.Builder requestBuilder) {
