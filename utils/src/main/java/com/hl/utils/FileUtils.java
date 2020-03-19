@@ -1,6 +1,7 @@
 package com.hl.utils;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
@@ -1675,6 +1676,25 @@ public class FileUtils {
         int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         actualimagecursor.moveToFirst();
         return actualimagecursor.getString(actual_image_column_index);
+    }
+
+    /**
+     * uri 转存到指定目录文件
+     */
+    public static boolean uriToFile(Context c, Uri uri, File file) throws IOException {
+        ContentResolver resolver = c.getContentResolver();
+        InputStream in = resolver.openInputStream(uri);
+        if (in == null) return false;
+        byte[] buffer = new byte[1024 * 8];
+        FileOutputStream out = new FileOutputStream(file);
+        int ch;
+        while ((ch = in.read(buffer)) != -1) {
+            out.write(buffer, 0, ch);
+        }
+        in.close();
+        out.flush();
+        out.close();
+        return true;
     }
 
     /***

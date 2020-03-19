@@ -19,6 +19,7 @@ import com.hl.base.BaseActivity;
 import com.hl.base.dialog.DialogUtils;
 import com.hl.utils.ClipboardUtils;
 import com.hl.utils.L;
+import com.hl.utils.ToastUtils;
 import com.hl.utils.permission.PermissionUtils;
 
 import java.util.Arrays;
@@ -111,20 +112,21 @@ public class ApiMainActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == GO_SCAN_RESULT_CODE) {
-            switch (resultCode) {
-                case Activity.RESULT_OK:
-                    Bundle bundle = data.getExtras();
-                    if (bundle != null) {
-                        final String result = bundle.getString("result");
-                        L.e("扫一扫结果：" + result);
-                        DialogUtils.createBaseDialog(ApiMainActivity.this, "", result, "复制", "取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ClipboardUtils.copyText(getApplicationContext(), result);
-                            }
-                        }).show();
+        if (requestCode == GO_SCAN_RESULT_CODE && resultCode == Activity.RESULT_OK) {
+            Bundle bundle = data.getExtras();
+            if (bundle != null) {
+                final String result = bundle.getString("result");
+                L.e("扫一扫结果：" + result);
+                if (result == null) {
+                    ToastUtils.showShortToast(getApplication(), "二维码解析失败");
+                    return;
+                }
+                DialogUtils.createBaseDialog(ApiMainActivity.this, "扫码结果", result, "复制", "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ClipboardUtils.copyText(getApplicationContext(), result);
                     }
+                }).show();
             }
         }
     }

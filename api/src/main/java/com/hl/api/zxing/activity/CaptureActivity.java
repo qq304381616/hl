@@ -5,13 +5,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -21,7 +19,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.Result;
@@ -34,8 +31,10 @@ import com.hl.api.zxing.utils.BeepManager;
 import com.hl.api.zxing.utils.CaptureActivityHandler;
 import com.hl.api.zxing.utils.InactivityTimer;
 import com.hl.api.zxing.utils.RGBLuminanceSource;
+import com.hl.utils.FileUtils;
 import com.hl.utils.L;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
@@ -54,7 +53,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     private RelativeLayout scanContainer;
     private RelativeLayout scanCropView;
     private ImageView scanLine;
-    private String imagePath;
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
 
@@ -113,27 +111,21 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        imagePath = null;
-        if (resultCode == RESULT_OK) {
-            String[] proj = new String[]{MediaStore.Images.Media.DATA};
-            Cursor cursor = CaptureActivity.this.getContentResolver().query(data.getData(), proj, null, null, null);
-            if (cursor.moveToFirst()) {
-                int columIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                imagePath = cursor.getString(columIndex);
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+            File file = new File(getFilesDir(), "code.jpg");
+            if (file.exists()) file.delete();
+            Result result = null;
+            try {
+                FileUtils.uriToFile(getApplication(), data.getData(), file);
+                result = paresQRciseBitmap(file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            cursor.close();
-            Result result1 = paresQRciseBitmap(imagePath);
-            if (result1 == null) {
-                L.e("解析二维码：失败");
-                Toast.makeText(this, "二维码解析失败", Toast.LENGTH_SHORT).show();
-            } else {
-                L.e("解析二维码：" + result1.toString());
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString("result", result1.toString());
-                setResult(RESULT_OK, intent.putExtras(bundle));
-                finish();
-            }
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("result", result == null ? null : result.toString());
+            setResult(RESULT_OK, intent.putExtras(bundle));
+            finish();
         }
     }
 
