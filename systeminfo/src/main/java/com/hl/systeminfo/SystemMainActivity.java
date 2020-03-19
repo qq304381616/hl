@@ -1,8 +1,10 @@
 package com.hl.systeminfo;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
@@ -39,6 +41,7 @@ public class SystemMainActivity extends BaseActivity {
 
     private File cameraSavePath; // 拍照照片路径
     private Uri uri; // 照片uri
+    private CheckBox cb_headset; // 插入耳机标志
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +135,10 @@ public class SystemMainActivity extends BaseActivity {
             }
         });
 
+        // 插入耳机
+        cb_headset = findViewById(R.id.cb_headset);
+
+        // 屏幕常亮
         CheckBox cb_wakelock = findViewById(R.id.cb_wakelock);
         cb_wakelock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -238,6 +245,36 @@ public class SystemMainActivity extends BaseActivity {
                 startActivity(new Intent(new Intent(SystemMainActivity.this, PathActivity.class)));
             }
         });
+
+        registerHeadsetPlugReceiver();
+    }
+
+    private HeadsetPlugReceiver headsetPlugReceiver;
+
+    private void registerHeadsetPlugReceiver() {
+        headsetPlugReceiver = new HeadsetPlugReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("android.intent.action.HEADSET_PLUG");
+        registerReceiver(headsetPlugReceiver, filter);
+    }
+
+    /**
+     * 监听是否插入耳机
+     */
+    class HeadsetPlugReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("state")) {
+                if (intent.getIntExtra("state", 0) == 0) {
+                    cb_headset.setChecked(false);
+                    cb_headset.setText("未插入耳机");
+                } else if (intent.getIntExtra("state", 0) == 1) {
+                    cb_headset.setChecked(true);
+                    cb_headset.setText("已插入耳机");
+                }
+            }
+        }
     }
 
     public void createAlarm(String message, int hour, int minutes) {

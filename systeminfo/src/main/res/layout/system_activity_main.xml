@@ -79,6 +79,14 @@
                 android:text="震动" />
 
             <CheckBox
+                android:enabled="false"
+                android:id="@+id/cb_headset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="是否插入耳机" />
+
+            <CheckBox
                 android:id="@+id/cb_wakelock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
