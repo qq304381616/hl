@@ -31,6 +31,7 @@ import com.hl.api.zxing.utils.BeepManager;
 import com.hl.api.zxing.utils.CaptureActivityHandler;
 import com.hl.api.zxing.utils.InactivityTimer;
 import com.hl.api.zxing.utils.RGBLuminanceSource;
+import com.hl.utils.BitmapUtils;
 import com.hl.utils.FileUtils;
 import com.hl.utils.L;
 
@@ -143,7 +144,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
         options.inJustDecodeBounds = false;
         Bitmap bitmap = BitmapFactory.decodeFile(bitmapPath, options);
-        RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(bitmap);
+
+        // 旋转图片解决部分不识别问题
+        Bitmap degreeBitmap = BitmapUtils.rotateBitmapByDegree(bitmap, 90);
+
+        RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(degreeBitmap);
         BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
         QRCodeReader reader = new QRCodeReader();
         Result result = null;
