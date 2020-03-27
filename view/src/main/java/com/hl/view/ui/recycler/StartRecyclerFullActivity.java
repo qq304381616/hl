@@ -2,25 +2,20 @@ package com.hl.view.ui.recycler;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.hl.base.BaseConstant;
-import com.hl.base.adapter.DeleteRecyclerAdapter;
-import com.hl.utils.StartLinearSnapHelper;
+import com.hl.base.adapter.StartFullRecyclerAdapter;
+import com.hl.utils.StartPagerSnapHelper;
 import com.hl.view.R;
 import com.hl.view.ViewBaseActivity;
 
 /**
- * 靠边对齐
- * 使用 SnapHelper 接口实现。默认居中停靠
- * StartLinearSnapHelper 继承LinearSnapHelper。实现边停靠
- * 两个实现类：
- * LinearSnapHelper： 快速滚动
- * PagerSnapHelper： 一次滚动一个item
+ * 靠边对齐 全屏ViewPager 效果
  */
-public class StartRecyclerActivity extends ViewBaseActivity {
+public class StartRecyclerFullActivity extends ViewBaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,13 +25,15 @@ public class StartRecyclerActivity extends ViewBaseActivity {
 
         RecyclerView rv_base = findViewById(R.id.rv_base);
 
-        StartLinearSnapHelper helper = new StartLinearSnapHelper();
+        StartPagerSnapHelper helper = new StartPagerSnapHelper(); // 靠边对齐 一次滑动一个item
         helper.attachToRecyclerView(rv_base);
 
-        rv_base.setLayoutManager(new LinearLayoutManager(this));
-        DeleteRecyclerAdapter adapter = new DeleteRecyclerAdapter(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL); // 横屏滚动
+        rv_base.setLayoutManager(linearLayoutManager);
+
+        StartFullRecyclerAdapter adapter = new StartFullRecyclerAdapter(this);
         rv_base.setAdapter(adapter);
-        rv_base.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         adapter.setData(BaseConstant.getData(30));
         adapter.notifyDataSetChanged();

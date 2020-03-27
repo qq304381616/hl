@@ -5,13 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * recycler 开始对齐 惯性滑动多个item
+ * recycler 开始对齐, 一次滑动一个item
  */
-public class StartLinearSnapHelper extends LinearSnapHelper {
+public class StartPagerSnapHelper extends PagerSnapHelper {
 
     private OrientationHelper mVerticalHelper, mHorizontalHelper;
 

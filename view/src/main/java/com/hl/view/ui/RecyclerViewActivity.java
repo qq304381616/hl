@@ -9,6 +9,7 @@ import com.hl.view.R;
 import com.hl.view.ViewBaseActivity;
 import com.hl.view.ui.recycler.DeleteRecyclerActivity;
 import com.hl.view.ui.recycler.StartRecyclerActivity;
+import com.hl.view.ui.recycler.StartRecyclerFullActivity;
 
 /**
  * RecyclerView 主页
@@ -67,6 +68,13 @@ public class RecyclerViewActivity extends ViewBaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RecyclerViewActivity.this, StartRecyclerActivity.class));
+            }
+        });
+
+        findViewById(R.id.tv_start_full).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RecyclerViewActivity.this, StartRecyclerFullActivity.class));
             }
         });
     }

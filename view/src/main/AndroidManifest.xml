@@ -82,5 +82,8 @@
         <activity
             android:name=".ui.recycler.StartRecyclerActivity"
             android:label="靠边" />
+        <activity
+            android:name=".ui.recycler.StartRecyclerFullActivity"
+            android:label="全屏靠边" />
     </application>
 </manifest>
