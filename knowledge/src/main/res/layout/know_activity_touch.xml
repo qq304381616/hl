@@ -9,8 +9,22 @@
 
     <com.hl.knowledge.touch.MyButton
         android:id="@+id/btn_click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:text="点击" />
+        android:gravity="center"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/tv_clear_log"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="清空日志" />
+
+    <TextView
+        android:id="@+id/tv_log"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </com.hl.knowledge.touch.MyLinearLayout>
