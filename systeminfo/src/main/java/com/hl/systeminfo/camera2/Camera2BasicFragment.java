@@ -44,6 +44,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.hl.systeminfo.R;
 import com.hl.utils.L;
 
@@ -479,7 +480,9 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                 }
 
                 // For still image captures, we use the largest available size.
-                Size largest = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new CompareSizesByArea());
+                Size[] outputSizes = map.getOutputSizes(ImageFormat.JPEG);
+                L.e("手机支持拍照尺寸：" + new Gson().toJson(outputSizes));
+                Size largest = Collections.max(Arrays.asList(outputSizes), new CompareSizesByArea());
                 mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(), ImageFormat.JPEG, 2);
                 mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
 
@@ -532,9 +535,10 @@ public class Camera2BasicFragment extends Fragment implements ActivityCompat.OnR
                 // Danger, W.R.! Attempting to use too large a preview size could  exceed the camera
                 // bus' bandwidth limitation, resulting in gorgeous previews but the storage of
                 // garbage capture data.
-                mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
-                        rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
-                        maxPreviewHeight, largest);
+                Size[] previewSize = map.getOutputSizes(SurfaceTexture.class);
+                L.e("手机摄像机支持预览尺寸：" + new Gson().toJson(previewSize));
+                mPreviewSize = chooseOptimalSize(previewSize,
+                        rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth, maxPreviewHeight, largest);
 
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
