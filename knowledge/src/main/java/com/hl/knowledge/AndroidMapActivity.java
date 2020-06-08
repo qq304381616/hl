@@ -18,6 +18,7 @@ public class AndroidMapActivity extends BaseActivity {
         setContentView(tv);
 
         StringBuilder sb = new StringBuilder();
+        sb.append("LinkedList<String> 队列" + "\n");
         sb.append("HashMap<String, String>" + "\n");
         sb.append("arrayMap<String, String>" + "\n");
         sb.append("supportArrayMap<String, String>" + "\n");

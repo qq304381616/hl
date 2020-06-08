@@ -17,8 +17,10 @@ import java.util.Locale;
 public class L {
 
     private static final int LOG_LENGTH = 2000;  // 单条日志长度限制，超出需要截取多次输出，否则可能丢失
-    private static final String format = "---》 \n╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n║" +
-            "%s" + "\n╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String format = "---》 %s \n" +
+            "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n" +
+            "║%s\n" +
+            "╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════";
     private static boolean logSwitch = BuildConfig.DEBUG;
     private static boolean log2FileSwitch = false;
     private static char logFilter = 'v';
@@ -128,29 +130,29 @@ public class L {
         if (logSwitch) {
             msg = msg.replace("\n", "\n║");
             List<String> list = new ArrayList<>();
+            String logInfo = generateTag(tag);
             while (true) {
                 if (msg.length() > LOG_LENGTH) {
-                    list.add(String.format(Locale.getDefault(), format, msg.substring(0, LOG_LENGTH)));
+                    list.add(String.format(Locale.getDefault(), format, logInfo, msg.substring(0, LOG_LENGTH)));
                     msg = msg.substring(LOG_LENGTH);
                 } else {
-                    list.add(String.format(Locale.getDefault(), format, msg));
+                    list.add(String.format(Locale.getDefault(), format, logInfo, msg));
                     break;
                 }
             }
-            String s = generateTag(tag);
             for (String ss : list) {
                 if ('e' == type && ('e' == logFilter || 'v' == logFilter)) {
-                    Log.e(s, ss, tr);
+                    Log.e(tag, ss, tr);
                 } else if ('w' == type && ('w' == logFilter || 'v' == logFilter)) {
-                    Log.w(s, ss, tr);
+                    Log.w(tag, ss, tr);
                 } else if ('d' == type && ('d' == logFilter || 'v' == logFilter)) {
-                    Log.d(s, ss, tr);
+                    Log.d(tag, ss, tr);
                 } else if ('i' == type && ('d' == logFilter || 'v' == logFilter)) {
-                    Log.i(s, ss, tr);
+                    Log.i(tag, ss, tr);
                 }
             }
             if (log2FileSwitch) {
-                log2File(type, s, msg + '\n' + Log.getStackTraceString(tr));
+                log2File(type, tag, logInfo + '\n' + msg + '\n' + Log.getStackTraceString(tr));
             }
         }
     }
