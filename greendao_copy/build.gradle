@@ -26,6 +26,7 @@ task execlass(type: JavaExec) {
     main = 'com.hl.greendao.generator.DaoGenerator'
 }
 
+// 有报错， 暂时依次执行上面两个task
 task exec {
 //    compilesingle.execute() // 编译java为class文件
 //    execlass.exec() // 执行class
