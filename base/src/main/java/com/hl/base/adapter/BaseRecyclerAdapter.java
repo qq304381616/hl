@@ -14,7 +14,7 @@ import com.hl.base.entity.BaseDataEntity;
 import java.util.List;
 
 /**
- * 应用列表适配器
+ * 基础适配器
  */
 public class BaseRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

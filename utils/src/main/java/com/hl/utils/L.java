@@ -17,10 +17,11 @@ import java.util.Locale;
 public class L {
 
     private static final int LOG_LENGTH = 2000;  // 单条日志长度限制，超出需要截取多次输出，否则可能丢失
-    private static final String format = "---》 %s \n" +
-            "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════════\n" +
-            "║%s\n" +
-            "╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════════";
+    private static final String format = " \n" +
+            "--------------------------------------------------------------------------------------------------------------------\n" +
+            "| %s \n" +
+            "| %s \n" +
+            "--------------------------------------------------------------------------------------------------------------------";
     private static boolean logSwitch = BuildConfig.DEBUG;
     private static boolean log2FileSwitch = false;
     private static char logFilter = 'v';
@@ -33,11 +34,11 @@ public class L {
 
     /**
      * 初始化函数
-     * <p>与{@link #getBuilder()}两者选其一</p>
+     * 与getBuilder()两者选其一
      *
      * @param logSwitch      日志总开关
-     * @param log2FileSwitch 日志写入文件开关，设为true需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}
-     * @param logFilter      输入日志类型有{@code v, d, i, w, e}<br>v代表输出所有信息，w则只输出警告...
+     * @param log2FileSwitch 日志写入文件开关，设为true需添加权限
+     * @param logFilter      输入日志类型有
      * @param tag            标签
      */
     public static void init(boolean logSwitch, boolean log2FileSwitch, char logFilter, String tag) {
@@ -128,9 +129,10 @@ public class L {
      */
     private static void log(String tag, String msg, Throwable tr, char type) {
         if (logSwitch) {
-            msg = msg.replace("\n", "\n║");
+            msg = msg.replace("\n", "\n| ");
             List<String> list = new ArrayList<>();
-            String logInfo = generateTag(tag);
+            String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(new Date());
+            String logInfo = time + "  " + generateTag(tag);
             while (true) {
                 if (msg.length() > LOG_LENGTH) {
                     list.add(String.format(Locale.getDefault(), format, logInfo, msg.substring(0, LOG_LENGTH)));
@@ -151,7 +153,7 @@ public class L {
                     Log.i(tag, ss, tr);
                 }
             }
-            if (log2FileSwitch) {
+            if (log2FileSwitch && tr != null) {
                 log2File(type, tag, logInfo + '\n' + msg + '\n' + Log.getStackTraceString(tr));
             }
         }

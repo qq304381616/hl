@@ -60,7 +60,7 @@ public class Utils {
     }
 
     /**
-     * 取menifast 参数
+     * 取 manifest 参数
      */
     public static String getAppKey(Context context, String key) {
         Bundle metaData = null;

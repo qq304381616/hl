@@ -81,7 +81,6 @@ public class StringUtils {
      * @Title: getNotNullValue
      * @Description: 过滤null
      * @return: String
-     * @author: eye_fa
      */
     public static String getNotNullValue(String resource, String defaultValue) {
         return isEmpty(resource) ? defaultValue : resource;

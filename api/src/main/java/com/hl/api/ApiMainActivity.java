@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.hl.api.jpush.MainActivity;
 import com.hl.api.receiver.ReceiverActivity;
+import com.hl.api.stomp.StompActivity;
 import com.hl.api.thread.ThreadActivity;
 import com.hl.api.zxing.activity.CaptureActivity;
 import com.hl.api.zxing.activity.ResultActivity;
@@ -106,6 +107,13 @@ public class ApiMainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ApiMainActivity.this, PhotoActivity.class));
+            }
+        });
+
+        findViewById(R.id.tv_stomp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ApiMainActivity.this, StompActivity.class));
             }
         });
     }
