@@ -34,7 +34,6 @@ public class L {
 
     /**
      * 初始化函数
-     * 与getBuilder()两者选其一
      *
      * @param logSwitch      日志总开关
      * @param log2FileSwitch 日志写入文件开关，设为true需添加权限
@@ -46,13 +45,6 @@ public class L {
         L.log2FileSwitch = log2FileSwitch;
         L.logFilter = logFilter;
         L.tag = tag;
-    }
-
-    /**
-     * 获取LogUtils建造者
-     */
-    public static Builder getBuilder() {
-        return new Builder();
     }
 
     public static void v(Object msg) {
@@ -208,40 +200,5 @@ public class L {
         String callerClazzName = caller.getClassName();
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         return String.format(Locale.getDefault(), format, callerClazzName, caller.getMethodName(), caller.getLineNumber());
-    }
-
-    public static class Builder {
-
-        private boolean logSwitch = BuildConfig.DEBUG;
-        private boolean log2FileSwitch = false;
-        private char logFilter = 'v';
-        private String tag = "TAG";
-
-        public Builder setLogSwitch(boolean logSwitch) {
-            this.logSwitch = logSwitch;
-            return this;
-        }
-
-        public Builder setLog2FileSwitch(boolean log2FileSwitch) {
-            this.log2FileSwitch = log2FileSwitch;
-            return this;
-        }
-
-        public Builder setLogFilter(char logFilter) {
-            this.logFilter = logFilter;
-            return this;
-        }
-
-        public Builder setTag(String tag) {
-            this.tag = tag;
-            return this;
-        }
-
-        public void create() {
-            L.logSwitch = logSwitch;
-            L.log2FileSwitch = log2FileSwitch;
-            L.logFilter = logFilter;
-            L.tag = tag;
-        }
     }
 }
