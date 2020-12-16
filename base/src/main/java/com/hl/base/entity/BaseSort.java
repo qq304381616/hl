@@ -3,8 +3,10 @@ package com.hl.base.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class BaseSort implements Parcelable, Comparable<BaseSort> {
+public class BaseSort implements Parcelable {
+
     private String first;
+    private Integer orderNo;
 
     public String getFirst() {
         return first;
@@ -14,27 +16,37 @@ public class BaseSort implements Parcelable, Comparable<BaseSort> {
         this.first = first;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public Integer getOrderNo() {
+        return orderNo;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.first);
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 
     public BaseSort() {
     }
 
     protected BaseSort(Parcel in) {
-        this.first = in.readString();
+        first = in.readString();
+        orderNo = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(first);
+        dest.writeInt(orderNo);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<BaseSort> CREATOR = new Creator<BaseSort>() {
         @Override
-        public BaseSort createFromParcel(Parcel source) {
-            return new BaseSort(source);
+        public BaseSort createFromParcel(Parcel in) {
+            return new BaseSort(in);
         }
 
         @Override
@@ -42,9 +54,4 @@ public class BaseSort implements Parcelable, Comparable<BaseSort> {
             return new BaseSort[size];
         }
     };
-
-    @Override
-    public int compareTo(BaseSort o) {
-        return getFirst().compareTo(o.getFirst());
-    }
 }

@@ -1,6 +1,5 @@
 package com.hl.dotime
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -16,7 +15,6 @@ import android.widget.TextView
 import com.hl.dotime.base.BaseActivity
 import com.hl.dotime.ui.TaskDetailsActivity
 import com.hl.dotime.ui.filter.FilterCountActivity
-import com.hl.dotime.utils.PermissionUtils
 import java.util.*
 
 /**
@@ -78,17 +76,6 @@ class HomeActivity : BaseActivity() {
                 invalidateOptionsMenu();
             }
         })
-
-        checkPermission()
-    }
-
-    fun checkPermission() {
-        val PERMISSIONS = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS)
-        PermissionUtils.checkAndRequestMorePermissions(this, PERMISSIONS, 1001,
-                object : PermissionUtils.PermissionRequestSuccessCallBack {
-                    override fun onHasPermission() {
-                    }
-                })
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
@@ -129,11 +116,6 @@ class HomeActivity : BaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBack() {
-        super.onBack()
-        finish()
     }
 
     private fun initTab(position: Int) {

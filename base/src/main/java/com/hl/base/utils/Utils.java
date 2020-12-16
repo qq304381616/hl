@@ -37,7 +37,7 @@ public class Utils {
         for (BaseDataEntity s : mAllContactsList) {
             s.setFirst(Utils.getLetter(s.getInfo()));
         }
-        Collections.sort(mAllContactsList);
+        Collections.sort(mAllContactsList, new FirstComparator());
         return mAllContactsList;
     }
 }

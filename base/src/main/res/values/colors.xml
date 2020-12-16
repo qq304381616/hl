@@ -6,6 +6,10 @@
 
     <color name="app_color">@color/colorPrimary</color>
 
+    <color name="text_color_3">#333333</color>
+    <color name="text_color_6">#666666</color>
+    <color name="text_color_9">#999999</color>
+
     <color name="red_btn_normal">#F84545</color>
     <color name="red_btn_press">#F63636</color>
 

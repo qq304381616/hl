@@ -405,32 +405,24 @@ public class FileUtils {
     }
 
     /**
-     * 判断文件是否存在如果不存在则 拷贝
+     * 判断文件是否存在，如果不存在则 拷贝
+     * @param file 文件路径 文件名对应 assets 下的文件名。
      */
-    public static void checkExistsAndCopy(Context c, File f) {
-        if (!f.exists()) {
-            copyFileFromAssets(c, f);
+    public static void checkExistsAndCopy(Context c, File file) {
+        if (!file.exists()) {
+            assetsToFile(c, file);
         }
     }
 
     /**
      * 拷贝assets下的文件到指定目录
+     * @param file 文件路径
      */
-    public static void copyFileFromAssets(Context c, File f) {
+    public static void assetsToFile(Context context, File file) {
         try {
-            AssetManager am = c.getAssets();
-            InputStream is = am.open(f.getName());
-            createOrExistsDir(f.getParentFile());
-            FileOutputStream fos = new FileOutputStream(f.getParent() + File.separator + f.getName());
-            byte[] buf = new byte[1024];
-            int len = 0;
-            len = is.read(buf);
-            while (len != -1) {
-                fos.write(buf, 0, len);
-                len = is.read(buf);
-            }
-            is.close();
-            fos.close();
+            InputStream is = context.getAssets().open(file.getName());
+            OutputStream os = new FileOutputStream(file);
+            copyFile(is, os);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1161,6 +1153,21 @@ public class FileUtils {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            CloseUtils.closeIO(is, os);
+        }
+    }
+
+    public static void copyFile(InputStream is, OutputStream os) {
+        try {
+            int len;
+            byte[] buffer = new byte[1024 * 8];
+            while ((len = is.read(buffer)) != -1) {
+                os.write(buffer, 0, len);
+            }
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             CloseUtils.closeIO(is, os);
         }

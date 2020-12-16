@@ -147,7 +147,7 @@ public class ApiMainActivity extends BaseActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case CAMERA_PERMISSION_REQUEST_CODE:
-                PermissionUtils.onRequestMorePermissionsResult(this, permissions, new PermissionUtils.PermissionCheckCallBack() {
+                PermissionUtils.checkMorePermissions(this, permissions, new PermissionUtils.PermissionCheckCallBack() {
                     @Override
                     public void onHasPermission() {
                         toCamera();

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_do_time"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/menu_time"
         android:orderInCategory="80"
         android:title="DoTime"
         app:showAsAction="ifRoom" />

@@ -200,8 +200,7 @@ class TaskDetailsActivity : BaseActivity() {
         builder.create().show()
     }
 
-    override fun onBack() {
-        super.onBack()
+    override fun onBack(): Boolean{
         if (updateTime) { // 返回时 判断时间是否需要刷新
             taskRecord.task = taskService.queryById(taskRecord.taskId!!)
             val intent = Intent()
@@ -210,6 +209,7 @@ class TaskDetailsActivity : BaseActivity() {
             intent.putExtra("taskRecord", taskRecord)
             sendBroadcast(intent)
         }
+        return super.onBack()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -14,9 +14,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.hl.dotime.db.entity.TaskRecord
 import com.hl.dotime.db.service.TaskRecordService
 import com.hl.dotime.ui.TaskDetailsActivity
+import kotlinx.android.synthetic.main.fragment_count.*
 
 /**
  * 页3  统计页面。
@@ -24,6 +26,7 @@ import com.hl.dotime.ui.TaskDetailsActivity
 class CountFragment : Fragment() {
 
     private lateinit var taskCountAdapter: TaskCountAdapter
+    private lateinit var tv_loading: TextView
     private lateinit var taskRecordService: TaskRecordService
     private lateinit var receiver: MyReceiver
     private lateinit var intentFilter: IntentFilter
@@ -46,18 +49,19 @@ class CountFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.fragment_count, null)
+        val contentView = inflater.inflate(R.layout.fragment_count, container, false)
 
         receiver = MyReceiver()
         intentFilter = IntentFilter()
         intentFilter.addAction("task_record")
         activity!!.registerReceiver(receiver, intentFilter)
 
+        tv_loading = contentView.findViewById(R.id.tv_loading)
         val rv_count_list = contentView.findViewById<RecyclerView>(R.id.rv_count_list)
         val mLinearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        rv_count_list.setItemAnimator(DefaultItemAnimator())
+        rv_count_list.itemAnimator = DefaultItemAnimator()
         rv_count_list.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        rv_count_list.setLayoutManager(mLinearLayoutManager)
+        rv_count_list.layoutManager = mLinearLayoutManager
 
         taskRecordService = TaskRecordService(activity!!)
         taskCountAdapter = TaskCountAdapter(activity!!)
@@ -82,9 +86,17 @@ class CountFragment : Fragment() {
     }
 
     private fun updateData() {
-        val all = taskRecordService.queryMarkByStatus("3")
-        taskCountAdapter.mData = all
-        taskCountAdapter.notifyDataSetChanged()
+        tv_loading.visibility = View.VISIBLE
+        object : Thread() {
+            override fun run() {
+                val all = taskRecordService.queryMarkByStatus("3")
+                taskCountAdapter.mData = all
+                this@CountFragment.activity?.runOnUiThread(Runnable {
+                    taskCountAdapter.notifyDataSetChanged()
+                    tv_loading.visibility = View.GONE
+                })
+            }
+        }.start()
     }
 
     private fun showDelDialog(position: Int) {

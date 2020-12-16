@@ -60,13 +60,6 @@ public class PermissionUtils {
     }
 
     /**
-     * 判断权限是否申请成功
-     */
-    public static boolean isPermissionRequestSuccess(int[] grantResults) {
-        return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
-    }
-
-    /**
      * 跳转到权限设置界面
      */
     @SuppressLint("ObsoleteSdkInt")
@@ -85,13 +78,6 @@ public class PermissionUtils {
     }
 
     /**
-     * 用户申请多个权限返回
-     */
-    public static void onRequestMorePermissionsResult(Context context, String[] permissions, PermissionCheckCallBack callback) {
-        checkMorePermissions(context, permissions, callback);
-    }
-
-    /**
      * 检测多个权限
      * 具体实现由回调接口决定
      */
@@ -107,7 +93,7 @@ public class PermissionUtils {
                     break;
                 }
             }
-            String[] unauthorizedMorePermissions = permissionList.toArray(new String[permissionList.size()]);
+            String[] unauthorizedMorePermissions = permissionList.toArray(new String[0]);
             if (isFirst)
                 callBack.onUserHasAlreadyTurnedDownAndDontAsk(unauthorizedMorePermissions);
             else
@@ -125,7 +111,7 @@ public class PermissionUtils {
                 callBack.onHasPermission();
             }
         } else {
-            requestMorePermissions(context, permissionList.toArray(new String[permissionList.size()]), requestCode);
+            requestMorePermissions(context, permissionList.toArray(new String[0]), requestCode);
         }
     }
 

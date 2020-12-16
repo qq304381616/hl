@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
 /**
  * 转换相关工具类
@@ -179,23 +180,20 @@ public class ConvertUtils {
 
     /**
      * 字节数转合适内存大小
-     * <p>保留3位小数</p>
+     * <p>保留2位小数</p>
      *
      * @param byteNum 字节数
      * @return 合适内存大小
      */
-    @SuppressLint("DefaultLocale")
     public static String byte2FitMemorySize(long byteNum) {
-        if (byteNum < 0) {
-            return "shouldn't be less than zero!";
-        } else if (byteNum < ConstUtils.KB) {
-            return String.format("%.3fB", byteNum + 0.0005);
+        if (byteNum < ConstUtils.KB) {
+            return byteNum + " B";
         } else if (byteNum < ConstUtils.MB) {
-            return String.format("%.3fKB", byteNum / ConstUtils.KB + 0.0005);
+            return String.format(Locale.getDefault(), "%.2f KB", (double) byteNum / ConstUtils.KB);
         } else if (byteNum < ConstUtils.GB) {
-            return String.format("%.3fMB", byteNum / ConstUtils.MB + 0.0005);
+            return String.format(Locale.getDefault(), "%.2f MB", (double) byteNum / ConstUtils.MB);
         } else {
-            return String.format("%.3fGB", byteNum / ConstUtils.GB + 0.0005);
+            return String.format(Locale.getDefault(), "%.2f GB", (double) byteNum / ConstUtils.GB);
         }
     }
 

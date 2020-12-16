@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,7 +23,7 @@ public class PermissionActivity extends BaseActivity {
 
     private final String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_CONTACTS};
 
-    private final int REQUEST_CODE_PERMISSIONS = 2;
+    private final int REQUEST_CODE_PERMISSIONS_10001 = 10001;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,9 +44,13 @@ public class PermissionActivity extends BaseActivity {
         });
     }
 
-    // 普通申请多个权限
+    /**
+     * 普通申请多个权限
+     * 已有权限，直接在回调里处理。
+     * 同意或不同意 在 onRequestPermissionsResult 里处理
+     */
     private void requestPermission() {
-        PermissionUtils.checkAndRequestMorePermissions(this, PERMISSIONS, REQUEST_CODE_PERMISSIONS,
+        PermissionUtils.checkAndRequestMorePermissions(this, PERMISSIONS, REQUEST_CODE_PERMISSIONS_10001,
                 new PermissionUtils.PermissionRequestSuccessCallBack() {
                     @Override
                     public void onHasPermission() {
@@ -57,7 +60,11 @@ public class PermissionActivity extends BaseActivity {
                 });
     }
 
-    // 自定义申请多个权限
+    /**
+     * 自定义申请多个权限
+     * 可重写方法。下面只是做申请权限处理。
+     * 同意或不同意 在 onRequestPermissionsResult 里处理
+     */
     private void requestMorePermissions1() {
         PermissionUtils.checkMorePermissions(this, PERMISSIONS, new PermissionUtils.PermissionCheckCallBack() {
             @Override
@@ -70,14 +77,14 @@ public class PermissionActivity extends BaseActivity {
                 showExplainDialog(permission, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        PermissionUtils.requestMorePermissions(PermissionActivity.this, PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+                        PermissionUtils.requestMorePermissions(PermissionActivity.this, PERMISSIONS, REQUEST_CODE_PERMISSIONS_10001);
                     }
                 });
             }
 
             @Override
             public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
-                PermissionUtils.requestMorePermissions(PermissionActivity.this, PERMISSIONS, REQUEST_CODE_PERMISSIONS);
+                PermissionUtils.requestMorePermissions(PermissionActivity.this, PERMISSIONS, REQUEST_CODE_PERMISSIONS_10001);
             }
         });
     }
@@ -118,8 +125,8 @@ public class PermissionActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case REQUEST_CODE_PERMISSIONS:
-                PermissionUtils.onRequestMorePermissionsResult(this, permissions, new PermissionUtils.PermissionCheckCallBack() {
+            case REQUEST_CODE_PERMISSIONS_10001:
+                PermissionUtils.checkMorePermissions(this, permissions, new PermissionUtils.PermissionCheckCallBack() {
                     @Override
                     public void onHasPermission() {
                         toCamera();

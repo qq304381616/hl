@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.hl.base.BaseActivity;
 import com.hl.base.dialog.DialogUtils;
+import com.hl.base.utils.FirstComparator;
 import com.hl.base.utils.Pinyin;
 import com.hl.base.utils.Utils;
 import com.hl.base.view.SearchView;
@@ -130,7 +131,7 @@ public class AppsInfoListActivity extends BaseActivity {
             sm.setPackageInfo(p);
             sms.add(sm);
         }
-        Collections.sort(sms);
+        Collections.sort(sms, new FirstComparator());
         return sms;
     }
 

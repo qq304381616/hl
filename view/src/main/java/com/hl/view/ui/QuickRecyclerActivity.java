@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.hl.base.BaseConstant;
 import com.hl.base.entity.BaseDataEntity;
+import com.hl.base.utils.FirstComparator;
 import com.hl.base.utils.Utils;
 import com.hl.utils.views.SideBar;
 import com.hl.view.R;
@@ -54,7 +55,7 @@ public class QuickRecyclerActivity extends ViewBaseActivity {
         for (BaseDataEntity s : data) {
             s.setFirst(Utils.getLetter(s.getInfo()));
         }
-        Collections.sort(data);
+        Collections.sort(data, new FirstComparator());
 
         adapter.setData(data);
         adapter.notifyDataSetChanged();

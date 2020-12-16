@@ -178,6 +178,13 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="存储目录" />
+
+            <TextView
+                android:id="@+id/tv_explorer"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="文件管理器" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

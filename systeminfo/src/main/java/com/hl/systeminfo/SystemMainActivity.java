@@ -1,5 +1,6 @@
 package com.hl.systeminfo;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +29,7 @@ import com.hl.utils.L;
 import com.hl.utils.PhotoAlbumUtils;
 import com.hl.utils.api.eventbus.EventType;
 import com.hl.utils.api.eventbus.MyEvent;
+import com.hl.utils.permission.PermissionUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -42,6 +44,7 @@ public class SystemMainActivity extends BaseActivity {
     private File cameraSavePath; // 拍照照片路径
     private Uri uri; // 照片uri
     private CheckBox cb_headset; // 插入耳机标志
+    private HeadsetPlugReceiver headsetPlugReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,35 +249,36 @@ public class SystemMainActivity extends BaseActivity {
             }
         });
 
+        // 文件管理器
+        findViewById(R.id.tv_explorer).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PermissionUtils.checkAndRequestMorePermissions(SystemMainActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0,
+                        new PermissionUtils.PermissionRequestSuccessCallBack() {
+                            @Override
+                            public void onHasPermission() {
+                                // 权限已被授予
+                                startActivity(new Intent(new Intent(SystemMainActivity.this, ExplorerActivity.class)));
+                            }
+                        });
+            }
+        });
+
         registerHeadsetPlugReceiver();
     }
 
-    private HeadsetPlugReceiver headsetPlugReceiver;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(headsetPlugReceiver);
+    }
 
     private void registerHeadsetPlugReceiver() {
         headsetPlugReceiver = new HeadsetPlugReceiver();
         IntentFilter filter = new IntentFilter();
         filter.addAction("android.intent.action.HEADSET_PLUG");
         registerReceiver(headsetPlugReceiver, filter);
-    }
-
-    /**
-     * 监听是否插入耳机
-     */
-    class HeadsetPlugReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.hasExtra("state")) {
-                if (intent.getIntExtra("state", 0) == 0) {
-                    cb_headset.setChecked(false);
-                    cb_headset.setText("未插入耳机");
-                } else if (intent.getIntExtra("state", 0) == 1) {
-                    cb_headset.setChecked(true);
-                    cb_headset.setText("已插入耳机");
-                }
-            }
-        }
     }
 
     public void createAlarm(String message, int hour, int minutes) {
@@ -358,6 +362,25 @@ public class SystemMainActivity extends BaseActivity {
                 L.e("相册返回图片路径:" + photoPath);
 
                 EventBus.getDefault().post(new MyEvent(EventType.TYPE_1000, photoPath));
+            }
+        }
+    }
+
+    /**
+     * 监听是否插入耳机
+     */
+    class HeadsetPlugReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.hasExtra("state")) {
+                if (intent.getIntExtra("state", 0) == 0) {
+                    cb_headset.setChecked(false);
+                    cb_headset.setText("未插入耳机");
+                } else if (intent.getIntExtra("state", 0) == 1) {
+                    cb_headset.setChecked(true);
+                    cb_headset.setText("已插入耳机");
+                }
             }
         }
     }

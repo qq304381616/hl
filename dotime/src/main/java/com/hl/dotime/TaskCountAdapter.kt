@@ -23,7 +23,7 @@ class TaskCountAdapter(private val mContext: Context) : RecyclerView.Adapter<Rec
     private var onItemLongClick: OnItemLongClick? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflate = LayoutInflater.from(mContext).inflate(R.layout.item_count, null)
+        val inflate = LayoutInflater.from(mContext).inflate(R.layout.item_count, parent, false)
         return Holder(inflate)
     }
 

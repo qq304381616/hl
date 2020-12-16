@@ -52,21 +52,21 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBack();
-            finish();
-            return true;
+            return onBack();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        onBack();
+        if (!onBack()) {
+            super.onBackPressed();
+        }
     }
 
-    protected void onBack() {
-
+    protected boolean onBack() {
+        finish();
+        return true;
     }
 
     @Override

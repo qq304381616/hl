@@ -1,10 +1,12 @@
 package com.hl.utils;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.os.storage.StorageManager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -14,11 +16,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 
 /**
  * sdcard 工具类
  */
 public class SDCardUtils {
+
+    /**
+     * 获取所有存储路径
+     * SD卡 / 扩展卡内存
+     */
+    public static String[] getVolumePaths(Context context) {
+        StorageManager mStorageManager = (StorageManager) context.getSystemService(Activity.STORAGE_SERVICE);
+        try {
+            Method mMethodGetPaths = mStorageManager.getClass().getMethod("getVolumePaths");
+            return (String[]) mMethodGetPaths.invoke(mStorageManager);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * 判断SD卡是否可用
