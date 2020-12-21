@@ -30,7 +30,7 @@ public class PinyinActivity extends BaseActivity {
 //                new Pinyin().setSimple(true).getPinYin(et_input.getText().toString());// 简拼
                 String pinYin = new Pinyin().getPinYin(et_input.getText().toString()); // 全拼
                 L.e(pinYin);
-                DialogUtils.createBaseDialog(PinyinActivity.this, "", pinYin).show();
+                DialogUtils.getDialog(PinyinActivity.this, pinYin, "确定", null, null, null).show();
             }
         });
     }

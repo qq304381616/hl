@@ -2,27 +2,61 @@ package com.hl.base.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.text.TextUtils;
+import android.view.View;
 
 public class DialogUtils {
 
-    public static Dialog createBaseDialog(Context c, String title, String message, String s1, String s2, DialogInterface.OnClickListener listener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setMessage(message);
-        builder.setTitle(title);
-        builder.setPositiveButton(s1, listener);
-        builder.setNegativeButton(s2, null);
-        return builder.create();
-    }
-
-    public static Dialog createBaseDialog(Context c, String title, String message) {
-        return createBaseDialog(c, title, message, "确认", "取消", null);
-    }
-
+    // loading
     public static Dialog getLoading(Context c) {
+        return getLoading(c, "加载中..");
+    }
+
+    // loading
+    public static Dialog getLoading(Context c, String info) {
+        return getLoading(c, info, true);
+    }
+
+    // loading
+    public static Dialog getLoading(Context c, String info, boolean cancelable) {
+        ProgressDialog waitingDialog = new ProgressDialog(c);
+        waitingDialog.setMessage(info);
+        waitingDialog.setIndeterminate(true);
+        waitingDialog.setCancelable(cancelable);
+        return waitingDialog;
+    }
+
+    // dialog
+    public static Dialog getDialog(Context c, String title, String positive, String negative,
+                                   AlertDialog.OnClickListener pListener, AlertDialog.OnClickListener nListener) {
+        return getDialog(c, title, null, positive, negative, pListener, nListener);
+    }
+
+    // dialog
+    public static Dialog getDialog(Context c, String title, String message, String positive, String negative,
+                                   AlertDialog.OnClickListener pListener, AlertDialog.OnClickListener nListener) {
+        return getDialog(c, title, message, null, positive, negative, pListener, nListener);
+    }
+
+    // dialog
+    public static Dialog getDialog(Context c, String title, String message, View view, String positive, String negative,
+                                   AlertDialog.OnClickListener pListener, AlertDialog.OnClickListener nListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(c);
-        builder.setMessage("加载中...");
+        builder.setTitle(title);
+        if (!TextUtils.isEmpty(message)) {
+            builder.setMessage(message);
+        }
+        if (view != null) {
+            builder.setView(view);
+        }
+        if (!TextUtils.isEmpty(positive)) {
+            builder.setPositiveButton(positive, pListener);
+        }
+        if (!TextUtils.isEmpty(negative)) {
+            builder.setNegativeButton(negative, nListener);
+        }
         return builder.create();
     }
 }

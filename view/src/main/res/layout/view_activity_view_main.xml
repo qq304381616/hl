@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:gravity="center"
-        android:text="toolbar" />
+        android:text="Toolbar" />
 
     <TextView
         android:id="@+id/tv_recycler"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:gravity="center"
-        android:text="dialog" />
+        android:text="Dialog" />
 
     <TextView
         android:id="@+id/tv_SnackBar"

@@ -7,11 +7,25 @@
     <include layout="@layout/base_layout_toolbar" />
 
     <TextView
-        android:id="@+id/tv_base_dialog"
+        android:id="@+id/tv_loading"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:gravity="center"
-        android:text="普通显示信息dialog" />
+        android:text="加载中.." />
+
+    <TextView
+        android:id="@+id/tv_normal"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="普通样式" />
+
+    <TextView
+        android:id="@+id/tv_view"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:gravity="center"
+        android:text="自定义页面" />
 
     <TextView
         android:id="@+id/tv_num_picker"

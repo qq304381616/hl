@@ -129,12 +129,12 @@ public class ApiMainActivity extends BaseActivity {
                     ToastUtils.showShortToast(getApplication(), "二维码解析失败");
                     return;
                 }
-                DialogUtils.createBaseDialog(ApiMainActivity.this, "扫码结果", result, "复制", "取消", new DialogInterface.OnClickListener() {
+                DialogUtils.getDialog(ApiMainActivity.this, "扫码结果", result, "复制", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ClipboardUtils.copyText(getApplicationContext(), result);
                     }
-                }).show();
+                }, null).show();
             }
         }
     }
