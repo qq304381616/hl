@@ -379,7 +379,6 @@ public class FileUtils {
         }
     }
 
-
     /**
      * @param path
      * @param startFileName
@@ -415,7 +414,7 @@ public class FileUtils {
     }
 
     /**
-     * 拷贝assets下的文件到指定目录
+     * 拷贝 assets 下的文件到指定目录
      * @param file 文件路径
      */
     public static void assetsToFile(Context context, File file) {

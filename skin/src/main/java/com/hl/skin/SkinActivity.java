@@ -3,10 +3,9 @@ package com.hl.skin;
 import android.os.Bundle;
 
 import com.hl.base.BaseActivity;
-import com.hl.utils.SDCardUtils;
+import com.hl.utils.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * 皮肤测试类 父类
@@ -21,13 +20,7 @@ public class SkinActivity extends BaseActivity {
 
 //        LayoutInflaterCompat.setFactory(getLayoutInflater(), new SkinInflalteFactory());
 
-        if (!new File(SKIM_APK_PATH).exists()) {
-            try {
-                SDCardUtils.assetsToSD(this, "aa.apk", SKIM_APK_PATH);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        FileUtils.checkExistsAndCopy(this, new File(SKIM_APK_PATH));
         if (new File(SKIM_APK_PATH).exists()) {
             SkinManager.getInstance().loadSkin(this, SKIM_APK_PATH);
         }

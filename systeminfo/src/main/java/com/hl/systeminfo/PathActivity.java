@@ -2,10 +2,9 @@ package com.hl.systeminfo;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,15 +14,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.hl.base.BaseActivity;
 import com.hl.base.adapter.BaseRecyclerLine2Adapter;
 import com.hl.base.entity.BaseDataEntity;
+import com.hl.utils.ConvertUtils;
 import com.hl.utils.FileUtils;
+import com.hl.utils.SDCardUtils;
+import com.hl.utils.ToastUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,11 +36,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 获取目录
+ * 存储
  */
 public class PathActivity extends BaseActivity {
 
     private static final String PATH = "abs";
+
+    /**
+     * 获取公共目录 URI，
+     *
+     * @param type   Images Audio Video Files Downloads
+     * @param volume 指定存储卷。Files 必须指定。
+     * @return
+     */
+    public static Uri getUri(String type, String volume) {
+        if (type.equals("Images")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+            } else if (volume.equals("external")) {
+                return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                return MediaStore.Images.Media.getContentUri(volume);
+            }
+        } else if (type.equals("Audio")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
+            } else if (volume.equals("external")) {
+                return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                return MediaStore.Audio.Media.getContentUri(volume);
+            }
+        } else if (type.equals("Video")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Video.Media.INTERNAL_CONTENT_URI;
+            } else if (volume.equals("external")) {
+                return MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                return MediaStore.Video.Media.getContentUri(volume);
+            }
+        } else if (type.equals("File")) {
+            return MediaStore.Files.getContentUri(volume);
+        } else if (type.equals("Downloads")) {
+//            if (volume.equals("internal")) {
+//                return MediaStore.Downloads.INTERNAL_CONTENT_URI;
+//            }else if (volume.equals("external")) {
+//                return MediaStore.Downloads.EXTERNAL_CONTENT_URI;
+//            }else {
+//                return MediaStore.Downloads.getContentUri(volume);
+//            }
+        }
+        return null;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +102,18 @@ public class PathActivity extends BaseActivity {
         rv_path.setAdapter(adapter);
 
         List<BaseDataEntity> list = new ArrayList<>();
+        String sdCardInfo = SDCardUtils.getSDCardInfo();
+        if (!TextUtils.isEmpty(sdCardInfo)) {
+            try {
+                JSONObject object = new JSONObject(sdCardInfo);
+                list.add(new BaseDataEntity("总空间", ConvertUtils.byte2FitMemorySize(object.getLong("TotalBytes"))));
+                list.add(new BaseDataEntity("可用剩余空间", ConvertUtils.byte2FitMemorySize(object.getLong("AvailableBytes"))));
+                list.add(new BaseDataEntity("剩余总空间", ConvertUtils.byte2FitMemorySize(object.getLong("FreeBytes"))));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         list.add(new BaseDataEntity("以下文件夹清除缓存时被清理", ""));
         list.add(new BaseDataEntity("getCacheDir", getCacheDir().getAbsolutePath()));
         File[] externalCacheDirs = getExternalCacheDirs();
@@ -144,50 +207,6 @@ public class PathActivity extends BaseActivity {
     }
 
     /**
-     * 获取公共目录 URI，
-     * @param type Images Audio Video Files Downloads
-     * @param volume 指定存储卷。Files 必须指定。
-     * @return
-     */
-    public static Uri getUri(String type, String volume){
-        if (type.equals("Images")) {
-            if (volume.equals("internal")) {
-                return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
-            }else if (volume.equals("external")) {
-                return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            }else {
-                return MediaStore.Images.Media.getContentUri(volume);
-            }
-        } else if (type.equals("Audio")) {
-            if (volume.equals("internal")) {
-                return MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
-            }else if (volume.equals("external")) {
-                return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            }else {
-                return MediaStore.Audio.Media.getContentUri(volume);
-            }
-        } else if (type.equals("Video")) {
-            if (volume.equals("internal")) {
-                return MediaStore.Video.Media.INTERNAL_CONTENT_URI;
-            }else if (volume.equals("external")) {
-                return MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-            }else {
-                return MediaStore.Video.Media.getContentUri(volume);
-            }
-        } else if (type.equals("File")) {
-                return MediaStore.Files.getContentUri(volume);
-        } else if (type.equals("Downloads")) {
-//            if (volume.equals("internal")) {
-//                return MediaStore.Downloads.INTERNAL_CONTENT_URI;
-//            }else if (volume.equals("external")) {
-//                return MediaStore.Downloads.EXTERNAL_CONTENT_URI;
-//            }else {
-//                return MediaStore.Downloads.getContentUri(volume);
-//            }
-        }
-        return null;
-    }
-    /**
      * 版本 10 及以上
      * 获取公共目录下相册文件
      */
@@ -259,5 +278,16 @@ public class PathActivity extends BaseActivity {
 
 //        contentValues.put(MediaStore.Images.Media.IS_PENDING, 0);
         contentResolver.update(imageUri, contentValues, null, null);
+    }
+
+    /**
+     * 低版本 10以下，放到公共文件后的广播更新 事件。
+     */
+    private void insertFile(File f) {
+        File publicFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                + "/xty/" + f.getName());
+        FileUtils.copyFile(f.getAbsolutePath(), publicFile.getAbsolutePath());
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(publicFile)));
+        ToastUtils.showShortToast(getApplicationContext(), "文件已保存到：" + publicFile.getAbsolutePath());
     }
 }
