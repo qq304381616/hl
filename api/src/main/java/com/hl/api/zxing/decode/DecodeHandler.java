@@ -123,7 +123,7 @@ public class DecodeHandler extends Handler {
         if (rawResult != null) {
             // Don't log the barcode contents for security.
             if (handler != null) {
-                Message message = Message.obtain(handler, R.id.decode_succeeded, rawResult);
+                Message message = Message.obtain(handler, R.id.decode_succeeded, rawResult.toString());
                 Bundle bundle = new Bundle();
                 bundleThumbnail(source, bundle);
                 message.setData(bundle);

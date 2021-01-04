@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
@@ -115,16 +118,16 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             File file = new File(getFilesDir(), "code.jpg");
             if (file.exists()) file.delete();
-            Result result = null;
+            String result = null;
             try {
                 FileUtils.uriToFile(getApplication(), data.getData(), file);
-                result = paresQRciseBitmap(file.getAbsolutePath());
-            } catch (IOException e) {
+                result = paresQRBitmap(file.getAbsolutePath());
+            } catch (IOException | FormatException | ChecksumException | NotFoundException e) {
                 e.printStackTrace();
             }
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
-            bundle.putString("result", result == null ? null : result.toString());
+            bundle.putString("result", result);
             setResult(RESULT_OK, intent.putExtras(bundle));
             finish();
         }
@@ -132,8 +135,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     /**
      * 解析图片中的二维码
+     *
+     * @param bitmapPath 图片路径
+     * @return 二维码数据
      */
-    private Result paresQRciseBitmap(String bitmapPath) {
+    private String paresQRBitmap(String bitmapPath) throws FormatException, ChecksumException, NotFoundException {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
 
@@ -151,13 +157,8 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         RGBLuminanceSource rgbLuminanceSource = new RGBLuminanceSource(degreeBitmap);
         BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(rgbLuminanceSource));
         QRCodeReader reader = new QRCodeReader();
-        Result result = null;
-        try {
-            result = reader.decode(binaryBitmap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
+        Result result = reader.decode(binaryBitmap);
+        return result == null ? null: result.toString();
     }
 
     @Override
@@ -238,14 +239,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
      * @param rawResult The contents of the barcode.
      * @param bundle    The extras
      */
-    public void handleDecode(Result rawResult, Bundle bundle) {
+    public void handleDecode(String rawResult, Bundle bundle) {
         inactivityTimer.onActivity();
         beepManager.playBeepSoundAndVibrate();
 
         Intent intent = new Intent();
         bundle.putInt("width", mCropRect.width());
         bundle.putInt("height", mCropRect.height());
-        bundle.putString("result", rawResult.getText());
+        bundle.putString("result", rawResult);
         setResult(RESULT_OK, intent.putExtras(bundle));
         finish();
     }

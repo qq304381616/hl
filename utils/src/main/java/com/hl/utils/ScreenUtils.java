@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Insets;
 import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.WindowMetrics;
 
@@ -24,7 +26,8 @@ public class ScreenUtils {
     }
 
     /**
-     * 获取屏幕的宽度（单位：px）
+     * 获取显示的宽高（单位：px）
+     * 去除底部导航
      *
      * @param context 上下文
      * @return 屏幕宽/高px
@@ -35,13 +38,34 @@ public class ScreenUtils {
             // 手机屏幕宽高 android 30 API
             WindowMetrics currentWindowMetrics = windowManager.getCurrentWindowMetrics();
             Rect bounds = currentWindowMetrics.getBounds();
-            return new int[]{bounds.width(), bounds.height()};
+
+            // 获取导航等高度
+            final WindowInsets windowInsets = currentWindowMetrics.getWindowInsets();
+            Insets insets = windowInsets.getInsetsIgnoringVisibility(
+                    WindowInsets.Type.navigationBars() | WindowInsets.Type.displayCutout());
+            int insetsWidth = insets.right + insets.left;
+            int insetsHeight = insets.top + insets.bottom;
+            return new int[]{bounds.width() - insetsWidth, bounds.height() - insetsHeight};
         } else {
             // 不包括底部返回导航的高度
             DisplayMetrics dm = new DisplayMetrics();
             windowManager.getDefaultDisplay().getMetrics(dm);
             return new int[]{dm.widthPixels, dm.heightPixels};
         }
+    }
+
+    /**
+     * 获取屏幕宽高 API 30
+     */
+    public static int[] getScreen(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+            // 手机屏幕宽高 android 30 API
+            WindowMetrics currentWindowMetrics = windowManager.getCurrentWindowMetrics();
+            Rect bounds = currentWindowMetrics.getBounds();
+            return new int[]{bounds.width(), bounds.height()};
+        }
+        return null;
     }
 
     /**
