@@ -2,9 +2,11 @@ package com.hl.systeminfo;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,52 +44,6 @@ public class PathActivity extends BaseActivity {
 
     private static final String PATH = "abs";
 
-    /**
-     * 获取公共目录 URI，
-     *
-     * @param type   Images Audio Video Files Downloads
-     * @param volume 指定存储卷。Files 必须指定。
-     * @return
-     */
-    public static Uri getUri(String type, String volume) {
-        if (type.equals("Images")) {
-            if (volume.equals("internal")) {
-                return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
-            } else if (volume.equals("external")) {
-                return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-            } else {
-                return MediaStore.Images.Media.getContentUri(volume);
-            }
-        } else if (type.equals("Audio")) {
-            if (volume.equals("internal")) {
-                return MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
-            } else if (volume.equals("external")) {
-                return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-            } else {
-                return MediaStore.Audio.Media.getContentUri(volume);
-            }
-        } else if (type.equals("Video")) {
-            if (volume.equals("internal")) {
-                return MediaStore.Video.Media.INTERNAL_CONTENT_URI;
-            } else if (volume.equals("external")) {
-                return MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-            } else {
-                return MediaStore.Video.Media.getContentUri(volume);
-            }
-        } else if (type.equals("File")) {
-            return MediaStore.Files.getContentUri(volume);
-        } else if (type.equals("Downloads")) {
-//            if (volume.equals("internal")) {
-//                return MediaStore.Downloads.INTERNAL_CONTENT_URI;
-//            }else if (volume.equals("external")) {
-//                return MediaStore.Downloads.EXTERNAL_CONTENT_URI;
-//            }else {
-//                return MediaStore.Downloads.getContentUri(volume);
-//            }
-        }
-        return null;
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +67,21 @@ public class PathActivity extends BaseActivity {
                 list.add(new BaseDataEntity("剩余总空间", ConvertUtils.byte2FitMemorySize(object.getLong("FreeBytes"))));
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        }
+        list.add(new BaseDataEntity("所有存储路径", ""));
+        String[] volumePaths = SDCardUtils.getVolumePaths(this);
+        if (volumePaths != null) {
+            for (String volumePath : volumePaths) {
+                list.add(new BaseDataEntity(volumePath, ""));
+            }
+        }
+
+        list.add(new BaseDataEntity("API 30 所有存储卷", ""));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            List<String> volume = SDCardUtils.getVolume(this);
+            for (String s : volume) {
+                list.add(new BaseDataEntity(s, ""));
             }
         }
 
@@ -166,7 +137,6 @@ public class PathActivity extends BaseActivity {
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath()));
 
         list.add(new BaseDataEntity("公共目录 29 Q 以上访问", ""));
-        getVolume(this);
 
 //        11 分区存储
 //        公开目录
@@ -186,25 +156,6 @@ public class PathActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /**
-     * 获取存储盘 名称
-     * getExternalVolumeNames() 是 Q 及以上版本调用。
-     * <p>
-     * 样式: content://media/external_primary/images/media
-     * 固定写法: MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
-     */
-    @TargetApi(29)
-    public String getVolume(Context context) {
-        // 显示公共所有存储设备， 及对应URI
-//        for (String volumeName : MediaStore.getExternalVolumeNames(DemoActivity.this)) {
-//            System.out.println(volumeName);
-//            Uri imageUri = MediaStore.Images.Media.getContentUri(volumeName);
-//            System.out.println(imageUri);
-//            Uri fileUri = MediaStore.Files.getContentUri(volumeName);
-//            System.out.println(fileUri);
-//        }
-        return "";
-    }
 
     /**
      * 版本 10 及以上
@@ -212,8 +163,8 @@ public class PathActivity extends BaseActivity {
      */
     @TargetApi(29)
     private void getCollection() {
-        String volume = getVolume(this);
-        Uri contentUri = MediaStore.Images.Media.getContentUri(volume);
+        List<String> volume = SDCardUtils.getVolume(this);
+        Uri contentUri = MediaStore.Images.Media.getContentUri(volume.get(0));
 
         ContentResolver resolver = this.getContentResolver();
 
@@ -223,22 +174,22 @@ public class PathActivity extends BaseActivity {
         String selection = null;
         String[] args = new String[]{};
 
-//        String[] projection = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.RELATIVE_PATH};
-//        Cursor cursor = resolver.query(contentUri, projection, selection, args, null);
-//        if (cursor != null && cursor.moveToFirst()) {
-//            int idIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-//            int displayNameIndex = cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
-//            int relativePathIndex = cursor.getColumnIndex(MediaStore.Images.Media.RELATIVE_PATH);
-//            do {
-//                int id = cursor.getInt(idIndex);
-//                String displayName = cursor.getString(displayNameIndex);
-//                String relativePath = cursor.getString(relativePathIndex);
-//                Uri imageUri = ContentUris.withAppendedId(contentUri, cursor.getLong(0));
-//                System.out.println(id + " | " + displayName + " | " + relativePath);
-//                System.out.println(imageUri);
-//            } while (cursor.moveToNext());
-//            cursor.close();
-//        }
+        String[] projection = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.RELATIVE_PATH};
+        Cursor cursor = resolver.query(contentUri, projection, selection, args, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
+            int displayNameIndex = cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME);
+            int relativePathIndex = cursor.getColumnIndex(MediaStore.Images.Media.RELATIVE_PATH);
+            do {
+                int id = cursor.getInt(idIndex);
+                String displayName = cursor.getString(displayNameIndex);
+                String relativePath = cursor.getString(relativePathIndex);
+                Uri imageUri = ContentUris.withAppendedId(contentUri, cursor.getLong(0));
+                System.out.println(id + " | " + displayName + " | " + relativePath);
+                System.out.println(imageUri);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
     }
 
     /**
@@ -252,16 +203,16 @@ public class PathActivity extends BaseActivity {
         FileUtils.checkExistsAndCopy(context, new File(context.getCacheDir(), disPlayName)); // 先将 assets 文件复制到 存储设备上
 
         ContentValues contentValues = new ContentValues();
-//        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, disPlayName);
-//        contentValues.put(MediaStore.Images.Media.IS_PENDING, 1); // 这个字段 新版本才有
-//        contentValues.put(MediaStore.Images.Media.DESCRIPTION, disPlayName);
-//        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-//        contentValues.put(MediaStore.Images.Media.TITLE, disPlayName);
-//        // 可以指定二级目录。默认 /Pictures
-//        // DCIM/Camera/ Or /Pictures
-//        contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/Camera");
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, disPlayName);
+        contentValues.put(MediaStore.Images.Media.IS_PENDING, 1); // 这个字段 新版本才有
+        contentValues.put(MediaStore.Images.Media.DESCRIPTION, disPlayName);
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
+        contentValues.put(MediaStore.Images.Media.TITLE, disPlayName);
+        // 可以指定二级目录。默认 /Pictures
+        // DCIM/Camera/ Or /Pictures
+        contentValues.put(MediaStore.Images.Media.RELATIVE_PATH, "DCIM/Camera");
 
-        String volume = getVolume(this);
+        String volume = SDCardUtils.getVolume(this).get(0);
         Uri imageCollection = MediaStore.Images.Media.getContentUri(volume);
 
         ContentResolver contentResolver = context.getContentResolver();
@@ -276,7 +227,7 @@ public class PathActivity extends BaseActivity {
 
         contentValues.clear();
 
-//        contentValues.put(MediaStore.Images.Media.IS_PENDING, 0);
+        contentValues.put(MediaStore.Images.Media.IS_PENDING, 0);
         contentResolver.update(imageUri, contentValues, null, null);
     }
 

@@ -59,26 +59,26 @@ class TaskFragment : Fragment() {
             if (intent.action == "task") {
                 val task = intent.getParcelableExtra<Task>("task")
                 if (intent.getIntExtra("type", 0) == 1) {
-                    taskQuickAdapter.insertItem(taskQuickAdapter.mData!!.size, task)
+                    taskQuickAdapter.insertItem(taskQuickAdapter.mData!!.size, task!!)
                 } else if (intent.getIntExtra("type", 0) == 2) {
                     for (i in taskQuickAdapter.mData!!.indices) {
-                        if (task.id == taskQuickAdapter.mData!!.get(i).id) {
-                            taskQuickAdapter.mData!!.set(i, task)
+                        if (task!!.id == taskQuickAdapter.mData!![i].id) {
+                            taskQuickAdapter.mData!![i] = task
                             taskQuickAdapter.notifyItemChanged(i)
                             break
                         }
                     }
                     for (i in taskStaringAdapter.mData!!.indices) {
-                        if (task.id == taskStaringAdapter.mData!!.get(i).taskId) {
-                            taskStaringAdapter.mData!!.get(i).task = task
+                        if (task!!.id == taskStaringAdapter.mData!![i].taskId) {
+                            taskStaringAdapter.mData!![i].task = task
                             taskStaringAdapter.notifyItemChanged(i)
                             break
                         }
                     }
                 } else if (intent.getIntExtra("type", 0) == 3) {
                     for (i in taskQuickAdapter.mData!!.indices) {
-                        if (task.id == taskQuickAdapter.mData!!.get(i).id) {
-                            taskQuickAdapter.mData!!.set(i, task)
+                        if (task!!.id == taskQuickAdapter.mData!![i].id) {
+                            taskQuickAdapter.mData!![i] = task
                             taskQuickAdapter.removeItem(i)
                             break
                         }
@@ -105,7 +105,7 @@ class TaskFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.fragment_task, null)
+        val contentView = inflater.inflate(R.layout.fragment_task, container, false)
 
         receiver = MyReceiver()
         intentFilter = IntentFilter()
@@ -125,7 +125,7 @@ class TaskFragment : Fragment() {
         taskStaringAdapter = TaskStaringAdapter(activity!!)
         taskStaringAdapter.setOnItemClick(object : TaskStaringAdapter.OnItemClick {
             override fun onStartOrStop(position: Int) {
-                val task = taskStaringAdapter.mData!!.get(position)
+                val task = taskStaringAdapter.mData!![position]
                 if (task.status == 1) {
                     val timerList = recordTimerService.queryByTaskRecordId(task.id!!)
                     for (i in timerList) {
@@ -149,7 +149,7 @@ class TaskFragment : Fragment() {
             }
 
             override fun onStopClick(position: Int) {
-                val task = taskStaringAdapter.mData!!.get(position)
+                val task = taskStaringAdapter.mData!![position]
                 task.status = 3
                 taskRecordService.update(task)
                 val timerList = recordTimerService.queryByTaskRecordId(task.id!!)
@@ -165,7 +165,7 @@ class TaskFragment : Fragment() {
             // 查看详情
             override fun onItemClick(position: Int) {
                 val intent = Intent(activity, TaskDetailsActivity::class.java)
-                intent.putExtra("id", taskStaringAdapter.mData!!.get(position).id)
+                intent.putExtra("id", taskStaringAdapter.mData!![position].id)
                 startActivity(intent)
             }
         })
@@ -219,7 +219,7 @@ class TaskFragment : Fragment() {
         // 定时1秒 循环更新计时器
         subscribe = Observable.interval(1, 1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { aLong ->
+                .subscribe {
                     if (taskStaringAdapter.itemCount > 0) {
                         taskStaringAdapter.notifyDataSetChanged()
                     }
@@ -237,7 +237,7 @@ class TaskFragment : Fragment() {
     }
 
     private fun showDelDialog(position: Int) {
-        val recordTask = taskStaringAdapter.mData!!.get(position)
+        val recordTask = taskStaringAdapter.mData!![position]
         val dialog = AlertDialog.Builder(activity!!)
         dialog.setTitle("确认删除？")
         dialog.setIcon(R.mipmap.ic_launcher_round)

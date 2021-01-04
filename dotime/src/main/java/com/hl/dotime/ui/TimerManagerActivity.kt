@@ -45,7 +45,7 @@ class TimerManagerActivity : BaseActivity() {
         val timer = intent.getParcelableExtra<RecordTimer>("timer")
 
         val start = Calendar.getInstance()
-        start.timeInMillis = timer.startTime!!
+        start.timeInMillis = timer!!.startTime!!
         var sY = start.get(Calendar.YEAR)
         var sM = start.get(Calendar.MONTH) + 1
         var sD = start.get(Calendar.DAY_OF_MONTH)

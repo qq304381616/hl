@@ -6,10 +6,13 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 /**
  * 屏幕相关工具类
@@ -24,26 +27,21 @@ public class ScreenUtils {
      * 获取屏幕的宽度（单位：px）
      *
      * @param context 上下文
-     * @return 屏幕宽px
+     * @return 屏幕宽/高px
      */
-    public static int getScreenWidth(Context context) {
+    public static int[] getScreenWidthHeight(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
-        return dm.widthPixels;
-    }
-
-    /**
-     * 获取屏幕的高度（单位：px）
-     *
-     * @param context 上下文
-     * @return 屏幕高px
-     */
-    public static int getScreenHeight(Context context) {
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics dm = new DisplayMetrics();// 创建了一张白纸
-        windowManager.getDefaultDisplay().getMetrics(dm);// 给白纸设置宽高
-        return dm.heightPixels;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // 手机屏幕宽高 android 30 API
+            WindowMetrics currentWindowMetrics = windowManager.getCurrentWindowMetrics();
+            Rect bounds = currentWindowMetrics.getBounds();
+            return new int[]{bounds.width(), bounds.height()};
+        } else {
+            // 不包括底部返回导航的高度
+            DisplayMetrics dm = new DisplayMetrics();
+            windowManager.getDefaultDisplay().getMetrics(dm);
+            return new int[]{dm.widthPixels, dm.heightPixels};
+        }
     }
 
     /**
@@ -153,8 +151,7 @@ public class ScreenUtils {
      * @return {@code true}: 是<br>{@code false}: 否
      */
     public static boolean isScreenLock(Context context) {
-        KeyguardManager km = (KeyguardManager) context
-                .getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         return km.inKeyguardRestrictedInputMode();
     }
 }

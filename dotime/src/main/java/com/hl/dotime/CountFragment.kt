@@ -18,7 +18,6 @@ import android.widget.TextView
 import com.hl.dotime.db.entity.TaskRecord
 import com.hl.dotime.db.service.TaskRecordService
 import com.hl.dotime.ui.TaskDetailsActivity
-import kotlinx.android.synthetic.main.fragment_count.*
 
 /**
  * 页3  统计页面。
@@ -70,7 +69,7 @@ class CountFragment : Fragment() {
         taskCountAdapter.setOnItemClick(object : TaskCountAdapter.OnItemClick {
             override fun onItemClick(position: Int) {
                 val intent = Intent(this@CountFragment.context, TaskDetailsActivity::class.java)
-                intent.putExtra("id", taskCountAdapter.mData!!.get(position).id)
+                intent.putExtra("id", taskCountAdapter.mData!![position].id)
                 startActivity(intent)
             }
         })
@@ -91,16 +90,16 @@ class CountFragment : Fragment() {
             override fun run() {
                 val all = taskRecordService.queryMarkByStatus("3")
                 taskCountAdapter.mData = all
-                this@CountFragment.activity?.runOnUiThread(Runnable {
+                this@CountFragment.activity?.runOnUiThread {
                     taskCountAdapter.notifyDataSetChanged()
                     tv_loading.visibility = View.GONE
-                })
+                }
             }
         }.start()
     }
 
     private fun showDelDialog(position: Int) {
-        val recordTask = taskCountAdapter.mData!!.get(position)
+        val recordTask = taskCountAdapter.mData!![position]
         val dialog = AlertDialog.Builder(activity!!)
         dialog.setTitle("确认删除？")
         dialog.setIcon(R.mipmap.ic_launcher_round)

@@ -209,10 +209,10 @@ class ModifyTaskActivity : BaseActivity() {
         }
         val dialog = builder.show()
 
-        val params = dialog.window.attributes
+        val params = dialog.window!!.attributes
         params.width = this.windowManager.defaultDisplay.width
         params.height = this.windowManager.defaultDisplay.height / 3 * 2
-        dialog.window.attributes = params
+        dialog.window!!.attributes = params
 
         iconAdapter.setOnItemClick(object : IconAdapter.OnItemClick {
             override fun onItemClick(position: Int) {

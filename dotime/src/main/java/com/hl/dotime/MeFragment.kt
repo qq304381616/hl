@@ -26,7 +26,7 @@ class MeFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.fragment_me, null)
+        val contentView = inflater.inflate(R.layout.fragment_me, container, false)
 
         contentView.findViewById<TextView>(R.id.tv_backup_db).setOnClickListener {
             if (Utils.copyFile(activity!!.getDatabasePath(MySQLiteOpenHelper.dbName), Utils.getAppSDCardPath(MySQLiteOpenHelper.dbName))) {

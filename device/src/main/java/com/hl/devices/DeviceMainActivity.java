@@ -25,11 +25,10 @@ public class DeviceMainActivity extends BaseActivity {
         StringBuffer sb = new StringBuffer();
         boolean deviceRoot = DeviceUtils.isDeviceRoot();
         sb.append("设置是否root : " + deviceRoot + "\n");
-        int screenWidth = ScreenUtils.getScreenWidth(this);
-        int screenHeight = ScreenUtils.getScreenHeight(this);
-        sb.append("分辨率 宽 X 高 : " + screenWidth + " x " + screenHeight + "\n");
-        sb.append("宽度px2dp : " + SizeUtils.px2dp(this, screenWidth) + "\n");
-        sb.append("高度px2dp : " + SizeUtils.px2dp(this, screenHeight) + "\n");
+        int[] screen = ScreenUtils.getScreenWidthHeight(this);
+        sb.append("分辨率 宽 X 高 : " + screen[0] + " x " + screen[1] + "\n");
+        sb.append("宽度px2dp : " + SizeUtils.px2dp(this, screen[0]) + "\n");
+        sb.append("高度px2dp : " + SizeUtils.px2dp(this, screen[1]) + "\n");
         sb.append("系统版本号 : " + DeviceUtils.getSDKVersion() + "\n");
         sb.append("设备ID : " + DeviceUtils.getAndroidID(this) + "\n");
         sb.append("MAC : " + DeviceUtils.getMacAddress(this) + "\n");

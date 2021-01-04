@@ -3,15 +3,19 @@ package com.hl.utils;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
+import android.provider.MediaStore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * sdcard 工具类
@@ -31,6 +35,68 @@ public class SDCardUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 获取存储盘 名称
+     * getExternalVolumeNames() 是 Q 及以上版本调用。
+     * <p>
+     * 样式: content://media/external_primary/images/media
+     * 固定写法: MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+     */
+    @TargetApi(29)
+    public static List<String> getVolume(Context context) {
+        List<String> result = new ArrayList<>();
+        // 显示公共所有存储设备， 及对应URI
+        for (String volumeName : MediaStore.getExternalVolumeNames(context)) {
+            result.add(volumeName);
+        }
+        return result;
+    }
+
+    /**
+     * 获取公共目录 URI，
+     *
+     * @param type   Images Audio Video Files Downloads
+     * @param volume 指定存储卷。Files 必须指定。
+     */
+    public static Uri getUri(String type, String volume) {
+        if (type.equals("Images")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Images.Media.INTERNAL_CONTENT_URI;
+            } else if (volume.equals("external")) {
+                return MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                return MediaStore.Images.Media.getContentUri(volume);
+            }
+        } else if (type.equals("Audio")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
+            } else if (volume.equals("external")) {
+                return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                return MediaStore.Audio.Media.getContentUri(volume);
+            }
+        } else if (type.equals("Video")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Video.Media.INTERNAL_CONTENT_URI;
+            } else if (volume.equals("external")) {
+                return MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+            } else {
+                return MediaStore.Video.Media.getContentUri(volume);
+            }
+        } else if (type.equals("File")) {
+            return MediaStore.Files.getContentUri(volume);
+        } else if (type.equals("Downloads")) {
+            if (volume.equals("internal")) {
+                return MediaStore.Downloads.INTERNAL_CONTENT_URI;
+            }else if (volume.equals("external")) {
+                return MediaStore.Downloads.EXTERNAL_CONTENT_URI;
+            }else {
+                return MediaStore.Downloads.getContentUri(volume);
+            }
+        }
+        return null;
     }
 
     /**

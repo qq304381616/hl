@@ -29,7 +29,7 @@ class TaskManagerFragment : Fragment() {
     private lateinit var taskService: TaskService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val contentView = inflater.inflate(R.layout.fragment_task_manager, null)
+        val contentView = inflater.inflate(R.layout.fragment_task_manager, container, false)
 
         val rv_parent = contentView.findViewById<RecyclerView>(R.id.rv_parent)
         val fab = contentView.findViewById<FloatingActionButton>(R.id.fab)
@@ -100,7 +100,7 @@ class TaskManagerFragment : Fragment() {
                     // 更新列表中 修改的那条记录
                     val task = data!!.getParcelableExtra<Task>("task")
                     for (i in taskAdapter.mData!!.indices) {
-                        if (task.id == taskAdapter.mData!!.get(i).id) {
+                        if (task!!.id == taskAdapter.mData!!.get(i).id) {
                             taskAdapter.mData!!.set(i, task)
                             taskAdapter.notifyItemChanged(i)
 
@@ -117,7 +117,7 @@ class TaskManagerFragment : Fragment() {
             1002 -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val task = data!!.getParcelableExtra<Task>("task")
-                    taskAdapter.insertItem(taskAdapter.mData!!.size, task)
+                    taskAdapter.insertItem(taskAdapter.mData!!.size, task!!)
                     val intent = Intent()
                     intent.action = "task"
                     intent.putExtra("type", 1)
