@@ -10,7 +10,6 @@ import com.hl.base.BaseActivity;
 /**
  * Created on 2017/6/7.
  */
-
 public class ReceiverActivity extends BaseActivity implements MyBroadcastReceiver.EventHandler, MyBroadcastReceiver.Shutdown, MyBroadcastReceiver.BootCompleted, MyBroadcastReceiver.BatteryChanged, MyBroadcastReceiver.PowerConnected, MyBroadcastReceiver.ScreenOff {
 
     private TextView text;
@@ -24,7 +23,6 @@ public class ReceiverActivity extends BaseActivity implements MyBroadcastReceive
         receiver.registerReceiver(this);
 
         text = findViewById(R.id.text);
-
     }
 
     @Override

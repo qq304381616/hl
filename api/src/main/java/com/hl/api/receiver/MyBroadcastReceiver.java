@@ -17,7 +17,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
     public static ArrayList<EventHandler> mListeners = new ArrayList<>();
     public static ArrayList<Shutdown> shutdowns = new ArrayList<>();
-    public static ArrayList<BootCompleted> bootCompleteds = new ArrayList<>();
+    public static ArrayList<BootCompleted> bootCompleted = new ArrayList<>();
     public static ArrayList<BatteryChanged> batteryChanged = new ArrayList<>();
     public static ArrayList<PowerConnected> powerConnected = new ArrayList<>();
     public static ArrayList<ScreenOff> screenOff = new ArrayList<>();
@@ -30,27 +30,27 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 for (EventHandler handler : mListeners) {
                     handler.onNetChange();
                 }
-        } else if (intent.getAction().equals(Intent.ACTION_SHUTDOWN)) {
+        } else if (TextUtils.equals(action, Intent.ACTION_SHUTDOWN)) {
             if (shutdowns.size() > 0)
                 for (Shutdown s : shutdowns) {
                     s.onShutdown();
                 }
-        } else if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            if (bootCompleteds.size() > 0)
-                for (BootCompleted b : bootCompleteds) {
+        } else if (TextUtils.equals(action, Intent.ACTION_BOOT_COMPLETED)) {
+            if (bootCompleted.size() > 0)
+                for (BootCompleted b : bootCompleted) {
                     b.onBootCompleted();
                 }
-        } else if (intent.getAction().equals(Intent.ACTION_BATTERY_CHANGED)) {
+        } else if (TextUtils.equals(action, Intent.ACTION_BATTERY_CHANGED)) {
             if (batteryChanged.size() > 0)
                 for (BatteryChanged b : batteryChanged) {
                     b.onBatteryChanged();
                 }
-        } else if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+        } else if (TextUtils.equals(action, Intent.ACTION_POWER_CONNECTED)) {
             if (powerConnected.size() > 0)
                 for (PowerConnected b : powerConnected) {
                     b.onPowerConnected();
                 }
-        } else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+        } else if (TextUtils.equals(action, Intent.ACTION_SCREEN_OFF)) {
             if (screenOff.size() > 0)
                 for (ScreenOff b : screenOff) {
                     b.onScreenOff();
@@ -66,7 +66,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
         mListeners.add((EventHandler) c);
         shutdowns.add((Shutdown) c);
-        bootCompleteds.add((BootCompleted) c);
+        bootCompleted.add((BootCompleted) c);
         batteryChanged.add((BatteryChanged) c);
         powerConnected.add((PowerConnected) c);
         screenOff.add((ScreenOff) c);
@@ -75,12 +75,12 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     public void unregisterReceiver(Context c) {
         c.unregisterReceiver(this);
 
-        mListeners.remove(c);
-        shutdowns.remove(c);
-        bootCompleteds.remove(c);
-        batteryChanged.remove(c);
-        powerConnected.remove(c);
-        screenOff.remove(c);
+        mListeners.remove((EventHandler) c);
+        shutdowns.remove((Shutdown) c);
+        bootCompleted.remove((BootCompleted) c);
+        batteryChanged.remove((BatteryChanged) c);
+        powerConnected.remove((PowerConnected) c);
+        screenOff.remove((ScreenOff) c);
     }
 
     public interface EventHandler {

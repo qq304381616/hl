@@ -11,29 +11,27 @@ import java.util.Set;
  */
 public class TaskManager {
 
-    private static TaskManager taskMananger;
+    private static TaskManager taskManager;
     // UI请求队列
     private LinkedList<ITaskRunnable> downloadTasks;
     // 任务不能重复
     private Set<String> taskIdSet;
 
     private TaskManager() {
-
-        downloadTasks = new LinkedList<ITaskRunnable>();
-        taskIdSet = new HashSet<String>();
-
+        downloadTasks = new LinkedList<>();
+        taskIdSet = new HashSet<>();
     }
 
     public static synchronized TaskManager getInstance() {
-        if (taskMananger == null) {
-            taskMananger = new TaskManager();
+        if (taskManager == null) {
+            taskManager = new TaskManager();
         }
-        return taskMananger;
+        return taskManager;
     }
 
     //1.先执行
     public void addDownloadTask(ITaskRunnable downloadTask) {
-        synchronized (downloadTasks) {
+        synchronized (this) {
             if (!isTaskRepeat(downloadTask.getId())) {
                 // 增加下载任务
                 downloadTasks.addLast(downloadTask);
@@ -42,7 +40,7 @@ public class TaskManager {
     }
 
     public boolean isTaskRepeat(String fileId) {
-        synchronized (taskIdSet) {
+        synchronized (this) {
             if (taskIdSet.contains(fileId)) {
                 return true;
             } else {
@@ -54,11 +52,10 @@ public class TaskManager {
     }
 
     public ITaskRunnable getDownloadTask() {
-        synchronized (downloadTasks) {
+        synchronized (this) {
             if (downloadTasks.size() > 0) {
                 L.e("下载管理器增加下载任务：" + "取出任务");
-                ITaskRunnable downloadTask = downloadTasks.removeFirst();
-                return downloadTask;
+                return downloadTasks.removeFirst();
             }
         }
         return null;

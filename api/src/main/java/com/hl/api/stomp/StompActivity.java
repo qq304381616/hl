@@ -135,13 +135,13 @@ public class StompActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<StompMessage>() {
                     @Override
-                    public void accept(StompMessage stompMessage) throws Exception {
+                    public void accept(StompMessage stompMessage) {
                         addItem(String.format("Stomp received msg: %s, from path %s", stompMessage.getPayload(), stompMessage.findHeader("destination")));
                         L.e(String.format("Stomp received msg: %s, from path %s", stompMessage.getPayload(), stompMessage.findHeader("destination")));
                     }
                 }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
+                    public void accept(Throwable throwable) {
                         L.e("连接错误", throwable);
                     }
                 });
@@ -154,12 +154,12 @@ public class StompActivity extends BaseActivity {
                 .compose(applySchedulers())
                 .subscribe(new Action() {
                                @Override
-                               public void run() throws Exception {
+                               public void run() {
                                    L.e("STOMP echo send successfully");
                                }
                            }, new Consumer<Throwable>() {
                                @Override
-                               public void accept(Throwable throwable) throws Exception {
+                               public void accept(Throwable throwable) {
                                    L.e("Error send STOMP echo", throwable);
                                    toast(throwable.getMessage());
                                }
@@ -173,12 +173,12 @@ public class StompActivity extends BaseActivity {
                 .compose(applySchedulers())
                 .subscribe(new Action() {
                     @Override
-                    public void run() throws Exception {
+                    public void run() {
                         L.e("REST echo send successfully");
                     }
                 }, new Consumer<Throwable>() {
                     @Override
-                    public void accept(Throwable throwable) throws Exception {
+                    public void accept(Throwable throwable) {
                         L.e("Error send REST echo", throwable);
                         StompActivity.this.toast(throwable.getMessage());
                     }
